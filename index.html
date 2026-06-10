@@ -299,6 +299,37 @@
       display: block;
     }
 
+    /* Language Toggle Switch */
+    .lang-switch-btn {
+      background: none;
+      border: 1px solid var(--border-color-soft);
+      color: var(--text-primary);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--nm-btn-shadow);
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.02em;
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    }
+
+    .lang-switch-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background-color: var(--accent-glow);
+    }
+
+    .lang-switch-btn:active {
+      transform: scale(0.95) translateY(1px);
+      box-shadow: var(--nm-inset);
+    }
+
     /* Mobile Menu Toggle */
     .mobile-menu-btn {
       display: none;
@@ -1491,6 +1522,7 @@
       </nav>
       
       <div class="nav-actions">
+        <a href="index_en.html" class="lang-switch-btn" aria-label="Switch to English">EN</a>
         <!-- Theme Toggle Button -->
         <button class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Toggle theme">
           <!-- Sun Icon (shown in dark mode) -->
