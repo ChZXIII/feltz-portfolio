@@ -1,0 +1,2826 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feltz Studio | Mongkol&nbsp;Wongsakulyanon - Portfolio</title>
+  
+  <!-- Google Fonts: Outfit (English headings/names) & Prompt (Modern Thai sans-serif) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <meta name="color-scheme" content="light dark">
+  <script>
+    // Inline script to prevent Flash of Unstyled Content (FOUC)
+    (function() {
+      const savedTheme = localStorage.getItem('color-scheme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.classList.add('light-theme');
+      }
+    })();
+  </script>
+  
+  <style>
+    /* CSS Variables & Theme Definitions (Option C: Clarity UI with Neumorphic Tactile dimension) */
+    :root {
+      --bg-color: #0a0f19;         /* Slate/Navy Dark background */
+      --card-bg: #111827;          /* Muted Dark card background */
+      --border-color: #1f2937;     /* Subtle border */
+      --border-color-soft: rgba(255, 255, 255, 0.03); /* Soft border for Neumorphic blend */
+      --text-primary: #f3f4f6;     /* Pure off-white text */
+      --text-muted: #9ca3af;       /* Gray muted text */
+      --accent: #38bdf8;           /* Primary sky blue accent */
+      --accent-hover: #0284c7;     /* Darker sky blue on hover */
+      --accent-glow: rgba(56, 189, 248, 0.15);
+      
+      --font-heading: 'Outfit', sans-serif;
+      --font-body: 'Prompt', sans-serif;
+      
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+      --container-width: 1200px;
+
+      /* Neumorphic Tactile Shadows (Dark Mode) */
+      --nm-shadow: -6px -6px 16px rgba(255, 255, 255, 0.01), 6px 6px 16px rgba(0, 0, 0, 0.55);
+      --nm-inset: inset 4px 4px 8px rgba(0, 0, 0, 0.55), inset -4px -4px 8px rgba(255, 255, 255, 0.01);
+      --nm-btn-shadow: -4px -4px 10px rgba(255, 255, 255, 0.01), 4px 4px 10px rgba(0, 0, 0, 0.55);
+    }
+
+    html.light-theme {
+      --bg-color: #f8fafc;         /* Off-white light background */
+      --card-bg: #ffffff;          /* Pure white card background */
+      --border-color: #e2e8f0;     /* Light gray border */
+      --border-color-soft: rgba(0, 0, 0, 0.02); /* Soft border for Neumorphic blend */
+      --text-primary: #0f172a;     /* Deep slate dark text */
+      --text-muted: #64748b;       /* Slate muted text */
+      --accent: #0284c7;           /* Sky blue accent for light mode */
+      --accent-hover: #0369a1;     /* Darker sky blue accent */
+      --accent-glow: rgba(2, 132, 199, 0.1);
+      --shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 2px 4px -1px rgba(15, 23, 42, 0.03);
+      --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -2px rgba(15, 23, 42, 0.04);
+
+      /* Neumorphic Tactile Shadows (Light Mode) */
+      --nm-shadow: -6px -6px 16px #ffffff, 6px 6px 16px #cbd5e1;
+      --nm-inset: inset 4px 4px 8px #cbd5e1, inset -4px -4px 8px #ffffff;
+      --nm-btn-shadow: -4px -4px 10px #ffffff, 4px 4px 10px #cbd5e1;
+    }
+
+    /* Prevent animations when changing themes (WebKit transition bug fix) */
+    .no-transitions,
+    .no-transitions * {
+      transition: none !important;
+    }
+
+    /* Reset and Core Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-wrap: balance;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    button, input, textarea, select {
+      font-family: inherit;
+    }
+
+    /* Accessibility Focus States */
+    button:focus-visible,
+    a:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible,
+    select:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+    }
+
+    button, input, textarea, select {
+      outline: none;
+    }
+
+    /* Scrollbar Styling */
+    scrollbar-color: var(--text-muted) var(--card-bg);
+
+    @supports not (scrollbar-color: auto) {
+      body::-webkit-scrollbar {
+        width: 10px;
+      }
+      body::-webkit-scrollbar-track {
+        background: var(--bg-color);
+      }
+      body::-webkit-scrollbar-thumb {
+        background: var(--border-color);
+        border-radius: 5px;
+      }
+      body::-webkit-scrollbar-thumb:hover {
+        background: var(--text-muted);
+      }
+    }
+
+    /* Skip link for Accessibility */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--accent);
+      color: #000;
+      padding: 8px 16px;
+      z-index: 1000;
+      transition: top 0.2s ease;
+    }
+
+    .skip-link:focus-visible {
+      top: 0;
+    }
+
+    /* Layout Containers */
+    .container {
+      width: 100%;
+      max-width: var(--container-width);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      padding: 96px 0;
+      border-bottom: 1px solid var(--border-color);
+      scroll-margin-top: 80px; /* Offset sticky header when navigating */
+    }
+
+    /* Header & Navigation */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: rgba(10, 15, 25, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    html.light-theme header {
+      background-color: rgba(248, 250, 252, 0.8);
+    }
+
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+    }
+
+    .logo {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-family: var(--font-heading);
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      position: relative;
+      padding: 8px 0;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--text-primary);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Theme Toggle Switch */
+    .theme-toggle-btn {
+      background: none;
+      border: 1px solid var(--border-color-soft);
+      color: var(--text-primary);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--nm-btn-shadow);
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    }
+
+    .theme-toggle-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background-color: var(--accent-glow);
+    }
+
+    .theme-toggle-btn:active {
+      transform: scale(0.95) translateY(1px);
+      box-shadow: var(--nm-inset);
+    }
+
+    .theme-toggle-btn svg {
+      transition: transform 0.5s ease;
+    }
+
+    .theme-toggle-btn:hover svg {
+      transform: rotate(20deg);
+    }
+
+    .theme-toggle-btn .sun-icon {
+      display: block;
+    }
+    .theme-toggle-btn .moon-icon {
+      display: none;
+    }
+
+    html.light-theme .theme-toggle-btn .sun-icon {
+      display: none;
+    }
+    html.light-theme .theme-toggle-btn .moon-icon {
+      display: block;
+    }
+
+    /* Mobile Menu Toggle */
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: 1px solid var(--border-color-soft);
+      color: var(--text-primary);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--nm-btn-shadow);
+      transition: border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    }
+
+    .mobile-menu-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .mobile-menu-btn:active {
+      transform: scale(0.95);
+      box-shadow: var(--nm-inset);
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      padding: 140px 0 120px 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background-color: var(--accent-glow);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 9999px;
+      color: var(--accent);
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.85rem;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    html.light-theme .hero-tag {
+      border-color: rgba(2, 132, 199, 0.3);
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      line-height: 1.1;
+      font-weight: 800;
+      margin-bottom: 24px;
+      color: var(--text-primary);
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      max-width: 600px;
+      font-family: var(--font-body);
+      font-weight: 300;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 28px;
+      border-radius: 9999px;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background-color: var(--accent);
+      color: #05070a;
+      box-shadow: var(--nm-btn-shadow);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: var(--nm-shadow);
+    }
+
+    .btn-primary:active {
+      transform: translateY(1px);
+      box-shadow: var(--nm-inset);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border-color: var(--border-color-soft);
+      color: var(--text-primary);
+      box-shadow: var(--nm-btn-shadow);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+      background-color: var(--accent-glow);
+      box-shadow: var(--nm-shadow);
+    }
+
+    .btn-secondary:active {
+      transform: translateY(1px);
+      box-shadow: var(--nm-inset);
+    }
+
+    /* Section Title Styles */
+    .section-header {
+      margin-bottom: 60px;
+      max-width: 600px;
+    }
+
+    .section-tag {
+      color: var(--accent);
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .section-title-text {
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 800;
+      line-height: 1.2;
+      color: var(--text-primary);
+    }
+
+    /* Filterable Photo Gallery */
+    .gallery-filter-tabs {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      list-style: none;
+    }
+
+    .filter-tab {
+      padding: 10px 20px;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color-soft);
+      color: var(--text-muted);
+      border-radius: 9999px;
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 500;
+      box-shadow: var(--nm-btn-shadow);
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .filter-tab:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .filter-tab.active {
+      background-color: var(--accent);
+      color: #05070a;
+      border-color: var(--accent);
+      box-shadow: var(--nm-inset);
+    }
+
+    /* Gallery Grid & Cards */
+    .gallery-grid {
+      column-count: 3;
+      column-gap: 24px;
+      width: 100%;
+    }
+    @media (max-width: 1024px) {
+      .gallery-grid {
+        column-count: 2;
+      }
+    }
+    @media (max-width: 640px) {
+      .gallery-grid {
+        column-count: 1;
+      }
+    }
+
+    .gallery-card {
+      display: inline-block;
+      width: 100%;
+      margin-bottom: 24px;
+      break-inside: avoid;
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color-soft);
+      cursor: pointer;
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      box-shadow: var(--nm-shadow);
+      transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                  transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 0.3s ease,
+                  box-shadow 0.3s ease;
+    }
+
+    .gallery-card:hover {
+      border-color: var(--accent);
+      box-shadow: var(--nm-btn-shadow);
+    }
+
+    .gallery-card.hidden {
+      display: none !important;
+    }
+
+    .gallery-img-wrapper {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .gallery-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .gallery-card:hover .gallery-img {
+      transform: scale(1.06);
+    }
+
+    .gallery-grid-break {
+      display: none;
+    }
+
+    @media (min-width: 1025px) {
+      .gallery-grid.grid-all-covers {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 24px !important;
+        column-count: auto !important;
+      }
+      
+      /* 3-3-2-2 Grid layout: only display visible covers in 3 columns width, centered */
+      .gallery-grid.grid-all-covers .gallery-card:not(.hidden) {
+        display: block !important;
+        flex: 0 1 calc(33.333% - 16px) !important;
+        margin-bottom: 0 !important;
+      }
+
+      .gallery-grid.grid-all-covers .gallery-grid-break {
+        display: block !important;
+        width: 100% !important;
+        height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+      }
+    }
+    
+    /* Card Overlay effect */
+    .gallery-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10, 15, 25, 0.95) 0%, rgba(10, 15, 25, 0.4) 60%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 24px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html.light-theme .gallery-card-overlay {
+      background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.4) 60%, transparent 100%);
+    }
+
+    .gallery-card:hover .gallery-card-overlay {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .gallery-card-category {
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .gallery-card-title {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #ffffff; /* White text on overlay regardless of theme */
+      line-height: 1.3;
+    }
+
+    /* Interactive Lightbox Dialog */
+    .lightbox-dialog {
+      border: none;
+      background: transparent;
+      padding: 0;
+      margin: auto;
+      max-width: 95vw;
+      max-height: 95vh;
+      outline: none;
+      overflow: visible;
+      display: none; /* Controlled by open JS logic */
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox-dialog[open] {
+      display: flex;
+    }
+
+    .lightbox-dialog::backdrop {
+      background-color: rgba(5, 7, 10, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .lightbox-content {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 900px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      animation: lightboxFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes lightboxFadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .lightbox-media-wrapper {
+      position: relative;
+      background-color: #020617;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 16/10;
+      overflow: hidden;
+    }
+
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .lightbox-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(10, 15, 25, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 10;
+    }
+
+    .lightbox-nav-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #05070a;
+      transform: translateY(-50%) scale(1.05);
+    }
+
+    .lightbox-prev-btn {
+      left: 20px;
+    }
+
+    .lightbox-next-btn {
+      right: 20px;
+    }
+
+    .lightbox-close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(10, 15, 25, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 11;
+    }
+
+    .lightbox-close-btn:hover {
+      background: #ef4444;
+      border-color: #ef4444;
+      color: #ffffff;
+      transform: scale(1.05);
+    }
+
+    .lightbox-info {
+      padding: 24px 32px;
+      border-top: 1px solid var(--border-color);
+      background-color: var(--card-bg);
+    }
+
+    .lightbox-info-category {
+      font-family: var(--font-heading);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 6px;
+    }
+
+    .lightbox-info-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .lightbox-info-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Services Section */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+      gap: 24px;
+      margin-bottom: 56px;
+    }
+
+    .service-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color-soft);
+      border-radius: 20px;
+      padding: 36px 28px;
+      box-shadow: var(--nm-shadow);
+      transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .service-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: var(--nm-btn-shadow);
+    }
+
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      background-color: var(--accent-glow);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      margin-bottom: 24px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .service-card:hover .service-icon {
+      background-color: var(--accent);
+      color: #05070a;
+    }
+
+    .service-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+
+    .service-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .service-features-list {
+      margin-top: auto;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-top: 16px;
+      border-top: 1px dashed var(--border-color);
+    }
+
+    .service-feature-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: var(--text-primary);
+    }
+
+    .service-feature-item svg {
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* Extra Features / studio checklist */
+    .features-checklist-bar {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color-soft);
+      border-radius: 20px;
+      padding: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 24px;
+      box-shadow: var(--nm-shadow);
+    }
+
+    .checklist-bar-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .checklist-bar-icon {
+      width: 40px;
+      height: 40px;
+      background-color: var(--accent-glow);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+    }
+
+    .checklist-bar-text h4 {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .checklist-bar-text p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* About Section */
+    .about-layout {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .about-bio {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .about-name {
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .about-title-label {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      margin-top: -16px;
+    }
+
+    .about-text {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .education-box {
+      padding-left: 20px;
+      margin: 16px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .education-item {
+      position: relative;
+    }
+
+    .education-item::after {
+      content: '';
+      position: absolute;
+      left: -22px;
+      top: 18px;
+      bottom: -20px;
+      width: 2px;
+      background-color: var(--border-color);
+      z-index: 1;
+    }
+
+    .education-item:last-child::after {
+      display: none;
+    }
+
+    .education-item::before {
+      content: '';
+      position: absolute;
+      left: -27px;
+      top: 6px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: var(--accent);
+      box-shadow: 0 0 0 4px var(--bg-color);
+    }
+
+    .education-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+
+    .education-sub {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Tool skills badges */
+    .skills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    .skill-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color-soft);
+      box-shadow: var(--nm-btn-shadow);
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .skill-badge:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: var(--nm-shadow);
+    }
+
+    .skill-badge:active {
+      transform: translateY(1px);
+      box-shadow: var(--nm-inset);
+    }
+
+    .skill-badge svg,
+    .skill-badge img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+      border-radius: 5px;
+      flex-shrink: 0;
+    }
+
+    /* Profile image container */
+    .about-image-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3/4;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid var(--border-color-soft);
+      box-shadow: var(--nm-shadow);
+    }
+
+    .about-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      aspect-ratio: 3/4;
+      filter: grayscale(20%);
+      transition: filter 0.3s ease, transform 0.3s ease;
+    }
+
+    .about-image-wrapper:hover .about-img {
+      filter: grayscale(0%);
+      transform: scale(1.03);
+    }
+
+    /* Selected Clients Section */
+    .clients-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 16px;
+    }
+
+    .client-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color-soft);
+      border-radius: 12px;
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      box-shadow: var(--nm-btn-shadow);
+      transition: opacity 0.3s ease, filter 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0.6;
+      filter: grayscale(1);
+    }
+
+    .client-card:hover {
+      opacity: 1;
+      filter: grayscale(0);
+      border-color: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: var(--nm-shadow);
+    }
+
+    .client-card span {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-align: center;
+      color: var(--text-primary);
+    }
+
+    /* Contact Section */
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 64px;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .contact-details-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .contact-detail-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .contact-detail-icon {
+      width: 44px;
+      height: 44px;
+      background-color: var(--accent-glow);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .contact-detail-content h4 {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+
+    .contact-detail-content p,
+    .contact-detail-content a {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .contact-detail-content a:hover {
+      color: var(--accent);
+    }
+
+    /* Social Badge Grid */
+    .social-badges-title {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+
+    .social-badges-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .social-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color-soft);
+      border-radius: 10px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      box-shadow: var(--nm-btn-shadow);
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .social-badge:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      color: var(--accent);
+      background-color: var(--accent-glow);
+      box-shadow: var(--nm-shadow);
+    }
+
+    .social-badge:active {
+      transform: translateY(1px);
+      box-shadow: var(--nm-inset);
+    }
+
+    .social-badge svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    /* Booking Form */
+    .booking-form-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color-soft);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: var(--nm-shadow);
+    }
+
+    .booking-form-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+
+    .booking-form-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .form-control {
+      width: 100%;
+      background-color: var(--bg-color);
+      border: 1px solid var(--border-color-soft);
+      border-radius: 10px;
+      padding: 12px 16px;
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      box-shadow: var(--nm-inset);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    select.form-control {
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      background-size: 16px;
+      padding-right: 40px;
+    }
+
+    html.light-theme select.form-control {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    }
+
+    /* Toast Notification */
+    #toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      pointer-events: none;
+    }
+
+    .toast {
+      pointer-events: auto;
+      background-color: var(--card-bg);
+      border: 1px solid var(--accent);
+      border-radius: 12px;
+      padding: 16px 20px;
+      min-width: 300px;
+      max-width: 420px;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      gap: 16px;
+      transform: translateX(120%);
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+    }
+
+    .toast.show {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    .toast-icon {
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .toast-content {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .toast-title {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+
+    .toast-message {
+      font-family: var(--font-body);
+      font-size: 0.825rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* Footer */
+    footer {
+      padding: 48px 0;
+      background-color: var(--bg-color);
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    footer p {
+      margin-bottom: 8px;
+    }
+
+    footer span {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* Prefers Reduced Motion settings */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* Responsive Design (Mobile & Tablet overrides) */
+    @media (max-width: 1024px) {
+      .about-layout {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .about-image-wrapper {
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .clients-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .contact-layout {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      section {
+        padding: 64px 0;
+      }
+
+      .nav-menu {
+        display: none; /* Controlled by mobile menu toggle */
+      }
+
+      .mobile-menu-btn {
+        display: flex;
+      }
+
+      /* Simple responsive mobile navigation toggle (dropdown behavior) */
+      .nav-menu.mobile-open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background-color: var(--bg-color);
+        border-bottom: 1px solid var(--border-color);
+        padding: 24px;
+        gap: 16px;
+        box-shadow: var(--shadow);
+      }
+
+      .hero {
+        padding: 100px 0 80px 0;
+      }
+
+      .hero-title {
+        margin-bottom: 16px;
+      }
+
+      .features-checklist-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 24px;
+      }
+
+      .clients-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .social-badges-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .clients-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .social-badges-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .booking-form-card {
+        padding: 24px;
+      }
+
+      .lightbox-info {
+        padding: 16px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Accessibility Skip link -->
+  <a href="#work" class="skip-link">Skip to main content</a>
+
+  <!-- Header / Navigation -->
+  <header>
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        Feltz<span>Studio</span>
+      </a>
+      
+      <nav aria-label="Main Navigation">
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="#work" class="nav-link active">Work</a></li>
+          <li><a href="#services" class="nav-link">Services</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+      
+      <div class="nav-actions">
+        <!-- Theme Toggle Button -->
+        <button class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Toggle theme">
+          <!-- Sun Icon (shown in dark mode) -->
+          <svg class="sun-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <!-- Moon Icon (shown in light mode) -->
+          <svg class="moon-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle navigation menu">
+          <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-tag">
+          <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-top: -1px;"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+          Professional Photography Studio
+        </div>
+        <h1 class="hero-title">
+          <span>Crafting Light.</span><br>Capturing True Perspective.
+        </h1>
+        <p class="hero-subtitle">
+          ช่างภาพมืออาชีพผู้รังสรรค์มิติภาพเชิงพาณิชย์ แฟชั่น พอร์ตเทรต และภาพถ่ายสถาปัตยกรรมระดับพรีเมียม เพื่อถ่ายทอดความรู้สึกและขับเน้นอัตลักษณ์แบรนด์ของคุณ
+        </p>
+        <div class="hero-ctas">
+          <a href="#work" class="btn btn-primary">View Portfolio</a>
+          <a href="#contact" class="btn btn-secondary">Book a Session</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filterable Gallery Section -->
+  <section id="work">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Portfolio</span>
+        <h2 class="section-title-text">Selected Works</h2>
+      </div>
+      
+      <!-- Filter Tabs -->
+      <ul class="gallery-filter-tabs">
+        <li class="filter-tab active" data-filter="all">All</li>
+        <li class="filter-tab" data-filter="concert">Concert</li>
+        <li class="filter-tab" data-filter="cosplay">Cosplay</li>
+        <li class="filter-tab" data-filter="cycling">Cycling / Sport</li>
+        <li class="filter-tab" data-filter="event">Event</li>
+        <li class="filter-tab" data-filter="food">Food</li>
+        <li class="filter-tab" data-filter="graduation">Graduation</li>
+        <li class="filter-tab" data-filter="hotel">Hotel</li>
+        <li class="filter-tab" data-filter="portrait">Portrait / Studio Portrait</li>
+        <li class="filter-tab" data-filter="product">Product</li>
+        <li class="filter-tab" data-filter="realestate">Real Estate</li>
+      </ul>
+      
+      <!-- Curated Grid -->
+      <div class="gallery-grid grid-all-covers" id="gallery-grid">
+        <div class="gallery-card cover-0" data-category="concert" data-id="0" data-cover="true">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Concert/Concert.jpg" alt="Concert" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Concert</span>
+              <h3 class="gallery-card-title">Concert</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="concert" data-id="1">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Concert/Concert%202.jpg" alt="Concert 2" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Concert</span>
+              <h3 class="gallery-card-title">Concert 2</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="concert" data-id="2">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Concert/Concert%203.jpg" alt="Concert 3" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Concert</span>
+              <h3 class="gallery-card-title">Concert 3</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="concert" data-id="3">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Concert/Concert%204.jpg" alt="Concert 4" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Concert</span>
+              <h3 class="gallery-card-title">Concert 4</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="concert" data-id="4">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Concert/Concert%205.jpg" alt="Concert 5" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Concert</span>
+              <h3 class="gallery-card-title">Concert 5</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="concert" data-id="5">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Concert/Concert%206.jpg" alt="Concert 6" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Concert</span>
+              <h3 class="gallery-card-title">Concert 6</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="concert" data-id="6">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Concert/Concert%207.jpg" alt="Concert 7" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Concert</span>
+              <h3 class="gallery-card-title">Concert 7</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="concert" data-id="7">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Concert/Concert%208.jpg" alt="Concert 8" width="400" height="600" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Concert</span>
+              <h3 class="gallery-card-title">Concert 8</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card cover-1" data-category="cosplay" data-id="8" data-cover="true">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Cosplay/Cosplay.jpg" alt="Cosplay" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Cosplay</span>
+              <h3 class="gallery-card-title">Cosplay</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="cosplay" data-id="9">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Cosplay/Cosplay%202.jpg" alt="Cosplay 2" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Cosplay</span>
+              <h3 class="gallery-card-title">Cosplay 2</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="cosplay" data-id="10">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Cosplay/Cosplay%203.jpg" alt="Cosplay 3" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Cosplay</span>
+              <h3 class="gallery-card-title">Cosplay 3</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="cosplay" data-id="11">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Cosplay/Cosplay%204.jpg" alt="Cosplay 4" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Cosplay</span>
+              <h3 class="gallery-card-title">Cosplay 4</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="cosplay" data-id="12">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Cosplay/Cosplay%205.jpg" alt="Cosplay 5" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Cosplay</span>
+              <h3 class="gallery-card-title">Cosplay 5</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="cosplay" data-id="13">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Cosplay/Cosplay%206.jpg" alt="Cosplay 6" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Cosplay</span>
+              <h3 class="gallery-card-title">Cosplay 6</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card cover-2" data-category="cycling" data-id="14" data-cover="true">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Cycling%20%3A%20Sport/Cycling.jpg" alt="Cycling" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Cycling / Sport</span>
+              <h3 class="gallery-card-title">Cycling</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="cycling" data-id="15">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Cycling%20%3A%20Sport/Cycling%202.jpg" alt="Cycling 2" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Cycling / Sport</span>
+              <h3 class="gallery-card-title">Cycling 2</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="cycling" data-id="16">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Cycling%20%3A%20Sport/Cycling%203.jpg" alt="Cycling 3" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Cycling / Sport</span>
+              <h3 class="gallery-card-title">Cycling 3</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="cycling" data-id="17">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Cycling%20%3A%20Sport/Cycling%204.jpg" alt="Cycling 4" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Cycling / Sport</span>
+              <h3 class="gallery-card-title">Cycling 4</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="cycling" data-id="18">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Cycling%20%3A%20Sport/Cycling%205.jpg" alt="Cycling 5" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Cycling / Sport</span>
+              <h3 class="gallery-card-title">Cycling 5</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="cycling" data-id="19">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Cycling%20%3A%20Sport/Cycling%206.jpg" alt="Cycling 6" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Cycling / Sport</span>
+              <h3 class="gallery-card-title">Cycling 6</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="cycling" data-id="20">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Cycling%20%3A%20Sport/Cycling%207.jpg" alt="Cycling 7" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Cycling / Sport</span>
+              <h3 class="gallery-card-title">Cycling 7</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="cycling" data-id="21">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Cycling%20%3A%20Sport/Cycling%209.jpg" alt="Cycling 9" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Cycling / Sport</span>
+              <h3 class="gallery-card-title">Cycling 9</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="cycling" data-id="22">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Cycling%20%3A%20Sport/Cycling%208.jpg" alt="Cycling 8" width="400" height="600" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Cycling / Sport</span>
+              <h3 class="gallery-card-title">Cycling 8</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card cover-3" data-category="event" data-id="23" data-cover="true">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Event/Event.jpg" alt="Event" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Event</span>
+              <h3 class="gallery-card-title">Event</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="event" data-id="24">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Event/Event%202.jpg" alt="Event 2" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Event</span>
+              <h3 class="gallery-card-title">Event 2</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="event" data-id="25">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Event/Event%203.jpg" alt="Event 3" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Event</span>
+              <h3 class="gallery-card-title">Event 3</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="event" data-id="26">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Event/Event%204.jpg" alt="Event 4" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Event</span>
+              <h3 class="gallery-card-title">Event 4</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="event" data-id="27">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Event/Event%205.jpg" alt="Event 5" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Event</span>
+              <h3 class="gallery-card-title">Event 5</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="event" data-id="28">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Event/Event%206.jpg" alt="Event 6" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Event</span>
+              <h3 class="gallery-card-title">Event 6</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="event" data-id="29">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Event/Event%207.jpg" alt="Event 7" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Event</span>
+              <h3 class="gallery-card-title">Event 7</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="event" data-id="30">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Event/Event%208.jpg" alt="Event 8" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Event</span>
+              <h3 class="gallery-card-title">Event 8</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="event" data-id="31">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Event/Event%209.jpg" alt="Event 9" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Event</span>
+              <h3 class="gallery-card-title">Event 9</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card cover-4" data-category="food" data-id="32" data-cover="true">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Food/Food.jpg" alt="Food" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Food</span>
+              <h3 class="gallery-card-title">Food</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="food" data-id="33">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Food/Food%202.jpg" alt="Food 2" width="400" height="600" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Food</span>
+              <h3 class="gallery-card-title">Food 2</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="food" data-id="34">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Food/Food%203.jpg" alt="Food 3" width="400" height="600" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Food</span>
+              <h3 class="gallery-card-title">Food 3</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="food" data-id="35">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Food/Food%204.jpg" alt="Food 4" width="400" height="600" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Food</span>
+              <h3 class="gallery-card-title">Food 4</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="food" data-id="36">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Food/Food%205.jpg" alt="Food 5" width="400" height="600" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Food</span>
+              <h3 class="gallery-card-title">Food 5</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="food" data-id="37">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Food/Food%206.jpg" alt="Food 6" width="400" height="600" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Food</span>
+              <h3 class="gallery-card-title">Food 6</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card cover-5" data-category="graduation" data-id="38" data-cover="true">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Graduation/Graduation.jpg" alt="Graduation" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Graduation</span>
+              <h3 class="gallery-card-title">Graduation</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-grid-break"></div>
+        <div class="gallery-card hidden" data-category="graduation" data-id="39">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Graduation/Graduation%202.jpg" alt="Graduation 2" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Graduation</span>
+              <h3 class="gallery-card-title">Graduation 2</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="graduation" data-id="40">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Graduation/Graduation%203.jpg" alt="Graduation 3" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Graduation</span>
+              <h3 class="gallery-card-title">Graduation 3</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="graduation" data-id="41">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Graduation/Graduation%204.jpg" alt="Graduation 4" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Graduation</span>
+              <h3 class="gallery-card-title">Graduation 4</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="graduation" data-id="42">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Graduation/Graduation%205.jpg" alt="Graduation 5" width="400" height="600" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Graduation</span>
+              <h3 class="gallery-card-title">Graduation 5</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card cover-6" data-category="hotel" data-id="43" data-cover="true">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Hotel/Hotel.jpg" alt="Hotel" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Hotel</span>
+              <h3 class="gallery-card-title">Hotel</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="hotel" data-id="44">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Hotel/Hotel%202.jpg" alt="Hotel 2" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Hotel</span>
+              <h3 class="gallery-card-title">Hotel 2</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="hotel" data-id="45">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Hotel/Hotel%204.jpg" alt="Hotel 4" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Hotel</span>
+              <h3 class="gallery-card-title">Hotel 4</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="hotel" data-id="46">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Hotel/Hotel%205.jpg" alt="Hotel 5" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Hotel</span>
+              <h3 class="gallery-card-title">Hotel 5</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="hotel" data-id="47">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Hotel/Hotel%203.jpg" alt="Hotel 3" width="400" height="600" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Hotel</span>
+              <h3 class="gallery-card-title">Hotel 3</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card cover-7" data-category="portrait" data-id="48" data-cover="true">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Potrait%20%3A%20Studio%20Porait/Studio%20Porait.jpg" alt="Studio Portrait" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Portrait / Studio Portrait</span>
+              <h3 class="gallery-card-title">Studio Portrait</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-grid-break"></div>
+        <div class="gallery-card hidden" data-category="portrait" data-id="49">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Potrait%20%3A%20Studio%20Porait/Studio%20Porait%203.jpg" alt="Studio Portrait 3" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Portrait / Studio Portrait</span>
+              <h3 class="gallery-card-title">Studio Portrait 3</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="portrait" data-id="50">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Potrait%20%3A%20Studio%20Porait/Studio%20Porait%204.jpg" alt="Studio Portrait 4" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Portrait / Studio Portrait</span>
+              <h3 class="gallery-card-title">Studio Portrait 4</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="portrait" data-id="51">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Potrait%20%3A%20Studio%20Porait/Studio%20Porait%202.jpg" alt="Studio Portrait 2" width="400" height="600" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Portrait / Studio Portrait</span>
+              <h3 class="gallery-card-title">Studio Portrait 2</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="portrait" data-id="52">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Potrait%20%3A%20Studio%20Porait/Studio%20Porait%205.jpg" alt="Studio Portrait 5" width="400" height="600" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Portrait / Studio Portrait</span>
+              <h3 class="gallery-card-title">Studio Portrait 5</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card cover-8" data-category="product" data-id="53" data-cover="true">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Product/Product.jpg" alt="Product" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Product</span>
+              <h3 class="gallery-card-title">Product</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="product" data-id="54">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Product/Product%202.jpg" alt="Product 2" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Product</span>
+              <h3 class="gallery-card-title">Product 2</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="product" data-id="55">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Product/Product%203.jpg" alt="Product 3" width="400" height="600" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Product</span>
+              <h3 class="gallery-card-title">Product 3</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="product" data-id="56">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Product/Product%204.jpg" alt="Product 4" width="400" height="600" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Product</span>
+              <h3 class="gallery-card-title">Product 4</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card cover-9" data-category="realestate" data-id="57" data-cover="true">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Real%20Estate/Real%20Estate.jpg" alt="Real Estate" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Real Estate</span>
+              <h3 class="gallery-card-title">Real Estate</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="realestate" data-id="58">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Real%20Estate/Real%20Estate%202.jpg" alt="Real Estate 2" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Real Estate</span>
+              <h3 class="gallery-card-title">Real Estate 2</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="realestate" data-id="59">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Real%20Estate/Real%20Estate%203.jpg" alt="Real Estate 3" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Real Estate</span>
+              <h3 class="gallery-card-title">Real Estate 3</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="realestate" data-id="60">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Real%20Estate/Real%20Estate%204.jpg" alt="Real Estate 4" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Real Estate</span>
+              <h3 class="gallery-card-title">Real Estate 4</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="realestate" data-id="61">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Real%20Estate/Real%20Estate%205.jpg" alt="Real Estate 5" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Real Estate</span>
+              <h3 class="gallery-card-title">Real Estate 5</h3>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-card hidden" data-category="realestate" data-id="62">
+          <div class="gallery-img-wrapper">
+            <img class="gallery-img" src="Port/Real%20Estate/Real%20Estate%206.jpg" alt="Real Estate 6" width="600" height="400" loading="lazy">
+            <div class="gallery-card-overlay">
+              <span class="gallery-card-category">Real Estate</span>
+              <h3 class="gallery-card-title">Real Estate 6</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Lightbox Dialog -->
+  <dialog id="lightbox" class="lightbox-dialog" aria-label="Photo Lightbox" closedby="any">
+    <div class="lightbox-content">
+      <!-- Close Button -->
+      <button class="lightbox-close-btn" id="lightbox-close-btn" aria-label="Close Lightbox">
+        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+      
+      <!-- Media Wrapper -->
+      <div class="lightbox-media-wrapper">
+        <button class="lightbox-nav-btn lightbox-prev-btn" id="lightbox-prev-btn" aria-label="Previous Image">
+          <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        
+        <img class="lightbox-img" id="lightbox-img" src="Photo/portrait_1.jpg" alt="Active Portfolio Image" width="900" height="562">
+        
+        <button class="lightbox-nav-btn lightbox-next-btn" id="lightbox-next-btn" aria-label="Next Image">
+          <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+      </div>
+      
+      <!-- Info Bar -->
+      <div class="lightbox-info">
+        <div class="lightbox-info-category" id="lightbox-info-category">Category</div>
+        <h3 class="lightbox-info-title" id="lightbox-info-title">Project Title</h3>
+        <p class="lightbox-info-desc" id="lightbox-info-desc">Commercial grade photography capture by Feltz&nbsp;Studio.</p>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Services Section -->
+  <section id="services">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Services & Packages</span>
+        <h2 class="section-title-text">Professional Sessions</h2>
+      </div>
+      
+      <div class="services-grid">
+        <!-- Service 1 -->
+        <div class="service-card">
+          <div class="service-icon">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          </div>
+          <h3 class="service-title">Portrait & Fashion</h3>
+          <p class="service-desc">
+            ถ่ายภาพบุคคล โปรไฟล์ แฟชั่นเซ็ต ทั้งในและนอกสถานที่ จัดแสงไฟสตูฯ ระดับสูง พร้อมไกด์ไลน์การโพสท่า เพื่อผลลัพธ์ระดับนิตยสาร
+          </p>
+          <ul class="service-features-list">
+            <li class="service-feature-item">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Studio / Outdoor setup
+            </li>
+            <li class="service-feature-item">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Professional posing guide
+            </li>
+            <li class="service-feature-item">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              High-End Beauty Retouch
+            </li>
+          </ul>
+        </div>
+        
+        <!-- Service 2 -->
+        <div class="service-card">
+          <div class="service-icon">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
+          </div>
+          <h3 class="service-title">Packshot & Product</h3>
+          <p class="service-desc">
+            ถ่ายภาพสินค้า แพ็คช็อต และการจัดสไตล์ผลิตภัณฑ์เพื่อแคมเปญโฆษณา จัดแสงควบคุมโทนสีที่เที่ยงตรง คมชัดโดดเด่นสะดุดตา
+          </p>
+          <ul class="service-features-list">
+            <li class="service-feature-item">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Precision studio lighting
+            </li>
+            <li class="service-feature-item">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Color calibration system
+            </li>
+            <li class="service-feature-item">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Clean commercial background
+            </li>
+          </ul>
+        </div>
+        
+        <!-- Service 3 -->
+        <div class="service-card">
+          <div class="service-icon">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          </div>
+          <h3 class="service-title">Hotel & Real Estate</h3>
+          <p class="service-desc">
+            ถ่ายภาพสถาปัตยกรรม โครงการบ้าน โรงแรม รีสอร์ต ด้วยเลนส์มุมกว้างระดับโปรและการซ้อนแสงธรรมชาติ ผสานมิติพื้นที่สมจริง
+          </p>
+          <ul class="service-features-list">
+            <li class="service-feature-item">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Ultra-wide professional glass
+            </li>
+            <li class="service-feature-item">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Ambient & flash blend (HDR)
+            </li>
+            <li class="service-feature-item">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Perspective vertical correction
+            </li>
+          </ul>
+        </div>
+        
+        <!-- Service 4 -->
+        <div class="service-card">
+          <div class="service-icon">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+          </div>
+          <h3 class="service-title">Event & Seminar</h3>
+          <p class="service-desc">
+            บันทึกภาพบรรยากาศงานคอนเสิร์ต สัมมนา งานเปิดตัวสินค้า และเทศกาลดนตรี จับจังหวะแคนดิดอันรวดเร็วท่ามกลางสภาวะแสงน้อย
+          </p>
+          <ul class="service-features-list">
+            <li class="service-feature-item">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Candid & key moments action
+            </li>
+            <li class="service-feature-item">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Low-light noise optimized
+            </li>
+            <li class="service-feature-item">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Fast turnaround delivery
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Studio Features Checklist Bar -->
+      <div class="features-checklist-bar">
+        <div class="checklist-bar-item">
+          <div class="checklist-bar-icon">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          </div>
+          <div class="checklist-bar-text">
+            <h4>Private Studio</h4>
+            <p>มีสตูดิโอส่วนตัวพร้อมที่จอดรถกว้างขวาง</p>
+          </div>
+        </div>
+        
+        <div class="checklist-bar-item">
+          <div class="checklist-bar-icon">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+          </div>
+          <div class="checklist-bar-text">
+            <h4>High-End Retouching</h4>
+            <p>รีทัชเก็บความละเอียดระดับนิตยสารทุกรูป</p>
+          </div>
+        </div>
+        
+        <div class="checklist-bar-item">
+          <div class="checklist-bar-icon">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+          <div class="checklist-bar-text">
+            <h4>Posing & Prep Guide</h4>
+            <p>ช่วยแนะนำทิศทางมุมหน้าและจัดสรีระ</p>
+          </div>
+        </div>
+        
+        <div class="checklist-bar-item">
+          <div class="checklist-bar-icon">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+          </div>
+          <div class="checklist-bar-text">
+            <h4>Fast Cloud Delivery</h4>
+            <p>ส่งมอบภาพรวดเร็วผ่าน Dropbox / Google Drive</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Me Section -->
+  <section id="about">
+    <div class="container">
+      <div class="about-layout">
+        <!-- Bio info -->
+        <div class="about-bio">
+          <span class="section-tag">About Me</span>
+          <h2 class="about-name">Mongkol Wongsakulyanon</h2>
+          <div class="about-title-label">Founder & Lead Photographer</div>
+          
+          <p class="about-text">
+            ช่างภาพโฆษณาเชิงพาณิชย์และสถาปัตยกรรมระดับมืออาชีพ ผู้สั่งสมประสบการณ์มาอย่างยาวนานในการร่วมงานกับองค์กรและแบรนด์ชั้นนำระดับประเทศ รังสรรค์ผลงานภาพถ่ายที่เปี่ยมไปด้วยองค์ประกอบศิลป์ แสงเงาที่มีมิติ และการรักษาสัดส่วนทัศนมิติ (Perspective) ที่แม่นยำ 
+          </p>
+          <p class="about-text">
+            ด้วยพื้นฐานการศึกษาสาขา **วิทยาการคอมพิวเตอร์ จากมหาวิทยาลัยพายัพ** ทำให้เข้าใจกระบวนการจัดการข้อมูลภาพถ่ายในเชิงดิจิทัลอย่างลึกซึ้ง มีทักษะการปรับจูนสี (Color Grading) และขั้นตอน Post-Processing ด้วยเครื่องมือระดับอุตสาหกรรมภาพยนตร์ เพื่อให้ทุกเฟรมภาพมีคุณสมบัติตรงตามที่แบรนด์ต้องการ
+          </p>
+          
+          <div class="education-box">
+            <div class="education-item">
+              <h4 class="education-title">มหาวิทยาลัยพายัพ</h4>
+              <p class="education-sub">วิทยาการคอมพิวเตอร์ (Computer Science)</p>
+            </div>
+            <div class="education-item">
+              <h4 class="education-title">โรงเรียนยุพราชวิทยาลัย</h4>
+              <p class="education-sub">มัธยมศึกษาตอนปลาย</p>
+            </div>
+            <div class="education-item">
+              <h4 class="education-title">โรงเรียนมงฟอร์ตวิทยาลัย</h4>
+              <p class="education-sub">มัธยมศึกษาตอนต้น</p>
+            </div>
+            <div class="education-item">
+              <h4 class="education-title">โรงเรียนมงฟอร์ตวิทยาลัย</h4>
+              <p class="education-sub">ประถมศึกษา</p>
+            </div>
+          </div>
+          
+          <div>
+            <h4 style="margin-bottom: 12px; font-size: 1rem; font-weight: 600;">Professional Toolkit :</h4>
+            <div class="skills-row">
+              <!-- Photoshop -->
+              <div class="skill-badge">
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+                  <rect width="24" height="24" rx="5" fill="#001833"/>
+                  <text x="12" y="15.5" fill="#38bdf8" font-family="'Outfit', sans-serif" font-weight="700" font-size="10" text-anchor="middle">Ps</text>
+                </svg>
+                Photoshop
+              </div>
+              
+              <!-- Lightroom -->
+              <div class="skill-badge">
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+                  <rect width="24" height="24" rx="5" fill="#001c1c"/>
+                  <text x="12" y="15.5" fill="#38bdf8" font-family="'Outfit', sans-serif" font-weight="700" font-size="10" text-anchor="middle">Lr</text>
+                </svg>
+                Lightroom
+              </div>
+              
+              <!-- Capture One -->
+              <div class="skill-badge">
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+                  <rect width="24" height="24" rx="5" fill="#111827"/>
+                  <text x="12" y="15.5" fill="#ffffff" font-family="'Outfit', sans-serif" font-weight="700" font-size="10" text-anchor="middle">C1</text>
+                </svg>
+                Capture One
+              </div>
+              
+              <!-- DaVinci Resolve -->
+              <div class="skill-badge">
+                <img src="Photo/davinci_logo.jpg" alt="DaVinci Resolve" width="24" height="24">
+                DaVinci Resolve
+              </div>
+
+              <!-- Affinity Designer -->
+              <div class="skill-badge">
+                <img src="Photo/affinity_logo.png" alt="Affinity Designer" width="24" height="24">
+                Affinity Designer
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Profile Picture Column -->
+        <div class="about-image-wrapper">
+          <img class="about-img" id="profile-picture" src="keng_profile.jpg" alt="Mongkol Wongsakulyanon" width="400" height="533" data-fallback-state="initial">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Selected Clients Section -->
+  <section id="clients">
+    <div class="container">
+      <div class="section-header" style="margin-bottom: 48px;">
+        <span class="section-tag">Trust</span>
+        <h2 class="section-title-text">Selected Clients</h2>
+      </div>
+      
+      <div class="clients-grid">
+        <div class="client-card"><span>WTF Music Festival</span></div>
+        <div class="client-card"><span>AWA</span></div>
+        <div class="client-card"><span>SINGHA</span></div>
+        <div class="client-card"><span>TRUE</span></div>
+        <div class="client-card"><span>YAMAHA</span></div>
+        <div class="client-card"><span>GISTDA</span></div>
+        <div class="client-card"><span>TCEB</span></div>
+        <div class="client-card"><span>KBANK</span></div>
+        <div class="client-card"><span>AIA</span></div>
+        <div class="client-card"><span>MAYA</span></div>
+        <div class="client-card"><span>Fujiyama GO GO</span></div>
+        <div class="client-card"><span>Thai AirAsia</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking & Contact Section -->
+  <section id="contact" style="border-bottom: none;">
+    <div class="container">
+      <div class="contact-layout">
+        <!-- Contact details -->
+        <div class="contact-info">
+          <div>
+            <span class="section-tag">Let's Collaborate</span>
+            <h2 class="section-title-text" style="margin-bottom: 20px;">Book a Session</h2>
+            <p class="about-text">
+              สนใจร่วมงานจองคิวถ่ายภาพเพื่อโปรโมตแบรนด์สินค้า โปรไฟล์บุคคล หรือถ่ายงานสถาปัตยกรรม สามารถกรอกรายละเอียดการสอบถามข้อมูลเพื่อรับใบเสนอราคา หรือติดต่อผ่านช่องทางด่วนด้านล่างได้ทันที
+            </p>
+          </div>
+          
+          <ul class="contact-details-list">
+            <!-- Phone -->
+            <li class="contact-detail-item">
+              <div class="contact-detail-icon">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              </div>
+              <div class="contact-detail-content">
+                <h4>เบอร์โทรศัพท์</h4>
+                <a href="tel:0895544355">089-5544355</a>
+              </div>
+            </li>
+            
+            <!-- Email -->
+            <li class="contact-detail-item">
+              <div class="contact-detail-icon">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </div>
+              <div class="contact-detail-content">
+                <h4>อีเมลติดต่อ</h4>
+                <a href="mailto:silver_nsx@hotmail.com">silver_nsx@hotmail.com</a>
+              </div>
+            </li>
+            
+            <!-- Address -->
+            <li class="contact-detail-item">
+              <div class="contact-detail-icon">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              </div>
+              <div class="contact-detail-content">
+                <h4>สตูดิโอ / ที่ตั้ง</h4>
+                <p>65/1 ถ.ต้นขาม ต.ท่าศาลา อ.เมือง เชียงใหม่ 50000</p>
+              </div>
+            </li>
+          </ul>
+          
+          <div>
+            <h3 class="social-badges-title">Direct Connections</h3>
+            <div class="social-badges-grid">
+              <!-- Line -->
+              <a href="https://line.me/ti/p/~0895544355" target="_blank" class="social-badge">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                <span>Line ID</span>
+              </a>
+              <!-- Fastwork -->
+              <a href="https://fastwork.co" target="_blank" class="social-badge">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon><line x1="12" y1="22" x2="12" y2="15.5"></line><polyline points="22 8.5 12 15.5 2 8.5"></polyline><polyline points="2 15.5 12 8.5 22 15.5"></polyline><line x1="12" y1="2" x2="12" y2="8.5"></line></svg>
+                <span>Fastwork</span>
+              </a>
+              <!-- FB -->
+              <a href="https://facebook.com" target="_blank" class="social-badge">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                <span>Facebook</span>
+              </a>
+              <!-- Instagram -->
+              <a href="https://instagram.com" target="_blank" class="social-badge">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                <span>Instagram</span>
+              </a>
+              <!-- Official Site -->
+              <a href="https://feltzstudio.myportfolio.com" target="_blank" class="social-badge" style="grid-column: span 2;">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                <span>feltzstudio.myportfolio.com</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Interactive Booking Form Card -->
+        <div class="booking-form-card">
+          <h3 class="booking-form-title">ส่งข้อความถึงเรา</h3>
+          <p class="booking-form-desc">รายละเอียดเบื้องต้นเพื่อให้ช่างภาพเข้าใจขอบเขตงานได้ง่ายขึ้น</p>
+          
+          <form id="booking-form" action="#" method="POST">
+            <div class="form-group">
+              <label class="form-label" for="form-name">ชื่อผู้ติดต่อ / แบรนด์ *</label>
+              <input class="form-control" type="text" id="form-name" name="name" autocomplete="name" placeholder="เช่น คุณสมชาย หรือ แบรนด์ของคุณ…" required>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="form-email">อีเมลติดต่อกลับ *</label>
+              <input class="form-control" type="email" id="form-email" name="email" autocomplete="email" spellcheck="false" placeholder="เช่น name@example.com…" required>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="form-service">ประเภทบริการถ่ายภาพ *</label>
+              <select class="form-control" id="form-service" name="service" autocomplete="off" required>
+                <option value="" disabled selected>เลือกประเภทบริการ</option>
+                <option value="Portrait & Fashion">Portrait & Fashion Session</option>
+                <option value="Packshot & Product">Packshot & Product Styling</option>
+                <option value="Hotel & Real Estate">Hotel & Real Estate Architecture</option>
+                <option value="Event & Seminar">Event & Seminar Coverage</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="form-details">รายละเอียดเบื้องต้น (เช่น วันที่จัดงาน, สถานที่, จำนวนสินค้า)</label>
+              <textarea class="form-control" id="form-details" name="details" autocomplete="off" placeholder="เช่น วันที่จัดงาน สถานที่ และขอบเขตงาน…"></textarea>
+            </div>
+            
+            <button class="btn btn-primary" type="submit" style="width: 100%; height: 50px;">ส่งคำขอจองคิวงาน</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 <span>Feltz Studio</span>. All rights reserved.</p>
+      <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Designed by D &bull; Coded by Q (Mongkol Wongsakulyanon Portfolio)</p>
+    </div>
+  </footer>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" aria-live="polite"></div>
+
+  <!-- JavaScript Modules and Interaction -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      // --- PROFILE IMAGE ERROR HANDLING FALLBACK FLOW ---
+      const profileImg = document.getElementById('profile-picture');
+      if (profileImg) {
+        function handleProfileError() {
+          const state = profileImg.getAttribute('data-fallback-state');
+          if (state === 'initial') {
+            // First fallback to PNG
+            profileImg.src = 'keng_profile.png';
+            profileImg.setAttribute('data-fallback-state', 'png');
+          } else if (state === 'png') {
+            // Final fallback to high-quality Unsplash photographer avatar
+            profileImg.src = 'https://images.unsplash.com/photo-1554080353-a576cf803bda?w=800&auto=format&fit=crop&q=80';
+            profileImg.setAttribute('data-fallback-state', 'final');
+          }
+        }
+        profileImg.addEventListener('error', handleProfileError);
+        // Bulletproof race condition check: if image failed before DOMContentLoaded listener was bound
+        if (profileImg.complete && profileImg.naturalWidth === 0) {
+          handleProfileError();
+        }
+      }
+
+      // --- PERSISTENT THEME TOGGLE (Avoiding WebKit transition bugs) ---
+      const themeToggleBtn = document.getElementById('theme-toggle-btn');
+      
+      themeToggleBtn.addEventListener('click', () => {
+        // 1. Add class to prevent CSS transitions from firing during class switch
+        document.documentElement.classList.add('no-transitions');
+        
+        // 2. Perform the toggle
+        const isLight = document.documentElement.classList.contains('light-theme');
+        if (isLight) {
+          document.documentElement.classList.remove('light-theme');
+          localStorage.setItem('color-scheme', 'dark');
+        } else {
+          document.documentElement.classList.add('light-theme');
+          localStorage.setItem('color-scheme', 'light');
+        }
+        
+        // 3. Force reflow to flush styles (crucial for WebKit)
+        window.getComputedStyle(document.documentElement).opacity;
+        
+        // 4. Remove class to restore animations
+        setTimeout(() => {
+          document.documentElement.classList.remove('no-transitions');
+        }, 0);
+      });
+
+      // --- MOBILE NAVIGATION BAR DRAWER TOGGLE ---
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const navMenu = document.getElementById('nav-menu');
+      
+      mobileMenuBtn.addEventListener('click', () => {
+        navMenu.classList.toggle('mobile-open');
+      });
+
+      // Close mobile menu when clicking nav links
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+          navMenu.classList.remove('mobile-open');
+          
+          // Set active state styling
+          document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+        });
+      });
+
+      // --- FILTERABLE GALLERY TAB INTERACTION ---
+      const filterTabs = document.querySelectorAll('.filter-tab');
+      const galleryCards = document.querySelectorAll('.gallery-card');
+      
+      filterTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          // Update active tab style
+          filterTabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          
+          const filterValue = tab.getAttribute('data-filter');
+          
+          // Toggle hollow center grid layout for 'All' view
+          const gridEl = document.getElementById('gallery-grid');
+          if (filterValue === 'all') {
+            gridEl.classList.add('grid-all-covers');
+          } else {
+            gridEl.classList.remove('grid-all-covers');
+          }
+          
+          galleryCards.forEach(card => {
+            const cardCategory = card.getAttribute('data-category');
+            if (filterValue === 'all') {
+              if (card.getAttribute('data-cover') === 'true') {
+                card.classList.remove('hidden');
+              } else {
+                card.classList.add('hidden');
+              }
+            } else {
+              if (cardCategory === filterValue) {
+                card.classList.remove('hidden');
+              } else {
+                card.classList.add('hidden');
+              }
+            }
+          });
+        });
+      });
+
+      // --- INTERACTIVE LIGHTBOX DIALOG ---
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const lightboxTitle = document.getElementById('lightbox-info-title');
+      const lightboxCategory = document.getElementById('lightbox-info-category');
+      
+      const prevBtn = document.getElementById('lightbox-prev-btn');
+      const nextBtn = document.getElementById('lightbox-next-btn');
+      const closeBtn = document.getElementById('lightbox-close-btn');
+      
+      let visibleCards = [];
+      let currentIdx = 0;
+      
+      // Open Lightbox when clicking a gallery card
+      galleryCards.forEach(card => {
+        card.addEventListener('click', () => {
+          // Gather currently visible (filtered) cards to navigate only through them
+          visibleCards = Array.from(document.querySelectorAll('.gallery-card:not(.hidden)'));
+          currentIdx = visibleCards.indexOf(card);
+          
+          updateLightboxContent();
+          lightbox.showModal();
+        });
+      });
+      
+      function updateLightboxContent() {
+        if (visibleCards.length === 0 || currentIdx < 0 || currentIdx >= visibleCards.length) return;
+        
+        const activeCard = visibleCards[currentIdx];
+        const imgSrc = activeCard.querySelector('.gallery-img').src;
+        const title = activeCard.querySelector('.gallery-card-title').innerText;
+        const category = activeCard.querySelector('.gallery-card-category').innerText;
+        
+        lightboxImg.src = imgSrc;
+        lightboxImg.alt = title;
+        lightboxTitle.innerText = title;
+        lightboxCategory.innerText = category;
+      }
+      
+      function showNextImage() {
+        if (visibleCards.length <= 1) return;
+        currentIdx = (currentIdx + 1) % visibleCards.length;
+        updateLightboxContent();
+      }
+      
+      function showPrevImage() {
+        if (visibleCards.length <= 1) return;
+        currentIdx = (currentIdx - 1 + visibleCards.length) % visibleCards.length;
+        updateLightboxContent();
+      }
+      
+      // Control buttons Event Listeners
+      nextBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showNextImage();
+      });
+      
+      prevBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showPrevImage();
+      });
+      
+      closeBtn.addEventListener('click', () => {
+        lightbox.close();
+      });
+
+      // Lightbox click backdrop fallback closing (Safari & other legacy support)
+      lightbox.addEventListener('click', (event) => {
+        if (event.target === lightbox) {
+          lightbox.close();
+        }
+      });
+      
+      // Keyboard Navigation inside Open Lightbox Dialog
+      lightbox.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') {
+          showNextImage();
+        } else if (e.key === 'ArrowLeft') {
+          showPrevImage();
+        }
+      });
+
+      // --- PREMIUM INTERACTIVE TOAST NOTIFICATION SUBMISSION ---
+      const bookingForm = document.getElementById('booking-form');
+      const toastContainer = document.getElementById('toast-container');
+      
+      bookingForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const nameInput = document.getElementById('form-name');
+        const emailInput = document.getElementById('form-email');
+        const serviceSelect = document.getElementById('form-service');
+        
+        const clientName = nameInput.value.trim();
+        const serviceType = serviceSelect.value;
+        
+        // Show success toast mock confirmation
+        showToast(
+          "ส่งข้อมูลสำเร็จเรียบร้อย!",
+          `ขอบคุณ คุณ ${clientName} ที่ให้ความสนใจในบริการ ${serviceType} ทางสตูดิโอจะรีบส่งข้อความตอบกลับไปยังอีเมลของท่านโดยด่วนที่สุด`
+        );
+        
+        // Reset the form
+        bookingForm.reset();
+      });
+      
+      function showToast(title, message) {
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.setAttribute('role', 'alert');
+        toast.innerHTML = `
+          <div class="toast-icon">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <div class="toast-content">
+            <div class="toast-title">${title}</div>
+            <div class="toast-message">${message}</div>
+          </div>
+        `;
+        
+        toastContainer.appendChild(toast);
+        
+        // Triggers slide-in transition
+        setTimeout(() => {
+          toast.classList.add('show');
+        }, 50);
+        
+        // Dismiss after 5.5s
+        setTimeout(() => {
+          toast.classList.remove('show');
+          toast.addEventListener('transitionend', () => {
+            toast.remove();
+          });
+        }, 5500);
+      }
+    });
+  </script>
+</body>
+</html>
