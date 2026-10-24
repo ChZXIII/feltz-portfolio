@@ -1,0 +1,1965 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>FELTZ STUDIO // KINETIC PORTFOLIO OPTION 2 — Curved 3D Deck &amp; Spinning Ring</title>
+  <meta name="description" content="Feltz Studio — Mongkol Wongsakulyanon Commercial Photography Portfolio with 3D Curved Category Card Deck and 3D Spinning Photo Ring." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==========================================================================
+       RESET & ROOT VARIABLES (ZERO AMBER-METALLIC & ZERO AI CYAN)
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --bg-canvas: #0a0a0c;
+      --bg-stage: #111114;
+      --accent-crimson: #8b1e24;
+      --accent-vermilion: #e04f26;
+
+      --card-charcoal-bg: #151518;
+      --card-charcoal-text: #f3f1ec;
+      --card-charcoal-border: rgba(255, 255, 255, 0.16);
+
+      --card-plaster-bg: #eae6df;
+      --card-plaster-text: #111113;
+      --card-plaster-border: #d4cec4;
+
+      --card-crimson-bg: #8b1e24;
+      --card-crimson-text: #f5f3ef;
+      --card-crimson-border: #a02b32;
+
+      --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-serif: "Playfair Display", Georgia, serif;
+      --font-mono: "JetBrains Mono", Menlo, Consolas, monospace;
+
+      --deck-w: 480px;
+      --deck-h: 300px;
+
+      --ring-card-w: 185px;
+      --ring-card-h: 245px;
+      --ring-radius: 330px;
+    }
+
+    @media (max-width: 768px) {
+      :root {
+        --deck-w: 320px;
+        --deck-h: 240px;
+        --ring-card-w: 106px;
+        --ring-card-h: 142px;
+        --ring-radius: 180px;
+      }
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: var(--bg-canvas);
+      color: #f3f1ec;
+      font-family: var(--font-sans);
+      overflow: hidden;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* ==========================================================================
+       TOP FLOATING SWITCHER & BRAND BAR
+       ========================================================================== */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 900;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      pointer-events: none;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(14, 14, 18, 0.78);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      padding: 8px 16px;
+      border-radius: 999px;
+      pointer-events: auto;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .brand-logo {
+      font-family: var(--font-sans);
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      font-size: 13px;
+      color: #ffffff;
+      text-transform: uppercase;
+    }
+
+    .brand-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--accent-vermilion);
+      padding-left: 10px;
+      border-left: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      pointer-events: auto;
+    }
+
+    .nav-pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(14, 14, 18, 0.78);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #e5e7eb;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 8px 15px;
+      border-radius: 999px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.22s ease;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    }
+
+    .nav-pill-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.35);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .nav-pill-btn.active {
+      background: #ffffff;
+      color: #09090b;
+      border-color: #ffffff;
+      font-weight: 700;
+    }
+
+    .nav-pill-btn.a4-btn {
+      background: rgba(139, 30, 36, 0.85);
+      border-color: rgba(224, 79, 38, 0.4);
+      color: #ffffff;
+    }
+
+    .nav-pill-btn.a4-btn:hover {
+      background: #8b1e24;
+      border-color: #e04f26;
+    }
+
+    .nav-pill-btn svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    @media (max-width: 768px) {
+      .top-nav {
+        padding: 10px 12px;
+      }
+      .brand-group {
+        padding: 6px 10px;
+      }
+      .brand-tag {
+        display: none;
+      }
+      .nav-pill-btn {
+        padding: 6px 11px;
+        font-size: 11px;
+      }
+      .btn-label-long {
+        display: none;
+      }
+    }
+
+    /* ==========================================================================
+       STAGE CONTAINER WRAPPER
+       ========================================================================== */
+    .app-viewport {
+      position: relative;
+      width: 100vw;
+      height: 100dvh;
+      overflow: hidden;
+    }
+
+    /* ==========================================================================
+       STAGE 1: 3D CURVED CATEGORY CARD DECK (EXACT PIN_02)
+       ========================================================================== */
+    .stage-deck {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 50;
+      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+      touch-action: pan-x;
+    }
+
+    .stage-deck.is-hidden {
+      transform: scale(1.15);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Ambient Spotlight */
+    .deck-spotlight {
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(224, 79, 38, 0.12) 0%, rgba(139, 30, 36, 0.05) 50%, transparent 70%);
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Stage 1 Header */
+    .deck-stage-header {
+      position: absolute;
+      top: 86px;
+      text-align: center;
+      z-index: 20;
+      pointer-events: none;
+    }
+
+    .deck-stage-header .deck-sub {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent-vermilion);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .deck-stage-header .deck-h1 {
+      font-family: var(--font-sans);
+      font-size: clamp(22px, 3.5vw, 36px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #ffffff;
+    }
+
+    /* 3D Arc Viewport */
+    .deck-viewport-3d {
+      position: relative;
+      width: 100%;
+      height: 520px;
+      perspective: 1200px;
+      perspective-origin: 50% 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      cursor: grab;
+    }
+
+    .deck-viewport-3d:active {
+      cursor: grabbing;
+    }
+
+    .deck-cylinder {
+      position: relative;
+      width: 0;
+      height: 0;
+      transform-style: preserve-3d;
+    }
+
+    /* Individual Deck Card */
+    .deck-card {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: var(--deck-w);
+      height: var(--deck-h);
+      margin-left: calc(-1 * var(--deck-w) / 2);
+      margin-top: calc(-1 * var(--deck-h) / 2);
+      border-radius: 18px;
+      padding: 22px 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+      cursor: pointer;
+      will-change: transform, opacity;
+      transform-style: preserve-3d;
+    }
+
+    /* Card Themes (pin_02 tones: Charcoal, Plaster Cream, Studio Crimson) */
+    .deck-card[data-tone="charcoal"] {
+      background: var(--card-charcoal-bg);
+      color: var(--card-charcoal-text);
+      border: 1px solid var(--card-charcoal-border);
+    }
+
+    .deck-card[data-tone="plaster"] {
+      background: var(--card-plaster-bg);
+      color: var(--card-plaster-text);
+      border: 1px solid var(--card-plaster-border);
+    }
+
+    .deck-card[data-tone="crimson"] {
+      background: var(--card-crimson-bg);
+      color: var(--card-crimson-text);
+      border: 1px solid var(--card-crimson-border);
+    }
+
+    /* Inside the Card */
+    .card-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .card-num-large {
+      font-family: var(--font-mono);
+      font-size: 38px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .deck-card[data-tone="charcoal"] .card-num-large { color: var(--accent-vermilion); }
+    .deck-card[data-tone="plaster"] .card-num-large { color: var(--accent-crimson); }
+    .deck-card[data-tone="crimson"] .card-num-large { color: #ffffff; }
+
+    .card-mini-specs {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      opacity: 0.75;
+      text-transform: uppercase;
+    }
+
+    .card-mid-row {
+      display: grid;
+      grid-template-columns: 1fr 165px;
+      gap: 16px;
+      align-items: center;
+      margin: 10px 0;
+    }
+
+    .card-title-group .card-category-name {
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    .card-title-group .card-category-sub {
+      font-size: 12px;
+      font-weight: 500;
+      opacity: 0.7;
+      margin-top: 5px;
+      line-height: 1.4;
+    }
+
+    .card-thumb-box {
+      width: 165px;
+      height: 105px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    .card-thumb-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-bottom-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .deck-card[data-tone="plaster"] .card-bottom-row {
+      border-top-color: rgba(0, 0, 0, 0.12);
+    }
+
+    .card-badge-count {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-explore-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-sans);
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .deck-card[data-tone="charcoal"] .card-explore-btn {
+      background: var(--accent-vermilion);
+      color: #ffffff;
+    }
+
+    .deck-card[data-tone="plaster"] .card-explore-btn {
+      background: #111113;
+      color: #ffffff;
+    }
+
+    .deck-card[data-tone="crimson"] .card-explore-btn {
+      background: #ffffff;
+      color: var(--accent-crimson);
+    }
+
+    .card-explore-btn svg {
+      width: 12px;
+      height: 12px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.5;
+    }
+
+    @media (max-width: 768px) {
+      .deck-stage-header {
+        top: 68px;
+      }
+      .deck-card {
+        padding: 16px 18px;
+      }
+      .card-num-large {
+        font-size: 28px;
+      }
+      .card-mid-row {
+        grid-template-columns: 1fr 105px;
+        gap: 10px;
+      }
+      .card-title-group .card-category-name {
+        font-size: 16px;
+      }
+      .card-thumb-box {
+        width: 105px;
+        height: 75px;
+      }
+    }
+
+    /* Right Deck Rail Indicator */
+    .deck-rail {
+      position: absolute;
+      right: 28px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 40;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .rail-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 3px;
+    }
+
+    .rail-btn span.num {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.35);
+      transition: color 0.2s ease;
+    }
+
+    .rail-btn span.dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.25);
+      transition: all 0.25s ease;
+    }
+
+    .rail-btn.active span.num {
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    .rail-btn.active span.dot {
+      width: 7px;
+      height: 7px;
+      background: var(--accent-vermilion);
+    }
+
+    @media (max-width: 768px) {
+      .deck-rail {
+        right: 12px;
+      }
+      .rail-btn span.num {
+        display: none;
+      }
+    }
+
+    /* Bottom Deck Instruction */
+    .deck-instruction {
+      position: absolute;
+      bottom: 22px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      opacity: 0.65;
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+
+    .deck-instruction svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+
+    /* ==========================================================================
+       STAGE 2: 3D ROTATING PHOTO RING & DEPTH SHOWCASE (EXACT PIN_03 + PIN_01)
+       ========================================================================== */
+    .stage-ring-view {
+      position: absolute;
+      inset: 0;
+      z-index: 60;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: var(--bg-canvas);
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.92);
+      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+    }
+
+    .stage-ring-view.is-active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1);
+    }
+
+    /* Pin 01 Deep Space Depth Background Layers */
+    .depth-bg-layer {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .depth-bg-card {
+      position: absolute;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(22, 22, 28, 0.35);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+      opacity: 0.35;
+      transform: translate3d(0, 0, -200px);
+    }
+
+    .depth-bg-card.c1 {
+      width: 320px;
+      height: 220px;
+      top: 15%;
+      left: 6%;
+      transform: rotate(-8deg);
+      filter: blur(4px);
+    }
+
+    .depth-bg-card.c2 {
+      width: 380px;
+      height: 260px;
+      bottom: 12%;
+      right: 5%;
+      transform: rotate(6deg);
+      filter: blur(6px);
+    }
+
+    .stage-ring-backdrop-text {
+      position: absolute;
+      bottom: 4vh;
+      width: 100%;
+      text-align: center;
+      font-family: var(--font-sans);
+      font-size: clamp(3rem, 13vw, 11rem);
+      font-weight: 900;
+      line-height: 0.85;
+      letter-spacing: -0.05em;
+      color: rgba(255, 255, 255, 0.14);
+      -webkit-text-stroke: none;
+      text-transform: lowercase;
+      pointer-events: none;
+      z-index: 2;
+      user-select: none;
+    }
+
+    /* Stage 2 Controls Bar */
+    .stage2-top-bar {
+      position: absolute;
+      top: 86px;
+      left: 28px;
+      right: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 50;
+    }
+
+    .btn-back-to-deck {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(20, 20, 26, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #ffffff;
+      padding: 9px 18px;
+      border-radius: 999px;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.22s ease;
+      backdrop-filter: blur(12px);
+    }
+
+    .btn-back-to-deck:hover {
+      background: var(--accent-crimson);
+      border-color: var(--accent-vermilion);
+    }
+
+    .stage2-cat-info {
+      text-align: right;
+    }
+
+    .stage2-cat-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent-vermilion);
+      letter-spacing: 0.12em;
+    }
+
+    .stage2-cat-title {
+      font-family: var(--font-sans);
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    @media (max-width: 768px) {
+      .stage2-top-bar {
+        top: 66px;
+        left: 14px;
+        right: 14px;
+      }
+      .btn-back-to-deck {
+        padding: 7px 13px;
+        font-size: 11px;
+      }
+      .stage2-cat-title {
+        font-size: 13px;
+      }
+    }
+
+    /* 3D Ring Stage in Stage 2 */
+    .stage2-ring-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      perspective: 1100px;
+      perspective-origin: 50% 50%;
+      z-index: 10;
+      cursor: grab;
+      touch-action: pan-y;
+    }
+
+    .stage2-ring-container:active {
+      cursor: grabbing;
+    }
+
+    .stage2-ring-pivot {
+      position: relative;
+      width: 0;
+      height: 0;
+      transform-style: preserve-3d;
+      transform: rotateX(-13deg) rotateZ(-4deg) rotateY(0deg);
+      will-change: transform;
+    }
+
+    .stage2-ring-card {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: var(--ring-card-w);
+      height: var(--ring-card-h);
+      margin-left: calc(-1 * var(--ring-card-w) / 2);
+      margin-top: calc(-1 * var(--ring-card-h) / 2);
+      transform-style: preserve-3d;
+      border-radius: 12px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55);
+      cursor: pointer;
+    }
+
+    .stage2-ring-card .ring-card-face {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      transform-style: preserve-3d;
+    }
+
+    .stage2-ring-card .ring-card-front {
+      transform: rotateY(0deg);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: #141418;
+    }
+
+    .stage2-ring-card .ring-card-back {
+      transform: rotateY(180deg);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #09090b;
+    }
+
+    .stage2-ring-card .ring-card-back img {
+      filter: brightness(0.55);
+    }
+
+    .stage2-ring-card .ring-card-face img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .stage2-ring-card:hover .ring-card-face img {
+      transform: scale(1.06);
+    }
+
+    .stage2-ring-card .ring-card-front .card-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 10px 12px;
+      background: linear-gradient(to top, rgba(9, 9, 11, 0.88), transparent);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    .stage2-ring-card .ring-card-front .card-caption .tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      color: #ffffff;
+      letter-spacing: 0.05em;
+    }
+
+    .stage2-ring-card .ring-card-front .card-caption .btn-inspect {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--accent-vermilion);
+      text-transform: uppercase;
+    }
+
+    /* Stage 2 Bottom Switcher */
+    .stage2-bottom-bar {
+      position: absolute;
+      bottom: 22px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      z-index: 50;
+    }
+
+    .stage2-cat-nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(20, 20, 26, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      padding: 7px 15px;
+      border-radius: 999px;
+      font-family: var(--font-sans);
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(12px);
+    }
+
+    .stage2-cat-nav-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .stage2-ring-hint {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      opacity: 0.6;
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+
+    /* ==========================================================================
+       FULLSCREEN LIGHTBOX MODAL & A4 PROFILE
+       ========================================================================== */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(8, 8, 10, 0.94);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .lightbox-overlay.is-active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .lightbox-header {
+      position: absolute;
+      top: 20px;
+      left: 28px;
+      right: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1010;
+    }
+
+    .lightbox-title-box .lb-cat {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent-vermilion);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .lightbox-title-box .lb-title {
+      font-family: var(--font-sans);
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-top: 2px;
+    }
+
+    .lightbox-close-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .lightbox-close-btn:hover {
+      background: var(--accent-vermilion);
+      border-color: var(--accent-vermilion);
+    }
+
+    .lightbox-content-wrap {
+      max-width: 90vw;
+      max-height: 80vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .lightbox-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(20, 20, 26, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #ffffff;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      z-index: 1020;
+    }
+
+    .lightbox-nav-btn:hover {
+      background: var(--accent-vermilion);
+      border-color: var(--accent-vermilion);
+    }
+
+    .lightbox-nav-btn.prev { left: -60px; }
+    .lightbox-nav-btn.next { right: -60px; }
+
+    @media (max-width: 768px) {
+      .lightbox-nav-btn.prev { left: 10px; }
+      .lightbox-nav-btn.next { right: 10px; }
+    }
+
+    /* A4 Modal */
+    .a4-modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1200;
+      background: rgba(5, 5, 7, 0.88);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      display: none;
+      overflow-y: auto;
+      padding: 40px 20px;
+    }
+
+    .a4-modal-overlay.is-open {
+      display: block;
+    }
+
+    .a4-sheet-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fdfcf9;
+      color: #111113;
+      border-radius: 12px;
+      padding: 44px 48px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+      position: relative;
+      font-family: var(--font-sans);
+    }
+
+    .a4-modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: #111113;
+      color: #ffffff;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background 0.2s ease;
+    }
+
+    .a4-modal-close:hover {
+      background: var(--accent-crimson);
+    }
+
+    .a4-header-grid {
+      display: grid;
+      grid-template-columns: 155px 1fr 240px;
+      gap: 24px;
+      padding-bottom: 22px;
+      border-bottom: 2px solid #111113;
+      align-items: center;
+    }
+
+    .a4-avatar {
+      width: 155px;
+      height: 185px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+    }
+
+    .a4-title-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent-crimson);
+      letter-spacing: 0.12em;
+      margin-bottom: 4px;
+    }
+
+    .a4-name {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .a4-role {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--accent-crimson);
+      margin-top: 4px;
+    }
+
+    .a4-bio {
+      font-size: 13px;
+      line-height: 1.55;
+      color: #4b5563;
+      margin-top: 8px;
+    }
+
+    .a4-contact-card {
+      background: #f1ede4;
+      border: 1px solid #ded9cd;
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: 12px;
+      line-height: 1.65;
+    }
+
+    .a4-contact-card .card-head {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--accent-crimson);
+      letter-spacing: 0.1em;
+      margin-bottom: 4px;
+    }
+
+    .a4-columns {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 28px;
+      margin-top: 24px;
+    }
+
+    .a4-sec-title {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent-crimson);
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    .a4-list {
+      font-size: 12.5px;
+      line-height: 1.65;
+      color: #27272a;
+      padding-left: 18px;
+    }
+
+    .a4-list li { margin-bottom: 6px; }
+
+    .a4-client-chips {
+      background: #f1ede4;
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid #ded9cd;
+      font-size: 12px;
+      line-height: 1.6;
+      color: #3f3f46;
+      margin-top: 6px;
+    }
+
+    .a4-footer-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 28px;
+      padding-top: 18px;
+      border-top: 1px dashed #d1d5db;
+    }
+
+    .a4-print-btn {
+      background: var(--accent-crimson);
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .a4-print-btn:hover { background: #6d171c; }
+
+    @media (max-width: 768px) {
+      .a4-sheet-container { padding: 24px 20px; }
+      .a4-header-grid { grid-template-columns: 1fr; text-align: center; }
+      .a4-avatar { margin: 0 auto; }
+      .a4-columns { grid-template-columns: 1fr; gap: 18px; }
+      .a4-footer-actions { flex-direction: column; gap: 12px; }
+    }
+
+    @media print {
+      body { overflow: visible !important; background: #ffffff !important; }
+      .top-nav, .app-viewport, .a4-footer-actions, .a4-modal-close, .lightbox-overlay {
+        display: none !important;
+      }
+      .a4-modal-overlay {
+        position: static !important;
+        display: block !important;
+        padding: 0 !important;
+        background: none !important;
+      }
+      .a4-sheet-container {
+        box-shadow: none !important;
+        border: none !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================================================
+       TOP FLOATING SWITCHER & BRAND BAR
+       ========================================================================= -->
+  <header class="top-nav">
+    <div class="brand-group">
+      <div class="brand-logo">FELTZ STUDIO</div>
+      <div class="brand-tag">MONGKOL W. · EST. 2012</div>
+    </div>
+
+    <div class="nav-actions">
+      <a href="feltz_kinetic_option1.html" class="nav-pill-btn">
+        <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <span>แบบที่ 1: <span class="btn-label-long">ไถเปลี่ยนหมวด + วงแหวน 3D</span></span>
+      </a>
+      <a href="feltz_kinetic_option2.html" class="nav-pill-btn active">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        <span>แบบที่ 2: <span class="btn-label-long">สำรับการ์ดโค้ง &rarr; วงแหวน 3D</span></span>
+      </a>
+      <button type="button" class="nav-pill-btn a4-btn" onclick="openA4Modal()">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        <span>นามบัตร A4</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       STAGE WRAPPER (STAGE 1 DECK & STAGE 2 RING VIEW)
+       ========================================================================= -->
+  <main class="app-viewport">
+    
+    <!-- STAGE 1: CURVED 3D CATEGORY CARD DECK -->
+    <section class="stage-deck" id="stage-deck">
+      <div class="deck-spotlight"></div>
+
+      <div class="deck-stage-header">
+        <div class="deck-sub">FELTZ STUDIO // CATEGORY SHOWCASE</div>
+        <h1 class="deck-h1">เลือกหมวดงานเพื่อเข้าสู่วงแหวนภาพ 3 มิติ</h1>
+      </div>
+
+      <div class="deck-viewport-3d" id="deck-viewport">
+        <div class="deck-cylinder" id="deck-cylinder">
+          <!-- 8 Cards built via JS -->
+        </div>
+      </div>
+
+      <!-- Right Side Rail -->
+      <nav class="deck-rail" id="deck-rail" aria-label="Deck Category Selector"></nav>
+
+      <!-- Bottom Hint -->
+      <div class="deck-instruction">
+        <svg viewBox="0 0 24 24"><path d="M7 11l5-5 5 5M7 13l5 5 5-5"/></svg>
+        <span>หมุนลูกกลิ้ง / ปัดการ์ดขึ้น-ลง · แตะการ์ดเพื่อเปิดวงแหวน</span>
+      </div>
+    </section>
+
+    <!-- STAGE 2: 3D ROTATING PHOTO RING (TRIGGERED ON CARD TAP) -->
+    <section class="stage-ring-view" id="stage-ring-view">
+      <!-- Pin 01 Depth Showcase Background -->
+      <div class="depth-bg-layer">
+        <div class="depth-bg-card c1"></div>
+        <div class="depth-bg-card c2"></div>
+      </div>
+
+      <div class="stage-ring-backdrop-text" id="stage2-backdrop-text">concert</div>
+
+      <div class="stage2-top-bar">
+        <button type="button" class="btn-back-to-deck" onclick="exitStage2()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          <span>กลับหน้าสำรับการ์ด (CATEGORIES)</span>
+        </button>
+
+        <div class="stage2-cat-info">
+          <div class="stage2-cat-badge" id="stage2-badge">01 // CONCERT &amp; STAGE</div>
+          <div class="stage2-cat-title" id="stage2-title">ถ่ายคอนเสิร์ตและเวทีการแสดง</div>
+        </div>
+      </div>
+
+      <!-- 3D Ring Stage -->
+      <div class="stage2-ring-container" id="stage2-ring-container">
+        <div class="stage2-ring-pivot" id="stage2-ring-pivot">
+          <!-- 8 Photos injected via JS -->
+        </div>
+      </div>
+
+      <div class="stage2-bottom-bar">
+        <button type="button" class="stage2-cat-nav-btn" onclick="switchCategoryStage2(-1)">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          <span>หมวดก่อนหน้า</span>
+        </button>
+        <span class="stage2-ring-hint">DRAG TO SPIN · TAP PHOTO TO INSPECT</span>
+        <button type="button" class="stage2-cat-nav-btn" onclick="switchCategoryStage2(1)">
+          <span>หมวดถัดไป</span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       FULLSCREEN LIGHTBOX MODAL
+       ========================================================================= -->
+  <div class="lightbox-overlay" id="lightbox-overlay" onclick="handleLightboxBackdrop(event)">
+    <div class="lightbox-header">
+      <div class="lightbox-title-box">
+        <div class="lb-cat" id="lb-cat">CONCERT &amp; STAGE</div>
+        <div class="lb-title" id="lb-title">Concert Image 01</div>
+      </div>
+      <button type="button" class="lightbox-close-btn" onclick="closeLightbox()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <span>ปิดดูภาพ</span>
+      </button>
+    </div>
+
+    <div class="lightbox-content-wrap">
+      <button type="button" class="lightbox-nav-btn prev" onclick="navigateLightbox(-1)" aria-label="Previous image">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <img id="lightbox-img" class="lightbox-img" src="" alt="Feltz Studio Inspection" />
+      <button type="button" class="lightbox-nav-btn next" onclick="navigateLightbox(1)" aria-label="Next image">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       A4 EXECUTIVE PROFILE MODAL (MONGKOL WONGSAKULYANON - FELTZ STUDIO)
+       ========================================================================= -->
+  <div class="a4-modal-overlay" id="a4-modal" onclick="handleA4Backdrop(event)">
+    <div class="a4-sheet-container">
+      <button type="button" class="a4-modal-close" onclick="closeA4Modal()" aria-label="Close A4 Profile">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+
+      <div class="a4-header-grid">
+        <img src="keng_profile.jpg" alt="Mongkol Wongsakulyanon Profile" class="a4-avatar" />
+        <div>
+          <div class="a4-title-tag">EXECUTIVE PHOTOGRAPHER PROFILE // A4 BRIEF</div>
+          <h1 class="a4-name">MONGKOL WONGSAKULYANON</h1>
+          <div class="a4-role">นาย มงคล วงศ์สกุลยานนท์ (เก่ง) — Founder &amp; Lead Photographer, Feltz Studio</div>
+          <p class="a4-bio">
+            ช่างภาพพาณิชย์และสถาปัตยกรรมมืออาชีพประจำจังหวัดเชียงใหม่ ประสบการณ์กว่า 12 ปี (ก่อตั้งปี 2012)
+            เชี่ยวชาญการถ่ายภาพโรงแรม รีสอร์ต อสังหาริมทรัพย์ สปอร์ตความเร็วสูง คอนเสิร์ต อีเวนต์องค์กร และอาหารเชิงพาณิชย์
+            โดดเด่นด้วยทักษะการจัดแสงและเกรดสีระดับภาพยนตร์ด้วย Capture One Pro และ DaVinci Resolve
+          </p>
+        </div>
+
+        <div class="a4-contact-card">
+          <div class="card-head">DIRECT CONTACT &amp; BASE</div>
+          <div><strong>โทร:</strong> 089-554-4355</div>
+          <div><strong>LINE ID:</strong> 0895544355</div>
+          <div><strong>อีเมล:</strong> silver_nsx@hotmail.com</div>
+          <div><strong>วันเกิด / อายุ:</strong> 15 มิ.ย. 2526 (43 ปี)</div>
+          <div><strong>ที่ตั้งสตูดิโอ:</strong> 65/1 ถ.ต้นขาม ต.ท่าศาลา อ.เมือง จ.เชียงใหม่ 50000</div>
+        </div>
+      </div>
+
+      <div class="a4-columns">
+        <div>
+          <div class="a4-sec-title">01 // CORE EXPERTISE &amp; SPECIALIZATIONS</div>
+          <ul class="a4-list">
+            <li><strong>Hospitality &amp; Real Estate:</strong> ภาพสถาปัตยกรรม โรงแรม รีสอร์ต คุมเส้นตั้งฉากและแสง Twilight แม่นยำ</li>
+            <li><strong>High-Speed Cycling &amp; Sport:</strong> ภาพการแข่งขันจักรยานและสปอร์ตความเร็วสูง จับจังหวะ Peloton คมกริบ</li>
+            <li><strong>Commercial Food &amp; Product:</strong> ภาพอาหาร เครื่องดื่ม และสินค้าโฆษณา ขับเน้นพื้นผิวและสีสันสมจริง</li>
+            <li><strong>Corporate Event &amp; Concert:</strong> งานประชุมระดับนานาชาติ คอนเสิร์ต และบันทึกเหตุการณ์จริง</li>
+          </ul>
+
+          <div class="a4-sec-title" style="margin-top:18px;">02 // EDUCATION BACKGROUND</div>
+          <ul class="a4-list">
+            <li><strong>ปริญญาตรี:</strong> วท.บ. (วิทยาการคอมพิวเตอร์) มหาวิทยาลัยพายัพ</li>
+            <li><strong>มัธยมศึกษาตอนปลาย:</strong> โรงเรียนยุพราชวิทยาลัย เชียงใหม่</li>
+            <li><strong>ประถม–มัธยมศึกษาตอนต้น:</strong> โรงเรียนมงฟอร์ตวิทยาลัย เชียงใหม่</li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="a4-sec-title">03 // OPTICAL HARDWARE &amp; COLOR LAB</div>
+          <ul class="a4-list">
+            <li><strong>Dual Bodies:</strong> Sony A7 IV (2 กล้องฟูลเฟรมพร้อมลุยงานจริง)</li>
+            <li><strong>Master Optics:</strong> Sony FE 70-200mm F2.8 GM OSS II, Sigma 28-45mm F1.8 DG DN Art, Sony FE 16-28mm F2.8, Sigma 85mm F1.4 DG DN Art</li>
+            <li><strong>Color Lab:</strong> Capture One Pro, DaVinci Resolve, Lightroom Classic</li>
+          </ul>
+
+          <div class="a4-sec-title" style="margin-top:18px;">04 // SELECTED ENTERPRISE CLIENTS (14+ BRANDS)</div>
+          <div class="a4-client-chips">
+            Singha Corporation · ธนาคารกสิกรไทย (KBank) · Thai AirAsia · True Corporation · AIA · Yamaha · TCEB · GISTDA · WTF Music Festival · AWA 2024–2025 · MAYA Chiang Mai · X2 Vibe Hotel · Fujiyama Go Go · มหาวิทยาลัยเชียงใหม่ (CMU)
+          </div>
+        </div>
+      </div>
+
+      <div class="a4-footer-actions">
+        <div style="font-size:12px; color:#6b7280;">
+          FELTZ STUDIO // AUTHENTIC COMMERCIAL PHOTOGRAPHY &amp; OPTICAL DIRECTIVE
+        </div>
+        <button type="button" class="a4-print-btn" onclick="window.print()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          <span>สั่งพิมพ์ / บันทึกเป็น PDF A4</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       CORE CURVED 3D DECK & RING ENGINE JAVASCRIPT
+       ========================================================================= -->
+  <script>
+    const CATEGORIES = [
+      {
+        id: "concert",
+        num: "01",
+        label: "CONCERT & STAGE",
+        sub: "ถ่ายคอนเสิร์ตและเวทีการแสดงระดับเทศกาลดนตรี",
+        tone: "charcoal", // pin_02 style
+        bigText: "concert",
+        coverThumb: "assets/ring_thumbs/concert_01.jpg",
+        photos: [
+          { thumb: "assets/ring_thumbs/concert_01.jpg", full: "assets/ring_full/concert_01.jpg", title: "Concert & Stage 01" },
+          { thumb: "assets/ring_thumbs/concert_02.jpg", full: "assets/ring_full/concert_02.jpg", title: "Concert & Stage 02" },
+          { thumb: "assets/ring_thumbs/concert_03.jpg", full: "assets/ring_full/concert_03.jpg", title: "Concert & Stage 03" },
+          { thumb: "assets/ring_thumbs/concert_04.jpg", full: "assets/ring_full/concert_04.jpg", title: "Concert & Stage 04" },
+          { thumb: "assets/ring_thumbs/concert_05.jpg", full: "assets/ring_full/concert_05.jpg", title: "Concert & Stage 05" },
+          { thumb: "assets/ring_thumbs/concert_06.jpg", full: "assets/ring_full/concert_06.jpg", title: "Concert & Stage 06" },
+          { thumb: "assets/ring_thumbs/concert_07.jpg", full: "assets/ring_full/concert_07.jpg", title: "Concert & Stage 07" },
+          { thumb: "assets/ring_thumbs/concert_08.jpg", full: "assets/ring_full/concert_08.jpg", title: "Concert & Stage 08" }
+        ]
+      },
+      {
+        id: "hospitality",
+        num: "02",
+        label: "HOTEL & RESORT",
+        sub: "โรงแรม รีสอร์ต และบรรยากาศพักผ่อนระดับลักชัวรี",
+        tone: "plaster",
+        bigText: "hospitality",
+        coverThumb: "assets/ring_thumbs/hospitality_01.jpg",
+        photos: [
+          { thumb: "assets/ring_thumbs/hospitality_01.jpg", full: "assets/ring_full/hospitality_01.jpg", title: "Hotel & Resort 01" },
+          { thumb: "assets/ring_thumbs/hospitality_02.jpg", full: "assets/ring_full/hospitality_02.jpg", title: "Hotel & Resort 02" },
+          { thumb: "assets/ring_thumbs/hospitality_03.jpg", full: "assets/ring_full/hospitality_03.jpg", title: "Hotel & Resort 03" },
+          { thumb: "assets/ring_thumbs/hospitality_04.jpg", full: "assets/ring_full/hospitality_04.jpg", title: "Hotel & Resort 04" },
+          { thumb: "assets/ring_thumbs/hospitality_05.jpg", full: "assets/ring_full/hospitality_05.jpg", title: "Hotel & Resort 05" },
+          { thumb: "assets/ring_thumbs/hospitality_06.jpg", full: "assets/ring_full/hospitality_06.jpg", title: "Hotel & Resort 06" },
+          { thumb: "assets/ring_thumbs/hospitality_07.jpg", full: "assets/ring_full/hospitality_07.jpg", title: "Hotel & Resort 07" },
+          { thumb: "assets/ring_thumbs/hospitality_08.jpg", full: "assets/ring_full/hospitality_08.jpg", title: "Hotel & Resort 08" }
+        ]
+      },
+      {
+        id: "sport",
+        num: "03",
+        label: "CYCLING & SPORT",
+        sub: "กีฬาและการแข่งขันจักรยานความเร็วสูง",
+        tone: "crimson",
+        bigText: "sport",
+        coverThumb: "assets/ring_thumbs/sport_01.jpg",
+        photos: [
+          { thumb: "assets/ring_thumbs/sport_01.jpg", full: "assets/ring_full/sport_01.jpg", title: "Cycling & Sport 01" },
+          { thumb: "assets/ring_thumbs/sport_02.jpg", full: "assets/ring_full/sport_02.jpg", title: "Cycling & Sport 02" },
+          { thumb: "assets/ring_thumbs/sport_03.jpg", full: "assets/ring_full/sport_03.jpg", title: "Cycling & Sport 03" },
+          { thumb: "assets/ring_thumbs/sport_04.jpg", full: "assets/ring_full/sport_04.jpg", title: "Cycling & Sport 04" },
+          { thumb: "assets/ring_thumbs/sport_05.jpg", full: "assets/ring_full/sport_05.jpg", title: "Cycling & Sport 05" },
+          { thumb: "assets/ring_thumbs/sport_06.jpg", full: "assets/ring_full/sport_06.jpg", title: "Cycling & Sport 06" },
+          { thumb: "assets/ring_thumbs/sport_07.jpg", full: "assets/ring_full/sport_07.jpg", title: "Cycling & Sport 07" },
+          { thumb: "assets/ring_thumbs/sport_08.jpg", full: "assets/ring_full/sport_08.jpg", title: "Cycling & Sport 08" }
+        ]
+      },
+      {
+        id: "architecture",
+        num: "04",
+        label: "REAL ESTATE & SPACE",
+        sub: "สถาปัตยกรรม อสังหาริมทรัพย์ และเส้นสายอาคาร",
+        tone: "charcoal",
+        bigText: "architecture",
+        coverThumb: "assets/ring_thumbs/architecture_01.jpg",
+        photos: [
+          { thumb: "assets/ring_thumbs/architecture_01.jpg", full: "assets/ring_full/architecture_01.jpg", title: "Real Estate & Space 01" },
+          { thumb: "assets/ring_thumbs/architecture_02.jpg", full: "assets/ring_full/architecture_02.jpg", title: "Real Estate & Space 02" },
+          { thumb: "assets/ring_thumbs/architecture_03.jpg", full: "assets/ring_full/architecture_03.jpg", title: "Real Estate & Space 03" },
+          { thumb: "assets/ring_thumbs/architecture_04.jpg", full: "assets/ring_full/architecture_04.jpg", title: "Real Estate & Space 04" },
+          { thumb: "assets/ring_thumbs/architecture_05.jpg", full: "assets/ring_full/architecture_05.jpg", title: "Real Estate & Space 05" },
+          { thumb: "assets/ring_thumbs/architecture_06.jpg", full: "assets/ring_full/architecture_06.jpg", title: "Real Estate & Space 06" },
+          { thumb: "assets/ring_thumbs/architecture_07.jpg", full: "assets/ring_full/architecture_07.jpg", title: "Real Estate & Space 07" },
+          { thumb: "assets/ring_thumbs/architecture_08.jpg", full: "assets/ring_full/architecture_08.jpg", title: "Real Estate & Space 08" }
+        ]
+      },
+      {
+        id: "gastronomy",
+        num: "05",
+        label: "FOOD & DINING",
+        sub: "ภาพอาหาร เครื่องดื่ม และศิลปะแห่งรสสัมผัส",
+        tone: "plaster",
+        bigText: "gastronomy",
+        coverThumb: "assets/ring_thumbs/gastronomy_01.jpg",
+        photos: [
+          { thumb: "assets/ring_thumbs/gastronomy_01.jpg", full: "assets/ring_full/gastronomy_01.jpg", title: "Food & Dining 01" },
+          { thumb: "assets/ring_thumbs/gastronomy_02.jpg", full: "assets/ring_full/gastronomy_02.jpg", title: "Food & Dining 02" },
+          { thumb: "assets/ring_thumbs/gastronomy_03.jpg", full: "assets/ring_full/gastronomy_03.jpg", title: "Food & Dining 03" },
+          { thumb: "assets/ring_thumbs/gastronomy_04.jpg", full: "assets/ring_full/gastronomy_04.jpg", title: "Food & Dining 04" },
+          { thumb: "assets/ring_thumbs/gastronomy_05.jpg", full: "assets/ring_full/gastronomy_05.jpg", title: "Food & Dining 05" },
+          { thumb: "assets/ring_thumbs/gastronomy_06.jpg", full: "assets/ring_full/gastronomy_06.jpg", title: "Food & Dining 06" },
+          { thumb: "assets/ring_thumbs/gastronomy_07.jpg", full: "assets/ring_full/gastronomy_07.jpg", title: "Food & Dining 07" },
+          { thumb: "assets/ring_thumbs/gastronomy_08.jpg", full: "assets/ring_full/gastronomy_08.jpg", title: "Food & Dining 08" }
+        ]
+      },
+      {
+        id: "commercial",
+        num: "06",
+        label: "PRODUCT & BRAND",
+        sub: "สินค้าเชิงพาณิชย์และภาพลักษณ์แบรนด์ระดับสากล",
+        tone: "crimson",
+        bigText: "commercial",
+        coverThumb: "assets/ring_thumbs/commercial_01.jpg",
+        photos: [
+          { thumb: "assets/ring_thumbs/commercial_01.jpg", full: "assets/ring_full/commercial_01.jpg", title: "Product & Brand 01" },
+          { thumb: "assets/ring_thumbs/commercial_02.jpg", full: "assets/ring_full/commercial_02.jpg", title: "Product & Brand 02" },
+          { thumb: "assets/ring_thumbs/commercial_03.jpg", full: "assets/ring_full/commercial_03.jpg", title: "Product & Brand 03" },
+          { thumb: "assets/ring_thumbs/commercial_04.jpg", full: "assets/ring_full/commercial_04.jpg", title: "Product & Brand 04" },
+          { thumb: "assets/ring_thumbs/commercial_05.jpg", full: "assets/ring_full/commercial_05.jpg", title: "Product & Brand 05" },
+          { thumb: "assets/ring_thumbs/commercial_06.jpg", full: "assets/ring_full/commercial_06.jpg", title: "Product & Brand 06" },
+          { thumb: "assets/ring_thumbs/commercial_07.jpg", full: "assets/ring_full/commercial_07.jpg", title: "Product & Brand 07" },
+          { thumb: "assets/ring_thumbs/commercial_08.jpg", full: "assets/ring_full/commercial_08.jpg", title: "Product & Brand 08" }
+        ]
+      },
+      {
+        id: "portrait",
+        num: "07",
+        label: "STUDIO & PORTRAIT",
+        sub: "พอร์ตเทรตผู้บริหาร บุคคลสำคัญ และสตูดิโอโปรไฟล์",
+        tone: "charcoal",
+        bigText: "portrait",
+        coverThumb: "assets/ring_thumbs/portrait_01.jpg",
+        photos: [
+          { thumb: "assets/ring_thumbs/portrait_01.jpg", full: "assets/ring_full/portrait_01.jpg", title: "Studio & Portrait 01" },
+          { thumb: "assets/ring_thumbs/portrait_02.jpg", full: "assets/ring_full/portrait_02.jpg", title: "Studio & Portrait 02" },
+          { thumb: "assets/ring_thumbs/portrait_03.jpg", full: "assets/ring_full/portrait_03.jpg", title: "Studio & Portrait 03" },
+          { thumb: "assets/ring_thumbs/portrait_04.jpg", full: "assets/ring_full/portrait_04.jpg", title: "Studio & Portrait 04" },
+          { thumb: "assets/ring_thumbs/portrait_05.jpg", full: "assets/ring_full/portrait_05.jpg", title: "Studio & Portrait 05" },
+          { thumb: "assets/ring_thumbs/portrait_06.jpg", full: "assets/ring_full/portrait_06.jpg", title: "Studio & Portrait 06" },
+          { thumb: "assets/ring_thumbs/portrait_07.jpg", full: "assets/ring_full/portrait_07.jpg", title: "Studio & Portrait 07" },
+          { thumb: "assets/ring_thumbs/portrait_08.jpg", full: "assets/ring_full/portrait_08.jpg", title: "Studio & Portrait 08" }
+        ]
+      },
+      {
+        id: "live_event",
+        num: "08",
+        label: "EVENT & SPECIAL",
+        sub: "งานประชุมนานาชาติ อีเวนต์พิเศษ และงานบันทึกจริง",
+        tone: "plaster",
+        bigText: "event",
+        coverThumb: "assets/ring_thumbs/live_event_01.jpg",
+        photos: [
+          { thumb: "assets/ring_thumbs/live_event_01.jpg", full: "assets/ring_full/live_event_01.jpg", title: "Event & Special 01" },
+          { thumb: "assets/ring_thumbs/live_event_02.jpg", full: "assets/ring_full/live_event_02.jpg", title: "Event & Special 02" },
+          { thumb: "assets/ring_thumbs/live_event_03.jpg", full: "assets/ring_full/live_event_03.jpg", title: "Event & Special 03" },
+          { thumb: "assets/ring_thumbs/live_event_04.jpg", full: "assets/ring_full/live_event_04.jpg", title: "Event & Special 04" },
+          { thumb: "assets/ring_thumbs/live_event_05.jpg", full: "assets/ring_full/live_event_05.jpg", title: "Event & Special 05" },
+          { thumb: "assets/ring_thumbs/live_event_06.jpg", full: "assets/ring_full/live_event_06.jpg", title: "Event & Special 06" },
+          { thumb: "assets/ring_thumbs/live_event_07.jpg", full: "assets/ring_full/live_event_07.jpg", title: "Event & Special 07" },
+          { thumb: "assets/ring_thumbs/live_event_08.jpg", full: "assets/ring_full/live_event_08.jpg", title: "Event & Special 08" }
+        ]
+      }
+    ];
+
+    // =========================================================================
+    // STAGE 1: CURVED 3D DECK PHYSICS ENGINE
+    // =========================================================================
+    let scrollCurrent = 0;
+    let scrollTarget = 0;
+    let isDeckDragging = false;
+    let deckStartY = 0;
+    let deckLastY = 0;
+    let deckDragDist = 0;
+    const cardDOMElements = [];
+    const railButtons = [];
+
+    const deckCylinder = document.getElementById("deck-cylinder");
+    const deckRail = document.getElementById("deck-rail");
+    const deckViewport = document.getElementById("deck-viewport");
+
+    function initDeck() {
+      CATEGORIES.forEach((cat, idx) => {
+        // Rail Dot
+        const rBtn = document.createElement("button");
+        rBtn.type = "button";
+        rBtn.className = `rail-btn ${idx === 0 ? "active" : ""}`;
+        rBtn.innerHTML = `<span class="num">${cat.num}</span><span class="dot"></span>`;
+        rBtn.onclick = () => {
+          let diff = (idx - (scrollCurrent % 8)) % 8;
+          if (diff > 4) diff -= 8;
+          if (diff < -4) diff += 8;
+          scrollTarget += diff;
+        };
+        deckRail.appendChild(rBtn);
+        railButtons.push(rBtn);
+
+        // Deck Card (Curved Arc)
+        const card = document.createElement("div");
+        card.className = "deck-card";
+        card.setAttribute("data-tone", cat.tone);
+        card.setAttribute("data-index", idx);
+
+        card.innerHTML = `
+          <div class="card-top-row">
+            <div class="card-num-large">${cat.num}</div>
+            <div class="card-mini-specs">FELTZ // ARCHIVE</div>
+          </div>
+
+          <div class="card-mid-row">
+            <div class="card-title-group">
+              <h2 class="card-category-name">${cat.label}</h2>
+              <div class="card-category-sub">${cat.sub}</div>
+            </div>
+            <div class="card-thumb-box">
+              <img src="${cat.coverThumb}" alt="${cat.label} Cover" loading="lazy" />
+            </div>
+          </div>
+
+          <div class="card-bottom-row">
+            <div class="card-badge-count">
+              <span>8 PHOTOS</span>
+            </div>
+            <button type="button" class="card-explore-btn" onclick="event.stopPropagation(); enterStage2(${idx});">
+              <span>EXPLORE RING</span>
+              <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        `;
+
+        card.addEventListener("click", () => {
+          if (deckDragDist > 8) return;
+          let diff = (idx - (scrollCurrent % 8)) % 8;
+          if (diff > 4) diff -= 8;
+          if (diff < -4) diff += 8;
+          if (Math.abs(diff) < 0.4) {
+            enterStage2(idx);
+          } else {
+            scrollTarget += diff;
+          }
+        });
+
+        deckCylinder.appendChild(card);
+        cardDOMElements.push(card);
+      });
+
+      // Pointer / Touch / Wheel Events for Deck
+      deckViewport.addEventListener("wheel", (e) => {
+        e.preventDefault();
+        scrollTarget += e.deltaY * 0.0022;
+      }, { passive: false });
+
+      const onDeckPointerDown = (e) => {
+        isDeckDragging = true;
+        deckStartY = e.clientY || (e.touches && e.touches[0].clientY) || 0;
+        deckLastY = deckStartY;
+        deckDragDist = 0;
+      };
+
+      const onDeckPointerMove = (e) => {
+        if (!isDeckDragging) return;
+        const clientY = e.clientY || (e.touches && e.touches[0].clientY) || 0;
+        const dy = clientY - deckLastY;
+        deckDragDist += Math.abs(dy);
+
+        scrollTarget -= dy * 0.004;
+        deckLastY = clientY;
+      };
+
+      const onDeckPointerUp = () => {
+        if (!isDeckDragging) return;
+        isDeckDragging = false;
+        // Snap to nearest integer
+        scrollTarget = Math.round(scrollTarget);
+      };
+
+      deckViewport.addEventListener("mousedown", onDeckPointerDown);
+      window.addEventListener("mousemove", onDeckPointerMove);
+      window.addEventListener("mouseup", onDeckPointerUp);
+
+      deckViewport.addEventListener("touchstart", onDeckPointerDown, { passive: true });
+      window.addEventListener("touchmove", onDeckPointerMove, { passive: true });
+      window.addEventListener("touchend", onDeckPointerUp);
+    }
+
+    // Animation Loop for Deck Arc (Circular Wrap Fan like pin_02)
+    function updateDeckPhysics() {
+      scrollCurrent += (scrollTarget - scrollCurrent) * 0.12;
+
+      const isMobile = window.innerWidth <= 768;
+      const stepY = isMobile ? 62 : 82;
+      const zDepth = isMobile ? 65 : 90;
+      const xOffset = isMobile ? -10 : -16;
+
+      cardDOMElements.forEach((card, i) => {
+        let diff = (i - (scrollCurrent % 8)) % 8;
+        if (diff > 4) diff -= 8;
+        if (diff < -4) diff += 8;
+
+        const absDiff = Math.abs(diff);
+
+        // pin_02 Arc Fan Math
+        const y = diff * stepY;
+        const x = absDiff * xOffset;
+        const z = -absDiff * zDepth + (absDiff < 0.5 ? 40 : 0);
+        const rotX = diff * -9;
+        const rotZ = diff * 2.2;
+        const scale = Math.max(0.72, 1 - absDiff * 0.06);
+        const opacity = Math.max(0.18, 1 - absDiff * 0.24);
+        const zIndex = Math.round(100 - absDiff * 12);
+
+        card.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotateX(${rotX}deg) rotateZ(${rotZ}deg) scale(${scale})`;
+        card.style.opacity = opacity;
+        card.style.zIndex = zIndex;
+        card.style.pointerEvents = absDiff < 1.8 ? "auto" : "none";
+      });
+
+      // Update active rail dot
+      let normActive = Math.round(scrollCurrent) % 8;
+      if (normActive < 0) normActive += 8;
+      railButtons.forEach((btn, rIdx) => {
+        btn.classList.toggle("active", rIdx === normActive);
+      });
+    }
+
+    // =========================================================================
+    // STAGE 2: 3D SPINNING PHOTO RING ENGINE
+    // =========================================================================
+    let activeStage2CatIdx = 0;
+    let isStage2Active = false;
+    let stage2RingRotation = 0;
+    let stage2Velocity = 0;
+    let isRingDragging = false;
+    let ringStartX = 0;
+    let ringStartY = 0;
+    let ringLastX = 0;
+    let ringDragDist = 0;
+
+    const stageDeck = document.getElementById("stage-deck");
+    const stageRingView = document.getElementById("stage-ring-view");
+    const stage2Pivot = document.getElementById("stage2-ring-pivot");
+    const stage2Container = document.getElementById("stage2-ring-container");
+    const stage2Badge = document.getElementById("stage2-badge");
+    const stage2Title = document.getElementById("stage2-title");
+    const stage2BackdropText = document.getElementById("stage2-backdrop-text");
+
+    function enterStage2(catIdx) {
+      activeStage2CatIdx = catIdx;
+      isStage2Active = true;
+      buildStage2Ring();
+
+      stageDeck.classList.add("is-hidden");
+      stageRingView.classList.add("is-active");
+    }
+
+    function exitStage2() {
+      isStage2Active = false;
+      stageRingView.classList.remove("is-active");
+      stageDeck.classList.remove("is-hidden");
+    }
+
+    function switchCategoryStage2(dir) {
+      const len = CATEGORIES.length;
+      activeStage2CatIdx = (activeStage2CatIdx + dir + len) % len;
+      scrollTarget = activeStage2CatIdx;
+      buildStage2Ring();
+    }
+
+    function buildStage2Ring() {
+      const cat = CATEGORIES[activeStage2CatIdx];
+      stage2Badge.textContent = `${cat.num} // ${cat.label}`;
+      stage2Title.textContent = cat.sub;
+      stage2BackdropText.textContent = cat.bigText;
+
+      stage2Pivot.innerHTML = "";
+      stage2RingRotation = 0;
+      stage2Velocity = 0;
+
+      const isMobile = window.innerWidth <= 768;
+      const radius = isMobile ? 180 : 330;
+
+      cat.photos.forEach((photo, pIdx) => {
+        const card = document.createElement("div");
+        card.className = "stage2-ring-card";
+        const deg = pIdx * 45;
+        card.style.transform = `rotateY(${deg}deg) translateZ(${radius}px)`;
+        card.innerHTML = `
+          <div class="ring-card-face ring-card-front">
+            <img src="${photo.thumb}" alt="${photo.title}" loading="lazy" />
+            <div class="card-caption">
+              <span class="tag">${cat.num}-${String(pIdx + 1).padStart(2, "0")}</span>
+              <span class="btn-inspect">INSPECT</span>
+            </div>
+          </div>
+          <div class="ring-card-face ring-card-back">
+            <img src="${photo.thumb}" alt="" loading="lazy" />
+          </div>
+        `;
+
+        card.addEventListener("click", () => {
+          if (ringDragDist < 8) {
+            openLightbox(cat.id, pIdx);
+          }
+        });
+
+        stage2Pivot.appendChild(card);
+      });
+    }
+
+    function setupStage2RingInteractivity() {
+      const onRingDown = (e) => {
+        if (!isStage2Active) return;
+        isRingDragging = true;
+        ringStartX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+        ringStartY = e.clientY || (e.touches && e.touches[0].clientY) || 0;
+        ringLastX = ringStartX;
+        ringDragDist = 0;
+        stage2Velocity = 0;
+      };
+
+      const onRingMove = (e) => {
+        if (!isRingDragging) return;
+        const clientX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+        const clientY = e.clientY || (e.touches && e.touches[0].clientY) || 0;
+        const dx = clientX - ringLastX;
+        const dy = clientY - ringStartY;
+        ringDragDist += Math.abs(dx);
+
+        if (Math.abs(dx) > Math.abs(dy) && ringDragDist > 6) {
+          if (e.cancelable && e.type.startsWith("touch")) {
+            e.preventDefault();
+          }
+        }
+
+        stage2Velocity = dx * 0.42;
+        stage2RingRotation += stage2Velocity;
+        ringLastX = clientX;
+      };
+
+      const onRingUp = () => {
+        if (!isRingDragging) return;
+        isRingDragging = false;
+      };
+
+      stage2Container.addEventListener("mousedown", onRingDown);
+      window.addEventListener("mousemove", onRingMove, { passive: false });
+      window.addEventListener("mouseup", onRingUp);
+
+      stage2Container.addEventListener("touchstart", onRingDown, { passive: true });
+      window.addEventListener("touchmove", onRingMove, { passive: false });
+      window.addEventListener("touchend", onRingUp);
+    }
+
+    function updateStage2RingPhysics() {
+      if (!isStage2Active) return;
+
+      if (!isRingDragging) {
+        if (Math.abs(stage2Velocity) > 0.04) {
+          stage2RingRotation += stage2Velocity;
+          stage2Velocity *= 0.94; // Inertia friction
+        } else {
+          stage2RingRotation += 0.16; // Smooth auto spin
+        }
+      }
+
+      stage2Pivot.style.transform = `rotateX(-13deg) rotateZ(-4deg) rotateY(${stage2RingRotation}deg)`;
+    }
+
+    // Master Animation Loop
+    function mainLoop() {
+      if (!isStage2Active) {
+        updateDeckPhysics();
+      } else {
+        updateStage2RingPhysics();
+      }
+      requestAnimationFrame(mainLoop);
+    }
+
+    // =========================================================================
+    // LIGHTBOX & A4 MODAL ENGINE
+    // =========================================================================
+    let currentLightboxCat = null;
+    let currentLightboxIdx = 0;
+    const lbOverlay = document.getElementById("lightbox-overlay");
+    const lbImg = document.getElementById("lightbox-img");
+    const lbCat = document.getElementById("lb-cat");
+    const lbTitle = document.getElementById("lb-title");
+
+    function openLightbox(catId, photoIdx) {
+      const cat = CATEGORIES.find(c => c.id === catId);
+      if (!cat) return;
+      currentLightboxCat = cat;
+      currentLightboxIdx = photoIdx;
+
+      updateLightboxContent();
+      lbOverlay.classList.add("is-active");
+    }
+
+    function updateLightboxContent() {
+      if (!currentLightboxCat) return;
+      const p = currentLightboxCat.photos[currentLightboxIdx];
+      lbImg.src = p.full;
+      lbCat.textContent = `${currentLightboxCat.num} // ${currentLightboxCat.label}`;
+      lbTitle.textContent = `${p.title} (${currentLightboxIdx + 1} / ${currentLightboxCat.photos.length})`;
+    }
+
+    function navigateLightbox(dir) {
+      if (!currentLightboxCat) return;
+      const len = currentLightboxCat.photos.length;
+      currentLightboxIdx = (currentLightboxIdx + dir + len) % len;
+      updateLightboxContent();
+    }
+
+    function closeLightbox() {
+      lbOverlay.classList.remove("is-active");
+    }
+
+    function handleLightboxBackdrop(e) {
+      if (e.target === lbOverlay || e.target.classList.contains("lightbox-content-wrap")) {
+        closeLightbox();
+      }
+    }
+
+    window.addEventListener("keydown", (e) => {
+      if (lbOverlay.classList.contains("is-active")) {
+        if (e.key === "Escape") closeLightbox();
+        if (e.key === "ArrowLeft") navigateLightbox(-1);
+        if (e.key === "ArrowRight") navigateLightbox(1);
+      } else if (isStage2Active) {
+        if (e.key === "Escape") exitStage2();
+        if (e.key === "ArrowLeft") switchCategoryStage2(-1);
+        if (e.key === "ArrowRight") switchCategoryStage2(1);
+      }
+    });
+
+    // A4 Profile Modal
+    const a4Modal = document.getElementById("a4-modal");
+    function openA4Modal() {
+      a4Modal.classList.add("is-open");
+    }
+    function closeA4Modal() {
+      a4Modal.classList.remove("is-open");
+    }
+    function handleA4Backdrop(e) {
+      if (e.target === a4Modal) {
+        closeA4Modal();
+      }
+    }
+
+    // Resize Handler
+    window.addEventListener("resize", () => {
+      if (isStage2Active) {
+        buildStage2Ring();
+      }
+    });
+
+    // Boot
+    window.addEventListener("DOMContentLoaded", () => {
+      initDeck();
+      setupStage2RingInteractivity();
+      requestAnimationFrame(mainLoop);
+    });
+  </script>
+</body>
+</html>
