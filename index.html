@@ -796,23 +796,25 @@
 
       .poster-headline-wrap {
         padding-top: 2px;
-        margin-bottom: 14px;
+        margin-bottom: 0;
+        z-index: 2;
       }
 
       .poster-giant-word {
-        font-size: 16.3vw;
-        line-height: 0.86;
-        letter-spacing: 0.01em;
+        font-size: 17.2vw;
+        line-height: 0.84;
+        letter-spacing: 0.005em;
         white-space: nowrap;
-        transform: scaleY(1.26);
+        transform: scaleY(1.66);
         transform-origin: top center;
       }
 
       .editorial-stamp {
-        width: 64px;
-        height: 64px;
+        width: 68px;
+        height: 68px;
         right: 1%;
-        bottom: -44px;
+        bottom: -72px;
+        z-index: 12;
       }
 
       .poster-hero-stage {
@@ -820,8 +822,9 @@
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 1fr auto;
         gap: 0 10px;
-        margin-top: -18px;
+        margin-top: 0;
         align-items: end;
+        z-index: 6;
       }
 
       /* Center Cutout spans top of mobile hero stage overlapping FELTZ STUDIO & grounded on bottom card */
@@ -829,22 +832,22 @@
         grid-column: 1 / -1;
         grid-row: 1;
         height: 100%;
-        min-height: 285px;
         position: relative;
         display: flex;
         align-items: flex-end;
         justify-content: center;
+        z-index: 5;
       }
 
       .crimson-halo-circle {
-        width: 270px;
-        height: 270px;
-        top: 45%;
+        width: 315px;
+        height: 315px;
+        top: 33%;
         left: 58%;
       }
 
       .cutout-portrait-img {
-        height: 375px;
+        height: min(55.5dvh, 516px);
         margin-bottom: -2px;
         transform: translateX(13%);
       }
