@@ -3,15 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>FELTZ STUDIO // KINETIC PORTFOLIO OPTION 1 — Kinetic Rolling Typography &amp; 3D Ring</title>
-  <meta name="description" content="Feltz Studio — Mongkol Wongsakulyanon Commercial Photography Portfolio with Kinetic Giant Typography and 3D Spinning Photo Carousel." />
+  <title>FELTZ STUDIO // MONGKOL WONGSAKULYANON — COMMERCIAL PHOTOGRAPHY PORTFOLIO</title>
+  <meta name="description" content="Feltz Studio — Mongkol Wongsakulyanon Commercial Photography Portfolio. Editorial Poster &amp; 3D Interactive Ring Showcase." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@700;800;900&family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Anuphan:wght@400;500;600;700&family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@700;800;900&family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet" />
 
   <style>
     /* ==========================================================================
-       RESET & MODERN CSS VARIABLES (STRICT ZERO AMBER-METALLIC & ZERO AI CYAN)
+       RESET & EDITORIAL COLOR SYSTEM (STRICT ZERO GOLD #FFD700 & ZERO AI CYAN)
+       Inspired by Editorial Magazine Poster Reference + Warm Portrait Rim Light
        ========================================================================== */
     *, *::before, *::after {
       box-sizing: border-box;
@@ -21,39 +22,43 @@
     }
 
     :root {
-      --bg-dark: #070b12;
-      --bg-dark-card: #0f172a;
-      --bg-dark-surface: #151f34;
-      --text-dark-main: #f8fafc;
-      --text-dark-sub: #94a3b8;
-      --border-dark: rgba(255, 255, 255, 0.10);
-      --border-dark-strong: rgba(91, 141, 239, 0.35);
+      --bg-dark: #0b0707;
+      --bg-dark-card: #140c0c;
+      --bg-dark-surface: #1c1010;
+      --text-dark-main: #e8dcc8;
+      --text-dark-white: #f7f3eb;
+      --text-dark-sub: #a89a8e;
+      --border-dark: rgba(232, 220, 200, 0.12);
+      --border-crimson: rgba(201, 59, 43, 0.30);
+      --border-crimson-strong: rgba(224, 79, 62, 0.52);
 
-      --bg-light: #f8fafc;
-      --bg-light-card: #ffffff;
-      --bg-light-surface: #f1f5f9;
-      --text-light-main: #0f172a;
-      --text-light-sub: #475569;
-      --border-light: rgba(15, 23, 42, 0.10);
-      --border-light-strong: rgba(37, 84, 176, 0.30);
+      --bg-light: #f4efe6;
+      --bg-light-card: #fcfaf5;
+      --bg-light-surface: #e9e1d4;
+      --text-light-main: #161110;
+      --text-light-sub: #574c46;
+      --border-light: rgba(22, 17, 16, 0.12);
+      --border-light-strong: rgba(201, 59, 43, 0.28);
 
-      /* Royal Cobalt Steel & Platinum (Harmonized with blue studio background of keng_profile.jpg) */
-      --accent-crimson: #2554b0;
-      --accent-vermilion: #5b8def;
-      --accent-slate: #1e293b;
-      --accent-ice: #e2e8f0;
+      /* Deep Editorial Crimson & Warm Bone Cream */
+      --accent-crimson: #c93b2b;
+      --accent-vermilion: #e04f3e;
+      --accent-deep-red: #7c1911;
+      --editorial-cream: #e8dcc8;
 
-      --font-sans: "Outfit", "Prompt", "Anuphan", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-display: "Anton", "Oswald", "Outfit", sans-serif;
+      --font-condensed: "Oswald", "Outfit", sans-serif;
+      --font-sans: "Outfit", "Prompt", "Anuphan", -apple-system, BlinkMacSystemFont, sans-serif;
       --font-th: "Prompt", "Anuphan", sans-serif;
       --font-mono: "JetBrains Mono", Menlo, Consolas, monospace;
+      --font-sign: "Caveat", cursive;
 
-      /* 3D Ring Radius for Spacing & Multiple Aspect Ratios */
       --ring-radius: 375px;
     }
 
     @media (max-width: 768px) {
       :root {
-        --ring-radius: 128px;
+        --ring-radius: 148px;
       }
     }
 
@@ -69,8 +74,14 @@
       -webkit-user-select: none;
     }
 
+    /* Strict Thai Letter Spacing Rule to Prevent Floating Vowels */
+    :lang(th), .thai-text, .editorial-quote-th, .editorial-bio-th, .service-desc-th, .meta-sub, .process-desc-th, .contact-section, .field-label, .field-input, .field-select, .field-textarea, .submit-inquiry-btn {
+      letter-spacing: 0 !important;
+      word-spacing: normal !important;
+    }
+
     /* ==========================================================================
-       TOP FLOATING SWITCHER & BRAND BAR
+       POINT 1: EDITORIAL TOP MASTHEAD (NO OPTION SWITCHERS)
        ========================================================================== */
     .top-nav {
       position: fixed;
@@ -81,127 +92,124 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 24px;
+      padding: 12px 32px;
       pointer-events: none;
+      transition: all 0.35s ease;
     }
 
-    .brand-group {
+    .masthead-bar {
+      width: 100%;
+      max-width: 1360px;
+      margin: 0 auto;
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 12px;
-      background: rgba(14, 14, 18, 0.78);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      padding: 8px 16px;
-      border-radius: 999px;
-      pointer-events: auto;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(232, 220, 200, 0.14);
+      transition: border-color 0.35s ease;
     }
 
-    .brand-logo {
-      font-family: var(--font-sans);
-      font-weight: 900;
-      letter-spacing: 0.14em;
-      font-size: 13px;
-      color: #ffffff;
-      text-transform: uppercase;
+    .top-nav.theme-light-active .masthead-bar {
+      border-bottom-color: rgba(22, 17, 16, 0.14);
     }
 
-    .brand-tag {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      color: var(--accent-vermilion);
-      padding-left: 10px;
-      border-left: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      pointer-events: auto;
-    }
-
-    .nav-pill-btn {
+    .masthead-left {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
-      background: rgba(14, 14, 18, 0.78);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      color: #e5e7eb;
-      font-family: var(--font-sans);
-      font-size: 12px;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 11px;
       font-weight: 600;
-      padding: 8px 15px;
-      border-radius: 999px;
-      text-decoration: none;
+      letter-spacing: 0.16em;
+      color: var(--editorial-cream);
+      text-transform: uppercase;
+      pointer-events: auto;
       cursor: pointer;
-      transition: all 0.22s ease;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+      background: rgba(11, 7, 7, 0.65);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 5px 12px;
+      border-radius: 4px;
+      border: 1px solid rgba(201, 59, 43, 0.25);
+      transition: all 0.25s ease;
     }
 
-    .nav-pill-btn:hover {
-      background: rgba(255, 255, 255, 0.15);
-      border-color: rgba(255, 255, 255, 0.35);
-      color: #ffffff;
-      transform: translateY(-1px);
+    .top-nav.theme-light-active .masthead-left {
+      background: rgba(244, 239, 230, 0.82);
+      color: #161110;
+      border-color: rgba(201, 59, 43, 0.28);
     }
 
-    .nav-pill-btn.active {
-      background: #ffffff;
-      color: #09090b;
-      border-color: #ffffff;
+    .masthead-left .sep {
+      color: var(--accent-crimson);
       font-weight: 700;
     }
 
-    .nav-pill-btn.a4-btn {
-      background: rgba(37, 84, 176, 0.85);
-      border-color: rgba(91, 141, 239, 0.5);
+    .masthead-right-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      color: var(--editorial-cream);
+      text-transform: uppercase;
+      background: rgba(11, 7, 7, 0.65);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 5px 12px;
+      border-radius: 4px;
+      border: 1px solid rgba(201, 59, 43, 0.32);
+      cursor: pointer;
+      pointer-events: auto;
+      transition: all 0.25s ease;
+    }
+
+    .masthead-right-btn:hover {
+      background: rgba(201, 59, 43, 0.22);
+      border-color: var(--accent-vermilion);
       color: #ffffff;
     }
 
-    .nav-pill-btn.a4-btn:hover {
-      background: #2554b0;
-      border-color: #5b8def;
+    .top-nav.theme-light-active .masthead-right-btn {
+      background: rgba(244, 239, 230, 0.82);
+      color: #161110;
+      border-color: rgba(201, 59, 43, 0.32);
     }
 
-    /* Strict Thai Letter Spacing Rule to Prevent Floating Vowels */
-    :lang(th), .thai-text, .intro-thai-lead, .intro-bio, .stat-lbl, .intro-scroll-prompt, .meta-sub, .contact-section, .field-label, .field-input, .field-select, .field-textarea, .submit-inquiry-btn {
-      letter-spacing: 0 !important;
-      word-spacing: normal !important;
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-vermilion);
+      box-shadow: 0 0 8px var(--accent-vermilion);
+      animation: pulseRed 2s infinite ease-in-out;
     }
 
-    .nav-pill-btn svg {
-      width: 14px;
-      height: 14px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+    @keyframes pulseRed {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.55; transform: scale(0.86); }
     }
 
     @media (max-width: 768px) {
       .top-nav {
-        padding: 10px 12px;
+        padding: 8px 14px;
       }
-      .brand-group {
-        padding: 6px 10px;
+      .masthead-bar {
+        padding-bottom: 6px;
       }
-      .brand-tag {
-        display: none;
+      .masthead-left {
+        font-size: 9.5px;
+        letter-spacing: 0.1em;
+        padding: 4px 8px;
+        gap: 6px;
       }
-      .nav-pill-btn {
-        padding: 6px 11px;
-        font-size: 11px;
-      }
-      .btn-label-long {
-        display: none;
+      .masthead-right-btn {
+        font-size: 9.5px;
+        letter-spacing: 0.08em;
+        padding: 4px 8px;
+        gap: 6px;
       }
     }
 
@@ -210,13 +218,13 @@
        ========================================================================== */
     .side-indicator {
       position: fixed;
-      right: 24px;
+      right: 20px;
       top: 50%;
       transform: translateY(-50%);
       z-index: 850;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 9px;
       pointer-events: auto;
     }
 
@@ -227,7 +235,7 @@
       background: none;
       border: none;
       cursor: pointer;
-      padding: 4px;
+      padding: 3px;
       justify-content: flex-end;
     }
 
@@ -235,7 +243,7 @@
       font-family: var(--font-mono);
       font-size: 10px;
       font-weight: 600;
-      color: rgba(255, 255, 255, 0.45);
+      color: rgba(232, 220, 200, 0.45);
       opacity: 0;
       transform: translateX(10px);
       transition: all 0.25s ease;
@@ -243,10 +251,10 @@
     }
 
     .indicator-dot span.idx-bar {
-      width: 6px;
-      height: 6px;
+      width: 5px;
+      height: 5px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.35);
+      background: rgba(232, 220, 200, 0.30);
       transition: all 0.25s ease;
     }
 
@@ -254,26 +262,25 @@
     .indicator-dot.active span.idx-num {
       opacity: 1;
       transform: translateX(0);
-      color: #ffffff;
+      color: var(--editorial-cream);
     }
 
     .indicator-dot.active span.idx-bar {
-      height: 24px;
+      height: 22px;
       background: var(--accent-vermilion);
     }
 
-    /* Side Indicator Light Theme Adaptation */
     .side-indicator.theme-light-active .indicator-dot span.idx-num {
-      color: rgba(17, 17, 19, 0.45);
+      color: rgba(22, 17, 16, 0.45);
     }
 
     .side-indicator.theme-light-active .indicator-dot:hover span.idx-num,
     .side-indicator.theme-light-active .indicator-dot.active span.idx-num {
-      color: #111113;
+      color: #161110;
     }
 
     .side-indicator.theme-light-active .indicator-dot span.idx-bar {
-      background: rgba(17, 17, 19, 0.25);
+      background: rgba(22, 17, 16, 0.24);
     }
 
     .side-indicator.theme-light-active .indicator-dot.active span.idx-bar {
@@ -282,8 +289,8 @@
 
     @media (max-width: 768px) {
       .side-indicator {
-        right: 12px;
-        gap: 6px;
+        right: 8px;
+        gap: 5px;
       }
       .indicator-dot span.idx-num {
         display: none;
@@ -335,405 +342,780 @@
 
     .ambient-glow {
       position: absolute;
-      width: 750px;
-      height: 750px;
+      width: 760px;
+      height: 760px;
       max-width: 100vw;
       max-height: 100vh;
       border-radius: 50%;
       pointer-events: none;
       z-index: 1;
-      opacity: 0.32;
-      background: radial-gradient(circle, var(--glow-color, rgba(37, 84, 176, 0.35)) 0%, transparent 68%) !important;
+      opacity: 0.36;
+      background: radial-gradient(circle, var(--glow-color, rgba(201, 59, 43, 0.32)) 0%, transparent 68%) !important;
     }
 
     /* ==========================================================================
-       HERO INTRO SECTION (ITEM 1: หน้าแนะนำตัว 100dvh ก่อนเข้าสู่พอร์ต)
+       POINT 3: SECTION 00 — EDITORIAL MAGAZINE COVER POSTER (REF IMAGE 1)
        ========================================================================== */
     .intro-section {
-      background: #070b12;
-      color: #f8fafc;
+      background: radial-gradient(circle at 50% 36%, #1f0c0b 0%, #0b0707 70%);
+      color: var(--editorial-cream);
+      padding: 46px 32px 18px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .editorial-poster-shell {
+      width: 100%;
+      max-width: 1320px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      z-index: 5;
+    }
+
+    /* 1. Giant Condensed Display Headline: FELTZ STUDIO */
+    .poster-headline-wrap {
+      position: relative;
+      width: 100%;
+      text-align: center;
+      z-index: 2;
+      padding-top: 4px;
+      line-height: 0.84;
+      user-select: none;
+    }
+
+    .poster-giant-word {
+      font-family: var(--font-display);
+      font-size: clamp(4.4rem, 15.2vw, 13.4rem);
+      font-weight: 400;
+      color: var(--editorial-cream);
+      text-transform: uppercase;
+      letter-spacing: 0.015em;
+      line-height: 0.84;
+      display: block;
+      width: 100%;
+      white-space: nowrap;
+      text-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+    }
+
+    /* Rotating Editorial Stamp SVG (Top Right over Headline/Shoulder) */
+    .editorial-stamp {
+      position: absolute;
+      right: 3%;
+      bottom: -36px;
+      width: 94px;
+      height: 94px;
+      z-index: 8;
+      pointer-events: none;
+    }
+
+    .editorial-stamp svg.stamp-ring {
+      width: 100%;
+      height: 100%;
+      animation: spinStamp 18s linear infinite;
+    }
+
+    .editorial-stamp .stamp-star {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-vermilion);
+    }
+
+    @keyframes spinStamp {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* 2. Centerpiece Stage: Left Optical Column + Overlapping Cutout Portrait + Right Bio/Stats */
+    .poster-hero-stage {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 400px 1.1fr;
+      gap: 24px;
+      align-items: center;
+      width: 100%;
+      flex: 1;
+      min-height: 0;
+      margin-top: -4.2vw;
+      z-index: 6;
+    }
+
+    /* Left Column: OPTICAL / VISUAL / DIRECTION + Quote */
+    .poster-col-left {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
-      padding: 40px 24px;
-      position: relative;
+      gap: 12px;
+      z-index: 7;
+      padding-right: 10px;
     }
 
-    .intro-grid {
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 38px;
-      align-items: center;
-      max-width: 1120px;
-      width: 100%;
-      z-index: 10;
-      margin-top: -20px;
-    }
-
-    .intro-avatar-frame {
-      position: relative;
-      width: 280px;
-      height: 410px;
-      aspect-ratio: 2 / 3;
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid rgba(91, 141, 239, 0.35);
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
-    }
-
-    .intro-avatar-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
-    }
-
-    .intro-avatar-tag {
-      position: absolute;
-      bottom: 12px;
-      left: 12px;
-      right: 12px;
-      background: rgba(8, 41, 82, 0.90);
-      backdrop-filter: blur(10px);
-      padding: 6px 10px;
-      border-radius: 6px;
-      border: 1px solid rgba(91, 141, 239, 0.4);
-      font-family: var(--font-mono);
-      font-size: 10px;
+    .poster-kicker-title {
+      font-family: var(--font-condensed);
+      font-size: clamp(1.35rem, 2.2vw, 2.1rem);
       font-weight: 700;
-      color: #ffffff;
-      letter-spacing: 0.1em;
+      color: var(--editorial-cream);
+      letter-spacing: 0.03em;
       text-transform: uppercase;
-      text-align: center;
+      line-height: 1.05;
     }
 
-    .intro-content {
+    .poster-sub-list {
+      list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 3px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-dark-sub);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
     }
 
-    .intro-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+    .poster-red-rule {
+      width: 34px;
+      height: 2px;
+      background: var(--accent-crimson);
+      margin: 2px 0;
+    }
+
+    .poster-quote-box {
+      position: relative;
+      padding-left: 26px;
+    }
+
+    .poster-quote-mark {
+      position: absolute;
+      left: 0;
+      top: -8px;
+      font-family: Georgia, serif;
+      font-size: 38px;
+      line-height: 1;
+      color: var(--accent-crimson);
+      font-weight: 700;
+    }
+
+    .editorial-quote-th {
+      font-family: var(--font-th);
+      font-size: 13px;
+      font-weight: 400;
+      color: #d6c8b8;
+      line-height: 1.5;
+    }
+
+    .poster-signature {
+      font-family: var(--font-sign);
+      font-size: 24px;
+      color: var(--editorial-cream);
+      opacity: 0.88;
+      margin-top: 2px;
+      transform: rotate(-3deg);
+      display: inline-block;
+    }
+
+    /* Center Column: Crimson Sun Halo + Cutout PNG Overlapping Giant Title */
+    .poster-col-center {
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .crimson-halo-circle {
+      position: absolute;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle at 38% 35%, rgba(212, 56, 40, 0.76) 0%, rgba(145, 24, 16, 0.56) 52%, rgba(70, 10, 8, 0.22) 76%, transparent 100%);
+      box-shadow: 0 0 85px rgba(201, 59, 43, 0.38);
+      border: 1px solid rgba(224, 79, 62, 0.28);
+      z-index: 1;
+    }
+
+    .cutout-portrait-img {
+      position: relative;
+      z-index: 3;
+      height: min(60vh, 540px);
+      width: auto;
+      object-fit: contain;
+      object-position: bottom center;
+      filter: drop-shadow(0 18px 36px rgba(0, 0, 0, 0.85)) contrast(1.04);
+      margin-bottom: -4px;
+    }
+
+    /* Right Column: MONGKOL WONGSAKULYANON + Bio + 3 Circle Icon Stats */
+    .poster-col-right {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 10px;
+      z-index: 7;
+      padding-left: 14px;
+    }
+
+    .poster-person-name {
+      font-family: var(--font-condensed);
+      font-size: clamp(1.55rem, 2.5vw, 2.35rem);
+      font-weight: 700;
+      color: var(--editorial-cream);
+      letter-spacing: 0.03em;
+      line-height: 1.04;
+      text-transform: uppercase;
+    }
+
+    .poster-person-role {
       font-family: var(--font-mono);
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.14em;
       color: var(--accent-vermilion);
+      letter-spacing: 0.14em;
       text-transform: uppercase;
     }
 
-    .intro-eyebrow .dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--accent-vermilion);
-    }
-
-    .intro-title {
-      font-size: clamp(2rem, 3.6vw, 3.1rem);
-      font-weight: 900;
-      letter-spacing: -0.03em;
-      line-height: 1.08;
-      color: #ffffff;
-    }
-
-    .intro-thai-lead {
+    .editorial-bio-th {
       font-family: var(--font-th);
-      font-size: clamp(1.05rem, 1.5vw, 1.3rem);
-      font-weight: 600;
-      color: #f8fafc;
-      line-height: 1.45;
-      letter-spacing: 0 !important;
+      font-size: 12.5px;
+      color: var(--text-dark-sub);
+      line-height: 1.52;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(201, 59, 43, 0.26);
     }
 
-    .intro-bio {
-      font-family: var(--font-th);
-      font-size: 13.5px;
-      color: #94a3b8;
-      line-height: 1.6;
-      letter-spacing: 0 !important;
-    }
-
-    /* 4 Trust Stats Grid */
-    .intro-stats-grid {
+    .poster-stats-row {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-top: 4px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      padding-top: 4px;
     }
 
-    .stat-card {
-      background: rgba(15, 23, 42, 0.75);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 8px;
-      padding: 10px 12px;
+    .poster-stat-item {
       display: flex;
       flex-direction: column;
       gap: 4px;
     }
 
-    .stat-card:hover {
-      border-color: rgba(91, 141, 239, 0.4);
-    }
-
-    .stat-val {
-      font-family: var(--font-sans);
-      font-size: 12.5px;
-      font-weight: 800;
+    .stat-icon-circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid rgba(224, 79, 62, 0.55);
+      background: rgba(201, 59, 43, 0.10);
       color: var(--accent-vermilion);
-      letter-spacing: 0.04em;
-    }
-
-    .stat-lbl {
-      font-family: var(--font-th);
-      font-size: 11px;
-      color: #94a3b8;
-      line-height: 1.35;
-      letter-spacing: 0 !important;
-    }
-
-    .intro-actions {
       display: flex;
       align-items: center;
-      gap: 14px;
-      margin-top: 8px;
+      justify-content: center;
+      margin-bottom: 2px;
     }
 
-    .intro-a4-btn {
+    .stat-icon-circle svg {
+      width: 13px;
+      height: 13px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    .poster-stat-num {
+      font-family: var(--font-sans);
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--editorial-cream);
+      line-height: 1.05;
+    }
+
+    .poster-stat-label {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      font-weight: 600;
+      color: var(--text-dark-sub);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1.25;
+    }
+
+    /* 3. Bottom Strip: WHAT I DO (4 Editorial Grid Cards) + Scroll CTA Bar */
+    .poster-bottom-deck {
+      width: 100%;
+      z-index: 8;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .what-i-do-frame {
+      display: grid;
+      grid-template-columns: 145px repeat(4, 1fr);
+      border-top: 1px solid rgba(201, 59, 43, 0.32);
+      border-bottom: 1px solid rgba(201, 59, 43, 0.32);
+      background: rgba(14, 8, 8, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .what-i-do-head {
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 1px solid rgba(201, 59, 43, 0.25);
+    }
+
+    .what-i-do-title {
+      font-family: var(--font-condensed);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--editorial-cream);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    .what-i-do-sub {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      color: var(--accent-vermilion);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .service-editorial-card {
+      padding: 12px 16px;
+      border-right: 1px solid rgba(201, 59, 43, 0.20);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      transition: background 0.22s ease;
+    }
+
+    .service-editorial-card:last-child {
+      border-right: none;
+    }
+
+    .service-editorial-card:hover {
+      background: rgba(201, 59, 43, 0.10);
+    }
+
+    .service-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .service-icon {
+      color: var(--accent-vermilion);
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .service-num-tag {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      color: rgba(232, 220, 200, 0.45);
+      letter-spacing: 0.08em;
+    }
+
+    .service-name {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--editorial-cream);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .service-desc-th {
+      font-family: var(--font-th);
+      font-size: 11.5px;
+      color: var(--text-dark-sub);
+      line-height: 1.38;
+    }
+
+    .poster-scroll-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 4px 2px 0 2px;
+    }
+
+    .poster-client-ticker {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: rgba(232, 220, 200, 0.55);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .poster-scroll-btn {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: var(--accent-crimson);
-      color: #ffffff;
-      border: 1px solid var(--accent-vermilion);
-      padding: 10px 22px;
+      gap: 10px;
+      background: rgba(201, 59, 43, 0.16);
+      border: 1px solid rgba(224, 79, 62, 0.48);
+      color: var(--editorial-cream);
+      padding: 7px 18px;
       border-radius: 999px;
-      font-family: var(--font-th);
-      font-size: 13px;
+      font-family: var(--font-mono);
+      font-size: 11px;
       font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
       cursor: pointer;
       transition: all 0.22s ease;
-      letter-spacing: 0 !important;
     }
 
-    .intro-a4-btn:hover {
-      background: #1d428a;
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(37, 84, 176, 0.45);
-    }
-
-    /* Bouncing Scroll Down Prompt (Item 1 & 4: ไม่มีสระลอย 100%) */
-    .intro-scroll-prompt {
-      position: absolute;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 20;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      background: rgba(15, 23, 42, 0.90);
-      backdrop-filter: blur(14px);
-      border: 1px solid rgba(91, 141, 239, 0.35);
-      padding: 13px 28px;
-      border-radius: 999px;
-      color: #f3f1ec;
-      font-family: var(--font-th);
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: 0 !important;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      animation: bouncePrompt 2.2s infinite ease-in-out;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    }
-
-    .intro-scroll-prompt:hover {
-      background: #1e293b;
-      border-color: var(--accent-vermilion);
+    .poster-scroll-btn:hover {
+      background: var(--accent-crimson);
       color: #ffffff;
-      transform: translateX(-50%) scale(1.03);
+      transform: translateY(-1px);
     }
 
-    @keyframes bouncePrompt {
-      0%, 100% { transform: translate(-50%, 0); }
-      50% { transform: translate(-50%, 8px); }
-    }
-
+    /* Mobile Responsive Magazine Cover Poster (Fits 100dvh on 430x932 cleanly!) */
     @media (max-width: 768px) {
       .intro-section {
-        padding: 16px 14px 20px 14px;
+        padding: 44px 14px 12px 14px;
+      }
+
+      .poster-headline-wrap {
+        padding-top: 2px;
+        margin-bottom: 14px;
+      }
+
+      .poster-giant-word {
+        font-size: 16.3vw;
+        line-height: 0.86;
+        letter-spacing: 0.01em;
+        white-space: nowrap;
+        transform: scaleY(1.26);
+        transform-origin: top center;
+      }
+
+      .editorial-stamp {
+        width: 64px;
+        height: 64px;
+        right: 1%;
+        bottom: -44px;
+      }
+
+      .poster-hero-stage {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr auto;
+        gap: 0 10px;
+        margin-top: -18px;
+        align-items: end;
+      }
+
+      /* Center Cutout spans top of mobile hero stage overlapping FELTZ STUDIO & grounded on bottom card */
+      .poster-col-center {
+        grid-column: 1 / -1;
+        grid-row: 1;
+        height: 100%;
+        min-height: 285px;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
         justify-content: center;
       }
-      .intro-grid {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 10px;
-        margin-top: 0;
-        padding-bottom: 0;
+
+      .crimson-halo-circle {
+        width: 270px;
+        height: 270px;
+        top: 45%;
+        left: 58%;
       }
-      .intro-avatar-frame {
-        width: 124px;
-        height: 180px;
-        margin: 0 auto;
+
+      .cutout-portrait-img {
+        height: 375px;
+        margin-bottom: -2px;
+        transform: translateX(13%);
       }
-      .intro-avatar-frame img {
-        object-position: center top;
-      }
-      .intro-content {
-        gap: 8px;
-      }
-      .intro-title {
-        font-size: 1.55rem;
-        line-height: 1.1;
-      }
-      .intro-thai-lead {
-        font-size: 0.95rem;
-        line-height: 1.35;
-      }
-      .intro-bio {
-        font-size: 12px;
-        line-height: 1.45;
-        text-align: left;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-      }
-      .intro-stats-grid {
-        grid-template-columns: repeat(2, 1fr);
+
+      /* Left overlay on mobile portrait stage */
+      .poster-col-left {
+        grid-column: 1;
+        grid-row: 1;
+        align-self: center;
+        padding-right: 0;
         gap: 6px;
-        text-align: left;
-        margin-top: 2px;
+        z-index: 8;
+        max-width: 172px;
+        pointer-events: none;
+        padding-bottom: 12px;
       }
-      .stat-card {
-        padding: 7px 10px;
+
+      .poster-kicker-title {
+        font-size: 1.15rem;
+        line-height: 1.04;
+      }
+
+      .poster-sub-list {
+        font-size: 8.8px;
+        letter-spacing: 0.06em;
         gap: 2px;
       }
-      .stat-val {
-        font-size: 11.5px;
+
+      .poster-quote-box {
+        padding-left: 15px;
       }
-      .stat-lbl {
+
+      .poster-quote-mark {
+        font-size: 25px;
+        top: -4px;
+      }
+
+      .editorial-quote-th {
+        font-size: 11px;
+        line-height: 1.38;
+      }
+
+      .poster-signature {
+        font-size: 19px;
+        margin-top: 2px;
+      }
+
+      /* Right column on mobile: Name/Role + 3 stats bar spanning below portrait */
+      .poster-col-right {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        padding-left: 0;
+        gap: 6px;
+        background: rgba(16, 9, 9, 0.92);
+        border: 1px solid rgba(201, 59, 43, 0.32);
+        padding: 9px 12px;
+        border-radius: 6px;
+        z-index: 9;
+      }
+
+      .poster-person-header-mob {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 8px;
+        border-bottom: 1px solid rgba(201, 59, 43, 0.22);
+        padding-bottom: 5px;
+      }
+
+      .poster-person-name {
+        font-size: 1.1rem;
+      }
+
+      .poster-person-role {
+        font-size: 8.5px;
+        letter-spacing: 0.08em;
+      }
+
+      .editorial-bio-th {
+        display: none;
+      }
+
+      .poster-stats-row {
+        gap: 8px;
+        padding-top: 2px;
+      }
+
+      .poster-stat-item {
+        flex-direction: row;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .stat-icon-circle {
+        width: 22px;
+        height: 22px;
+        margin-bottom: 0;
+        flex-shrink: 0;
+      }
+
+      .stat-icon-circle svg {
+        width: 11px;
+        height: 11px;
+      }
+
+      .poster-stat-num {
+        font-size: 13.5px;
+      }
+
+      .poster-stat-label {
+        font-size: 8px;
+        line-height: 1.15;
+      }
+
+      /* Bottom WHAT I DO 2x2 Grid on Mobile */
+      .what-i-do-frame {
+        grid-template-columns: repeat(2, 1fr);
+        border: 1px solid rgba(201, 59, 43, 0.30);
+        border-radius: 6px;
+        overflow: hidden;
+      }
+
+      .what-i-do-head {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 6px 12px;
+        border-right: none;
+        border-bottom: 1px solid rgba(201, 59, 43, 0.24);
+        background: rgba(201, 59, 43, 0.10);
+      }
+
+      .what-i-do-title {
+        font-size: 13px;
+      }
+
+      .what-i-do-sub {
+        font-size: 8.5px;
+      }
+
+      .service-editorial-card {
+        padding: 8px 10px;
+        gap: 2px;
+        border-bottom: 1px solid rgba(201, 59, 43, 0.16);
+      }
+
+      .service-editorial-card:nth-child(2n+1) {
+        border-right: none;
+      }
+
+      .service-editorial-card:nth-last-child(-n+2) {
+        border-bottom: none;
+      }
+
+      .service-icon {
+        width: 14px;
+        height: 14px;
+      }
+
+      .service-name {
+        font-size: 10.5px;
+      }
+
+      .service-desc-th {
         font-size: 10px;
         line-height: 1.25;
       }
-      .intro-actions {
+
+      .poster-scroll-bar {
         justify-content: center;
-        margin-top: 4px;
+        padding-top: 2px;
       }
-      .intro-a4-btn {
-        padding: 8px 16px;
-        font-size: 12px;
+
+      .poster-client-ticker {
+        display: none;
       }
-      .intro-scroll-prompt {
-        position: relative !important;
-        bottom: auto !important;
-        left: auto !important;
-        transform: none !important;
-        margin: 10px auto 0 auto;
-        width: fit-content;
-        max-width: 92vw;
-        font-size: 13px;
-        padding: 10px 20px;
-        animation: bouncePromptMobile 2.2s infinite ease-in-out !important;
-      }
-      @keyframes bouncePromptMobile {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(4px); }
+
+      .poster-scroll-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 8px 14px;
+        font-size: 10.5px;
       }
     }
 
     /* ==========================================================================
-       ITEM 4: PROMINENT TOP-LEFT CATEGORY META (ขยายให้เด่นสะดุดตา)
+       POINT 4: CATEGORY SECTIONS & MOBILE FULL-STAGE PROPORTIONS
        ========================================================================== */
     .category-meta {
       position: absolute;
-      top: 84px;
+      top: 72px;
       left: 44px;
+      right: 44px;
       z-index: 20;
       pointer-events: none;
-      max-width: 75vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(201, 59, 43, 0.22);
+    }
+
+    .kinetic-section[data-theme="light"] .category-meta {
+      border-bottom-color: rgba(201, 59, 43, 0.24);
+    }
+
+    .meta-left-group {
+      max-width: 72vw;
     }
 
     .category-meta .meta-badge {
       display: flex;
       align-items: center;
       gap: 12px;
-      font-family: var(--font-sans);
-      font-size: clamp(1.45rem, 2.6vw, 2.25rem);
-      font-weight: 900;
-      letter-spacing: -0.02em;
+      font-family: var(--font-condensed);
+      font-size: clamp(1.55rem, 2.8vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
       text-transform: uppercase;
-      line-height: 1.1;
+      line-height: 1.08;
       margin-bottom: 6px;
     }
 
     .category-meta .meta-badge .badge-num {
       font-family: var(--font-mono);
-      font-size: clamp(1.1rem, 1.8vw, 1.5rem);
-      font-weight: 800;
-      color: var(--accent-vermilion);
-      background: rgba(91, 141, 239, 0.15);
-      padding: 3px 10px;
-      border-radius: 6px;
-      border: 1px solid rgba(91, 141, 239, 0.35);
+      font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+      font-weight: 700;
+      color: var(--editorial-cream);
+      background: var(--accent-crimson);
+      padding: 2px 10px;
+      border-radius: 4px;
     }
 
     .kinetic-section[data-theme="light"] .category-meta .meta-badge .badge-num {
-      color: var(--accent-crimson);
-      background: rgba(37, 84, 176, 0.12);
-      border-color: rgba(37, 84, 176, 0.25);
+      color: #ffffff;
+      background: var(--accent-crimson);
     }
 
     .category-meta .meta-sub {
-      font-size: clamp(1.05rem, 1.4vw, 1.3rem);
-      font-weight: 600;
+      font-family: var(--font-th);
+      font-size: clamp(1rem, 1.35vw, 1.22rem);
+      font-weight: 500;
       line-height: 1.35;
-      padding-left: 14px;
-      border-left: 4px solid var(--accent-vermilion);
-      opacity: 0.95;
-      letter-spacing: 0 !important;
+      padding-left: 12px;
+      border-left: 3px solid var(--accent-crimson);
+      opacity: 0.92;
     }
 
-    .kinetic-section[data-theme="light"] .category-meta .meta-sub {
-      border-left-color: var(--accent-crimson);
-      color: #111113;
+    .meta-right-spec {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--accent-vermilion);
+      text-transform: uppercase;
+      text-align: right;
     }
 
-    @media (max-width: 768px) {
-      .category-meta {
-        top: 72px;
-        left: 20px;
-      }
-      .category-meta .meta-badge {
-        font-size: 1.25rem;
-        gap: 8px;
-      }
-      .category-meta .meta-badge .badge-num {
-        font-size: 0.95rem;
-        padding: 2px 7px;
-      }
-      .category-meta .meta-sub {
-        font-size: 0.9rem;
-        padding-left: 10px;
-      }
+    .kinetic-section[data-theme="light"] .meta-right-spec {
+      color: var(--accent-crimson);
     }
 
-    /* ==========================================================================
-       ITEM 3 & 4: GIANT KINETIC ROLLING TYPOGRAPHY (ไม่ถูกการ์ดบัง & ตูดตัวอักษรไม่ขาด 100%)
-       ========================================================================== */
+    /* Giant Kinetic Rolling Typography at Bottom */
     .giant-kinetic-title-wrap {
       position: absolute;
-      bottom: 18px;
-      left: 0;
-      width: 100%;
-      padding: 0 4vw 8px 4vw;
+      bottom: 22px;
+      left: 44px;
+      right: 44px;
+      padding: 12px 0 6px 0;
+      border-top: 1px solid rgba(201, 59, 43, 0.22);
       z-index: 5;
       pointer-events: none;
       display: flex;
@@ -744,25 +1126,25 @@
     }
 
     .giant-kinetic-title {
-      font-family: "Plus Jakarta Sans", "Outfit", sans-serif;
-      font-size: clamp(4.8rem, 14vw, 12.2rem);
-      font-weight: 900;
-      letter-spacing: -0.05em;
-      line-height: 0.92;
-      padding-top: 0.08em;
-      padding-bottom: 0.15em;
-      text-transform: lowercase;
+      font-family: var(--font-display);
+      font-size: clamp(4.8rem, 13.5vw, 11.8rem);
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      line-height: 0.90;
+      padding-top: 0.06em;
+      padding-bottom: 0.12em;
+      text-transform: uppercase;
       display: flex;
       white-space: nowrap;
       user-select: none;
     }
 
     .kinetic-section[data-theme="dark"] .giant-kinetic-title {
-      color: rgba(255, 255, 255, 0.16);
+      color: rgba(232, 220, 200, 0.19);
     }
 
     .kinetic-section[data-theme="light"] .giant-kinetic-title {
-      color: rgba(17, 17, 19, 0.14);
+      color: rgba(22, 17, 16, 0.15);
     }
 
     .kinetic-char-box {
@@ -778,7 +1160,7 @@
       opacity: 0;
       transition: none;
       will-change: transform, opacity;
-      padding-bottom: 0.15em;
+      padding-bottom: 0.12em;
     }
 
     .kinetic-section.is-in-view .kinetic-char {
@@ -787,18 +1169,7 @@
       transition: transform 0.95s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.75s ease;
     }
 
-    @media (max-width: 768px) {
-      .giant-kinetic-title-wrap {
-        bottom: 34px;
-      }
-      .giant-kinetic-title {
-        font-size: clamp(3.2rem, 14.5vw, 4.8rem);
-      }
-    }
-
-    /* ==========================================================================
-       ITEM 2: 3D PHOTO RING WITH MULTIPLE ASPECT RATIOS (NATIVE RATIO CARDS)
-       ========================================================================== */
+    /* 3D Ring Stage & Cards */
     .ring-stage {
       position: relative;
       width: 100%;
@@ -811,10 +1182,9 @@
       z-index: 10;
       cursor: grab;
       touch-action: pan-y;
-      margin-top: -11vh; /* Lifted up so bottom cards clear the giant title 100%! */
+      margin-top: -6vh;
     }
 
-    /* Off-screen 3D Culling: Hide inactive 3D stages from GPU compositing */
     .kinetic-section:not(.is-near-view) .ring-stage {
       visibility: hidden;
       pointer-events: none;
@@ -824,11 +1194,15 @@
       cursor: grabbing;
     }
 
-    @media (max-width: 768px) {
-      .ring-stage {
-        perspective: 900px;
-        margin-top: -7vh;
-      }
+    /* Editorial Center Crosshair behind the 3D Ring */
+    .stage-editorial-reticle {
+      position: absolute;
+      width: min(76vw, 520px);
+      height: min(42vh, 320px);
+      border: 1px dashed rgba(201, 59, 43, 0.18);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 2;
     }
 
     .ring-pivot {
@@ -849,8 +1223,8 @@
       margin-left: calc(var(--card-w, 224px) / -2);
       margin-top: calc(var(--card-h, 150px) / -2);
       transform-style: preserve-3d;
-      border-radius: 10px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.32);
+      border-radius: 8px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.42);
       cursor: pointer;
       overflow: hidden;
       transition: opacity 0.25s ease;
@@ -859,13 +1233,13 @@
     }
 
     .kinetic-section[data-theme="dark"] .ring-card {
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      background: #141418;
+      border: 1px solid rgba(232, 220, 200, 0.22);
+      background: #181010;
     }
 
     .kinetic-section[data-theme="light"] .ring-card {
-      border: 1px solid rgba(0, 0, 0, 0.16);
-      background: #ded9cd;
+      border: 1px solid rgba(22, 17, 16, 0.18);
+      background: #e6dfd3;
     }
 
     .ring-card img {
@@ -874,7 +1248,7 @@
       object-fit: cover;
       display: block;
       pointer-events: none;
-      border-radius: 10px;
+      border-radius: 7px;
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       backface-visibility: visible;
       -webkit-backface-visibility: visible;
@@ -884,7 +1258,7 @@
       transform: scale(1.05);
     }
 
-    /* Card Aspect Ratio Categories */
+    /* Desktop Card Aspect Ratios */
     .ring-card.ratio-landscape {
       --card-w: 224px;
       --card-h: 150px;
@@ -902,70 +1276,145 @@
       --card-h: 184px;
     }
 
-    @media (max-width: 768px) {
-      .ring-card.ratio-landscape {
-        --card-w: 96px;
-        --card-h: 64px;
-      }
-      .ring-card.ratio-cinema {
-        --card-w: 102px;
-        --card-h: 58px;
-      }
-      .ring-card.ratio-portrait {
-        --card-w: 66px;
-        --card-h: 98px;
-      }
-      .ring-card.ratio-square {
-        --card-w: 80px;
-        --card-h: 80px;
-      }
-    }
-
-    /* Bottom Drag / Scroll Hint */
+    /* Interaction Hint */
     .interaction-hint {
       position: absolute;
-      bottom: 18px;
-      right: 36px;
+      bottom: 14px;
+      right: 44px;
       z-index: 20;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 600;
-      letter-spacing: 0.08em;
-      opacity: 0.6;
+      letter-spacing: 0.1em;
+      color: var(--accent-vermilion);
+      opacity: 0.85;
       pointer-events: none;
       text-transform: uppercase;
     }
 
+    .kinetic-section[data-theme="light"] .interaction-hint {
+      color: var(--accent-crimson);
+    }
+
     .interaction-hint svg {
-      width: 16px;
-      height: 16px;
+      width: 15px;
+      height: 15px;
       fill: none;
       stroke: currentColor;
       stroke-width: 2;
     }
 
+    /* POINT 4 MOBILE OVERRIDES: Enlarge 3D Ring ~65% & Tighten Top/Bottom Space */
     @media (max-width: 768px) {
+      .category-meta {
+        top: 114px;
+        left: 18px;
+        right: 18px;
+        padding-bottom: 14px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+
+      .meta-left-group {
+        max-width: 100%;
+      }
+
+      .category-meta .meta-badge {
+        font-size: 1.65rem;
+        gap: 10px;
+      }
+
+      .category-meta .meta-badge .badge-num {
+        font-size: 1.08rem;
+        padding: 2px 9px;
+      }
+
+      .category-meta .meta-sub {
+        font-size: 0.98rem;
+        padding-left: 10px;
+      }
+
+      .meta-right-spec {
+        font-size: 10px;
+        text-align: left;
+      }
+
+      .ring-stage {
+        perspective: 820px;
+        margin-top: 1vh;
+      }
+
+      .stage-editorial-reticle {
+        width: 368px;
+        height: 330px;
+        border-color: rgba(201, 59, 43, 0.28);
+      }
+
+      /* Large Editorial Cards on Mobile so Ring Fills the Center Stage */
+      .ring-card.ratio-landscape {
+        --card-w: 162px;
+        --card-h: 110px;
+      }
+      .ring-card.ratio-cinema {
+        --card-w: 168px;
+        --card-h: 96px;
+      }
+      .ring-card.ratio-portrait {
+        --card-w: 114px;
+        --card-h: 168px;
+      }
+      .ring-card.ratio-square {
+        --card-w: 136px;
+        --card-h: 136px;
+      }
+
+      .giant-kinetic-title-wrap {
+        bottom: 86px;
+        left: 18px;
+        right: 18px;
+        padding-top: 16px;
+      }
+
+      .giant-kinetic-title {
+        font-size: clamp(4.5rem, 19.5vw, 6.6rem);
+        transform: scaleY(1.14);
+        transform-origin: bottom center;
+      }
+
+      .kinetic-section[data-theme="dark"] .giant-kinetic-title {
+        color: rgba(232, 220, 200, 0.25);
+      }
+
+      .kinetic-section[data-theme="light"] .giant-kinetic-title {
+        color: rgba(22, 17, 16, 0.18);
+      }
+
       .interaction-hint {
-        bottom: 10px;
+        bottom: 34px;
         left: 50%;
         right: auto;
         transform: translateX(-50%);
-        font-size: 9.5px;
+        font-size: 10px;
         white-space: nowrap;
+        background: rgba(201, 59, 43, 0.15);
+        border: 1px solid rgba(201, 59, 43, 0.35);
+        padding: 6px 16px;
+        border-radius: 999px;
       }
     }
 
     /* ==========================================================================
-       ITEM 5: SPATIAL FLY-OUT LIGHTBOX MODAL (FLIP TECHNIQUE FROM RING POSITION)
+       SPATIAL FLY-OUT LIGHTBOX MODAL (FLIP TECHNIQUE FROM RING POSITION)
        ========================================================================== */
     .lightbox-overlay {
       position: fixed;
       inset: 0;
       z-index: 1000;
-      background: rgba(8, 8, 10, 0.94);
+      background: rgba(11, 7, 7, 0.94);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       display: none;
@@ -1002,7 +1451,7 @@
       font-family: var(--font-sans);
       font-size: 16px;
       font-weight: 700;
-      color: #ffffff;
+      color: var(--editorial-cream);
       margin-top: 2px;
     }
 
@@ -1010,9 +1459,9 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #ffffff;
+      background: rgba(201, 59, 43, 0.18);
+      border: 1px solid rgba(224, 79, 62, 0.45);
+      color: var(--editorial-cream);
       padding: 8px 16px;
       border-radius: 999px;
       font-family: var(--font-sans);
@@ -1023,19 +1472,18 @@
     }
 
     .lightbox-close-btn:hover {
-      background: var(--accent-vermilion);
-      border-color: var(--accent-vermilion);
+      background: var(--accent-crimson);
+      color: #ffffff;
     }
 
-    /* Spatial Flying Stage that expands from the clicked ring card */
     .lightbox-flying-stage {
       position: fixed;
       z-index: 1010;
-      border-radius: 12px;
+      border-radius: 10px;
       overflow: hidden;
       box-shadow: 0 35px 90px rgba(0, 0, 0, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      background: #09090b;
+      border: 1px solid rgba(232, 220, 200, 0.22);
+      background: #0b0707;
       will-change: left, top, width, height, transform;
     }
 
@@ -1050,9 +1498,9 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      background: rgba(20, 20, 26, 0.75);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      color: #ffffff;
+      background: rgba(20, 12, 12, 0.80);
+      border: 1px solid rgba(224, 79, 62, 0.35);
+      color: var(--editorial-cream);
       width: 44px;
       height: 44px;
       border-radius: 50%;
@@ -1065,8 +1513,9 @@
     }
 
     .lightbox-nav-btn:hover {
-      background: var(--accent-vermilion);
+      background: var(--accent-crimson);
       border-color: var(--accent-vermilion);
+      color: #ffffff;
     }
 
     .lightbox-nav-btn.prev { left: 24px; }
@@ -1078,316 +1527,249 @@
     }
 
     /* ==========================================================================
-       A4 EXECUTIVE PROFILE MODAL (MONGKOL WONGSAKULYANON - FELTZ STUDIO)
-       ========================================================================== */
-    .a4-modal-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 1200;
-      background: rgba(5, 5, 7, 0.88);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      display: none;
-      overflow-y: auto;
-      padding: 40px 20px;
-    }
-
-    .a4-modal-overlay.is-open {
-      display: block;
-    }
-
-    .a4-sheet-container {
-      max-width: 900px;
-      margin: 0 auto;
-      background: #fdfcf9;
-      color: #111113;
-      border-radius: 12px;
-      padding: 44px 48px;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
-      position: relative;
-      font-family: var(--font-sans);
-    }
-
-    .a4-modal-close {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: #111113;
-      color: #ffffff;
-      border: none;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: background 0.2s ease;
-    }
-
-    .a4-modal-close:hover {
-      background: var(--accent-crimson);
-    }
-
-    .a4-header-grid {
-      display: grid;
-      grid-template-columns: 155px 1fr 240px;
-      gap: 24px;
-      padding-bottom: 22px;
-      border-bottom: 2px solid #111113;
-      align-items: center;
-    }
-
-    .a4-avatar {
-      width: 155px;
-      height: 185px;
-      object-fit: cover;
-      border-radius: 6px;
-      border: 1px solid rgba(0, 0, 0, 0.15);
-    }
-
-    .a4-title-tag {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--accent-crimson);
-      letter-spacing: 0.12em;
-      margin-bottom: 4px;
-    }
-
-    .a4-name {
-      font-family: var(--font-serif);
-      font-size: 32px;
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-    }
-
-    .a4-role {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--accent-crimson);
-      margin-top: 4px;
-    }
-
-    .a4-bio {
-      font-size: 13px;
-      line-height: 1.55;
-      color: #4b5563;
-      margin-top: 8px;
-    }
-
-    .a4-contact-card {
-      background: #f1ede4;
-      border: 1px solid #ded9cd;
-      border-radius: 8px;
-      padding: 14px 16px;
-      font-size: 12px;
-      line-height: 1.65;
-    }
-
-    .a4-contact-card .card-head {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 700;
-      color: var(--accent-crimson);
-      letter-spacing: 0.1em;
-      margin-bottom: 4px;
-    }
-
-    .a4-columns {
-      display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: 28px;
-      margin-top: 24px;
-    }
-
-    .a4-sec-title {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--accent-crimson);
-      letter-spacing: 0.1em;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .a4-list {
-      font-size: 12.5px;
-      line-height: 1.65;
-      color: #27272a;
-      padding-left: 18px;
-    }
-
-    .a4-list li {
-      margin-bottom: 6px;
-    }
-
-    .a4-client-chips {
-      background: #f1ede4;
-      padding: 12px;
-      border-radius: 6px;
-      border: 1px solid #ded9cd;
-      font-size: 12px;
-      line-height: 1.6;
-      color: #3f3f46;
-      margin-top: 6px;
-    }
-
-    .a4-footer-actions {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 28px;
-      padding-top: 18px;
-      border-top: 1px dashed #d1d5db;
-    }
-
-    .a4-print-btn {
-      background: var(--accent-crimson);
-      color: #ffffff;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 6px;
-      font-family: var(--font-sans);
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .a4-print-btn:hover {
-      background: #1d428a;
-    }
-
-    @media (max-width: 768px) {
-      .a4-sheet-container {
-        padding: 24px 20px;
-      }
-      .a4-header-grid {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-      .a4-avatar {
-        margin: 0 auto;
-      }
-      .a4-columns {
-        grid-template-columns: 1fr;
-        gap: 18px;
-      }
-      .a4-footer-actions {
-        flex-direction: column;
-        gap: 12px;
-      }
-    }
-
-    /* ==========================================================================
-       SECTION 09: CONTACT & PROJECT INQUIRY MOCKUP
+       POINT 6: SECTION 09 — EDITORIAL BACK COVER (MY PROCESS + COMMISSION)
        ========================================================================== */
     .contact-section {
-      background: #070b12;
-      color: #f8fafc;
+      background: radial-gradient(circle at 50% 22%, #210d0b 0%, #0b0707 72%);
+      color: var(--editorial-cream);
+      padding: 48px 32px 20px 32px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
-      padding: 60px 24px;
       position: relative;
-      overflow-y: auto;
     }
 
-    .contact-container {
-      max-width: 1100px;
+    .back-cover-shell {
       width: 100%;
-      z-index: 10;
+      max-width: 1320px;
+      height: 100%;
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      justify-content: space-between;
+      z-index: 10;
     }
 
-    .contact-header-wrap {
-      text-align: left;
+    /* Top Giant Editorial Header for Back Cover */
+    .back-cover-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 1px solid rgba(201, 59, 43, 0.32);
+      padding-bottom: 10px;
+      position: relative;
     }
 
-    .contact-badge {
-      display: inline-block;
+    .back-giant-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.1rem, 8.2vw, 7.2rem);
+      font-weight: 400;
+      color: var(--editorial-cream);
+      letter-spacing: 0.015em;
+      line-height: 0.88;
+      text-transform: uppercase;
+    }
+
+    .back-cover-subbox {
+      text-align: right;
+      max-width: 390px;
+    }
+
+    .back-cover-kicker {
       font-family: var(--font-mono);
       font-size: 11px;
       font-weight: 700;
       color: var(--accent-vermilion);
-      background: rgba(91, 141, 239, 0.12);
-      border: 1px solid rgba(91, 141, 239, 0.3);
-      padding: 3px 10px;
-      border-radius: 6px;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
     }
 
-    .contact-heading {
+    .back-cover-lead {
       font-family: var(--font-th);
-      font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+      font-size: 13px;
+      color: var(--text-dark-sub);
+      line-height: 1.45;
+    }
+
+    /* Middle Process Strip: MY PROCESS 01 - 04 (From Reference Image 1) */
+    .process-editorial-strip {
+      display: grid;
+      grid-template-columns: 145px repeat(4, 1fr);
+      border-bottom: 1px solid rgba(201, 59, 43, 0.32);
+      background: rgba(16, 9, 9, 0.72);
+    }
+
+    .process-strip-head {
+      padding: 12px 14px;
+      border-right: 1px solid rgba(201, 59, 43, 0.25);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .process-strip-title {
+      font-family: var(--font-condensed);
+      font-size: 18px;
       font-weight: 700;
-      color: #ffffff;
-      letter-spacing: 0 !important;
-      line-height: 1.25;
+      color: var(--editorial-cream);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      line-height: 1.05;
     }
 
-    .contact-desc {
+    .process-strip-tag {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      color: var(--accent-vermilion);
+      letter-spacing: 0.1em;
+    }
+
+    .process-step-card {
+      padding: 12px 14px;
+      border-right: 1px solid rgba(201, 59, 43, 0.20);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .process-step-card:last-child {
+      border-right: none;
+    }
+
+    .process-num {
+      font-family: var(--font-display);
+      font-size: 24px;
+      color: var(--accent-vermilion);
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .process-info {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .process-name {
+      font-family: var(--font-sans);
+      font-size: 11.5px;
+      font-weight: 800;
+      color: var(--editorial-cream);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .process-desc-th {
       font-family: var(--font-th);
-      font-size: 14px;
-      color: #94a3b8;
-      letter-spacing: 0 !important;
-      margin-top: 4px;
+      font-size: 11px;
+      color: var(--text-dark-sub);
+      line-height: 1.35;
     }
 
+    /* Lower Split: Direct Channels (Left) + Editorial Commission Form (Right) */
     .contact-body-grid {
       display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 28px;
+      grid-template-columns: 1fr 1.35fr;
+      gap: 24px;
       align-items: start;
+      padding: 12px 0;
     }
 
     .contact-info-panel {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      justify-content: flex-start;
+      gap: 10px;
+    }
+
+    .studio-cred-card {
+      background: rgba(20, 11, 11, 0.82);
+      border: 1px solid rgba(201, 59, 43, 0.25);
+      border-radius: 6px;
+      padding: 11px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .studio-cred-title {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      font-weight: 700;
+      color: var(--accent-vermilion);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .studio-cred-text {
+      font-family: var(--font-th);
+      font-size: 11.5px;
+      color: var(--text-dark-sub);
+      line-height: 1.42;
+      letter-spacing: 0 !important;
+    }
+
+    .form-panel-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid rgba(201, 59, 43, 0.24);
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+    }
+
+    .form-panel-title {
+      font-family: var(--font-condensed);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--editorial-cream);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .form-panel-sub {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      color: var(--accent-vermilion);
+      letter-spacing: 0.08em;
     }
 
     .contact-channel-cards {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 10px;
     }
 
     .contact-card-item {
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding: 12px 16px;
-      background: rgba(15, 23, 42, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 10px;
+      gap: 11px;
+      padding: 11px 13px;
+      background: rgba(20, 11, 11, 0.82);
+      border: 1px solid rgba(201, 59, 43, 0.25);
+      border-radius: 6px;
       text-decoration: none;
       color: inherit;
       transition: all 0.2s ease;
     }
 
+    .contact-card-item.full-span {
+      grid-column: 1 / -1;
+    }
+
     .contact-card-item:hover {
       border-color: var(--accent-vermilion);
-      transform: translateX(4px);
-      background: rgba(30, 41, 59, 0.8);
+      background: rgba(201, 59, 43, 0.12);
     }
 
     .contact-card-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 8px;
-      background: rgba(91, 141, 239, 0.12);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid rgba(224, 79, 62, 0.45);
+      background: rgba(201, 59, 43, 0.12);
       color: var(--accent-vermilion);
       display: flex;
       align-items: center;
@@ -1396,62 +1778,62 @@
     }
 
     .contact-card-icon svg {
-      width: 18px;
-      height: 18px;
+      width: 15px;
+      height: 15px;
     }
 
     .contact-card-meta {
       display: flex;
       flex-direction: column;
+      min-width: 0;
     }
 
     .contact-card-meta .lbl {
       font-family: var(--font-mono);
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 600;
-      color: #64748b;
+      color: var(--text-dark-sub);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
     }
 
     .contact-card-meta .val {
       font-family: var(--font-sans);
-      font-size: 13.5px;
-      font-weight: 600;
-      color: #f1f5f9;
-      letter-spacing: 0 !important;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--editorial-cream);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .contact-social-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 8px;
     }
 
     .social-pill {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 9px 12px;
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 8px;
-      font-family: var(--font-sans);
-      font-size: 12px;
-      font-weight: 500;
-      color: #94a3b8;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 10px;
+      background: rgba(20, 11, 11, 0.72);
+      border: 1px solid rgba(201, 59, 43, 0.22);
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--editorial-cream);
       text-decoration: none;
       transition: all 0.2s ease;
     }
 
-    .social-pill.full-width {
-      grid-column: span 2;
-    }
-
     .social-pill:hover {
-      color: #ffffff;
       border-color: var(--accent-vermilion);
-      background: rgba(30, 41, 59, 0.8);
+      background: var(--accent-crimson);
+      color: #ffffff;
     }
 
     .social-pill svg {
@@ -1459,18 +1841,25 @@
       flex-shrink: 0;
     }
 
+    .social-pill:hover svg {
+      color: #ffffff;
+    }
+
+    /* Right Form Panel */
     .contact-form-panel {
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 14px;
-      padding: 24px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      background: rgba(18, 10, 10, 0.88);
+      border: 1px solid rgba(201, 59, 43, 0.32);
+      border-radius: 8px;
+      padding: 18px 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .mockup-form {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 11px;
     }
 
     .form-row-2 {
@@ -1482,29 +1871,27 @@
     .form-field {
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 4px;
     }
 
     .field-label {
       font-family: var(--font-th);
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 600;
-      color: #cbd5e1;
-      letter-spacing: 0 !important;
+      color: var(--editorial-cream);
     }
 
     .field-input, .field-select, .field-textarea {
       width: 100%;
-      background: rgba(7, 11, 18, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 8px;
-      padding: 9px 12px;
-      color: #f8fafc;
+      background: rgba(11, 7, 7, 0.85);
+      border: 1px solid rgba(201, 59, 43, 0.28);
+      border-radius: 5px;
+      padding: 8px 11px;
+      color: var(--editorial-cream);
       font-family: var(--font-sans);
-      font-size: 12.5px;
+      font-size: 12px;
       outline: none;
       transition: border-color 0.2s ease;
-      letter-spacing: 0 !important;
     }
 
     .field-input:focus, .field-select:focus, .field-textarea:focus {
@@ -1512,8 +1899,8 @@
     }
 
     .field-select option {
-      background: #0f172a;
-      color: #f8fafc;
+      background: #140c0c;
+      color: var(--editorial-cream);
     }
 
     .submit-inquiry-btn {
@@ -1524,62 +1911,215 @@
       background: var(--accent-crimson);
       color: #ffffff;
       border: 1px solid var(--accent-vermilion);
-      border-radius: 8px;
-      padding: 12px 20px;
+      border-radius: 5px;
+      padding: 10px 18px;
       font-family: var(--font-th);
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 600;
-      letter-spacing: 0 !important;
       cursor: pointer;
       transition: all 0.2s ease;
-      margin-top: 4px;
+      margin-top: 2px;
     }
 
     .submit-inquiry-btn:hover {
-      background: #1d428a;
+      background: var(--accent-vermilion);
       transform: translateY(-1px);
-      box-shadow: 0 8px 20px rgba(37, 84, 176, 0.4);
+      box-shadow: 0 8px 22px rgba(201, 59, 43, 0.42);
     }
 
-    @media (max-width: 900px) {
+    .back-cover-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(201, 59, 43, 0.24);
+      padding-top: 8px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-dark-sub);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .back-top-btn {
+      background: none;
+      border: none;
+      color: var(--editorial-cream);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+
+    .back-top-btn:hover {
+      color: var(--accent-vermilion);
+    }
+
+    /* Mobile Responsive Editorial Back Cover (Fits 100dvh on 430x932 cleanly!) */
+    @media (max-width: 768px) {
       .contact-section {
-        min-height: 100dvh;
-        height: auto !important;
-        padding: 90px 20px 80px 20px;
-        justify-content: flex-start;
+        padding: 42px 14px 12px 14px;
       }
+
+      .back-cover-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+        padding-bottom: 6px;
+      }
+
+      .back-giant-title {
+        font-size: clamp(2.6rem, 13.5vw, 3.8rem);
+        line-height: 0.88;
+      }
+
+      .back-cover-subbox {
+        text-align: left;
+        max-width: 100%;
+      }
+
+      .back-cover-kicker {
+        display: none;
+      }
+
+      .back-cover-lead {
+        font-size: 11px;
+        line-height: 1.3;
+      }
+
+      .process-editorial-strip {
+        grid-template-columns: repeat(2, 1fr);
+        border: 1px solid rgba(201, 59, 43, 0.28);
+        border-radius: 6px;
+        overflow: hidden;
+      }
+
+      .process-strip-head {
+        display: none;
+      }
+
+      .process-step-card {
+        padding: 6px 8px;
+        gap: 6px;
+        border-bottom: 1px solid rgba(201, 59, 43, 0.18);
+      }
+
+      .process-step-card:nth-child(2n+1) {
+        border-right: none;
+      }
+
+      .process-step-card:nth-last-child(-n+2) {
+        border-bottom: none;
+      }
+
+      .process-num {
+        font-size: 18px;
+      }
+
+      .process-name {
+        font-size: 9.5px;
+      }
+
+      .process-desc-th {
+        font-size: 9.5px;
+        line-height: 1.2;
+      }
+
       .contact-body-grid {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 8px;
+        padding: 6px 0;
       }
-      .form-row-2 {
-        grid-template-columns: 1fr;
-      }
-      .contact-container {
-        padding-top: 0;
-      }
-    }
 
-    /* Print Optimization for A4 */
-    @media print {
-      body {
-        overflow: visible !important;
-        background: #ffffff !important;
+      .contact-info-panel {
+        gap: 6px;
       }
-      .top-nav, .side-indicator, .lightbox-overlay, .interaction-hint, .viewport-canvas, .a4-footer-actions, .a4-modal-close {
-        display: none !important;
+
+      .contact-channel-cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
       }
-      .a4-modal-overlay {
-        position: static !important;
-        display: block !important;
-        padding: 0 !important;
-        background: none !important;
+
+      .contact-card-item {
+        padding: 7px 9px;
+        gap: 7px;
       }
-      .a4-sheet-container {
-        box-shadow: none !important;
-        border: none !important;
-        padding: 0 !important;
-        max-width: 100% !important;
+
+      .contact-card-icon {
+        width: 26px;
+        height: 26px;
+      }
+
+      .contact-card-icon svg {
+        width: 12px;
+        height: 12px;
+      }
+
+      .contact-card-meta .lbl {
+        font-size: 8px;
+      }
+
+      .contact-card-meta .val {
+        font-size: 11px;
+      }
+
+      .contact-social-grid {
+        gap: 6px;
+      }
+
+      .social-pill {
+        padding: 5px 6px;
+        font-size: 9.5px;
+      }
+
+      .studio-cred-card {
+        display: none;
+      }
+
+      .form-panel-head {
+        padding-bottom: 5px;
+        margin-bottom: 6px;
+      }
+
+      .form-panel-title {
+        font-size: 13px;
+      }
+
+      .form-panel-sub {
+        font-size: 8.5px;
+      }
+
+      .contact-form-panel {
+        padding: 10px 12px;
+      }
+
+      .mockup-form {
+        gap: 7px;
+      }
+
+      .form-row-2 {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+
+      .field-label {
+        font-size: 10px;
+      }
+
+      .field-input, .field-select, .field-textarea {
+        padding: 6px 8px;
+        font-size: 11px;
+      }
+
+      .submit-inquiry-btn {
+        padding: 8px 14px;
+        font-size: 12px;
+      }
+
+      .back-cover-footer {
+        padding-top: 6px;
+        font-size: 8.5px;
       }
     }
   </style>
@@ -1587,26 +2127,19 @@
 <body>
 
   <!-- =========================================================================
-       TOP FLOATING SWITCHER & BRAND BAR
+       POINT 1: EDITORIAL TOP MASTHEAD (CLEAN, NO SWITCHER BUTTONS)
        ========================================================================= -->
-  <header class="top-nav">
-    <div class="brand-group">
-      <div class="brand-logo">FELTZ STUDIO</div>
-      <div class="brand-tag">MONGKOL W. · EST. 2012</div>
-    </div>
+  <header class="top-nav" id="top-nav">
+    <div class="masthead-bar">
+      <div class="masthead-left" onclick="scrollToCategory(0)">
+        <span>FELTZ STUDIO</span>
+        <span class="sep">//</span>
+        <span>EST. 2012</span>
+      </div>
 
-    <div class="nav-actions">
-      <a href="feltz_kinetic_option1.html" class="nav-pill-btn active">
-        <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-        <span>แบบที่ 1: <span class="btn-label-long">ไถเปลี่ยนหมวด + วงแหวน 3D</span></span>
-      </a>
-      <a href="feltz_kinetic_option2.html" class="nav-pill-btn">
-        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-        <span>แบบที่ 2: <span class="btn-label-long">สำรับการ์ดโค้ง &rarr; วงแหวน 3D</span></span>
-      </a>
-      <button type="button" class="nav-pill-btn a4-btn" onclick="openA4Modal()">
-        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-        <span>นามบัตร A4</span>
+      <button type="button" class="masthead-right-btn" onclick="scrollToCategory(9)">
+        <span>AVAILABLE FOR COMMISSION</span>
+        <span class="status-dot"></span>
       </button>
     </div>
   </header>
@@ -1617,60 +2150,167 @@
   <nav class="side-indicator" id="side-indicator" aria-label="Category Navigation"></nav>
 
   <!-- =========================================================================
-       MAIN VIEWPORT CONTAINER (HERO INTRO + 8 CATEGORY SECTIONS)
+       MAIN VIEWPORT CONTAINER (EDITORIAL POSTER COVER + 8 RINGS + BACK COVER)
        ========================================================================= -->
   <main class="viewport-canvas" id="viewport-canvas">
-    <!-- 1. Hero Intro Section (Item 1 & 4) -->
-    <section class="kinetic-section intro-section" id="sec-intro" data-theme="dark" data-index="0">
-      <div class="ambient-glow" style="--glow-color: rgba(37, 84, 176, 0.35);"></div>
 
-      <div class="intro-grid">
-        <div class="intro-avatar-frame">
-          <img src="keng_profile.jpg" alt="Mongkol Wongsakulyanon - Feltz Studio" />
-          <div class="intro-avatar-tag">FOUNDER &amp; LEAD OPTICS</div>
+    <!-- =======================================================================
+         SECTION 00: EDITORIAL MAGAZINE COVER POSTER (POINT 3)
+         ======================================================================= -->
+    <section class="kinetic-section intro-section" id="sec-intro" data-theme="dark" data-index="0">
+      <div class="editorial-poster-shell">
+
+        <!-- 1. Giant Condensed Magazine Title -->
+        <div class="poster-headline-wrap">
+          <h1 class="poster-giant-word">FELTZ STUDIO</h1>
+
+          <!-- Rotating Editorial Stamp SVG -->
+          <div class="editorial-stamp" aria-hidden="true">
+            <svg class="stamp-ring" viewBox="0 0 120 120">
+              <defs>
+                <path id="stampCirclePath" d="M 60, 60 m -44, 0 a 44,44 0 1,1 88,0 a 44,44 0 1,1 -88,0" />
+              </defs>
+              <text fill="#e8dcc8" font-family="JetBrains Mono, monospace" font-size="9.2" font-weight="700" letter-spacing="2.2">
+                <textPath href="#stampCirclePath">COMMERCIAL · STAGE · SPACE · SPORT ·</textPath>
+              </text>
+            </svg>
+            <div class="stamp-star">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 1L14.5 9.5L23 12L14.5 14.5L12 23L9.5 14.5L1 12L9.5 9.5L12 1Z" />
+              </svg>
+            </div>
+          </div>
         </div>
 
-        <div class="intro-content">
-          <div class="intro-eyebrow">
-            <span class="dot"></span>
-            <span>FELTZ STUDIO &bull; VISUAL STRATEGIST &amp; COMMERCIAL SPECIALIST</span>
-          </div>
-          <h1 class="intro-title">MONGKOL WONGSAKULYANON</h1>
-          <h2 class="intro-thai-lead">ผู้เปลี่ยนผ่านเสี้ยววินาทีธรรมชาติ ให้กลายเป็นสินทรัพย์ภาพลักษณ์ทรงพลัง</h2>
-          <p class="intro-bio">ที่ปรึกษาด้านภาพลักษณ์และช่างภาพพาณิชย์ผู้ช่วยคิดทิศทางสื่อสารตั้งแต่ต้นน้ำ บันทึกความจริงใจในสายตา ความเหนื่อยจริงในกีฬาสปอร์ต และมิติแสงที่ทำให้สถานที่นั้นมีชีวิต &mdash; โดย มงคล วงศ์สกุลยานนท์ (เก่ง)</p>
+        <!-- 2. Centerpiece Stage: Left Optical Direction + Center Cutout Portrait + Right Identity & Stats -->
+        <div class="poster-hero-stage">
 
-          <!-- 4 Trust Stats Grid (Fill desktop viewport) -->
-          <div class="intro-stats-grid">
-            <div class="stat-card">
-              <span class="stat-val">12+ YEARS</span>
-              <span class="stat-lbl">ประสบการณ์สายงานพาณิชย์และสารคดี</span>
-            </div>
-            <div class="stat-card">
-              <span class="stat-val">14+ BRANDS</span>
-              <span class="stat-lbl">Singha, KBank, AirAsia, True, AIA, Yamaha, TCEB</span>
-            </div>
-            <div class="stat-card">
-              <span class="stat-val">DUAL ALPHA RIG</span>
-              <span class="stat-lbl">Sony Alpha Series, G Master &amp; DaVinci Grading</span>
-            </div>
-            <div class="stat-card">
-              <span class="stat-val">NATIONWIDE</span>
-              <span class="stat-lbl">สตูดิโอเชียงใหม่ พร้อมเดินทางถ่ายทำทั่วประเทศ</span>
+          <!-- Left Column -->
+          <div class="poster-col-left">
+            <div class="poster-kicker-title">OPTICAL / VISUAL /<br/>DIRECTION</div>
+            <ul class="poster-sub-list">
+              <li>COMMERCIAL PHOTOGRAPHY</li>
+              <li>CONCERT &amp; LIVE STAGE</li>
+              <li>REAL ESTATE &amp; HOSPITALITY</li>
+            </ul>
+            <div class="poster-red-rule"></div>
+            <div class="poster-quote-box">
+              <span class="poster-quote-mark">&ldquo;</span>
+              <p class="editorial-quote-th">
+                ทุกช็อตคือการวางกลยุทธ์ภาพลักษณ์ ถ่ายทอดสเปซ แสงจริง และอารมณ์สดให้กลายเป็นมูลค่าทางการค้าของแบรนด์
+              </p>
+              <span class="poster-signature">Mongkol W.</span>
             </div>
           </div>
 
-          <div class="intro-actions">
-            <button type="button" class="intro-a4-btn" onclick="openA4Modal()">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-              <span>เปิดนามบัตรสรุป 1 หน้า (A4 Profile)</span>
+          <!-- Center Cutout Portrait Overlapping Giant Title -->
+          <div class="poster-col-center">
+            <div class="crimson-halo-circle"></div>
+            <img src="assets/keng_cutout.png" alt="Mongkol Wongsakulyanon — Feltz Studio" class="cutout-portrait-img" fetchpriority="high" />
+          </div>
+
+          <!-- Right Column -->
+          <div class="poster-col-right">
+            <div class="poster-person-header-mob">
+              <h2 class="poster-person-name">MONGKOL<br/>WONGSAKULYANON</h2>
+              <div class="poster-person-role">FOUNDER &amp; LEAD VISUAL DIRECTOR</div>
+            </div>
+            <p class="editorial-bio-th">
+              ช่างภาพพาณิชย์และที่ปรึกษาภาพลักษณ์ประจำเชียงใหม่ (ก่อตั้งปี 2012) เชี่ยวชาญการถ่ายทอดมิติสถาปัตยกรรม โรงแรม สปอร์ตความเร็วสูง คอนเสิร์ต และสินค้าแบรนด์ชั้นนำ พร้อมเดินทางถ่ายทำทั่วประเทศ
+            </p>
+
+            <!-- 3 Editorial Stats with Thin Red Circle Icons -->
+            <div class="poster-stats-row">
+              <div class="poster-stat-item">
+                <div class="stat-icon-circle">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+                </div>
+                <div>
+                  <div class="poster-stat-num">12+</div>
+                  <div class="poster-stat-label">YEARS<br/>EXPERIENCE</div>
+                </div>
+              </div>
+
+              <div class="poster-stat-item">
+                <div class="stat-icon-circle">
+                  <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+                </div>
+                <div>
+                  <div class="poster-stat-num">14+</div>
+                  <div class="poster-stat-label">ENTERPRISE<br/>BRANDS</div>
+                </div>
+              </div>
+
+              <div class="poster-stat-item">
+                <div class="stat-icon-circle">
+                  <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                </div>
+                <div>
+                  <div class="poster-stat-num">DUAL</div>
+                  <div class="poster-stat-label">SONY ALPHA<br/>MASTER RIG</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 3. Bottom Strip: WHAT I DO (4 Service Cards) + Scroll CTA -->
+        <div class="poster-bottom-deck">
+          <div class="what-i-do-frame">
+            <div class="what-i-do-head">
+              <div class="what-i-do-title">WHAT I DO</div>
+              <div class="what-i-do-sub">08 PORTFOLIOS</div>
+            </div>
+
+            <div class="service-editorial-card" onclick="scrollToCategory(1)">
+              <div class="service-card-top">
+                <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <span class="service-num-tag">01 / 03</span>
+              </div>
+              <div class="service-name">STAGE &amp; SPORT</div>
+              <div class="service-desc-th">คอนเสิร์ตใหญ่และกีฬาความเร็วสูง</div>
+            </div>
+
+            <div class="service-editorial-card" onclick="scrollToCategory(2)">
+              <div class="service-card-top">
+                <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/></svg>
+                <span class="service-num-tag">02 / 04</span>
+              </div>
+              <div class="service-name">SPACE &amp; HOTEL</div>
+              <div class="service-desc-th">โรงแรม รีสอร์ต และอสังหาริมทรัพย์</div>
+            </div>
+
+            <div class="service-editorial-card" onclick="scrollToCategory(5)">
+              <div class="service-card-top">
+                <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                <span class="service-num-tag">05 / 06</span>
+              </div>
+              <div class="service-name">BRAND &amp; DINING</div>
+              <div class="service-desc-th">สินค้าโฆษณาและอาหารไฟน์ไดน์นิ่ง</div>
+            </div>
+
+            <div class="service-editorial-card" onclick="scrollToCategory(7)">
+              <div class="service-card-top">
+                <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+                <span class="service-num-tag">07 / 08</span>
+              </div>
+              <div class="service-name">PORTRAIT &amp; EVENT</div>
+              <div class="service-desc-th">พอร์ตเทรตผู้บริหารและอีเวนต์องค์กร</div>
+            </div>
+          </div>
+
+          <div class="poster-scroll-bar">
+            <div class="poster-client-ticker">
+              TRUSTED BY: SINGHA · KBANK · THAI AIRASIA · TRUE · AIA · YAMAHA · TCEB · GISTDA
+            </div>
+            <button type="button" class="poster-scroll-btn" onclick="scrollToCategory(1)">
+              <span>SCROLL TO EXPLORE 08 PORTFOLIOS</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
             </button>
           </div>
-
-          <!-- Bouncing Prompt to Portfolio (Item 1 & 4: ไม่มีสระลอย 100%) -->
-          <button type="button" class="intro-scroll-prompt" onclick="scrollToCategory(1)">
-            <span>PORTFOLIO — เลื่อนลงเพื่อชมผลงานทั้ง 8 หมวด ↓</span>
-          </button>
         </div>
+
       </div>
     </section>
 
@@ -1692,7 +2332,6 @@
       </button>
     </div>
 
-    <!-- Navigation Arrows -->
     <button type="button" class="lightbox-nav-btn prev" onclick="navigateLightbox(-1)" aria-label="Previous image">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
@@ -1707,84 +2346,7 @@
   </div>
 
   <!-- =========================================================================
-       A4 EXECUTIVE PROFILE MODAL (MONGKOL WONGSAKULYANON - FELTZ STUDIO)
-       ========================================================================= -->
-  <div class="a4-modal-overlay" id="a4-modal" onclick="handleA4Backdrop(event)">
-    <div class="a4-sheet-container">
-      <button type="button" class="a4-modal-close" onclick="closeA4Modal()" aria-label="Close A4 Profile">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-
-      <div class="a4-header-grid">
-        <img src="keng_profile.jpg" alt="Mongkol Wongsakulyanon Profile" class="a4-avatar" />
-        <div>
-          <div class="a4-title-tag">EXECUTIVE PHOTOGRAPHER PROFILE // A4 BRIEF</div>
-          <h1 class="a4-name">MONGKOL WONGSAKULYANON</h1>
-          <div class="a4-role">นาย มงคล วงศ์สกุลยานนท์ (เก่ง) — Founder &amp; Lead Photographer, Feltz Studio</div>
-          <p class="a4-bio">
-            ช่างภาพพาณิชย์และสถาปัตยกรรมมืออาชีพประจำจังหวัดเชียงใหม่ ประสบการณ์กว่า 12 ปี (ก่อตั้งปี 2012)
-            เชี่ยวชาญการถ่ายภาพโรงแรม รีสอร์ต อสังหาริมทรัพย์ สปอร์ตความเร็วสูง คอนเสิร์ต อีเวนต์องค์กร และอาหารเชิงพาณิชย์
-            โดดเด่นด้วยทักษะการจัดแสงและเกรดสีระดับภาพยนตร์ด้วย Capture One Pro และ DaVinci Resolve
-          </p>
-        </div>
-
-        <div class="a4-contact-card">
-          <div class="card-head">DIRECT CONTACT &amp; BASE</div>
-          <div><strong>โทร:</strong> 089-554-4355</div>
-          <div><strong>LINE ID:</strong> 0895544355</div>
-          <div><strong>อีเมล:</strong> silver_nsx@hotmail.com</div>
-          <div><strong>วันเกิด / อายุ:</strong> 15 มิ.ย. 2526 (43 ปี)</div>
-          <div><strong>ที่ตั้งสตูดิโอ:</strong> 65/1 ถ.ต้นขาม ต.ท่าศาลา อ.เมือง จ.เชียงใหม่ 50000</div>
-        </div>
-      </div>
-
-      <div class="a4-columns">
-        <div>
-          <div class="a4-sec-title">01 // CORE EXPERTISE &amp; SPECIALIZATIONS</div>
-          <ul class="a4-list">
-            <li><strong>Hospitality &amp; Real Estate:</strong> ภาพสถาปัตยกรรม โรงแรม รีสอร์ต คุมเส้นตั้งฉากและแสง Twilight แม่นยำ</li>
-            <li><strong>High-Speed Cycling &amp; Sport:</strong> ภาพการแข่งขันจักรยานและสปอร์ตความเร็วสูง จับจังหวะ Peloton คมกริบ</li>
-            <li><strong>Commercial Food &amp; Product:</strong> ภาพอาหาร เครื่องดื่ม และสินค้าโฆษณา ขับเน้นพื้นผิวและสีสันสมจริง</li>
-            <li><strong>Corporate Event &amp; Concert:</strong> งานประชุมระดับนานาชาติ คอนเสิร์ต และบันทึกเหตุการณ์จริง (งดรับงานรับปริญญาและพรีเวดดิ้ง 100%)</li>
-          </ul>
-
-          <div class="a4-sec-title" style="margin-top:18px;">02 // EDUCATION BACKGROUND</div>
-          <ul class="a4-list">
-            <li><strong>ปริญญาตรี:</strong> วท.บ. (วิทยาการคอมพิวเตอร์) มหาวิทยาลัยพายัพ</li>
-            <li><strong>มัธยมศึกษาตอนปลาย:</strong> โรงเรียนยุพราชวิทยาลัย เชียงใหม่</li>
-            <li><strong>ประถม–มัธยมศึกษาตอนต้น:</strong> โรงเรียนมงฟอร์ตวิทยาลัย เชียงใหม่</li>
-          </ul>
-        </div>
-
-        <div>
-          <div class="a4-sec-title">03 // OPTICAL HARDWARE &amp; COLOR LAB</div>
-          <ul class="a4-list">
-            <li><strong>Dual Bodies:</strong> Sony A7 IV (2 กล้องฟูลเฟรมพร้อมลุยงานจริง)</li>
-            <li><strong>Master Optics:</strong> Sony FE 70-200mm F2.8 GM OSS II, Sigma 28-45mm F1.8 DG DN Art, Sony FE 16-28mm F2.8, Sigma 85mm F1.4 DG DN Art</li>
-            <li><strong>Color Lab:</strong> Capture One Pro, DaVinci Resolve, Lightroom Classic</li>
-          </ul>
-
-          <div class="a4-sec-title" style="margin-top:18px;">04 // SELECTED ENTERPRISE CLIENTS (14+ BRANDS)</div>
-          <div class="a4-client-chips">
-            Singha Corporation · ธนาคารกสิกรไทย (KBank) · Thai AirAsia · True Corporation · AIA · Yamaha · TCEB · GISTDA · WTF Music Festival · AWA 2024–2025 · MAYA Chiang Mai · X2 Vibe Hotel · Fujiyama Go Go · มหาวิทยาลัยเชียงใหม่ (CMU)
-          </div>
-        </div>
-      </div>
-
-      <div class="a4-footer-actions">
-        <div style="font-size:12px; color:#6b7280;">
-          FELTZ STUDIO // AUTHENTIC COMMERCIAL PHOTOGRAPHY &amp; OPTICAL DIRECTIVE
-        </div>
-        <button type="button" class="a4-print-btn" onclick="window.print()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-          <span>สั่งพิมพ์ / บันทึกเป็น PDF A4</span>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- =========================================================================
-       CORE KINETIC 3D & TYPOGRAPHY JAVASCRIPT ENGINE
+       CORE KINETIC 3D & TYPOGRAPHY JAVASCRIPT ENGINE (POINT 5 DYNAMIC ANGLES)
        ========================================================================= -->
   <script>
     const CATEGORIES = [
@@ -1795,7 +2357,7 @@
         shortLabel: "01 CONCERT",
         sub: "บันทึกพลังแสงสีและอารมณ์สดบนเวทีคอนเสิร์ตระดับเทศกาล",
         theme: "dark",
-        glow: "rgba(37, 84, 176, 0.28)",
+        glow: "rgba(201, 59, 43, 0.30)",
         bigText: "concert",
         photos: [
           { thumb: "assets/ring_micro/concert_01.jpg", full: "assets/ring_full/concert_01.jpg", title: "Concert & Stage 01", ratio: "ratio-landscape", wRatio: 1.5 },
@@ -1815,7 +2377,7 @@
         shortLabel: "02 HOTEL",
         sub: "ถ่ายทอดมิติแสงธรรมชาติและบรรยากาศพักผ่อนระดับลักชัวรี",
         theme: "light",
-        glow: "rgba(91, 141, 239, 0.20)",
+        glow: "rgba(201, 59, 43, 0.16)",
         bigText: "hotel",
         photos: [
           { thumb: "assets/ring_micro/hospitality_01.jpg", full: "assets/ring_full/hospitality_01.jpg", title: "Hotel & Resort 01", ratio: "ratio-landscape", wRatio: 1.5 },
@@ -1824,8 +2386,7 @@
           { thumb: "assets/ring_micro/hospitality_04.jpg", full: "assets/ring_full/hospitality_04.jpg", title: "Hotel & Resort 04", ratio: "ratio-landscape", wRatio: 1.48 },
           { thumb: "assets/ring_micro/hospitality_05.jpg", full: "assets/ring_full/hospitality_05.jpg", title: "Hotel & Resort 05", ratio: "ratio-landscape", wRatio: 1.5 },
           { thumb: "assets/ring_micro/hospitality_06.jpg", full: "assets/ring_full/hospitality_06.jpg", title: "Hotel & Resort 06", ratio: "ratio-landscape", wRatio: 1.5 },
-          { thumb: "assets/ring_micro/hospitality_07.jpg", full: "assets/ring_full/hospitality_07.jpg", title: "Hotel & Resort 07", ratio: "ratio-portrait", wRatio: 0.67 },
-          { thumb: "assets/ring_micro/hospitality_08.jpg", full: "assets/ring_full/hospitality_08.jpg", title: "Hotel & Resort 08", ratio: "ratio-landscape", wRatio: 1.5 }
+          { thumb: "assets/ring_micro/hospitality_07.jpg", full: "assets/ring_full/hospitality_07.jpg", title: "Hotel & Resort 07", ratio: "ratio-portrait", wRatio: 0.67 }
         ]
       },
       {
@@ -1835,7 +2396,7 @@
         shortLabel: "03 SPORT",
         sub: "จับเสี้ยววินาทีความเร็วสูงและพลังการแข่งขันอย่างแม่นยำ",
         theme: "dark",
-        glow: "rgba(37, 84, 176, 0.28)",
+        glow: "rgba(201, 59, 43, 0.30)",
         bigText: "sport",
         photos: [
           { thumb: "assets/ring_micro/sport_01.jpg", full: "assets/ring_full/sport_01.jpg", title: "Cycling & Sport 01", ratio: "ratio-cinema", wRatio: 1.78 },
@@ -1855,7 +2416,7 @@
         shortLabel: "04 REAL ESTATE",
         sub: "ถ่ายทอดสเปซบ้าน วิลล่า คอนโด และโครงการอสังหาริมทรัพย์เพื่อการขายและเช่า",
         theme: "light",
-        glow: "rgba(91, 141, 239, 0.20)",
+        glow: "rgba(201, 59, 43, 0.16)",
         bigText: "real estate",
         photos: [
           { thumb: "assets/ring_micro/architecture_01.jpg", full: "assets/ring_full/architecture_01.jpg", title: "Real Estate 01", ratio: "ratio-landscape", wRatio: 1.5 },
@@ -1863,9 +2424,7 @@
           { thumb: "assets/ring_micro/architecture_03.jpg", full: "assets/ring_full/architecture_03.jpg", title: "Real Estate 03", ratio: "ratio-landscape", wRatio: 1.5 },
           { thumb: "assets/ring_micro/architecture_04.jpg", full: "assets/ring_full/architecture_04.jpg", title: "Real Estate 04", ratio: "ratio-landscape", wRatio: 1.5 },
           { thumb: "assets/ring_micro/architecture_05.jpg", full: "assets/ring_full/architecture_05.jpg", title: "Real Estate 05", ratio: "ratio-landscape", wRatio: 1.5 },
-          { thumb: "assets/ring_micro/architecture_06.jpg", full: "assets/ring_full/architecture_06.jpg", title: "Real Estate 06", ratio: "ratio-landscape", wRatio: 1.5 },
-          { thumb: "assets/ring_micro/architecture_07.jpg", full: "assets/ring_full/architecture_07.jpg", title: "Real Estate 07", ratio: "ratio-landscape", wRatio: 1.5 },
-          { thumb: "assets/ring_micro/architecture_08.jpg", full: "assets/ring_full/architecture_08.jpg", title: "Real Estate 08", ratio: "ratio-landscape", wRatio: 1.5 }
+          { thumb: "assets/ring_micro/architecture_06.jpg", full: "assets/ring_full/architecture_06.jpg", title: "Real Estate 06", ratio: "ratio-landscape", wRatio: 1.5 }
         ]
       },
       {
@@ -1875,7 +2434,7 @@
         shortLabel: "05 FOOD",
         sub: "ขับเน้นความพิถีพิถันของรสชาติและเท็กซ์เจอร์อาหารจานพิเศษ",
         theme: "light",
-        glow: "rgba(91, 141, 239, 0.20)",
+        glow: "rgba(201, 59, 43, 0.16)",
         bigText: "food",
         photos: [
           { thumb: "assets/ring_micro/gastronomy_01.jpg", full: "assets/ring_full/gastronomy_01.jpg", title: "Food & Dining 01", ratio: "ratio-landscape", wRatio: 1.5 },
@@ -1895,7 +2454,7 @@
         shortLabel: "06 PRODUCT",
         sub: "ยกระดับมูลค่าสินค้าและภาพลักษณ์แบรนด์เพื่อการโฆษณา",
         theme: "light",
-        glow: "rgba(91, 141, 239, 0.20)",
+        glow: "rgba(201, 59, 43, 0.16)",
         bigText: "product",
         photos: [
           { thumb: "assets/ring_micro/commercial_01.jpg", full: "assets/ring_full/commercial_01.jpg", title: "Product & Brand 01", ratio: "ratio-landscape", wRatio: 1.5 },
@@ -1903,9 +2462,7 @@
           { thumb: "assets/ring_micro/commercial_03.jpg", full: "assets/ring_full/commercial_03.jpg", title: "Product & Brand 03", ratio: "ratio-portrait", wRatio: 0.71 },
           { thumb: "assets/ring_micro/commercial_04.jpg", full: "assets/ring_full/commercial_04.jpg", title: "Product & Brand 04", ratio: "ratio-portrait", wRatio: 0.67 },
           { thumb: "assets/ring_micro/commercial_05.jpg", full: "assets/ring_full/commercial_05.jpg", title: "Product & Brand 05", ratio: "ratio-square", wRatio: 1.0 },
-          { thumb: "assets/ring_micro/commercial_06.jpg", full: "assets/ring_full/commercial_06.jpg", title: "Product & Brand 06", ratio: "ratio-square", wRatio: 1.0 },
-          { thumb: "assets/ring_micro/commercial_07.jpg", full: "assets/ring_full/commercial_07.jpg", title: "Product & Brand 07", ratio: "ratio-landscape", wRatio: 1.5 },
-          { thumb: "assets/ring_micro/commercial_08.jpg", full: "assets/ring_full/commercial_08.jpg", title: "Product & Brand 08", ratio: "ratio-portrait", wRatio: 0.75 }
+          { thumb: "assets/ring_micro/commercial_06.jpg", full: "assets/ring_full/commercial_06.jpg", title: "Product & Brand 06", ratio: "ratio-square", wRatio: 1.0 }
         ]
       },
       {
@@ -1915,7 +2472,7 @@
         shortLabel: "07 PORTRAIT",
         sub: "ดึงคาแรกเตอร์และเสน่ห์เฉพาะตัวด้วยการจัดแสงระดับสตูดิโอ",
         theme: "light",
-        glow: "rgba(91, 141, 239, 0.20)",
+        glow: "rgba(201, 59, 43, 0.16)",
         bigText: "portrait",
         photos: [
           { thumb: "assets/ring_micro/portrait_01.jpg", full: "assets/ring_full/portrait_01.jpg", title: "Studio & Portrait 01", ratio: "ratio-cinema", wRatio: 1.78 },
@@ -1935,7 +2492,7 @@
         shortLabel: "08 EVENT",
         sub: "บันทึกจังหวะสำคัญของงานประชุมนานาชาติและอีเวนต์องค์กร",
         theme: "dark",
-        glow: "rgba(37, 84, 176, 0.28)",
+        glow: "rgba(201, 59, 43, 0.30)",
         bigText: "event",
         photos: [
           { thumb: "assets/ring_micro/live_event_01.jpg", full: "assets/ring_full/live_event_01.jpg", title: "Event & Special 01", ratio: "ratio-landscape", wRatio: 1.5 },
@@ -1950,8 +2507,6 @@
       }
     ];
 
-
-
     // State
     let currentLightboxCat = null;
     let currentLightboxIdx = 0;
@@ -1963,6 +2518,7 @@
     // DOM Roots
     const viewport = document.getElementById("viewport-canvas");
     const sideNav = document.getElementById("side-indicator");
+    const topNav = document.getElementById("top-nav");
 
     function initDOM() {
       // 1. Build Side Nav: Dot 00 INTRO
@@ -1970,45 +2526,46 @@
       introDot.type = "button";
       introDot.className = "indicator-dot active";
       introDot.setAttribute("data-index", "0");
-      introDot.innerHTML = `<span class="idx-num">00 INTRO</span><span class="idx-bar"></span>`;
+      introDot.innerHTML = `<span class="idx-num">00 COVER</span><span class="idx-bar"></span>`;
       introDot.onclick = () => scrollToCategory(0);
       sideNav.appendChild(introDot);
 
       // 2. Build 8 Category Sections
       CATEGORIES.forEach((cat, cIdx) => {
-        const secIndex = cIdx + 1; // 1 to 8
+        const secIndex = cIdx + 1;
 
-        // Side Nav Dot for Category
         const dot = document.createElement("button");
         dot.type = "button";
         dot.className = "indicator-dot";
         dot.setAttribute("data-index", secIndex);
-        dot.innerHTML = `<span class="idx-num">${cat.shortLabel || (cat.num + " " + cat.bigText.toUpperCase())}</span><span class="idx-bar"></span>`;
+        dot.innerHTML = `<span class="idx-num">${cat.shortLabel}</span><span class="idx-bar"></span>`;
         dot.onclick = () => scrollToCategory(secIndex);
         sideNav.appendChild(dot);
 
-        // Build Category Section Element
         const sec = document.createElement("section");
         sec.className = "kinetic-section";
         sec.id = `sec-${cat.id}`;
         sec.setAttribute("data-theme", cat.theme);
         sec.setAttribute("data-index", secIndex);
 
-        // Ambient glow (Zero GPU blur filter - pure radial gradient)
         const glow = document.createElement("div");
         glow.className = "ambient-glow";
         glow.style.setProperty("--glow-color", cat.glow);
         sec.appendChild(glow);
 
-        // Prominent Meta Header (Item 4)
+        // Editorial Category Header with Frame Spec
         const meta = document.createElement("div");
         meta.className = "category-meta";
+        const frameCountStr = String(cat.photos.length).padStart(2, "0");
         meta.innerHTML = `
-          <div class="meta-badge">
-            <span class="badge-num">${cat.num}</span>
-            <span>// ${cat.label}</span>
+          <div class="meta-left-group">
+            <div class="meta-badge">
+              <span class="badge-num">${cat.num}</span>
+              <span>// ${cat.label}</span>
+            </div>
+            <div class="meta-sub">${cat.sub}</div>
           </div>
-          <div class="meta-sub">${cat.sub}</div>
+          <div class="meta-right-spec">360&deg; RING // ${frameCountStr} SELECTED FRAMES</div>
         `;
         sec.appendChild(meta);
 
@@ -2017,20 +2574,23 @@
         stage.className = "ring-stage";
         stage.id = `stage-${cat.id}`;
 
+        const reticle = document.createElement("div");
+        reticle.className = "stage-editorial-reticle";
+        stage.appendChild(reticle);
+
         const pivot = document.createElement("div");
         pivot.className = "ring-pivot";
         pivot.id = `pivot-${cat.id}`;
 
         const isMobile = window.innerWidth <= 768;
-        const radius = isMobile ? 128 : 375;
-
-        // Staggered priority: Instant load first 2 categories (Concert & Hotel), low priority for rest
+        const radius = isMobile ? 148 : 375;
+        const stepDeg = 360 / cat.photos.length;
         const fetchPri = cIdx < 2 ? "fetchpriority=\"high\"" : "fetchpriority=\"low\"";
 
         cat.photos.forEach((photo, pIdx) => {
           const card = document.createElement("div");
           card.className = `ring-card ${photo.ratio}`;
-          const deg = pIdx * 45;
+          const deg = pIdx * stepDeg;
           card.style.transform = `rotateY(${deg}deg) translateZ(${radius}px)`;
           card.setAttribute("data-photo-idx", pIdx);
 
@@ -2043,7 +2603,7 @@
         stage.appendChild(pivot);
         sec.appendChild(stage);
 
-        // Giant Kinetic Typography (Base delay 120ms + 55ms per char for noticeable flip transition)
+        // Giant Kinetic Typography
         const giantWrap = document.createElement("div");
         giantWrap.className = "giant-kinetic-title-wrap";
         const giantTitle = document.createElement("h2");
@@ -2067,17 +2627,16 @@
         hint.className = "interaction-hint";
         hint.innerHTML = `
           <svg viewBox="0 0 24 24"><path d="M7 11l5-5 5 5M7 13l5 5 5-5"/></svg>
-          <span>DRAG TO SPIN · TAP TO EXPAND</span>
+          <span>DRAG TO SPIN &middot; TAP CARD TO EXPAND</span>
         `;
         sec.appendChild(hint);
 
         viewport.appendChild(sec);
 
-        // Setup 3D Ring Controller with inertia physics & hover pause
         setupRingController(cat, stage, pivot, cIdx);
       });
 
-      // 3. Build Section 09: Contact Mockup Section (Item 5)
+      // 3. Build Section 09: Editorial Back Cover (MY PROCESS 01-04 + Commission Brief)
       const contactIndex = 9;
       const contactDot = document.createElement("button");
       contactDot.type = "button";
@@ -2093,16 +2652,60 @@
       contactSec.setAttribute("data-theme", "dark");
       contactSec.setAttribute("data-index", contactIndex);
       contactSec.innerHTML = `
-        <div class="ambient-glow" style="--glow-color: rgba(37, 84, 176, 0.22);"></div>
-        <div class="contact-container">
-          <div class="contact-header-wrap">
-            <div class="contact-badge">GET IN TOUCH</div>
-            <h2 class="contact-heading">นัดหมายบรีฟงาน &amp; ปรึกษาโปรเจกต์</h2>
-            <p class="contact-desc">พูดคุยทิศทางภาพลักษณ์ วางแผนการถ่ายทำ หรือขอใบเสนอราคาโดยตรงกับช่างภาพ</p>
+        <div class="ambient-glow" style="--glow-color: rgba(201, 59, 43, 0.28);"></div>
+        <div class="back-cover-shell">
+
+          <!-- 1. Editorial Back Cover Giant Header -->
+          <div class="back-cover-top">
+            <h2 class="back-giant-title">FELTZ COMMISSION</h2>
+            <div class="back-cover-subbox">
+              <div class="back-cover-kicker">09 // BOOKING &amp; PRODUCTION INQUIRY</div>
+              <p class="back-cover-lead">พูดคุยทิศทางภาพลักษณ์ วางแผนการถ่ายทำ หรือขอใบเสนอราคาโดยตรงกับ มงคล วงศ์สกุลยานนท์ (เก่ง)</p>
+            </div>
           </div>
 
+          <!-- 2. MY PROCESS // 01-04 (Matching Editorial Poster Reference) -->
+          <div class="process-editorial-strip">
+            <div class="process-strip-head">
+              <div class="process-strip-title">MY PROCESS</div>
+              <div class="process-strip-tag">04 WORKFLOW STEPS</div>
+            </div>
+
+            <div class="process-step-card">
+              <span class="process-num">01</span>
+              <div class="process-info">
+                <div class="process-name">BRIEF &amp; DIRECTION</div>
+                <div class="process-desc-th">วิเคราะห์โจทย์แบรนด์และวางโครงเรื่องภาพ</div>
+              </div>
+            </div>
+
+            <div class="process-step-card">
+              <span class="process-num">02</span>
+              <div class="process-info">
+                <div class="process-name">PRODUCTION &amp; RIG</div>
+                <div class="process-desc-th">ถ่ายทำด้วยชุดกล้องคู่และจัดแสงระดับสตูดิโอ</div>
+              </div>
+            </div>
+
+            <div class="process-step-card">
+              <span class="process-num">03</span>
+              <div class="process-info">
+                <div class="process-name">COLOR LAB GRADING</div>
+                <div class="process-desc-th">เกรดสีและรีทัชด้วย Capture One &amp; DaVinci</div>
+              </div>
+            </div>
+
+            <div class="process-step-card">
+              <span class="process-num">04</span>
+              <div class="process-info">
+                <div class="process-name">FAST DELIVERY</div>
+                <div class="process-desc-th">ส่งมอบไฟล์ความละเอียดสูงพร้อมใช้งานทันที</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Direct Contact Channels & Editorial Inquiry Form -->
           <div class="contact-body-grid">
-            <!-- Left: Direct Info Cards & Socials -->
             <div class="contact-info-panel">
               <div class="contact-channel-cards">
                 <a href="tel:0895544355" class="contact-card-item">
@@ -2110,7 +2713,7 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                   </div>
                   <div class="contact-card-meta">
-                    <span class="lbl">โทรศัพท์สายตรง</span>
+                    <span class="lbl">DIRECT PHONE</span>
                     <span class="val">089-554-4355</span>
                   </div>
                 </a>
@@ -2120,64 +2723,68 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
                   </div>
                   <div class="contact-card-meta">
-                    <span class="lbl">LINE ID</span>
+                    <span class="lbl">LINE OFFICIAL / ID</span>
                     <span class="val">0895544355</span>
                   </div>
                 </a>
 
-                <a href="mailto:silver_nsx@hotmail.com" class="contact-card-item">
+                <a href="mailto:silver_nsx@hotmail.com" class="contact-card-item full-span">
                   <div class="contact-card-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                   </div>
                   <div class="contact-card-meta">
-                    <span class="lbl">อีเมลติดต่อ</span>
+                    <span class="lbl">EMAIL DIRECT</span>
                     <span class="val">silver_nsx@hotmail.com</span>
                   </div>
                 </a>
 
-                <div class="contact-card-item">
+                <div class="contact-card-item full-span">
                   <div class="contact-card-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                   </div>
                   <div class="contact-card-meta">
-                    <span class="lbl">ที่ตั้งสตูดิโอ</span>
+                    <span class="lbl">CHIANG MAI STUDIO BASE (NATIONWIDE SERVICE)</span>
                     <span class="val">65/1 ถ.ต้นขาม ต.ท่าศาลา อ.เมือง จ.เชียงใหม่ 50000</span>
                   </div>
                 </div>
               </div>
 
-              <!-- Social Links Grid -->
+              <div class="studio-cred-card">
+                <div class="studio-cred-title">OPTICAL RIG &amp; ENTERPRISE CLIENTS</div>
+                <div class="studio-cred-text">Dual Sony A7 IV · FE 70-200mm GM II · Sigma Art · Capture One &amp; DaVinci Resolve<br/>Singha · KBank · Thai AirAsia · True · AIA · Yamaha · TCEB · GISTDA</div>
+              </div>
+
               <div class="contact-social-grid">
                 <a href="https://line.me/ti/p/~0895544355" target="_blank" rel="noopener noreferrer" class="social-pill">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C6.48 2 2 5.92 2 10.75c0 2.92 1.63 5.5 4.14 7.05-.18.66-.66 2.4-1 3.65 0 0-.08.31.17.43.25.11.53-.02.53-.02 2.87-1.92 3.86-2.58 4.25-2.85.94.22 1.91.34 2.91.34 5.52 0 10-3.92 10-8.75S17.52 2 12 2z"/></svg>
-                  <span>Line Chat</span>
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M12 2C6.48 2 2 5.92 2 10.75c0 2.92 1.63 5.5 4.14 7.05-.18.66-.66 2.4-1 3.65 0 0-.08.31.17.43.25.11.53-.02.53-.02 2.87-1.92 3.86-2.58 4.25-2.85.94.22 1.91.34 2.91.34 5.52 0 10-3.92 10-8.75S17.52 2 12 2z"/></svg>
+                  <span>LINE</span>
                 </a>
                 <a href="https://fastwork.co" target="_blank" rel="noopener noreferrer" class="social-pill">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                  <span>Fastwork</span>
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                  <span>FASTWORK</span>
                 </a>
                 <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-pill">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-                  <span>Facebook</span>
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                  <span>FACEBOOK</span>
                 </a>
                 <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-pill">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
-                  <span>Instagram</span>
-                </a>
-                <a href="https://myportfolio.com" target="_blank" rel="noopener noreferrer" class="social-pill full-width">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                  <span>Official Adobe Portfolio</span>
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg>
+                  <span>INSTAGRAM</span>
                 </a>
               </div>
             </div>
 
-            <!-- Right: Mockup Inquiry Form -->
+            <!-- Right: Editorial Commission Form -->
             <div class="contact-form-panel">
-              <form id="project-inquiry-mockup" class="mockup-form" onsubmit="event.preventDefault(); alert('ขอบคุณครับ! ข้อมูลโปรเจกต์ส่งถึงสตูดิโอเรียบร้อย (Mockup)');">
+              <div class="form-panel-head">
+                <span class="form-panel-title">COMMISSION BRIEF // ใบแจ้งรายละเอียดงาน</span>
+                <span class="form-panel-sub">DIRECT STUDIO RESPONSE</span>
+              </div>
+              <form id="project-inquiry-mockup" class="mockup-form" onsubmit="event.preventDefault(); alert('ขอบคุณครับ! ข้อมูลโปรเจกต์ส่งถึง Feltz Studio เรียบร้อย');">
                 <div class="form-row-2">
                   <div class="form-field">
                     <label class="field-label">ชื่อผู้ติดต่อ / แบรนด์ *</label>
-                    <input type="text" class="field-input" placeholder="เช่น คุณสมชาย หรือ แบรนด์ของคุณ" required />
+                    <input type="text" class="field-input" placeholder="เช่น คุณสมชาย หรือ ชื่อบริษัท" required />
                   </div>
                   <div class="form-field">
                     <label class="field-label">เบอร์โทรศัพท์ติดต่อ *</label>
@@ -2193,28 +2800,35 @@
                     <label class="field-label">หมวดหมู่งานที่สนใจ *</label>
                     <select class="field-select" required>
                       <option value="" disabled selected>เลือกประเภทบริการ</option>
-                      <option value="concert">คอนเสิร์ตและเวทีการแสดง (Concert &amp; Stage)</option>
-                      <option value="hotel">โรงแรมและรีสอร์ต (Hotel &amp; Resort)</option>
-                      <option value="sport">สปอร์ตและจักรยานความเร็วสูง (Cycling &amp; Sport)</option>
-                      <option value="realestate">อสังหาริมทรัพย์และสเปซ (Real Estate)</option>
-                      <option value="food">อาหารและไฟน์ไดน์นิ่ง (Food &amp; Dining)</option>
-                      <option value="product">สินค้าและผลิตภัณฑ์แบรนด์ (Product &amp; Brand)</option>
-                      <option value="portrait">สตูดิโอพอร์ตเทรตผู้บริหาร (Studio &amp; Portrait)</option>
-                      <option value="event">อีเวนต์องค์กรและการประชุม (Corporate &amp; Event)</option>
+                      <option value="concert">01 // คอนเสิร์ตและเวทีการแสดง (Concert &amp; Stage)</option>
+                      <option value="hotel">02 // โรงแรมและรีสอร์ต (Hotel &amp; Resort)</option>
+                      <option value="sport">03 // สปอร์ตและจักรยานความเร็วสูง (Cycling &amp; Sport)</option>
+                      <option value="realestate">04 // อสังหาริมทรัพย์และสเปซ (Real Estate)</option>
+                      <option value="food">05 // อาหารและไฟน์ไดน์นิ่ง (Food &amp; Dining)</option>
+                      <option value="product">06 // สินค้าและผลิตภัณฑ์แบรนด์ (Product &amp; Brand)</option>
+                      <option value="portrait">07 // สตูดิโอพอร์ตเทรตผู้บริหาร (Studio &amp; Portrait)</option>
+                      <option value="event">08 // อีเวนต์องค์กรและการประชุม (Corporate &amp; Event)</option>
                     </select>
                   </div>
                 </div>
                 <div class="form-field">
                   <label class="field-label">รายละเอียดโปรเจกต์ / สถานที่ / วันที่โดยประมาณ *</label>
-                  <textarea class="field-textarea" rows="3" placeholder="ระบุเป้าหมายของงาน เช่น ถ่ายทำรีสอร์ต 2 วัน เพื่อรีแบรนดิ้งเว็บไซต์ใหม่..." required></textarea>
+                  <textarea class="field-textarea" rows="2" placeholder="ระบุเป้าหมายของงาน เช่น ถ่ายทำรีสอร์ต 2 วัน เพื่อรีแบรนดิ้งเว็บไซต์ใหม่..." required></textarea>
                 </div>
                 <button type="submit" class="submit-inquiry-btn">
-                  <span>ส่งข้อมูลโปรเจกต์เพื่อประเมิน</span>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                  <span>ส่งบรีฟโปรเจกต์เพื่อประเมินราคา (SEND COMMISSION BRIEF)</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
                 </button>
               </form>
             </div>
           </div>
+
+          <!-- 4. Editorial Back Cover Footer -->
+          <div class="back-cover-footer">
+            <span>&copy; FELTZ STUDIO // MONGKOL WONGSAKULYANON — ALL RIGHTS RESERVED</span>
+            <button type="button" class="back-top-btn" onclick="scrollToCategory(0)">BACK TO COVER &uarr;</button>
+          </div>
+
         </div>
       `;
       viewport.appendChild(contactSec);
@@ -2243,7 +2857,6 @@
 
       ringControllers.push(state);
 
-      // Pause rotation ONLY on fine pointer / desktop hover (never on touch devices!)
       if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
         stageElem.addEventListener("mouseenter", () => { state.isPaused = true; });
         stageElem.addEventListener("mouseleave", () => {
@@ -2269,7 +2882,6 @@
         const dy = Math.abs(clientY - state.startY);
         const absX = Math.abs(clientX - state.startX);
 
-        // If user is swiping vertically to scroll between sections, unpause and release immediately
         if (dy > absX && dy > 6) {
           state.isDragging = false;
           state.isPaused = false;
@@ -2278,7 +2890,6 @@
 
         state.dragDistance += Math.abs(dx);
 
-        // Horizontal rotation vs Vertical scroll separation
         if (Math.abs(dx) > dy && state.dragDistance > 6) {
           if (e.cancelable && e.type && e.type.startsWith("touch")) {
             e.preventDefault();
@@ -2310,7 +2921,6 @@
       window.addEventListener("touchend", onPointerUp, { passive: true });
       window.addEventListener("touchcancel", onPointerUp, { passive: true });
 
-      // Card click with Spatial FLIP fly-out animation (Item 5)
       const cards = pivotElem.querySelectorAll(".ring-card");
       cards.forEach((cardEl, pIdx) => {
         cardEl.addEventListener("click", () => {
@@ -2321,27 +2931,30 @@
       });
     }
 
-    // Animation Loop
+    // Animation Loop (Uses deeper oval tilt on mobile so the ring fills vertical space)
     function animateRings() {
+      const isMobile = window.innerWidth <= 768;
+      const tiltX = isMobile ? -19 : -13;
+      const tiltZ = isMobile ? -5 : -4;
+
       ringControllers.forEach(ctrl => {
         if (!ctrl.isNearView) return;
 
         if (!ctrl.isDragging) {
           if (Math.abs(ctrl.velocity) > 0.04) {
             ctrl.currentRotation += ctrl.velocity;
-            ctrl.velocity *= 0.94; // Inertia friction
+            ctrl.velocity *= 0.94;
           } else if (!ctrl.isPaused) {
-            ctrl.currentRotation += ctrl.autoSpinSpeed; // Smooth cruise
+            ctrl.currentRotation += ctrl.autoSpinSpeed;
           }
         }
 
-        ctrl.pivot.style.transform = `rotateX(-13deg) rotateZ(-4deg) rotateY(${ctrl.currentRotation}deg)`;
+        ctrl.pivot.style.transform = `rotateX(${tiltX}deg) rotateZ(${tiltZ}deg) rotateY(${ctrl.currentRotation}deg)`;
       });
 
       requestAnimationFrame(animateRings);
     }
 
-    // Scroll & Intersection Observer
     function scrollToCategory(idx) {
       const allSections = document.querySelectorAll(".kinetic-section");
       if (allSections[idx]) {
@@ -2361,7 +2974,6 @@
       const allSections = document.querySelectorAll(".kinetic-section");
       const dots = document.querySelectorAll(".indicator-dot");
 
-      // Reset any paused state whenever user scrolls viewport
       viewport.addEventListener("scroll", () => {
         ringControllers.forEach(st => {
           st.isPaused = false;
@@ -2369,27 +2981,24 @@
         });
       }, { passive: true });
 
-      // 1. In-View Observer (Threshold 0.82 ensures section snaps in before giant title transitions)
       const inViewObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           const idx = parseInt(entry.target.getAttribute("data-index"), 10);
           if (entry.isIntersecting) {
             entry.target.classList.add("is-in-view");
 
-            // Reset pause states on section change
             ringControllers.forEach(st => {
               st.isPaused = false;
               st.isDragging = false;
             });
 
-            // If it is a category section (idx 1..8)
             if (idx > 0 && ringControllers[idx - 1]) {
               ringControllers[idx - 1].isActiveSection = true;
             }
 
-            // Theme adaptation for side indicator
             const isLight = entry.target.getAttribute("data-theme") === "light";
             sideNav.classList.toggle("theme-light-active", isLight);
+            topNav.classList.toggle("theme-light-active", isLight);
 
             dots.forEach((d, dIdx) => {
               d.classList.toggle("active", dIdx === idx);
@@ -2406,7 +3015,6 @@
         threshold: 0.82
       });
 
-      // 2. Near-View Observer for 3D Off-Screen Culling (Pre-renders 1 page adjacent, shuts GPU off for other 6)
       const nearViewObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           const idx = parseInt(entry.target.getAttribute("data-index"), 10);
@@ -2429,7 +3037,7 @@
     }
 
     // =========================================================================
-    // ITEM 5: SPATIAL FLIP FLY-OUT LIGHTBOX ANIMATION ENGINE
+    // SPATIAL FLIP FLY-OUT LIGHTBOX ANIMATION ENGINE
     // =========================================================================
     const lbOverlay = document.getElementById("lightbox-overlay");
     const lbFlyingStage = document.getElementById("lightbox-flying-stage");
@@ -2444,14 +3052,9 @@
       activeClickedCardEl = cardEl;
 
       const photo = cat.photos[photoIdx];
-
-      // 1. Get exact current bounding rect of clicked 3D card
       activeOriginRect = cardEl.getBoundingClientRect();
-
-      // 2. Hide clicked card in the 3D ring so it looks like it detached
       cardEl.style.opacity = "0";
 
-      // 3. Setup flying stage starting exactly at card's screen position
       lbFlyingImg.src = photo.full;
       lbFlyingStage.style.transition = "none";
       lbFlyingStage.style.left = `${activeOriginRect.left}px`;
@@ -2461,14 +3064,11 @@
       lbFlyingStage.style.transform = "scale(0.96) perspective(900px) rotateY(6deg)";
       lbFlyingStage.style.display = "block";
 
-      // 4. Update header labels
       lbCat.textContent = `${cat.num} // ${cat.label}`;
       lbTitle.textContent = `${photo.title} (${photoIdx + 1} / ${cat.photos.length})`;
 
-      // 5. Open backdrop
       lbOverlay.classList.add("is-active");
 
-      // 6. Compute destination dimensions centered on screen
       const ratio = photo.wRatio || 1.5;
       const isPortrait = ratio < 0.9;
       let targetW = Math.min(window.innerWidth * 0.88, isPortrait ? 560 : 1050);
@@ -2482,7 +3082,6 @@
       const targetLeft = (window.innerWidth - targetW) / 2;
       const targetTop = (window.innerHeight - targetH) / 2;
 
-      // 7. Double RAF to trigger smooth spatial flight
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           lbFlyingStage.style.transition = "left 0.54s cubic-bezier(0.16, 1, 0.3, 1), top 0.54s cubic-bezier(0.16, 1, 0.3, 1), width 0.54s cubic-bezier(0.16, 1, 0.3, 1), height 0.54s cubic-bezier(0.16, 1, 0.3, 1), transform 0.54s cubic-bezier(0.16, 1, 0.3, 1)";
@@ -2510,7 +3109,6 @@
       isLightboxSpatialAnimating = true;
       lbOverlay.classList.remove("is-active");
 
-      // Animate flying stage back into the ring card's origin
       lbFlyingStage.style.transition = "left 0.42s cubic-bezier(0.22, 1, 0.36, 1), top 0.42s cubic-bezier(0.22, 1, 0.36, 1), width 0.42s cubic-bezier(0.22, 1, 0.36, 1), height 0.42s cubic-bezier(0.22, 1, 0.36, 1), transform 0.42s cubic-bezier(0.22, 1, 0.36, 1)";
       lbFlyingStage.style.left = `${activeOriginRect.left}px`;
       lbFlyingStage.style.top = `${activeOriginRect.top}px`;
@@ -2538,7 +3136,6 @@
       lbFlyingImg.src = p.full;
       lbTitle.textContent = `${p.title} (${currentLightboxIdx + 1} / ${len})`;
 
-      // Recompute aspect ratio and rescale stage smoothly
       const ratio = p.wRatio || 1.5;
       const isPortrait = ratio < 0.9;
       let targetW = Math.min(window.innerWidth * 0.88, isPortrait ? 560 : 1050);
@@ -2565,7 +3162,6 @@
       }
     }
 
-    // Keyboard navigation
     window.addEventListener("keydown", (e) => {
       if (lbOverlay.classList.contains("is-active")) {
         if (e.key === "Escape") closeLightboxSpatial();
@@ -2574,28 +3170,15 @@
       }
     });
 
-    // A4 Profile Modal Controls
-    const a4Modal = document.getElementById("a4-modal");
-    function openA4Modal() {
-      a4Modal.classList.add("is-open");
-    }
-    function closeA4Modal() {
-      a4Modal.classList.remove("is-open");
-    }
-    function handleA4Backdrop(e) {
-      if (e.target === a4Modal) {
-        closeA4Modal();
-      }
-    }
-
-    // Responsive Radius Update on Resize
+    // Dynamic Angle & Radius Update on Resize (360 / cat.photos.length)
     window.addEventListener("resize", () => {
       const isMobile = window.innerWidth <= 768;
-      const radius = isMobile ? 128 : 375;
+      const radius = isMobile ? 148 : 375;
       ringControllers.forEach(ctrl => {
+        const stepDeg = 360 / ctrl.cat.photos.length;
         const cards = ctrl.pivot.querySelectorAll(".ring-card");
         cards.forEach((c, idx) => {
-          c.style.transform = `rotateY(${idx * 45}deg) translateZ(${radius}px)`;
+          c.style.transform = `rotateY(${idx * stepDeg}deg) translateZ(${radius}px)`;
         });
       });
     });
