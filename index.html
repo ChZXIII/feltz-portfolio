@@ -125,9 +125,7 @@
       text-transform: uppercase;
       pointer-events: auto;
       cursor: pointer;
-      background: rgba(11, 7, 7, 0.65);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: rgba(14, 9, 9, 0.90);
       padding: 5px 12px;
       border-radius: 4px;
       border: 1px solid rgba(201, 59, 43, 0.25);
@@ -135,7 +133,7 @@
     }
 
     .top-nav.theme-light-active .masthead-left {
-      background: rgba(244, 239, 230, 0.82);
+      background: rgba(244, 239, 230, 0.94);
       color: #161110;
       border-color: rgba(201, 59, 43, 0.28);
     }
@@ -155,9 +153,7 @@
       letter-spacing: 0.14em;
       color: var(--editorial-cream);
       text-transform: uppercase;
-      background: rgba(11, 7, 7, 0.65);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: rgba(14, 9, 9, 0.90);
       padding: 5px 12px;
       border-radius: 4px;
       border: 1px solid rgba(201, 59, 43, 0.32);
@@ -554,7 +550,7 @@
       width: auto;
       object-fit: contain;
       object-position: bottom center;
-      filter: drop-shadow(0 18px 36px rgba(0, 0, 0, 0.85)) contrast(1.04);
+      background: transparent !important;
       margin-bottom: -4px;
     }
 
@@ -689,23 +685,6 @@
       stroke-width: 1.9;
     }
 
-    .skills-head-dots {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .skills-head-dots span {
-      width: 6.5px;
-      height: 6.5px;
-      border-radius: 50%;
-      display: inline-block;
-    }
-
-    .skills-head-dots .dot-r { background: #ef6b6b; }
-    .skills-head-dots .dot-b { background: #5da9e9; }
-    .skills-head-dots .dot-g { background: #4ade80; }
-
     .skills-badge-row {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -789,13 +768,12 @@
       left: -10%;
       width: 120%;
       height: 190px;
-      background: linear-gradient(90deg, transparent 0%, rgba(201, 59, 43, 0.26) 35%, rgba(232, 220, 200, 0.12) 55%, transparent 100%);
+      background: radial-gradient(ellipse at center, rgba(201, 59, 43, 0.28) 0%, rgba(232, 220, 200, 0.08) 42%, transparent 72%);
       transform: perspective(1100px) rotateZ(-14deg) rotateX(52deg) scaleX(0.2);
       opacity: 0;
       pointer-events: none;
       z-index: 1;
-      filter: blur(18px);
-      animation: ribbonSweepTrack 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: ribbonSweepTrack 2.0s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     @keyframes ribbonSweepTrack {
@@ -823,25 +801,22 @@
       display: inline-block;
       opacity: 0;
       transform-origin: 50% 100%;
-      will-change: transform, opacity, filter;
-      animation: helixTitleUncoil 1.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      animation-delay: calc(0.06s + var(--char-i, 0) * 0.055s);
+      will-change: transform, opacity;
+      animation: helixTitleUncoil 1.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: calc(0.04s + var(--char-i, 0) * 0.048s);
     }
 
     @keyframes helixTitleUncoil {
       0% {
         opacity: 0;
-        filter: blur(8px);
-        transform: perspective(1100px) translate3d(calc((var(--char-i, 0) - 5.5) * -32px - 18vw), 46vh, -460px) rotateY(-115deg) rotateX(54deg) rotateZ(-24deg) scale(0.34);
+        transform: perspective(1100px) translate3d(calc((var(--char-i, 0) - 5.5) * -32px - 18vw), 44vh, -420px) rotateY(-110deg) rotateX(50deg) rotateZ(-22deg) scale(0.36);
       }
       48% {
         opacity: 1;
-        filter: blur(0px);
-        transform: perspective(1100px) translate3d(calc((var(--char-i, 0) - 5.5) * 6px), 7vh, 115px) rotateY(22deg) rotateX(-14deg) rotateZ(5deg) scale(1.07);
+        transform: perspective(1100px) translate3d(calc((var(--char-i, 0) - 5.5) * 5px), 6vh, 95px) rotateY(18deg) rotateX(-12deg) rotateZ(4deg) scale(1.05);
       }
       100% {
         opacity: 1;
-        filter: blur(0px);
         transform: perspective(1100px) translate3d(0, 0, 0) rotateY(0deg) rotateX(0deg) rotateZ(0deg) scale(1);
       }
     }
@@ -887,19 +862,18 @@
     .cutout-portrait-img {
       opacity: 0;
       transform-origin: bottom center;
-      animation: portraitUncoilRise 1.32s cubic-bezier(0.16, 1, 0.3, 1) 0.48s forwards;
+      will-change: transform, opacity;
+      animation: portraitUncoilRiseDesktop 1.18s cubic-bezier(0.16, 1, 0.3, 1) 0.38s forwards;
     }
 
-    @keyframes portraitUncoilRise {
+    @keyframes portraitUncoilRiseDesktop {
       0% {
         opacity: 0;
-        filter: blur(10px) drop-shadow(0 18px 36px rgba(0, 0, 0, 0.85));
-        transform: perspective(1100px) translate3d(0, 22vh, -260px) rotateY(-28deg) rotateX(18deg) scale(0.76);
+        transform: translate3d(0, 18vh, 0) scale(0.82);
       }
       100% {
         opacity: 1;
-        filter: blur(0px) drop-shadow(0 18px 36px rgba(0, 0, 0, 0.85)) contrast(1.04);
-        transform: perspective(1100px) translate3d(0, 0, 0) rotateY(0deg) rotateX(0deg) scale(1);
+        transform: translate3d(0, 0, 0) scale(1);
       }
     }
 
@@ -907,25 +881,22 @@
     .ribbon-snap-item {
       opacity: 0;
       transform-origin: center center;
-      will-change: transform, opacity, filter;
-      animation: ribbonStreamToGrid 1.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      animation-delay: calc(0.54s + var(--ribbon-order, 0) * 0.095s);
+      will-change: transform, opacity;
+      animation: ribbonStreamToGrid 1.12s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: calc(0.44s + var(--ribbon-order, 0) * 0.08s);
     }
 
     @keyframes ribbonStreamToGrid {
       0% {
         opacity: 0;
-        filter: blur(9px);
-        transform: perspective(1200px) translate3d(var(--from-x, -26vw), var(--from-y, 32vh), -380px) rotateY(var(--from-ry, 58deg)) rotateX(var(--from-rx, 32deg)) rotateZ(var(--from-rz, -15deg)) scale(0.46);
+        transform: perspective(1200px) translate3d(var(--from-x, -26vw), var(--from-y, 30vh), -340px) rotateY(var(--from-ry, 54deg)) rotateX(var(--from-rx, 28deg)) rotateZ(var(--from-rz, -14deg)) scale(0.48);
       }
       54% {
         opacity: 1;
-        filter: blur(0px);
-        transform: perspective(1200px) translate3d(calc(var(--from-x, -26vw) * -0.07), -8px, 48px) rotateY(calc(var(--from-ry, 58deg) * -0.14)) rotateX(-5deg) rotateZ(2deg) scale(1.03);
+        transform: perspective(1200px) translate3d(calc(var(--from-x, -26vw) * -0.06), -6px, 36px) rotateY(calc(var(--from-ry, 54deg) * -0.12)) rotateX(-4deg) rotateZ(1.5deg) scale(1.02);
       }
       100% {
         opacity: 1;
-        filter: blur(0px);
         transform: perspective(1200px) translate3d(0, 0, 0) rotateY(0deg) rotateX(0deg) rotateZ(0deg) scale(1);
       }
     }
@@ -987,9 +958,7 @@
       grid-template-columns: 145px repeat(4, 1fr);
       border-top: 1px solid rgba(201, 59, 43, 0.32);
       border-bottom: 1px solid rgba(201, 59, 43, 0.32);
-      background: rgba(14, 8, 8, 0.82);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(14, 8, 8, 0.94);
     }
 
     .what-i-do-head {
@@ -1305,11 +1274,6 @@
         height: 12px;
       }
 
-      .skills-head-dots span {
-        width: 5.5px;
-        height: 5.5px;
-      }
-
       .skills-badge-row {
         gap: 6px;
       }
@@ -1329,17 +1293,16 @@
         height: min(46.5dvh, 435px);
         margin-bottom: -2px;
         transform: translateX(13%);
+        animation: portraitUncoilRiseMobile 1.12s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
       }
 
-      @keyframes portraitUncoilRise {
+      @keyframes portraitUncoilRiseMobile {
         0% {
           opacity: 0;
-          filter: blur(8px) drop-shadow(0 18px 36px rgba(0, 0, 0, 0.85));
-          transform: translateX(13%) translateY(16vh) scale(0.8);
+          transform: translateX(13%) translateY(15vh) scale(0.84);
         }
         100% {
           opacity: 1;
-          filter: blur(0px) drop-shadow(0 18px 36px rgba(0, 0, 0, 0.85)) contrast(1.04);
           transform: translateX(13%) translateY(0) scale(1);
         }
       }
@@ -1793,9 +1756,7 @@
       position: fixed;
       inset: 0;
       z-index: 1000;
-      background: rgba(11, 7, 7, 0.94);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      background: rgba(9, 6, 6, 0.97);
       display: none;
       opacity: 0;
       transition: opacity 0.35s ease;
@@ -2586,7 +2547,7 @@
           <!-- Center Cutout Portrait Overlapping Giant Title -->
           <div class="poster-col-center">
             <div class="crimson-halo-circle"></div>
-            <img src="assets/keng_cutout.png" alt="Mongkol Wongsakulyanon — Feltz Studio" class="cutout-portrait-img" fetchpriority="high" />
+            <img src="assets/keng_cutout.webp" onerror="this.onerror=null;this.src='assets/keng_cutout_opt.png';" alt="Mongkol Wongsakulyanon — Feltz Studio" class="cutout-portrait-img" fetchpriority="high" decoding="sync" />
           </div>
 
           <!-- Right Column: Identity + Stats + SKILLS Console (Ribbon Order 1) -->
@@ -2638,11 +2599,6 @@
                 <div class="skills-head-left">
                   <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
                   <span>SKILLS</span>
-                </div>
-                <div class="skills-head-dots" aria-hidden="true">
-                  <span class="dot-r"></span>
-                  <span class="dot-b"></span>
-                  <span class="dot-g"></span>
                 </div>
               </div>
               <div class="skills-badge-row" id="skills-badge-group">
@@ -2999,7 +2955,7 @@
         const isMobile = window.innerWidth <= 768;
         const radius = isMobile ? 198 : 375;
         const stepDeg = 360 / cat.photos.length;
-        const fetchPri = cIdx < 2 ? "fetchpriority=\"high\"" : "fetchpriority=\"low\"";
+        const fetchPri = cIdx === 0 ? "fetchpriority=\"low\"" : "loading=\"lazy\" fetchpriority=\"low\"";
 
         cat.photos.forEach((photo, pIdx) => {
           const card = document.createElement("div");
@@ -3267,7 +3223,7 @@
         dragDistance: 0,
         autoSpinSpeed: 0.16,
         isActiveSection: false,
-        isNearView: (catIdx === 0)
+        isNearView: false
       };
 
       ringControllers.push(state);
@@ -3347,8 +3303,18 @@
       });
     }
 
-    // Animation Loop (Separates front & back cards on mobile so they never overlap)
-    function animateRings() {
+    // Animation Loop (Strict 60 FPS Cap + Zero Idle Work on Cover + Mobile Depth Separation)
+    let lastRingFrameTime = 0;
+    const TARGET_FRAME_MS = 1000 / 60; // 16.66ms (60 FPS Cap)
+
+    function animateRings(now) {
+      requestAnimationFrame(animateRings);
+
+      if (!now) now = performance.now();
+      const elapsed = now - lastRingFrameTime;
+      if (elapsed < TARGET_FRAME_MS - 0.5) return;
+      lastRingFrameTime = now - (elapsed % TARGET_FRAME_MS);
+
       const isMobile = window.innerWidth <= 768;
       const tiltX = isMobile ? -15 : -13;
       const tiltZ = isMobile ? -3.5 : -4;
@@ -3394,8 +3360,6 @@
           }
         });
       });
-
-      requestAnimationFrame(animateRings);
     }
 
     function scrollToCategory(idx) {
@@ -3469,7 +3433,7 @@
         });
       }, {
         root: viewport,
-        rootMargin: "100% 0px 100% 0px",
+        rootMargin: "35% 0px 35% 0px",
         threshold: 0.01
       });
 
