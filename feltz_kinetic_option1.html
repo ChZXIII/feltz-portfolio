@@ -104,8 +104,13 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-bottom: 0;
-      border-bottom: none;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(232, 220, 200, 0.14);
+      transition: border-color 0.35s ease;
+    }
+
+    .top-nav.theme-light-active .masthead-bar {
+      border-bottom-color: rgba(22, 17, 16, 0.14);
     }
 
     .masthead-left {
@@ -113,35 +118,26 @@
       align-items: center;
       gap: 10px;
       font-family: var(--font-mono);
-      font-size: 10.5px;
+      font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.18em;
-      color: rgba(244, 239, 230, 0.78);
+      letter-spacing: 0.16em;
+      color: var(--editorial-cream);
       text-transform: uppercase;
       pointer-events: auto;
       cursor: pointer;
-      background: transparent;
-      padding: 4px 2px;
-      border: none;
+      background: rgba(11, 7, 7, 0.65);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 5px 12px;
+      border-radius: 4px;
+      border: 1px solid rgba(201, 59, 43, 0.25);
       transition: all 0.25s ease;
     }
 
     .top-nav.theme-light-active .masthead-left {
-      background: transparent;
+      background: rgba(244, 239, 230, 0.82);
       color: #161110;
-    }
-
-    .masthead-center-year {
-      font-family: var(--font-mono);
-      font-size: 10.5px;
-      font-weight: 600;
-      letter-spacing: 0.22em;
-      color: rgba(244, 239, 230, 0.58);
-      pointer-events: none;
-    }
-
-    .top-nav.theme-light-active .masthead-center-year {
-      color: rgba(22, 17, 16, 0.58);
+      border-color: rgba(201, 59, 43, 0.28);
     }
 
     .masthead-left .sep {
@@ -154,26 +150,32 @@
       align-items: center;
       gap: 8px;
       font-family: var(--font-mono);
-      font-size: 10.5px;
+      font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.16em;
-      color: rgba(244, 239, 230, 0.82);
+      letter-spacing: 0.14em;
+      color: var(--editorial-cream);
       text-transform: uppercase;
-      background: transparent;
-      padding: 4px 2px;
-      border: none;
+      background: rgba(11, 7, 7, 0.65);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 5px 12px;
+      border-radius: 4px;
+      border: 1px solid rgba(201, 59, 43, 0.32);
       cursor: pointer;
       pointer-events: auto;
       transition: all 0.25s ease;
     }
 
     .masthead-right-btn:hover {
+      background: rgba(201, 59, 43, 0.22);
+      border-color: var(--accent-vermilion);
       color: #ffffff;
     }
 
     .top-nav.theme-light-active .masthead-right-btn {
-      background: transparent;
+      background: rgba(244, 239, 230, 0.82);
       color: #161110;
+      border-color: rgba(201, 59, 43, 0.32);
     }
 
     .status-dot {
@@ -352,866 +354,1054 @@
     }
 
     /* ==========================================================================
-       POINT 3: SECTION 00 — VANTA//9 INSPIRED 3D MACBOOK STUDIO PRESENTATION
+       POINT 3: SECTION 00 — EDITORIAL MAGAZINE COVER POSTER (REF IMAGE 1)
        ========================================================================== */
     .intro-section {
-      background:
-        radial-gradient(ellipse 88% 76% at 32% 28%, rgba(124, 28, 14, 0.92) 0%, rgba(68, 14, 8, 0.85) 42%, rgba(18, 4, 3, 0.98) 80%, #080202 100%),
-        linear-gradient(180deg, #3a0b06 0%, #080202 100%);
+      background: radial-gradient(circle at 50% 36%, #1f0c0b 0%, #0b0707 70%);
       color: var(--editorial-cream);
-      padding: 40px 28px 14px 28px;
+      padding: 46px 32px 18px 32px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
       position: relative;
-      overflow: hidden;
     }
 
-    .vanta-stage-shell {
+    .editorial-poster-shell {
       width: 100%;
-      max-width: 1420px;
+      max-width: 1320px;
       height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      align-items: center;
       position: relative;
       z-index: 5;
     }
 
-    /* 1. Top External Meta Strip (Hidden for pure VANTA//9 gallery space) */
-    .vanta-external-top {
-      display: none;
-    }
-
-    /* 2. Giant Architectural Wall Typography Behind MacBook (Like VANTA//9) */
-    .vanta-wall-backdrop {
-      position: absolute;
-      top: 37%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 100vw;
-      text-align: center;
-      z-index: 1;
-      pointer-events: none;
-      user-select: none;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .vanta-wall-word {
-      font-family: var(--font-display);
-      font-size: clamp(5.8rem, 17.6vw, 17.6rem);
-      font-weight: 400;
-      color: #f3efe8;
-      text-transform: uppercase;
-      letter-spacing: 0.008em;
-      line-height: 0.82;
-      white-space: nowrap;
-      opacity: 0.96;
-      text-shadow: 0 24px 70px rgba(0, 0, 0, 0.58);
-    }
-
-    /* 3. Center 3D Blender MacBook Hardware Rig + Pedestal (WebGL GLTF Stage) */
-    .macbook-rig-arena {
+    /* 1. Giant Condensed Display Headline: FELTZ STUDIO */
+    .poster-headline-wrap {
       position: relative;
+      width: 100%;
+      text-align: center;
+      z-index: 2;
+      padding-top: 4px;
+      line-height: 0.84;
+      user-select: none;
+    }
+
+    .poster-giant-word {
+      font-family: var(--font-display);
+      font-size: clamp(4.4rem, 15.2vw, 13.4rem);
+      font-weight: 400;
+      color: var(--editorial-cream);
+      text-transform: uppercase;
+      letter-spacing: 0.015em;
+      line-height: 0.84;
+      display: block;
+      width: 100%;
+      white-space: nowrap;
+      text-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+    }
+
+    /* Rotating Editorial Stamp SVG (Top Right over Headline/Shoulder) */
+    .editorial-stamp {
+      position: absolute;
+      right: 3%;
+      bottom: -36px;
+      width: 94px;
+      height: 94px;
+      z-index: 8;
+      pointer-events: none;
+    }
+
+    .editorial-stamp svg.stamp-ring {
+      width: 100%;
+      height: 100%;
+      animation: spinStamp 18s linear infinite;
+    }
+
+    .editorial-stamp .stamp-star {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-vermilion);
+    }
+
+    @keyframes spinStamp {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* 2. Centerpiece Stage: Left Optical Column + Overlapping Cutout Portrait + Right Bio/Stats */
+    .poster-hero-stage {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 400px 1.1fr;
+      gap: 24px;
+      align-items: center;
       width: 100%;
       flex: 1;
       min-height: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-end;
+      margin-top: -4.2vw;
       z-index: 6;
-      margin-top: 0;
     }
 
-    .webgl-macbook-stage {
-      position: relative;
-      width: min(94vw, 1260px);
-      height: min(82vh, 750px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 8;
-      cursor: ns-resize;
-    }
-
-    .webgl-macbook-stage canvas {
-      width: 100% !important;
-      height: 100% !important;
-      display: block;
-      filter: drop-shadow(0 36px 70px rgba(0, 0, 0, 0.92));
-    }
-
-    .webgl-slide-hud {
-      display: none;
-    }
-
-    .command-webgl-stage {
-      position: relative;
-      width: min(74vw, 840px);
-      height: min(38vh, 335px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 8;
-      cursor: ns-resize;
-      margin-top: -6px;
-    }
-
-    .command-webgl-stage canvas {
-      width: 100% !important;
-      height: 100% !important;
-      display: block;
-      filter: drop-shadow(0 22px 45px rgba(0, 0, 0, 0.85));
-    }
-
-    @media (max-width: 768px) {
-      .webgl-macbook-stage {
-        width: 100vw;
-        height: 68dvh;
-        max-height: 640px;
-      }
-
-      .webgl-slide-hud {
-        margin-top: -6px;
-        padding: 4px 8px;
-      }
-
-      .webgl-slide-hud .hud-label {
-        display: none;
-      }
-
-      .command-webgl-stage {
-        width: 98vw;
-        height: 27dvh;
-        max-height: 245px;
-      }
-    }
-
-    /* Camera Notch at Top Center of Bezel */
-    .macbook-notch {
-      position: absolute;
-      top: 8px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 92px;
-      height: 14px;
-      background: #09090b;
-      border-radius: 0 0 8px 8px;
-      z-index: 30;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .macbook-notch::before {
-      content: "";
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: #1c2b38;
-      box-shadow: 0 0 3px rgba(74, 222, 128, 0.6);
-    }
-
-    .macbook-notch::after {
-      content: "";
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: #22c55e;
-      opacity: 0.85;
-    }
-
-    /* Screen Display Viewport Inside Lid (Opaque Solid Dark so Wall Text Never Bleeds Through) */
-    .macbook-screen {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      background: #0c0707;
-      border-radius: 8px 8px 2px 2px;
-      overflow: hidden;
+    /* Left Column: OPTICAL / VISUAL / DIRECTION + Quote */
+    .poster-col-left {
       display: flex;
       flex-direction: column;
-      border: 1px solid rgba(232, 220, 200, 0.14);
+      justify-content: center;
+      gap: 12px;
+      z-index: 7;
+      padding-right: 10px;
     }
 
-    /* Top OS Status Bar Inside Screen (Left-Aligned Title so Camera Notch Never Covers Text) */
-    .screen-os-bar {
-      height: 26px;
-      background: #150b0b;
-      border-bottom: 1px solid rgba(201, 59, 43, 0.30);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 12px;
-      font-family: var(--font-mono);
-      font-size: 9px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      color: rgba(232, 220, 200, 0.75);
-      flex-shrink: 0;
-      z-index: 20;
-    }
-
-    .os-left-cluster {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .os-dots {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .os-dots span {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: rgba(232, 220, 200, 0.25);
-    }
-
-    .os-dots span:first-child {
-      background: var(--accent-vermilion);
-    }
-
-    .screen-slide-tabs {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .screen-tab-btn {
-      background: none;
-      border: 1px solid transparent;
-      color: rgba(232, 220, 200, 0.52);
-      font-family: var(--font-mono);
-      font-size: 8.5px;
+    .poster-kicker-title {
+      font-family: var(--font-condensed);
+      font-size: clamp(1.35rem, 2.2vw, 2.1rem);
       font-weight: 700;
-      letter-spacing: 0.08em;
-      padding: 2px 7px;
-      border-radius: 3px;
-      cursor: pointer;
-      text-transform: uppercase;
-      transition: all 0.2s ease;
-    }
-
-    .screen-tab-btn.active,
-    .screen-tab-btn:hover {
       color: var(--editorial-cream);
-      border-color: rgba(201, 59, 43, 0.45);
-      background: rgba(201, 59, 43, 0.18);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      line-height: 1.05;
     }
 
-    /* Auto-Scrolling Inner Viewport */
-    .screen-scroll-viewport {
-      position: relative;
-      width: 100%;
-      flex: 1;
-      height: calc(100% - 26px);
-      overflow-y: auto;
-      overflow-x: hidden;
-      scroll-behavior: auto;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      background: #0c0707;
-    }
-
-    .screen-scroll-viewport::-webkit-scrollbar {
-      display: none;
-    }
-
-    .screen-scroll-track {
+    .poster-sub-list {
+      list-style: none;
       display: flex;
       flex-direction: column;
-      width: 100%;
-      height: 100%;
-    }
-
-    /* Slide 1 Inside MacBook: Photographer Identity & Portrait (Full 100% Screen Height) */
-    .screen-page-identity {
-      position: relative;
-      height: 100%;
-      min-height: 100%;
-      flex-shrink: 0;
-      padding: 20px 26px;
-      display: grid;
-      grid-template-columns: 1fr 225px 1.15fr;
-      gap: 18px;
-      align-items: center;
-      background:
-        radial-gradient(circle at 48% 45%, rgba(185, 38, 25, 0.30) 0%, #0c0707 72%);
-      border-bottom: 1px solid rgba(201, 59, 43, 0.30);
-    }
-
-    .screen-id-left {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      z-index: 4;
-    }
-
-    .screen-id-kicker {
+      gap: 3px;
       font-family: var(--font-mono);
-      font-size: 9.5px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-dark-sub);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .poster-red-rule {
+      width: 34px;
+      height: 2px;
+      background: var(--accent-crimson);
+      margin: 2px 0;
+    }
+
+    .poster-quote-box {
+      position: relative;
+      padding-left: 26px;
+    }
+
+    .poster-quote-mark {
+      position: absolute;
+      left: 0;
+      top: -8px;
+      font-family: Georgia, serif;
+      font-size: 38px;
+      line-height: 1;
+      color: var(--accent-crimson);
+      font-weight: 700;
+    }
+
+    .editorial-quote-th {
+      font-family: var(--font-th);
+      font-size: 13px;
+      font-weight: 400;
+      color: #d6c8b8;
+      line-height: 1.5;
+    }
+
+    .poster-signature {
+      font-family: var(--font-sign);
+      font-size: 24px;
+      color: var(--editorial-cream);
+      opacity: 0.88;
+      margin-top: 2px;
+      transform: rotate(-3deg);
+      display: inline-block;
+    }
+
+    /* Center Column: Crimson Sun Halo + Cutout PNG Overlapping Giant Title */
+    .poster-col-center {
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .crimson-halo-circle {
+      position: absolute;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle at 38% 35%, rgba(212, 56, 40, 0.76) 0%, rgba(145, 24, 16, 0.56) 52%, rgba(70, 10, 8, 0.22) 76%, transparent 100%);
+      box-shadow: 0 0 85px rgba(201, 59, 43, 0.38);
+      border: 1px solid rgba(224, 79, 62, 0.28);
+      z-index: 1;
+    }
+
+    .cutout-portrait-img {
+      position: relative;
+      z-index: 3;
+      height: min(60vh, 540px);
+      width: auto;
+      object-fit: contain;
+      object-position: bottom center;
+      filter: drop-shadow(0 18px 36px rgba(0, 0, 0, 0.85)) contrast(1.04);
+      margin-bottom: -4px;
+    }
+
+    /* Right Column: MONGKOL WONGSAKULYANON + Bio + 3 Circle Icon Stats */
+    .poster-col-right {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 10px;
+      z-index: 7;
+      padding-left: 14px;
+    }
+
+    .poster-person-name {
+      font-family: var(--font-condensed);
+      font-size: clamp(1.55rem, 2.5vw, 2.35rem);
+      font-weight: 700;
+      color: var(--editorial-cream);
+      letter-spacing: 0.03em;
+      line-height: 1.04;
+      text-transform: uppercase;
+    }
+
+    .poster-person-role {
+      font-family: var(--font-mono);
+      font-size: 11px;
       font-weight: 700;
       color: var(--accent-vermilion);
       letter-spacing: 0.14em;
       text-transform: uppercase;
     }
 
-    .screen-id-headline {
-      font-family: var(--font-condensed);
-      font-size: clamp(1.3rem, 2vw, 1.85rem);
-      font-weight: 700;
-      color: var(--editorial-cream);
-      line-height: 1.02;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-    }
-
-    .screen-quote-th {
+    .editorial-bio-th {
       font-family: var(--font-th);
-      font-size: 11.5px;
-      color: #d8cabe;
-      line-height: 1.45;
-      border-left: 2px solid var(--accent-crimson);
-      padding-left: 10px;
-      letter-spacing: 0 !important;
-    }
-
-    .screen-sign {
-      font-family: var(--font-sign);
-      font-size: 20px;
-      color: var(--editorial-cream);
-      transform: rotate(-3deg);
-      display: inline-block;
-    }
-
-    /* Center Cutout Portrait Inside Screen */
-    .screen-id-center {
-      position: relative;
-      height: 235px;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      z-index: 3;
-    }
-
-    .screen-crimson-sun {
-      position: absolute;
-      width: 185px;
-      height: 185px;
-      border-radius: 50%;
-      top: 48%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: radial-gradient(circle at 38% 35%, rgba(218, 60, 44, 0.85) 0%, rgba(140, 22, 14, 0.58) 58%, transparent 100%);
-      border: 1px solid rgba(224, 79, 62, 0.35);
-      box-shadow: 0 0 40px rgba(201, 59, 43, 0.45);
-    }
-
-    .screen-portrait-img {
-      position: relative;
-      z-index: 3;
-      height: 230px;
-      width: auto;
-      object-fit: contain;
-      object-position: bottom center;
-      filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.85));
-    }
-
-    /* Right Bio & 3 Stats Inside Screen */
-    .screen-id-right {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      z-index: 4;
-    }
-
-    .screen-person-name {
-      font-family: var(--font-condensed);
-      font-size: clamp(1.25rem, 1.9vw, 1.7rem);
-      font-weight: 700;
-      color: var(--editorial-cream);
-      line-height: 1.04;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-    }
-
-    .screen-person-role {
-      font-family: var(--font-mono);
-      font-size: 9px;
-      font-weight: 700;
-      color: var(--accent-vermilion);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .screen-bio-th {
-      font-family: var(--font-th);
-      font-size: 11px;
+      font-size: 12.5px;
       color: var(--text-dark-sub);
-      line-height: 1.45;
-      letter-spacing: 0 !important;
-      padding-bottom: 6px;
-      border-bottom: 1px solid rgba(201, 59, 43, 0.24);
+      line-height: 1.52;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(201, 59, 43, 0.26);
     }
 
-    .screen-stats-grid {
+    .poster-stats-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
+      gap: 12px;
+      padding-top: 4px;
     }
 
-    .screen-stat-box {
-      background: rgba(22, 12, 12, 0.85);
-      border: 1px solid rgba(201, 59, 43, 0.25);
-      border-radius: 5px;
-      padding: 6px 8px;
+    .poster-stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
 
-    .screen-stat-num {
+    .stat-icon-circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid rgba(224, 79, 62, 0.55);
+      background: rgba(201, 59, 43, 0.10);
+      color: var(--accent-vermilion);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2px;
+    }
+
+    .stat-icon-circle svg {
+      width: 13px;
+      height: 13px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    .poster-stat-num {
       font-family: var(--font-sans);
-      font-size: 14px;
+      font-size: 18px;
       font-weight: 800;
       color: var(--editorial-cream);
       line-height: 1.05;
     }
 
-    .screen-stat-lbl {
+    .poster-stat-label {
       font-family: var(--font-mono);
-      font-size: 8px;
+      font-size: 9.5px;
+      font-weight: 600;
       color: var(--text-dark-sub);
       letter-spacing: 0.06em;
-      line-height: 1.2;
-      margin-top: 2px;
+      text-transform: uppercase;
+      line-height: 1.25;
     }
 
-    /* Slide 2 Inside MacBook: WHAT I DO (4 Services Grid + Enterprise Clients) */
-    .screen-page-services {
-      height: 100%;
-      min-height: 100%;
-      flex-shrink: 0;
-      padding: 22px 26px;
-      background:
-        radial-gradient(circle at 50% 20%, rgba(185, 38, 25, 0.22) 0%, #0e0808 75%),
-        #0e0808;
+    /* 2.5 SKILLS CONSOLE CARD (Capture One, Photoshop, Lightroom, Affinity Design) */
+    .skills-console-card {
+      margin-top: 6px;
+      background: rgba(16, 10, 11, 0.88);
+      border: 1px solid rgba(201, 59, 43, 0.34);
+      border-radius: 10px;
+      padding: 10px 14px 12px 14px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.48), inset 0 1px 0 rgba(232, 220, 200, 0.06);
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      gap: 14px;
+      gap: 9px;
+      position: relative;
+      z-index: 8;
     }
 
-    .screen-sec-head {
+    .skills-console-head {
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: baseline;
-      border-bottom: 1px solid rgba(201, 59, 43, 0.28);
-      padding-bottom: 6px;
     }
 
-    .screen-sec-title {
-      font-family: var(--font-condensed);
-      font-size: 16px;
-      font-weight: 700;
+    .skills-head-left {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 800;
       color: var(--editorial-cream);
-      letter-spacing: 0.05em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
     }
 
-    .screen-sec-sub {
-      font-family: var(--font-mono);
-      font-size: 9px;
-      color: var(--accent-vermilion);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+    .skills-head-left svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--editorial-cream);
+      fill: none;
+      stroke-width: 1.9;
     }
 
-    .screen-services-grid {
+    .skills-head-dots {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .skills-head-dots span {
+      width: 6.5px;
+      height: 6.5px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .skills-head-dots .dot-r { background: #ef6b6b; }
+    .skills-head-dots .dot-b { background: #5da9e9; }
+    .skills-head-dots .dot-g { background: #4ade80; }
+
+    .skills-badge-row {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 10px;
     }
 
-    .screen-service-card {
-      background: rgba(24, 13, 13, 0.9);
-      border: 1px solid rgba(201, 59, 43, 0.26);
-      border-radius: 6px;
-      padding: 10px 12px;
+    .skill-app-item {
       display: flex;
       flex-direction: column;
-      gap: 4px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .screen-service-card:hover {
-      border-color: var(--accent-vermilion);
-      background: rgba(201, 59, 43, 0.14);
-      transform: translateY(-2px);
-    }
-
-    .screen-srv-top {
-      display: flex;
-      justify-content: space-between;
       align-items: center;
-      font-family: var(--font-mono);
-      font-size: 9px;
-      color: var(--accent-vermilion);
-      font-weight: 700;
+      gap: 5px;
+      cursor: pointer;
+      user-select: none;
+      transform-origin: center bottom;
+      transform: translateY(var(--shift, 0px)) scale(var(--scale-active, 1));
+      transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform;
     }
 
-    .screen-srv-name {
+    .skill-squircle {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(145deg, #27262c 0%, #19181d 100%);
+      border: 1px solid rgba(232, 220, 200, 0.16);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-family: var(--font-sans);
-      font-size: 11.5px;
+      font-size: 16px;
       font-weight: 800;
+      color: #f4efe6;
+      letter-spacing: -0.02em;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+
+    .skill-app-item:first-child .skill-squircle {
+      background: linear-gradient(145deg, #2b1619 0%, #181115 100%);
+      border-color: rgba(224, 79, 62, 0.48);
+    }
+
+    .skill-app-item:hover .skill-squircle {
+      border-color: var(--accent-vermilion);
+      background: linear-gradient(145deg, #3a1715 0%, #1d0e0e 100%);
+      box-shadow: 0 10px 24px rgba(201, 59, 43, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    }
+
+    .skill-app-name {
+      font-family: var(--font-sans);
+      font-size: 9.5px;
+      font-weight: 600;
+      color: #b7aba0;
+      letter-spacing: 0.01em;
+      text-align: center;
+      white-space: nowrap;
+      line-height: 1.15;
+      transition: color 0.22s ease;
+    }
+
+    .skill-app-item:hover .skill-app-name {
+      color: var(--editorial-cream);
+    }
+
+    /* ==========================================================================
+       3D HELIX RIBBON UNCOIL & KINETIC GRID SNAP CHOREOGRAPHY (OPTION 1)
+       ========================================================================== */
+    .intro-section {
+      perspective: 1400px;
+      overflow: hidden;
+    }
+
+    .editorial-poster-shell {
+      transform-style: preserve-3d;
+    }
+
+    /* 3D Ribbon Sweep Track behind FELTZ STUDIO on entry */
+    .helix-ribbon-glow {
+      position: absolute;
+      top: 18%;
+      left: -10%;
+      width: 120%;
+      height: 190px;
+      background: linear-gradient(90deg, transparent 0%, rgba(201, 59, 43, 0.26) 35%, rgba(232, 220, 200, 0.12) 55%, transparent 100%);
+      transform: perspective(1100px) rotateZ(-14deg) rotateX(52deg) scaleX(0.2);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 1;
+      filter: blur(18px);
+      animation: ribbonSweepTrack 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes ribbonSweepTrack {
+      0% {
+        opacity: 0;
+        transform: perspective(1100px) translate3d(-25vw, 38vh, -260px) rotateZ(-22deg) rotateX(65deg) scaleX(0.3);
+      }
+      38% {
+        opacity: 0.95;
+        transform: perspective(1100px) translate3d(0vw, 6vh, 60px) rotateZ(-11deg) rotateX(40deg) scaleX(1.08);
+      }
+      100% {
+        opacity: 0;
+        transform: perspective(1100px) translate3d(18vw, -16vh, 0px) rotateZ(-3deg) rotateX(15deg) scaleX(1.25);
+      }
+    }
+
+    /* Per-character 3D Helix Uncoil for FELTZ STUDIO */
+    .poster-giant-word {
+      perspective: 1200px;
+      transform-style: preserve-3d;
+    }
+
+    .helix-char {
+      display: inline-block;
+      opacity: 0;
+      transform-origin: 50% 100%;
+      will-change: transform, opacity, filter;
+      animation: helixTitleUncoil 1.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: calc(0.06s + var(--char-i, 0) * 0.055s);
+    }
+
+    @keyframes helixTitleUncoil {
+      0% {
+        opacity: 0;
+        filter: blur(8px);
+        transform: perspective(1100px) translate3d(calc((var(--char-i, 0) - 5.5) * -32px - 18vw), 46vh, -460px) rotateY(-115deg) rotateX(54deg) rotateZ(-24deg) scale(0.34);
+      }
+      48% {
+        opacity: 1;
+        filter: blur(0px);
+        transform: perspective(1100px) translate3d(calc((var(--char-i, 0) - 5.5) * 6px), 7vh, 115px) rotateY(22deg) rotateX(-14deg) rotateZ(5deg) scale(1.07);
+      }
+      100% {
+        opacity: 1;
+        filter: blur(0px);
+        transform: perspective(1100px) translate3d(0, 0, 0) rotateY(0deg) rotateX(0deg) rotateZ(0deg) scale(1);
+      }
+    }
+
+    /* Editorial Stamp Spin-in */
+    .editorial-stamp {
+      opacity: 0;
+      animation: stampPopIn 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.92s forwards;
+    }
+
+    @keyframes stampPopIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.35) rotate(-140deg);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+      }
+    }
+
+    /* Center Cutout + Crimson Halo 3D Spiral Depth Reveal */
+    .crimson-halo-circle {
+      opacity: 0;
+      animation: crimsonHaloBloom 1.35s cubic-bezier(0.16, 1, 0.3, 1) 0.42s forwards;
+    }
+
+    @keyframes crimsonHaloBloom {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.22);
+      }
+      65% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.06);
+      }
+      100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+
+    .cutout-portrait-img {
+      opacity: 0;
+      transform-origin: bottom center;
+      animation: portraitUncoilRise 1.32s cubic-bezier(0.16, 1, 0.3, 1) 0.48s forwards;
+    }
+
+    @keyframes portraitUncoilRise {
+      0% {
+        opacity: 0;
+        filter: blur(10px) drop-shadow(0 18px 36px rgba(0, 0, 0, 0.85));
+        transform: perspective(1100px) translate3d(0, 22vh, -260px) rotateY(-28deg) rotateX(18deg) scale(0.76);
+      }
+      100% {
+        opacity: 1;
+        filter: blur(0px) drop-shadow(0 18px 36px rgba(0, 0, 0, 0.85)) contrast(1.04);
+        transform: perspective(1100px) translate3d(0, 0, 0) rotateY(0deg) rotateX(0deg) scale(1);
+      }
+    }
+
+    /* 3D Ribbon Card Stream Uncoil -> Grid Snap (Left Col, Right Bio, Skills Card, & 4 Service Cards) */
+    .ribbon-snap-item {
+      opacity: 0;
+      transform-origin: center center;
+      will-change: transform, opacity, filter;
+      animation: ribbonStreamToGrid 1.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: calc(0.54s + var(--ribbon-order, 0) * 0.095s);
+    }
+
+    @keyframes ribbonStreamToGrid {
+      0% {
+        opacity: 0;
+        filter: blur(9px);
+        transform: perspective(1200px) translate3d(var(--from-x, -26vw), var(--from-y, 32vh), -380px) rotateY(var(--from-ry, 58deg)) rotateX(var(--from-rx, 32deg)) rotateZ(var(--from-rz, -15deg)) scale(0.46);
+      }
+      54% {
+        opacity: 1;
+        filter: blur(0px);
+        transform: perspective(1200px) translate3d(calc(var(--from-x, -26vw) * -0.07), -8px, 48px) rotateY(calc(var(--from-ry, 58deg) * -0.14)) rotateX(-5deg) rotateZ(2deg) scale(1.03);
+      }
+      100% {
+        opacity: 1;
+        filter: blur(0px);
+        transform: perspective(1200px) translate3d(0, 0, 0) rotateY(0deg) rotateX(0deg) rotateZ(0deg) scale(1);
+      }
+    }
+
+    /* Interactive 3D Hover Tilt & Cursor Glare on Service & Skills Cards */
+    .service-editorial-card {
+      position: relative;
+      overflow: hidden;
+      transform: perspective(900px) rotateX(var(--tilt-rx, 0deg)) rotateY(var(--tilt-ry, 0deg)) translateY(var(--hover-lift, 0px));
+      transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), background 0.25s ease, border-color 0.25s ease;
+    }
+
+    .service-editorial-card:hover {
+      --hover-lift: -3px;
+      background: rgba(201, 59, 43, 0.14);
+    }
+
+    .service-editorial-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      background: radial-gradient(circle 120px at var(--tilt-gx, 50%) var(--tilt-gy, 50%), rgba(224, 79, 62, 0.25), transparent 75%);
+      transition: opacity 0.28s ease;
+    }
+
+    .service-editorial-card:hover::after {
+      opacity: 1;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .helix-char,
+      .editorial-stamp,
+      .crimson-halo-circle,
+      .cutout-portrait-img,
+      .ribbon-snap-item,
+      .helix-ribbon-glow,
+      .skill-app-item {
+        animation: none !important;
+        transition: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+      }
+    }
+
+    /* 3. Bottom Strip: WHAT I DO (4 Editorial Grid Cards) + Scroll CTA Bar */
+    .poster-bottom-deck {
+      width: 100%;
+      z-index: 8;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .what-i-do-frame {
+      display: grid;
+      grid-template-columns: 145px repeat(4, 1fr);
+      border-top: 1px solid rgba(201, 59, 43, 0.32);
+      border-bottom: 1px solid rgba(201, 59, 43, 0.32);
+      background: rgba(14, 8, 8, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .what-i-do-head {
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 1px solid rgba(201, 59, 43, 0.25);
+    }
+
+    .what-i-do-title {
+      font-family: var(--font-condensed);
+      font-size: 18px;
+      font-weight: 700;
       color: var(--editorial-cream);
       letter-spacing: 0.04em;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    .what-i-do-sub {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      color: var(--accent-vermilion);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .service-editorial-card {
+      padding: 12px 16px;
+      border-right: 1px solid rgba(201, 59, 43, 0.20);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      transition: background 0.22s ease;
+    }
+
+    .service-editorial-card:last-child {
+      border-right: none;
+    }
+
+    .service-editorial-card:hover {
+      background: rgba(201, 59, 43, 0.10);
+    }
+
+    .service-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .service-icon {
+      color: var(--accent-vermilion);
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .service-num-tag {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      color: rgba(232, 220, 200, 0.45);
+      letter-spacing: 0.08em;
+    }
+
+    .service-name {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--editorial-cream);
+      letter-spacing: 0.05em;
       text-transform: uppercase;
       margin-top: 2px;
     }
 
-    .screen-srv-desc {
+    .service-desc-th {
       font-family: var(--font-th);
-      font-size: 10.5px;
+      font-size: 11.5px;
       color: var(--text-dark-sub);
-      line-height: 1.35;
-      letter-spacing: 0 !important;
+      line-height: 1.38;
     }
 
-    .screen-client-bar {
-      background: rgba(201, 59, 43, 0.10);
-      border: 1px solid rgba(201, 59, 43, 0.24);
-      border-radius: 5px;
-      padding: 8px 12px;
+    .poster-scroll-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 10px;
-      font-family: var(--font-mono);
-      font-size: 9.5px;
-      color: var(--editorial-cream);
-      letter-spacing: 0.08em;
-    }
-
-    .screen-client-bar span.lbl {
-      color: var(--accent-vermilion);
-      font-weight: 700;
-      flex-shrink: 0;
-    }
-
-    /* MacBook Lower Keyboard Deck & Monolith Stand (3D Base Like VANTA//9) */
-    .macbook-base-deck {
-      position: relative;
-      width: 112%;
-      height: 36px;
-      background: linear-gradient(180deg, #3a3a40 0%, #222226 58%, #121215 100%);
-      border-radius: 3px 3px 14px 14px;
-      margin-top: -2px;
-      box-shadow:
-        0 18px 36px rgba(0, 0, 0, 0.85),
-        0 1px 0 rgba(255, 255, 255, 0.28) inset;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      padding: 4px 8% 5px 8%;
-      z-index: 9;
-    }
-
-    /* Recessed Keyboard Well Visual */
-    .macbook-keyboard-well {
-      width: 88%;
-      height: 14px;
-      background:
-        repeating-linear-gradient(
-          90deg,
-          #111113 0px,
-          #111113 14px,
-          #252529 14px,
-          #252529 16px
-        );
-      border-radius: 2px;
-      border: 1px solid rgba(0, 0, 0, 0.8);
-      opacity: 0.85;
-    }
-
-    /* Front Thumb Notch & Trackpad Line */
-    .macbook-front-lip {
-      width: 86px;
-      height: 5px;
-      background: #0d0d0f;
-      border-radius: 4px 4px 0 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.15);
-    }
-
-    /* Dark Architectural Pedestal Block Under Laptop (From VANTA//9 Reference) */
-    .macbook-pedestal {
-      width: 122%;
-      height: 22px;
-      background: linear-gradient(180deg, #1b1717 0%, #090606 100%);
-      border-top: 1px solid rgba(232, 220, 200, 0.14);
-      border-left: 1px solid rgba(232, 220, 200, 0.08);
-      border-right: 1px solid rgba(232, 220, 200, 0.08);
-      border-radius: 2px;
-      margin-top: -2px;
-      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.95);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 18px;
-      font-family: var(--font-mono);
-      font-size: 8.5px;
-      color: rgba(232, 220, 200, 0.42);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-    }
-
-    /* 4. Bottom External Action Bar (Minimalist VANTA//9 Gallery Micro-Type) */
-    .vanta-external-bottom {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 10;
-      padding-top: 2px;
-      border-top: none;
+      padding: 4px 2px 0 2px;
     }
 
     .poster-client-ticker {
       font-family: var(--font-mono);
-      font-size: 9.5px;
-      color: rgba(244, 239, 230, 0.42);
-      letter-spacing: 0.14em;
+      font-size: 10px;
+      color: rgba(232, 220, 200, 0.55);
+      letter-spacing: 0.08em;
       text-transform: uppercase;
     }
 
     .poster-scroll-btn {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: transparent;
-      border: none;
-      color: rgba(244, 239, 230, 0.68);
-      padding: 4px 2px;
+      gap: 10px;
+      background: rgba(201, 59, 43, 0.16);
+      border: 1px solid rgba(224, 79, 62, 0.48);
+      color: var(--editorial-cream);
+      padding: 7px 18px;
+      border-radius: 999px;
       font-family: var(--font-mono);
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       cursor: pointer;
       transition: all 0.22s ease;
     }
 
     .poster-scroll-btn:hover {
+      background: var(--accent-crimson);
       color: #ffffff;
-      transform: translateY(1px);
+      transform: translateY(-1px);
     }
 
-    /* Mobile Responsive VANTA//9 MacBook Cover (Zoomed-in Readable Screen on 430x932!) */
+    /* Mobile Responsive Magazine Cover Poster (Fits 100dvh on 430x932 cleanly!) */
     @media (max-width: 768px) {
       .intro-section {
-        padding: 46px 12px 12px 12px;
+        padding: 44px 14px 12px 14px;
       }
 
-      .vanta-external-top {
+      .poster-headline-wrap {
+        padding-top: 2px;
+        margin-bottom: 0;
+        z-index: 2;
+      }
+
+      .poster-giant-word {
+        font-size: 17.2vw;
+        line-height: 0.84;
+        letter-spacing: 0.005em;
+        white-space: nowrap;
+        transform: scaleY(1.66);
+        transform-origin: top center;
+      }
+
+      .editorial-stamp {
+        width: 68px;
+        height: 68px;
+        right: 1%;
+        bottom: -72px;
+        z-index: 12;
+      }
+
+      .poster-hero-stage {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr auto;
+        gap: 0 10px;
+        margin-top: 0;
+        align-items: end;
+        z-index: 6;
+      }
+
+      /* Center Cutout spans top of mobile hero stage overlapping FELTZ STUDIO & grounded on bottom card */
+      .poster-col-center {
+        grid-column: 1 / -1;
+        grid-row: 1;
+        height: 100%;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        z-index: 5;
+      }
+
+      .crimson-halo-circle {
+        width: 315px;
+        height: 315px;
+        top: 33%;
+        left: 58%;
+      }
+
+      .cutout-portrait-img {
+        height: min(55.5dvh, 516px);
+        margin-bottom: -2px;
+        transform: translateX(13%);
+      }
+
+      /* Left overlay on mobile portrait stage */
+      .poster-col-left {
+        grid-column: 1;
+        grid-row: 1;
+        align-self: center;
+        padding-right: 0;
+        gap: 6px;
+        z-index: 8;
+        max-width: 172px;
+        pointer-events: none;
+        padding-bottom: 12px;
+      }
+
+      .poster-kicker-title {
+        font-size: 1.15rem;
+        line-height: 1.04;
+      }
+
+      .poster-sub-list {
+        font-size: 8.8px;
+        letter-spacing: 0.06em;
+        gap: 2px;
+      }
+
+      .poster-quote-box {
+        padding-left: 15px;
+      }
+
+      .poster-quote-mark {
+        font-size: 25px;
+        top: -4px;
+      }
+
+      .editorial-quote-th {
+        font-size: 11px;
+        line-height: 1.38;
+      }
+
+      .poster-signature {
+        font-size: 19px;
+        margin-top: 2px;
+      }
+
+      /* Right column on mobile: Name/Role + 3 stats bar spanning below portrait */
+      .poster-col-right {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        padding-left: 0;
+        gap: 6px;
+        background: rgba(16, 9, 9, 0.92);
+        border: 1px solid rgba(201, 59, 43, 0.32);
+        padding: 9px 12px;
+        border-radius: 6px;
+        z-index: 9;
+      }
+
+      .poster-person-header-mob {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 8px;
+        border-bottom: 1px solid rgba(201, 59, 43, 0.22);
+        padding-bottom: 5px;
+      }
+
+      .poster-person-name {
+        font-size: 1.1rem;
+      }
+
+      .poster-person-role {
         font-size: 8.5px;
         letter-spacing: 0.08em;
       }
 
-      .vanta-external-top .ext-pill:last-child {
+      .editorial-bio-th {
         display: none;
       }
 
-      /* Giant FELTZ STUDIO Headline Perched Above the Laptop on Mobile */
-      .vanta-wall-backdrop {
-        position: relative;
-        top: auto;
-        left: auto;
-        transform: none;
-        width: 100%;
-        margin: 2px 0 4px 0;
-      }
-
-      .vanta-wall-word {
-        font-size: 17.5vw;
-        line-height: 0.84;
-      }
-
-      .vanta-wall-subband {
-        padding: 0 2px;
-        font-size: 8.5px;
-        letter-spacing: 0.1em;
-        margin-top: 4px;
-      }
-
-      .macbook-side-wing {
-        display: none;
-      }
-
-      .macbook-rig-arena {
-        width: 100%;
-        justify-content: flex-end;
-        margin-top: 0;
-      }
-
-      .macbook-assembly {
-        width: 96vw;
-        max-width: 406px;
-      }
-
-      .macbook-lid {
-        aspect-ratio: auto;
-        height: 55dvh;
-        max-height: 515px;
-        padding: 8px 7px 10px 7px;
-        border-radius: 12px 12px 3px 3px;
-      }
-
-      .macbook-notch {
-        width: 72px;
-        height: 12px;
-        top: 6px;
-      }
-
-      .screen-os-bar {
-        height: 22px;
-        padding: 0 8px;
-        font-size: 8px;
-      }
-
-      .screen-os-title {
-        display: none;
-      }
-
-      .screen-page-identity {
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: auto auto;
-        padding: 12px 12px;
+      .poster-stats-row {
         gap: 8px;
+        padding-top: 2px;
       }
 
-      .screen-id-left {
-        grid-column: 1;
-        grid-row: 1;
+      .poster-stat-item {
+        flex-direction: row;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .stat-icon-circle {
+        width: 22px;
+        height: 22px;
+        margin-bottom: 0;
+        flex-shrink: 0;
+      }
+
+      .stat-icon-circle svg {
+        width: 11px;
+        height: 11px;
+      }
+
+      .poster-stat-num {
+        font-size: 13.5px;
+      }
+
+      .poster-stat-label {
+        font-size: 8px;
+        line-height: 1.15;
+      }
+
+      .skills-console-card {
+        margin-top: 2px;
+        padding: 7px 10px 8px 10px;
+        gap: 6px;
+        background: rgba(24, 13, 14, 0.95);
+        border-radius: 8px;
+      }
+
+      .skills-head-left {
+        font-size: 9.5px;
         gap: 5px;
       }
 
-      .screen-id-headline {
-        font-size: 1.15rem;
+      .skills-head-left svg {
+        width: 12px;
+        height: 12px;
       }
 
-      .screen-quote-th {
-        font-size: 10.5px;
-        line-height: 1.35;
-        padding-left: 8px;
+      .skills-head-dots span {
+        width: 5.5px;
+        height: 5.5px;
       }
 
-      .screen-sign {
-        font-size: 17px;
-      }
-
-      .screen-id-center {
-        grid-column: 2;
-        grid-row: 1;
-        height: 195px;
-      }
-
-      .screen-crimson-sun {
-        width: 145px;
-        height: 145px;
-      }
-
-      .screen-portrait-img {
-        height: 195px;
-      }
-
-      .screen-id-right {
-        grid-column: 1 / -1;
-        grid-row: 2;
+      .skills-badge-row {
         gap: 6px;
-        background: rgba(18, 10, 10, 0.92);
-        border: 1px solid rgba(201, 59, 43, 0.28);
-        border-radius: 6px;
-        padding: 8px 10px;
       }
 
-      .screen-person-name {
-        font-size: 1.1rem;
+      .skill-squircle {
+        width: 36px;
+        height: 36px;
+        border-radius: 9px;
+        font-size: 13px;
       }
 
-      .screen-bio-th {
-        font-size: 10px;
-        line-height: 1.35;
-        padding-bottom: 5px;
+      .skill-app-name {
+        font-size: 8.5px;
       }
 
-      .screen-stat-num {
-        font-size: 12.5px;
+      .cutout-portrait-img {
+        height: min(46.5dvh, 435px);
+        margin-bottom: -2px;
+        transform: translateX(13%);
       }
 
-      .screen-stat-lbl {
-        font-size: 7.5px;
+      @keyframes portraitUncoilRise {
+        0% {
+          opacity: 0;
+          filter: blur(8px) drop-shadow(0 18px 36px rgba(0, 0, 0, 0.85));
+          transform: translateX(13%) translateY(16vh) scale(0.8);
+        }
+        100% {
+          opacity: 1;
+          filter: blur(0px) drop-shadow(0 18px 36px rgba(0, 0, 0, 0.85)) contrast(1.04);
+          transform: translateX(13%) translateY(0) scale(1);
+        }
       }
 
-      .screen-page-services {
-        padding: 12px 12px 14px 12px;
-        gap: 8px;
-      }
-
-      .screen-services-grid {
+      /* Bottom WHAT I DO 2x2 Grid on Mobile */
+      .what-i-do-frame {
         grid-template-columns: repeat(2, 1fr);
-        gap: 7px;
+        border: 1px solid rgba(201, 59, 43, 0.30);
+        border-radius: 6px;
+        overflow: hidden;
       }
 
-      .screen-service-card {
-        padding: 8px 9px;
+      .what-i-do-head {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 6px 12px;
+        border-right: none;
+        border-bottom: 1px solid rgba(201, 59, 43, 0.24);
+        background: rgba(201, 59, 43, 0.10);
       }
 
-      .screen-srv-name {
+      .what-i-do-title {
+        font-size: 13px;
+      }
+
+      .what-i-do-sub {
+        font-size: 8.5px;
+      }
+
+      .service-editorial-card {
+        padding: 8px 10px;
+        gap: 2px;
+        border-bottom: 1px solid rgba(201, 59, 43, 0.16);
+      }
+
+      .service-editorial-card:nth-child(2n+1) {
+        border-right: none;
+      }
+
+      .service-editorial-card:nth-last-child(-n+2) {
+        border-bottom: none;
+      }
+
+      .service-icon {
+        width: 14px;
+        height: 14px;
+      }
+
+      .service-name {
         font-size: 10.5px;
       }
 
-      .screen-srv-desc {
-        font-size: 9.5px;
+      .service-desc-th {
+        font-size: 10px;
+        line-height: 1.25;
       }
 
-      .screen-client-bar {
-        font-size: 8.5px;
-        padding: 6px 9px;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 2px;
-      }
-
-      .macbook-base-deck {
-        width: 103%;
-        height: 22px;
-        padding: 3px 6%;
-      }
-
-      .macbook-keyboard-well {
-        height: 8px;
-      }
-
-      .macbook-pedestal {
-        width: 104%;
-        height: 16px;
-        font-size: 7.5px;
-        padding: 0 10px;
-      }
-
-      .vanta-external-bottom {
+      .poster-scroll-bar {
         justify-content: center;
-        padding-top: 6px;
+        padding-top: 2px;
       }
 
       .poster-client-ticker {
@@ -1222,7 +1412,7 @@
         width: 100%;
         justify-content: center;
         padding: 8px 14px;
-        font-size: 10px;
+        font-size: 10.5px;
       }
     }
 
@@ -1389,12 +1579,17 @@
       cursor: grabbing;
     }
 
+    /* Editorial Center Crosshair behind the 3D Ring (Hidden per zero dashed reticle rule) */
+    .stage-editorial-reticle {
+      display: none !important;
+    }
+
     .ring-pivot {
       position: relative;
       width: 0;
       height: 0;
       transform-style: preserve-3d;
-      transform: rotateX(-12deg) rotateZ(-3deg) rotateY(0deg);
+      transform: rotateX(-13deg) rotateZ(-4deg) rotateY(0deg);
       will-change: transform;
     }
 
@@ -1408,20 +1603,21 @@
       margin-top: calc(var(--card-h, 150px) / -2);
       transform-style: preserve-3d;
       border-radius: 8px;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.52);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.42);
       cursor: pointer;
       overflow: hidden;
+      transition: opacity 0.25s ease;
       backface-visibility: visible;
       -webkit-backface-visibility: visible;
     }
 
     .kinetic-section[data-theme="dark"] .ring-card {
-      border: 1px solid rgba(232, 220, 200, 0.24);
+      border: 1px solid rgba(232, 220, 200, 0.22);
       background: #181010;
     }
 
     .kinetic-section[data-theme="light"] .ring-card {
-      border: 1px solid rgba(22, 17, 16, 0.20);
+      border: 1px solid rgba(22, 17, 16, 0.18);
       background: #e6dfd3;
     }
 
@@ -1490,16 +1686,16 @@
       stroke-width: 2;
     }
 
-    /* POINT 4 MOBILE OVERRIDES: Wide Curved Arc (Zero Card Clumping, Zero Dashed Line) */
+    /* POINT 4 MOBILE OVERRIDES: Enlarge 3D Ring ~65% & Tighten Top/Bottom Space */
     @media (max-width: 768px) {
       .category-meta {
-        top: 102px;
+        top: 114px;
         left: 18px;
         right: 18px;
-        padding-bottom: 12px;
+        padding-bottom: 14px;
         flex-direction: column;
         align-items: flex-start;
-        gap: 5px;
+        gap: 6px;
       }
 
       .meta-left-group {
@@ -1507,17 +1703,17 @@
       }
 
       .category-meta .meta-badge {
-        font-size: 1.62rem;
+        font-size: 1.65rem;
         gap: 10px;
       }
 
       .category-meta .meta-badge .badge-num {
-        font-size: 1.05rem;
+        font-size: 1.08rem;
         padding: 2px 9px;
       }
 
       .category-meta .meta-sub {
-        font-size: 0.96rem;
+        font-size: 0.98rem;
         padding-left: 10px;
       }
 
@@ -1527,37 +1723,43 @@
       }
 
       .ring-stage {
-        perspective: 960px;
-        margin-top: 2vh;
+        perspective: 820px;
+        margin-top: 1vh;
       }
 
-      /* Precision Mobile Cards on Inclined 3D Ring (Radius 198px + -15deg Tilt => Zero Clumping, Full Viewport Fit) */
+      .stage-editorial-reticle {
+        width: 368px;
+        height: 330px;
+        border-color: rgba(201, 59, 43, 0.28);
+      }
+
+      /* Large Editorial Cards on Mobile so Ring Fills the Center Stage */
       .ring-card.ratio-landscape {
-        --card-w: 156px;
-        --card-h: 106px;
+        --card-w: 162px;
+        --card-h: 110px;
       }
       .ring-card.ratio-cinema {
-        --card-w: 162px;
-        --card-h: 94px;
+        --card-w: 168px;
+        --card-h: 96px;
       }
       .ring-card.ratio-portrait {
-        --card-w: 112px;
-        --card-h: 166px;
+        --card-w: 114px;
+        --card-h: 168px;
       }
       .ring-card.ratio-square {
-        --card-w: 132px;
-        --card-h: 132px;
+        --card-w: 136px;
+        --card-h: 136px;
       }
 
       .giant-kinetic-title-wrap {
-        bottom: 84px;
+        bottom: 86px;
         left: 18px;
         right: 18px;
-        padding-top: 14px;
+        padding-top: 16px;
       }
 
       .giant-kinetic-title {
-        font-size: clamp(4.4rem, 19vw, 6.4rem);
+        font-size: clamp(4.5rem, 19.5vw, 6.6rem);
         transform: scaleY(1.14);
         transform-origin: bottom center;
       }
@@ -1571,7 +1773,7 @@
       }
 
       .interaction-hint {
-        bottom: 32px;
+        bottom: 34px;
         left: 50%;
         right: auto;
         transform: translateX(-50%);
@@ -1704,203 +1906,188 @@
     }
 
     /* ==========================================================================
-       POINT 6: SECTION 09 — STUDIO COMMAND DESK (MACBOOK + COMMISSION DECK)
+       POINT 6: SECTION 09 — EDITORIAL BACK COVER (MY PROCESS + COMMISSION)
        ========================================================================== */
     .contact-section {
-      background:
-        radial-gradient(circle at 50% 28%, rgba(168, 32, 20, 0.72) 0%, rgba(76, 12, 9, 0.56) 38%, rgba(12, 7, 7, 0.98) 74%),
-        linear-gradient(180deg, #240806 0%, #0b0707 100%);
+      background: radial-gradient(circle at 50% 22%, #210d0b 0%, #0b0707 72%);
       color: var(--editorial-cream);
-      padding: 48px 28px 16px 28px;
+      padding: 48px 32px 20px 32px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
       position: relative;
-      overflow: hidden;
     }
 
     .back-cover-shell {
       width: 100%;
-      max-width: 1180px;
+      max-width: 1320px;
       height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      align-items: center;
-      position: relative;
       z-index: 10;
     }
 
-    /* Giant COMMISSION Wall Backdrop Behind Command MacBook */
-    .commission-wall-backdrop {
-      position: absolute;
-      top: 19%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 104vw;
-      text-align: center;
-      z-index: 1;
-      pointer-events: none;
-      user-select: none;
-    }
-
-    .commission-wall-word {
-      font-family: var(--font-display);
-      font-size: clamp(4.8rem, 15.8vw, 15.2rem);
-      font-weight: 400;
-      color: #f4efe6;
-      text-transform: uppercase;
-      letter-spacing: 0.015em;
-      line-height: 0.82;
-      white-space: nowrap;
-      opacity: 0.90;
-      text-shadow: 0 18px 50px rgba(0, 0, 0, 0.65);
-    }
-
-    /* Top Command MacBook Assembly (Shows Workflow & Optical Rig Inside Screen) */
-    .command-laptop-wrap {
-      position: relative;
-      width: min(62vw, 720px);
+    /* Top Giant Editorial Header for Back Cover */
+    .back-cover-top {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      z-index: 6;
-      margin-top: 2px;
-    }
-
-    .command-macbook-lid {
-      position: relative;
-      width: 100%;
-      height: 220px;
-      background: linear-gradient(145deg, #2a2a2e 0%, #141417 100%);
-      border-radius: 14px 14px 3px 3px;
-      padding: 8px 8px 11px 8px;
-      border: 1.5px solid rgba(255, 255, 255, 0.22);
-      box-shadow: 0 26px 65px rgba(0, 0, 0, 0.92);
-      transform-origin: bottom center;
-      transform: perspective(1200px) rotateX(-68deg) scale(0.96);
-      opacity: 1;
-      transition:
-        transform 1.15s cubic-bezier(0.16, 1, 0.3, 1);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .kinetic-section.is-in-view .command-macbook-lid {
-      transform: perspective(1200px) rotateX(0deg) scale(1);
-    }
-
-    .command-screen-inner {
-      height: 100%;
-      padding: 12px 16px;
-      display: flex;
-      flex-direction: column;
       justify-content: space-between;
-      gap: 10px;
-      background:
-        radial-gradient(circle at 50% 25%, rgba(185, 38, 25, 0.26) 0%, #0c0707 74%),
-        #0c0707;
+      align-items: flex-end;
+      border-bottom: 1px solid rgba(201, 59, 43, 0.32);
+      padding-bottom: 10px;
+      position: relative;
     }
 
-    .cmd-process-grid {
+    .back-giant-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.1rem, 8.2vw, 7.2rem);
+      font-weight: 400;
+      color: var(--editorial-cream);
+      letter-spacing: 0.015em;
+      line-height: 0.88;
+      text-transform: uppercase;
+    }
+
+    .back-cover-subbox {
+      text-align: right;
+      max-width: 390px;
+    }
+
+    .back-cover-kicker {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent-vermilion);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .back-cover-lead {
+      font-family: var(--font-th);
+      font-size: 13px;
+      color: var(--text-dark-sub);
+      line-height: 1.45;
+    }
+
+    /* Middle Process Strip: MY PROCESS 01 - 04 (From Reference Image 1) */
+    .process-editorial-strip {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
+      grid-template-columns: 145px repeat(4, 1fr);
+      border-bottom: 1px solid rgba(201, 59, 43, 0.32);
+      background: rgba(16, 9, 9, 0.72);
     }
 
-    .cmd-step-box {
-      background: rgba(22, 12, 12, 0.92);
-      border: 1px solid rgba(201, 59, 43, 0.28);
-      border-radius: 5px;
-      padding: 9px 10px;
+    .process-strip-head {
+      padding: 12px 14px;
+      border-right: 1px solid rgba(201, 59, 43, 0.25);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .process-strip-title {
+      font-family: var(--font-condensed);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--editorial-cream);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      line-height: 1.05;
+    }
+
+    .process-strip-tag {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      color: var(--accent-vermilion);
+      letter-spacing: 0.1em;
+    }
+
+    .process-step-card {
+      padding: 12px 14px;
+      border-right: 1px solid rgba(201, 59, 43, 0.20);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .process-step-card:last-child {
+      border-right: none;
+    }
+
+    .process-num {
+      font-family: var(--font-display);
+      font-size: 24px;
+      color: var(--accent-vermilion);
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .process-info {
       display: flex;
       flex-direction: column;
       gap: 3px;
     }
 
-    .cmd-step-num {
-      font-family: var(--font-display);
-      font-size: 20px;
-      color: var(--accent-vermilion);
-      line-height: 1;
-    }
-
-    .cmd-step-name {
+    .process-name {
       font-family: var(--font-sans);
-      font-size: 10.5px;
+      font-size: 11.5px;
       font-weight: 800;
       color: var(--editorial-cream);
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
     }
 
-    .cmd-step-desc {
+    .process-desc-th {
       font-family: var(--font-th);
-      font-size: 10px;
+      font-size: 11px;
       color: var(--text-dark-sub);
-      line-height: 1.32;
-      letter-spacing: 0 !important;
+      line-height: 1.35;
     }
 
-    .cmd-rig-strip {
-      background: rgba(201, 59, 43, 0.12);
-      border: 1px solid rgba(201, 59, 43, 0.26);
-      border-radius: 5px;
-      padding: 8px 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      font-family: var(--font-mono);
-      font-size: 9px;
-      color: var(--editorial-cream);
-    }
-
-    .cmd-rig-strip strong {
-      color: var(--accent-vermilion);
-    }
-
-    .command-base-deck {
-      width: 110%;
-      height: 22px;
-      background: linear-gradient(180deg, #3a3a40 0%, #222226 58%, #121215 100%);
-      border-radius: 3px 3px 12px 12px;
-      margin-top: -2px;
-      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.85);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      padding: 3px 8%;
-    }
-
-    .command-pedestal {
-      width: 118%;
-      height: 14px;
-      background: linear-gradient(180deg, #1b1717 0%, #090606 100%);
-      border-top: 1px solid rgba(232, 220, 200, 0.14);
-      border-radius: 2px;
-      margin-top: -1px;
-    }
-
-    /* Lower External Direct Channels (Left) + Editorial Commission Form (Right) */
+    /* Lower Split: Direct Channels (Left) + Editorial Commission Form (Right) */
     .contact-body-grid {
-      width: 100%;
       display: grid;
       grid-template-columns: 1fr 1.35fr;
-      gap: 20px;
-      align-items: stretch;
-      padding: 6px 0;
-      z-index: 8;
+      gap: 24px;
+      align-items: start;
+      padding: 12px 0;
     }
 
     .contact-info-panel {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      gap: 8px;
+      justify-content: flex-start;
+      gap: 10px;
+    }
+
+    .studio-cred-card {
+      background: rgba(20, 11, 11, 0.82);
+      border: 1px solid rgba(201, 59, 43, 0.25);
+      border-radius: 6px;
+      padding: 11px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .studio-cred-title {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      font-weight: 700;
+      color: var(--accent-vermilion);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .studio-cred-text {
+      font-family: var(--font-th);
+      font-size: 11.5px;
+      color: var(--text-dark-sub);
+      line-height: 1.42;
+      letter-spacing: 0 !important;
     }
 
     .form-panel-head {
@@ -1908,13 +2095,13 @@
       justify-content: space-between;
       align-items: baseline;
       border-bottom: 1px solid rgba(201, 59, 43, 0.24);
-      padding-bottom: 6px;
-      margin-bottom: 8px;
+      padding-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .form-panel-title {
       font-family: var(--font-condensed);
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 700;
       color: var(--editorial-cream);
       letter-spacing: 0.04em;
@@ -1923,7 +2110,7 @@
 
     .form-panel-sub {
       font-family: var(--font-mono);
-      font-size: 9px;
+      font-size: 9.5px;
       color: var(--accent-vermilion);
       letter-spacing: 0.08em;
     }
@@ -1931,16 +2118,16 @@
     .contact-channel-cards {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 8px;
+      gap: 10px;
     }
 
     .contact-card-item {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 10px 12px;
-      background: rgba(18, 10, 10, 0.88);
-      border: 1px solid rgba(201, 59, 43, 0.28);
+      gap: 11px;
+      padding: 11px 13px;
+      background: rgba(20, 11, 11, 0.82);
+      border: 1px solid rgba(201, 59, 43, 0.25);
       border-radius: 6px;
       text-decoration: none;
       color: inherit;
@@ -1953,12 +2140,12 @@
 
     .contact-card-item:hover {
       border-color: var(--accent-vermilion);
-      background: rgba(201, 59, 43, 0.14);
+      background: rgba(201, 59, 43, 0.12);
     }
 
     .contact-card-icon {
-      width: 32px;
-      height: 32px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       border: 1px solid rgba(224, 79, 62, 0.45);
       background: rgba(201, 59, 43, 0.12);
@@ -1970,8 +2157,8 @@
     }
 
     .contact-card-icon svg {
-      width: 14px;
-      height: 14px;
+      width: 15px;
+      height: 15px;
     }
 
     .contact-card-meta {
@@ -1982,7 +2169,7 @@
 
     .contact-card-meta .lbl {
       font-family: var(--font-mono);
-      font-size: 9px;
+      font-size: 9.5px;
       font-weight: 600;
       color: var(--text-dark-sub);
       text-transform: uppercase;
@@ -1991,7 +2178,7 @@
 
     .contact-card-meta .val {
       font-family: var(--font-sans);
-      font-size: 12.5px;
+      font-size: 13px;
       font-weight: 700;
       color: var(--editorial-cream);
       white-space: nowrap;
@@ -2010,12 +2197,12 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      padding: 7px 10px;
-      background: rgba(18, 10, 10, 0.82);
-      border: 1px solid rgba(201, 59, 43, 0.24);
+      padding: 8px 10px;
+      background: rgba(20, 11, 11, 0.72);
+      border: 1px solid rgba(201, 59, 43, 0.22);
       border-radius: 6px;
       font-family: var(--font-mono);
-      font-size: 10px;
+      font-size: 10.5px;
       font-weight: 600;
       color: var(--editorial-cream);
       text-decoration: none;
@@ -2039,10 +2226,10 @@
 
     /* Right Form Panel */
     .contact-form-panel {
-      background: rgba(18, 10, 10, 0.90);
-      border: 1px solid rgba(201, 59, 43, 0.34);
+      background: rgba(18, 10, 10, 0.88);
+      border: 1px solid rgba(201, 59, 43, 0.32);
       border-radius: 8px;
-      padding: 14px 18px;
+      padding: 18px 22px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -2051,37 +2238,37 @@
     .mockup-form {
       display: flex;
       flex-direction: column;
-      gap: 9px;
+      gap: 11px;
     }
 
     .form-row-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      gap: 12px;
     }
 
     .form-field {
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 4px;
     }
 
     .field-label {
       font-family: var(--font-th);
-      font-size: 10.5px;
+      font-size: 11px;
       font-weight: 600;
       color: var(--editorial-cream);
     }
 
     .field-input, .field-select, .field-textarea {
       width: 100%;
-      background: rgba(11, 7, 7, 0.88);
+      background: rgba(11, 7, 7, 0.85);
       border: 1px solid rgba(201, 59, 43, 0.28);
       border-radius: 5px;
-      padding: 7px 10px;
+      padding: 8px 11px;
       color: var(--editorial-cream);
       font-family: var(--font-sans);
-      font-size: 11.5px;
+      font-size: 12px;
       outline: none;
       transition: border-color 0.2s ease;
     }
@@ -2104,9 +2291,9 @@
       color: #ffffff;
       border: 1px solid var(--accent-vermilion);
       border-radius: 5px;
-      padding: 9px 16px;
+      padding: 10px 18px;
       font-family: var(--font-th);
-      font-size: 12.5px;
+      font-size: 13px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -2120,18 +2307,16 @@
     }
 
     .back-cover-footer {
-      width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
       border-top: 1px solid rgba(201, 59, 43, 0.24);
-      padding-top: 6px;
+      padding-top: 8px;
       font-family: var(--font-mono);
-      font-size: 9.5px;
+      font-size: 10px;
       color: var(--text-dark-sub);
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      z-index: 8;
     }
 
     .back-top-btn {
@@ -2139,7 +2324,7 @@
       border: none;
       color: var(--editorial-cream);
       font-family: var(--font-mono);
-      font-size: 9.5px;
+      font-size: 10px;
       font-weight: 700;
       letter-spacing: 0.1em;
       cursor: pointer;
@@ -2150,176 +2335,170 @@
       color: var(--accent-vermilion);
     }
 
-    /* Mobile Responsive Studio Command Desk (Section 09 on 430x932) */
+    /* Mobile Responsive Editorial Back Cover (Fits 100dvh on 430x932 cleanly!) */
     @media (max-width: 768px) {
       .contact-section {
-        padding: 44px 12px 10px 12px;
+        padding: 42px 14px 12px 14px;
       }
 
-      .commission-wall-backdrop {
-        position: relative;
-        top: auto;
-        left: auto;
-        transform: none;
-        width: 100%;
-        margin-bottom: 2px;
+      .back-cover-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+        padding-bottom: 6px;
       }
 
-      .commission-wall-word {
-        font-size: 16.5vw;
-        line-height: 0.84;
+      .back-giant-title {
+        font-size: clamp(2.6rem, 13.5vw, 3.8rem);
+        line-height: 0.88;
       }
 
-      .command-laptop-wrap {
-        width: 96vw;
-        max-width: 406px;
+      .back-cover-subbox {
+        text-align: left;
+        max-width: 100%;
       }
 
-      .command-macbook-lid {
-        height: 176px;
-        padding: 6px 6px 8px 6px;
-        border-radius: 10px 10px 3px 3px;
+      .back-cover-kicker {
+        display: none;
       }
 
-      .command-screen-inner {
-        padding: 8px 10px;
-        gap: 6px;
+      .back-cover-lead {
+        font-size: 11px;
+        line-height: 1.3;
       }
 
-      .cmd-process-grid {
+      .process-editorial-strip {
         grid-template-columns: repeat(2, 1fr);
-        gap: 5px;
+        border: 1px solid rgba(201, 59, 43, 0.28);
+        border-radius: 6px;
+        overflow: hidden;
       }
 
-      .cmd-step-box {
-        padding: 5px 7px;
-        flex-direction: row;
-        align-items: center;
+      .process-strip-head {
+        display: none;
+      }
+
+      .process-step-card {
+        padding: 6px 8px;
         gap: 6px;
+        border-bottom: 1px solid rgba(201, 59, 43, 0.18);
       }
 
-      .cmd-step-num {
-        font-size: 16px;
+      .process-step-card:nth-child(2n+1) {
+        border-right: none;
       }
 
-      .cmd-step-name {
-        font-size: 9px;
+      .process-step-card:nth-last-child(-n+2) {
+        border-bottom: none;
       }
 
-      .cmd-step-desc {
-        font-size: 8.8px;
-        line-height: 1.18;
+      .process-num {
+        font-size: 18px;
       }
 
-      .cmd-rig-strip {
-        padding: 5px 8px;
-        font-size: 8px;
+      .process-name {
+        font-size: 9.5px;
       }
 
-      .command-base-deck {
-        width: 103%;
-        height: 14px;
-      }
-
-      .command-pedestal {
-        width: 104%;
-        height: 8px;
+      .process-desc-th {
+        font-size: 9.5px;
+        line-height: 1.2;
       }
 
       .contact-body-grid {
         grid-template-columns: 1fr;
-        gap: 6px;
-        padding: 4px 0;
+        gap: 8px;
+        padding: 6px 0;
       }
 
       .contact-info-panel {
-        gap: 5px;
+        gap: 6px;
       }
 
       .contact-channel-cards {
         grid-template-columns: repeat(2, 1fr);
-        gap: 5px;
-      }
-
-      .contact-card-item {
-        padding: 6px 8px;
         gap: 6px;
       }
 
-      .contact-card-item.hide-on-mob {
-        display: none;
+      .contact-card-item {
+        padding: 7px 9px;
+        gap: 7px;
       }
 
       .contact-card-icon {
-        width: 24px;
-        height: 24px;
+        width: 26px;
+        height: 26px;
       }
 
       .contact-card-icon svg {
-        width: 11px;
-        height: 11px;
+        width: 12px;
+        height: 12px;
       }
 
       .contact-card-meta .lbl {
-        font-size: 7.5px;
-      }
-
-      .contact-card-meta .val {
-        font-size: 10.5px;
-      }
-
-      .contact-social-grid {
-        gap: 5px;
-      }
-
-      .social-pill {
-        padding: 4px 6px;
-        font-size: 8.8px;
-      }
-
-      .form-panel-head {
-        padding-bottom: 4px;
-        margin-bottom: 5px;
-      }
-
-      .form-panel-title {
-        font-size: 12px;
-      }
-
-      .form-panel-sub {
         font-size: 8px;
       }
 
+      .contact-card-meta .val {
+        font-size: 11px;
+      }
+
+      .contact-social-grid {
+        gap: 6px;
+      }
+
+      .social-pill {
+        padding: 5px 6px;
+        font-size: 9.5px;
+      }
+
+      .studio-cred-card {
+        display: none;
+      }
+
+      .form-panel-head {
+        padding-bottom: 5px;
+        margin-bottom: 6px;
+      }
+
+      .form-panel-title {
+        font-size: 13px;
+      }
+
+      .form-panel-sub {
+        font-size: 8.5px;
+      }
+
       .contact-form-panel {
-        padding: 8px 10px;
+        padding: 10px 12px;
       }
 
       .mockup-form {
-        gap: 5px;
+        gap: 7px;
       }
 
       .form-row-2 {
         grid-template-columns: 1fr 1fr;
-        gap: 6px;
+        gap: 8px;
       }
 
       .field-label {
-        font-size: 9.5px;
+        font-size: 10px;
       }
 
       .field-input, .field-select, .field-textarea {
-        padding: 5px 7px;
-        font-size: 10.5px;
+        padding: 6px 8px;
+        font-size: 11px;
       }
 
       .submit-inquiry-btn {
-        padding: 7px 12px;
-        font-size: 11.5px;
+        padding: 8px 14px;
+        font-size: 12px;
       }
 
       .back-cover-footer {
-        padding-top: 4px;
-        font-size: 8px;
+        padding-top: 6px;
+        font-size: 8.5px;
       }
     }
   </style>
@@ -2337,8 +2516,6 @@
         <span>EST. 2012</span>
       </div>
 
-      <div class="masthead-center-year">2026</div>
-
       <button type="button" class="masthead-right-btn" onclick="scrollToCategory(9)">
         <span>AVAILABLE FOR COMMISSION</span>
         <span class="status-dot"></span>
@@ -2352,46 +2529,200 @@
   <nav class="side-indicator" id="side-indicator" aria-label="Category Navigation"></nav>
 
   <!-- =========================================================================
-       MAIN VIEWPORT CONTAINER (VANTA//9 MACBOOK COVER + 8 RINGS + COMMAND DESK)
+       MAIN VIEWPORT CONTAINER (EDITORIAL POSTER COVER + 8 RINGS + BACK COVER)
        ========================================================================= -->
   <main class="viewport-canvas" id="viewport-canvas">
 
     <!-- =======================================================================
-         SECTION 00: VANTA//9 INSPIRED 3D MACBOOK STUDIO PRESENTATION
+         SECTION 00: EDITORIAL MAGAZINE COVER POSTER (3D RIBBON UNCOIL + GRID SNAP)
          ======================================================================= -->
     <section class="kinetic-section intro-section" id="sec-intro" data-theme="dark" data-index="0">
-      <div class="vanta-stage-shell">
+      <div class="helix-ribbon-glow" aria-hidden="true"></div>
+      <div class="editorial-poster-shell">
 
-        <!-- 1. External Top Strip (Outside MacBook) -->
-        <div class="vanta-external-top">
-          <span class="ext-pill"><strong>00 // COVER</strong> &middot; COMMERCIAL PHOTOGRAPHY STUDIO</span>
-          <span class="ext-pill">CHIANG MAI BASE &middot; <strong>NATIONWIDE COMMISSION</strong></span>
-        </div>
+        <!-- 1. Giant Condensed Magazine Title (Uncoils along 3D Helix Ribbon) -->
+        <div class="poster-headline-wrap">
+          <h1 class="poster-giant-word" id="poster-giant-word" aria-label="FELTZ STUDIO"><span class="helix-char" style="--char-i:0">F</span><span class="helix-char" style="--char-i:1">E</span><span class="helix-char" style="--char-i:2">L</span><span class="helix-char" style="--char-i:3">T</span><span class="helix-char" style="--char-i:4">Z</span><span class="helix-char" style="--char-i:5">&nbsp;</span><span class="helix-char" style="--char-i:6">S</span><span class="helix-char" style="--char-i:7">T</span><span class="helix-char" style="--char-i:8">U</span><span class="helix-char" style="--char-i:9">D</span><span class="helix-char" style="--char-i:10">I</span><span class="helix-char" style="--char-i:11">O</span></h1>
 
-        <!-- 2. Giant Architectural Wall Headline Behind MacBook (Like VANTA//9) -->
-        <div class="vanta-wall-backdrop" aria-hidden="true">
-          <div class="vanta-wall-word">FELTZ STUDIO</div>
-        </div>
-
-        <!-- 3. Center 3D Blender MacBook Pro Rig + Monolith Pedestal -->
-        <div class="macbook-rig-arena">
-          <div class="webgl-macbook-stage" id="cover-webgl-macbook-stage" aria-label="3D MacBook Pro Presentation"></div>
-          <div class="webgl-slide-hud">
-            <span class="hud-label">MACBOOK SCREEN //</span>
-            <button type="button" class="screen-tab-btn active" id="tab-btn-id" onclick="scrollCoverLaptopTo(0)">01 IDENTITY &amp; PROFILE</button>
-            <button type="button" class="screen-tab-btn" id="tab-btn-srv" onclick="scrollCoverLaptopTo(1)">02 WHAT I DO (08 PORTFOLIOS)</button>
+          <!-- Rotating Editorial Stamp SVG -->
+          <div class="editorial-stamp" aria-hidden="true">
+            <svg class="stamp-ring" viewBox="0 0 120 120">
+              <defs>
+                <path id="stampCirclePath" d="M 60, 60 m -44, 0 a 44,44 0 1,1 88,0 a 44,44 0 1,1 -88,0" />
+              </defs>
+              <text fill="#e8dcc8" font-family="JetBrains Mono, monospace" font-size="9.2" font-weight="700" letter-spacing="2.2">
+                <textPath href="#stampCirclePath">COMMERCIAL · STAGE · SPACE · SPORT ·</textPath>
+              </text>
+            </svg>
+            <div class="stamp-star">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 1L14.5 9.5L23 12L14.5 14.5L12 23L9.5 14.5L1 12L9.5 9.5L12 1Z" />
+              </svg>
+            </div>
           </div>
         </div>
 
-        <!-- 4. External Bottom Bar -->
-        <div class="vanta-external-bottom">
-          <div class="poster-client-ticker">
-            TRUSTED BY: SINGHA &middot; KBANK &middot; THAI AIRASIA &middot; TRUE &middot; AIA &middot; YAMAHA &middot; TCEB &middot; GISTDA
+        <!-- 2. Centerpiece Stage: Left Optical Direction + Center Cutout Portrait + Right Identity, Stats & Skills -->
+        <div class="poster-hero-stage">
+
+          <!-- Left Column (Ribbon Order 0) -->
+          <div class="poster-col-left ribbon-snap-item" style="--ribbon-order: 0; --from-x: -28vw; --from-y: 28vh; --from-ry: 64deg; --from-rx: 28deg; --from-rz: -16deg;">
+            <div class="poster-kicker-title">OPTICAL / VISUAL /<br/>DIRECTION</div>
+            <ul class="poster-sub-list">
+              <li>COMMERCIAL PHOTOGRAPHY</li>
+              <li>CONCERT &amp; LIVE STAGE</li>
+              <li>REAL ESTATE &amp; HOSPITALITY</li>
+            </ul>
+            <div class="poster-red-rule"></div>
+            <div class="poster-quote-box">
+              <span class="poster-quote-mark">&ldquo;</span>
+              <p class="editorial-quote-th">
+                ทุกช็อตคือการวางกลยุทธ์ภาพลักษณ์ ถ่ายทอดสเปซ แสงจริง และอารมณ์สดให้กลายเป็นมูลค่าทางการค้าของแบรนด์
+              </p>
+              <span class="poster-signature">Mongkol W.</span>
+            </div>
           </div>
-          <button type="button" class="poster-scroll-btn" onclick="scrollToCategory(1)">
-            <span>SCROLL TO EXPLORE 08 PORTFOLIOS</span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-          </button>
+
+          <!-- Center Cutout Portrait Overlapping Giant Title -->
+          <div class="poster-col-center">
+            <div class="crimson-halo-circle"></div>
+            <img src="assets/keng_cutout.png" alt="Mongkol Wongsakulyanon — Feltz Studio" class="cutout-portrait-img" fetchpriority="high" />
+          </div>
+
+          <!-- Right Column: Identity + Stats + SKILLS Console (Ribbon Order 1) -->
+          <div class="poster-col-right ribbon-snap-item" style="--ribbon-order: 1; --from-x: 28vw; --from-y: 30vh; --from-ry: -62deg; --from-rx: 30deg; --from-rz: 14deg;">
+            <div class="poster-person-header-mob">
+              <h2 class="poster-person-name">MONGKOL<br/>WONGSAKULYANON</h2>
+              <div class="poster-person-role">FOUNDER &amp; LEAD VISUAL DIRECTOR</div>
+            </div>
+            <p class="editorial-bio-th">
+              ช่างภาพพาณิชย์และที่ปรึกษาภาพลักษณ์ประจำเชียงใหม่ (ก่อตั้งปี 2012) เชี่ยวชาญการถ่ายทอดมิติสถาปัตยกรรม โรงแรม สปอร์ตความเร็วสูง คอนเสิร์ต และสินค้าแบรนด์ชั้นนำ พร้อมเดินทางถ่ายทำทั่วประเทศ
+            </p>
+
+            <!-- 3 Editorial Stats with Thin Red Circle Icons -->
+            <div class="poster-stats-row">
+              <div class="poster-stat-item">
+                <div class="stat-icon-circle">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+                </div>
+                <div>
+                  <div class="poster-stat-num">12+</div>
+                  <div class="poster-stat-label">YEARS<br/>EXPERIENCE</div>
+                </div>
+              </div>
+
+              <div class="poster-stat-item">
+                <div class="stat-icon-circle">
+                  <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+                </div>
+                <div>
+                  <div class="poster-stat-num">14+</div>
+                  <div class="poster-stat-label">ENTERPRISE<br/>BRANDS</div>
+                </div>
+              </div>
+
+              <div class="poster-stat-item">
+                <div class="stat-icon-circle">
+                  <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                </div>
+                <div>
+                  <div class="poster-stat-num">DUAL</div>
+                  <div class="poster-stat-label">SONY ALPHA<br/>MASTER RIG</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SKILLS Console Card (Capture One, Photoshop, Lightroom, Affinity Design) -->
+            <div class="skills-console-card ribbon-snap-item" style="--ribbon-order: 2; --from-x: 22vw; --from-y: 26vh; --from-ry: -48deg; --from-rx: 34deg; --from-rz: 12deg;">
+              <div class="skills-console-head">
+                <div class="skills-head-left">
+                  <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                  <span>SKILLS</span>
+                </div>
+                <div class="skills-head-dots" aria-hidden="true">
+                  <span class="dot-r"></span>
+                  <span class="dot-b"></span>
+                  <span class="dot-g"></span>
+                </div>
+              </div>
+              <div class="skills-badge-row" id="skills-badge-group">
+                <div class="skill-app-item">
+                  <div class="skill-squircle">C1</div>
+                  <span class="skill-app-name">Capture One</span>
+                </div>
+                <div class="skill-app-item">
+                  <div class="skill-squircle">Ps</div>
+                  <span class="skill-app-name">Photoshop</span>
+                </div>
+                <div class="skill-app-item">
+                  <div class="skill-squircle">Lr</div>
+                  <span class="skill-app-name">Lightroom</span>
+                </div>
+                <div class="skill-app-item">
+                  <div class="skill-squircle">Ad</div>
+                  <span class="skill-app-name">Affinity Design</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- 3. Bottom Strip: WHAT I DO (4 Service Cards Uncoiling from 3D Stream into Grid) + Scroll CTA -->
+        <div class="poster-bottom-deck">
+          <div class="what-i-do-frame">
+            <div class="what-i-do-head ribbon-snap-item" style="--ribbon-order: 2.5; --from-x: -30vw; --from-y: 22vh; --from-ry: 55deg; --from-rx: 36deg; --from-rz: -14deg;">
+              <div class="what-i-do-title">WHAT I DO</div>
+              <div class="what-i-do-sub">08 PORTFOLIOS</div>
+            </div>
+
+            <div class="service-editorial-card ribbon-snap-item" style="--ribbon-order: 3; --from-x: -22vw; --from-y: 24vh; --from-ry: 52deg; --from-rx: 38deg; --from-rz: -12deg;" onclick="scrollToCategory(1)">
+              <div class="service-card-top">
+                <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <span class="service-num-tag">01 / 03</span>
+              </div>
+              <div class="service-name">STAGE &amp; SPORT</div>
+              <div class="service-desc-th">คอนเสิร์ตใหญ่และกีฬาความเร็วสูง</div>
+            </div>
+
+            <div class="service-editorial-card ribbon-snap-item" style="--ribbon-order: 4; --from-x: -8vw; --from-y: 26vh; --from-ry: 34deg; --from-rx: 42deg; --from-rz: -8deg;" onclick="scrollToCategory(2)">
+              <div class="service-card-top">
+                <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/></svg>
+                <span class="service-num-tag">02 / 04</span>
+              </div>
+              <div class="service-name">SPACE &amp; HOTEL</div>
+              <div class="service-desc-th">โรงแรม รีสอร์ต และอสังหาริมทรัพย์</div>
+            </div>
+
+            <div class="service-editorial-card ribbon-snap-item" style="--ribbon-order: 5; --from-x: 10vw; --from-y: 26vh; --from-ry: -34deg; --from-rx: 42deg; --from-rz: 8deg;" onclick="scrollToCategory(5)">
+              <div class="service-card-top">
+                <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                <span class="service-num-tag">05 / 06</span>
+              </div>
+              <div class="service-name">BRAND &amp; DINING</div>
+              <div class="service-desc-th">สินค้าโฆษณาและอาหารไฟน์ไดน์นิ่ง</div>
+            </div>
+
+            <div class="service-editorial-card ribbon-snap-item" style="--ribbon-order: 6; --from-x: 24vw; --from-y: 24vh; --from-ry: -52deg; --from-rx: 38deg; --from-rz: 12deg;" onclick="scrollToCategory(7)">
+              <div class="service-card-top">
+                <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+                <span class="service-num-tag">07 / 08</span>
+              </div>
+              <div class="service-name">PORTRAIT &amp; EVENT</div>
+              <div class="service-desc-th">พอร์ตเทรตผู้บริหารและอีเวนต์องค์กร</div>
+            </div>
+          </div>
+
+          <div class="poster-scroll-bar ribbon-snap-item" style="--ribbon-order: 7; --from-x: 0vw; --from-y: 18vh; --from-ry: 0deg; --from-rx: 25deg; --from-rz: 0deg;">
+            <div class="poster-client-ticker">
+              TRUSTED BY: SINGHA · KBANK · THAI AIRASIA · TRUE · AIA · YAMAHA · TCEB · GISTDA
+            </div>
+            <button type="button" class="poster-scroll-btn" onclick="scrollToCategory(1)">
+              <span>SCROLL TO EXPLORE 08 PORTFOLIOS</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+            </button>
+          </div>
         </div>
 
       </div>
@@ -2652,10 +2983,14 @@
         `;
         sec.appendChild(meta);
 
-        // 3D Ring Stage (Zero Dashed Reticle, Wide Curved Arc on Mobile)
+        // 3D Ring Stage
         const stage = document.createElement("div");
         stage.className = "ring-stage";
         stage.id = `stage-${cat.id}`;
+
+        const reticle = document.createElement("div");
+        reticle.className = "stage-editorial-reticle";
+        stage.appendChild(reticle);
 
         const pivot = document.createElement("div");
         pivot.className = "ring-pivot";
@@ -2672,7 +3007,6 @@
           const deg = pIdx * stepDeg;
           card.style.transform = `rotateY(${deg}deg) translateZ(${radius}px)`;
           card.setAttribute("data-photo-idx", pIdx);
-          card.setAttribute("data-base-deg", deg);
 
           card.innerHTML = `
             <img src="${photo.thumb}" alt="${photo.title}" decoding="async" ${fetchPri} draggable="false" />
@@ -2716,7 +3050,7 @@
         setupRingController(cat, stage, pivot, cIdx);
       });
 
-      // 3. Build Section 09: Studio Command Desk (Option 1 — MacBook + Commission Deck)
+      // 3. Build Section 09: Editorial Back Cover (MY PROCESS 01-04 + Commission Brief)
       const contactIndex = 9;
       const contactDot = document.createElement("button");
       contactDot.type = "button";
@@ -2735,15 +3069,57 @@
         <div class="ambient-glow" style="--glow-color: rgba(201, 59, 43, 0.28);"></div>
         <div class="back-cover-shell">
 
-          <!-- 1. Giant COMMISSION Wall Backdrop Behind Command MacBook -->
-          <div class="commission-wall-backdrop" aria-hidden="true">
-            <div class="commission-wall-word">COMMISSION</div>
+          <!-- 1. Editorial Back Cover Giant Header -->
+          <div class="back-cover-top">
+            <h2 class="back-giant-title">FELTZ COMMISSION</h2>
+            <div class="back-cover-subbox">
+              <div class="back-cover-kicker">09 // BOOKING &amp; PRODUCTION INQUIRY</div>
+              <p class="back-cover-lead">พูดคุยทิศทางภาพลักษณ์ วางแผนการถ่ายทำ หรือขอใบเสนอราคาโดยตรงกับ มงคล วงศ์สกุลยานนท์ (เก่ง)</p>
+            </div>
           </div>
 
-          <!-- 2. Top Studio Command 3D Blender MacBook (Displays 04 Workflow Steps & Optical Rig) -->
-          <div class="command-webgl-stage" id="command-webgl-macbook-stage" aria-label="3D Command Desk MacBook"></div>
+          <!-- 2. MY PROCESS // 01-04 (Matching Editorial Poster Reference) -->
+          <div class="process-editorial-strip">
+            <div class="process-strip-head">
+              <div class="process-strip-title">MY PROCESS</div>
+              <div class="process-strip-tag">04 WORKFLOW STEPS</div>
+            </div>
 
-          <!-- 3. External Direct Contact Channels & Editorial Inquiry Form Below Laptop -->
+            <div class="process-step-card">
+              <span class="process-num">01</span>
+              <div class="process-info">
+                <div class="process-name">BRIEF &amp; DIRECTION</div>
+                <div class="process-desc-th">วิเคราะห์โจทย์แบรนด์และวางโครงเรื่องภาพ</div>
+              </div>
+            </div>
+
+            <div class="process-step-card">
+              <span class="process-num">02</span>
+              <div class="process-info">
+                <div class="process-name">PRODUCTION &amp; RIG</div>
+                <div class="process-desc-th">ถ่ายทำด้วยชุดกล้องคู่และจัดแสงระดับสตูดิโอ</div>
+              </div>
+            </div>
+
+            <!-- 03: COLOR LAB GRADING -->
+            <div class="process-step-card">
+              <span class="process-num">03</span>
+              <div class="process-info">
+                <div class="process-name">COLOR LAB GRADING</div>
+                <div class="process-desc-th">เกรดสีและรีทัชด้วย Capture One, Photoshop &amp; Lightroom</div>
+              </div>
+            </div>
+
+            <div class="process-step-card">
+              <span class="process-num">04</span>
+              <div class="process-info">
+                <div class="process-name">FAST DELIVERY</div>
+                <div class="process-desc-th">ส่งมอบไฟล์ความละเอียดสูงพร้อมใช้งานทันที</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Direct Contact Channels & Editorial Inquiry Form -->
           <div class="contact-body-grid">
             <div class="contact-info-panel">
               <div class="contact-channel-cards">
@@ -2777,7 +3153,7 @@
                   </div>
                 </a>
 
-                <div class="contact-card-item full-span hide-on-mob">
+                <div class="contact-card-item full-span">
                   <div class="contact-card-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                   </div>
@@ -2786,6 +3162,11 @@
                     <span class="val">65/1 ถ.ต้นขาม ต.ท่าศาลา อ.เมือง จ.เชียงใหม่ 50000</span>
                   </div>
                 </div>
+              </div>
+
+              <div class="studio-cred-card">
+                <div class="studio-cred-title">OPTICAL RIG &amp; ENTERPRISE CLIENTS</div>
+                <div class="studio-cred-text">Dual Sony A7 IV · FE 70-200mm GM II · Sigma Art · Capture One, Photoshop, Lightroom &amp; Affinity Design<br/>Singha · KBank · Thai AirAsia · True · AIA · Yamaha · TCEB · GISTDA</div>
               </div>
 
               <div class="contact-social-grid">
@@ -2872,12 +3253,10 @@
     // 3D RING CONTROLLER (AUTO SPIN + TOUCH INERTIA + HOVER/TOUCH PAUSE)
     // =========================================================================
     function setupRingController(cat, stageElem, pivotElem, catIdx) {
-      const cards = Array.from(pivotElem.querySelectorAll(".ring-card"));
       const state = {
         cat,
         catIdx,
         pivot: pivotElem,
-        cards,
         currentRotation: 0,
         velocity: 0,
         isDragging: false,
@@ -2957,6 +3336,8 @@
       window.addEventListener("touchend", onPointerUp, { passive: true });
       window.addEventListener("touchcancel", onPointerUp, { passive: true });
 
+      const cards = Array.from(pivotElem.querySelectorAll(".ring-card"));
+      state.cards = cards;
       cards.forEach((cardEl, pIdx) => {
         cardEl.addEventListener("click", () => {
           if (state.dragDistance < 8 && !isLightboxSpatialAnimating) {
@@ -2966,11 +3347,12 @@
       });
     }
 
-    // Animation Loop (With Inclined Elliptical Tilt & Front-Arc Depth Culling on Mobile so Cards Never Clump)
+    // Animation Loop (Separates front & back cards on mobile so they never overlap)
     function animateRings() {
       const isMobile = window.innerWidth <= 768;
-      const tiltX = isMobile ? -15 : -12;
-      const tiltZ = isMobile ? -3.5 : -3.5;
+      const tiltX = isMobile ? -15 : -13;
+      const tiltZ = isMobile ? -3.5 : -4;
+      const degToRad = Math.PI / 180;
 
       ringControllers.forEach(ctrl => {
         if (!ctrl.isNearView) return;
@@ -2986,24 +3368,18 @@
 
         ctrl.pivot.style.transform = `rotateX(${tiltX}deg) rotateZ(${tiltZ}deg) rotateY(${ctrl.currentRotation}deg)`;
 
-        // Depth Culling per Card so Front Cards Stand Out Cleanly Without Back-Row Clutter
-        const stepDeg = 360 / ctrl.cards.length;
+        const stepDeg = 360 / ctrl.cat.photos.length;
         ctrl.cards.forEach((cardEl, idx) => {
-          if (cardEl === activeClickedCardEl) return;
-          const totalDeg = (idx * stepDeg) + ctrl.currentRotation;
-          const rad = (totalDeg * Math.PI) / 180;
-          const depth = Math.cos(rad); // +1 = Front Center, 0 = Left/Right Edge, -1 = Back Center
-          cardEl.style.zIndex = String(Math.round((depth + 1) * 50));
+          const worldDeg = idx * stepDeg + ctrl.currentRotation;
+          const depth = Math.cos(worldDeg * degToRad); // +1 frontmost, -1 backmost
 
           if (isMobile) {
-            if (depth > 0.45) {
+            if (depth >= 0.08) {
               cardEl.style.opacity = "1";
               cardEl.style.pointerEvents = "auto";
-            } else if (depth > -0.05) {
-              cardEl.style.opacity = "0.78";
-              cardEl.style.pointerEvents = "auto";
             } else {
-              cardEl.style.opacity = "0.14";
+              const backOpacity = Math.max(0.14, 0.14 + (depth + 1) * 0.26);
+              cardEl.style.opacity = backOpacity.toFixed(2);
               cardEl.style.pointerEvents = "none";
             }
           } else {
@@ -3020,86 +3396,6 @@
       });
 
       requestAnimationFrame(animateRings);
-    }
-
-    // =========================================================================
-    // COVER MACBOOK AUTO-SCROLL PRESENTATION ENGINE (LIKE VANTA//9 REF)
-    // =========================================================================
-    let coverLaptopPaused = false;
-    let coverLaptopDir = 1; // 1 = scrolling down slowly, -1 = returning up
-    let coverLaptopHoldTimer = 0;
-
-    function scrollCoverLaptopTo(pageIdx) {
-      const vp = document.getElementById("cover-screen-viewport");
-      const btnId = document.getElementById("tab-btn-id");
-      const btnSrv = document.getElementById("tab-btn-srv");
-      if (!vp) return;
-
-      coverLaptopPaused = true;
-      const targetTop = pageIdx === 0 ? 0 : vp.scrollHeight - vp.clientHeight;
-      vp.scrollTo({ top: targetTop, behavior: "smooth" });
-
-      if (btnId && btnSrv) {
-        btnId.classList.toggle("active", pageIdx === 0);
-        btnSrv.classList.toggle("active", pageIdx === 1);
-      }
-
-      setTimeout(() => {
-        coverLaptopPaused = false;
-        coverLaptopHoldTimer = 90;
-      }, 3200);
-    }
-
-    function setupCoverLaptopAutoScroll() {
-      const vp = document.getElementById("cover-screen-viewport");
-      const btnId = document.getElementById("tab-btn-id");
-      const btnSrv = document.getElementById("tab-btn-srv");
-      if (!vp) return;
-
-      // Hold on Mongkol's Profile for ~2.2 seconds after lid opens before gliding down
-      coverLaptopHoldTimer = 135;
-
-      vp.addEventListener("mouseenter", () => { coverLaptopPaused = true; });
-      vp.addEventListener("mouseleave", () => { coverLaptopPaused = false; });
-      vp.addEventListener("touchstart", () => { coverLaptopPaused = true; }, { passive: true });
-      vp.addEventListener("touchend", () => {
-        setTimeout(() => { coverLaptopPaused = false; }, 2200);
-      }, { passive: true });
-
-      function stepLaptopScroll() {
-        const introSec = document.getElementById("sec-intro");
-        const isCoverVisible = introSec && introSec.classList.contains("is-in-view");
-
-        if (isCoverVisible && !coverLaptopPaused) {
-          const maxScroll = vp.scrollHeight - vp.clientHeight;
-          if (maxScroll > 12) {
-            if (coverLaptopHoldTimer > 0) {
-              coverLaptopHoldTimer--;
-            } else {
-              vp.scrollTop += coverLaptopDir * 0.55;
-
-              if (vp.scrollTop >= maxScroll - 2) {
-                vp.scrollTop = maxScroll;
-                coverLaptopDir = -1;
-                coverLaptopHoldTimer = 140; // Pause on WHAT I DO
-              } else if (vp.scrollTop <= 2) {
-                vp.scrollTop = 0;
-                coverLaptopDir = 1;
-                coverLaptopHoldTimer = 150; // Pause on Profile Identity
-              }
-            }
-
-            if (btnId && btnSrv) {
-              const onSecondHalf = vp.scrollTop > maxScroll * 0.45;
-              btnId.classList.toggle("active", !onSecondHalf);
-              btnSrv.classList.toggle("active", onSecondHalf);
-            }
-          }
-        }
-        requestAnimationFrame(stepLaptopScroll);
-      }
-
-      requestAnimationFrame(stepLaptopScroll);
     }
 
     function scrollToCategory(idx) {
@@ -3134,11 +3430,6 @@
           if (entry.isIntersecting) {
             entry.target.classList.add("is-in-view");
 
-            if (window.setFeltz3DMacBookInView) {
-              if (idx === 0) window.setFeltz3DMacBookInView("cover", true);
-              if (idx === 9) window.setFeltz3DMacBookInView("command", true);
-            }
-
             ringControllers.forEach(st => {
               st.isPaused = false;
               st.isDragging = false;
@@ -3157,10 +3448,6 @@
             });
           } else {
             entry.target.classList.remove("is-in-view");
-            if (window.setFeltz3DMacBookInView) {
-              if (idx === 0) window.setFeltz3DMacBookInView("cover", false);
-              if (idx === 9) window.setFeltz3DMacBookInView("command", false);
-            }
             if (idx > 0 && ringControllers[idx - 1]) {
               ringControllers[idx - 1].isActiveSection = false;
             }
@@ -3338,19 +3625,74 @@
       });
     });
 
+    // =========================================================================
+    // TRANSITIONS.DEV MICRO-INTERACTIONS (SKILLS SPRING LIFT + 3D CARD TILT)
+    // =========================================================================
+    function setupCoverMicroInteractions() {
+      // 1. Avatar Group Hover Spring on SKILLS Badges (C1, Ps, Lr, Ad)
+      const skillsGroup = document.getElementById("skills-badge-group");
+      if (skillsGroup) {
+        const items = Array.from(skillsGroup.querySelectorAll(".skill-app-item"));
+        const lift = -6;
+        const falloff = 0.45;
+        const scale = 1.08;
+        const easeIn = "cubic-bezier(0.22, 1, 0.36, 1)";
+        const easeOut = "cubic-bezier(0.34, 3.85, 0.64, 1)";
+
+        const setSkillShifts = (activeIdx, phase) => {
+          const timing = phase === "in" ? easeIn : easeOut;
+          items.forEach((el, i) => {
+            el.style.transitionTimingFunction = timing;
+            if (activeIdx < 0) {
+              el.style.setProperty("--shift", "0px");
+              el.style.setProperty("--scale-active", "1");
+            } else {
+              const dist = Math.abs(i - activeIdx);
+              const shiftVal = (lift * Math.pow(falloff, dist)).toFixed(2) + "px";
+              el.style.setProperty("--shift", shiftVal);
+              el.style.setProperty("--scale-active", i === activeIdx ? String(scale) : "1");
+            }
+          });
+        };
+
+        items.forEach((el, idx) => {
+          el.addEventListener("mouseenter", () => setSkillShifts(idx, "in"));
+          el.addEventListener("touchstart", () => setSkillShifts(idx, "in"), { passive: true });
+        });
+        skillsGroup.addEventListener("mouseleave", () => setSkillShifts(-1, "out"));
+        skillsGroup.addEventListener("touchend", () => {
+          setTimeout(() => setSkillShifts(-1, "out"), 380);
+        }, { passive: true });
+      }
+
+      // 2. 3D Pointer Hover Tilt + Cursor Glare on WHAT I DO Service Cards
+      const srvCards = document.querySelectorAll(".service-editorial-card");
+      srvCards.forEach((card) => {
+        card.addEventListener("mousemove", (e) => {
+          const rect = card.getBoundingClientRect();
+          const xPct = (e.clientX - rect.left) / rect.width;
+          const yPct = (e.clientY - rect.top) / rect.height;
+          const rx = ((0.5 - yPct) * 10).toFixed(2);
+          const ry = ((xPct - 0.5) * 12).toFixed(2);
+          card.style.setProperty("--tilt-rx", `${rx}deg`);
+          card.style.setProperty("--tilt-ry", `${ry}deg`);
+          card.style.setProperty("--tilt-gx", `${(xPct * 100).toFixed(1)}%`);
+          card.style.setProperty("--tilt-gy", `${(yPct * 100).toFixed(1)}%`);
+        });
+        card.addEventListener("mouseleave", () => {
+          card.style.setProperty("--tilt-rx", "0deg");
+          card.style.setProperty("--tilt-ry", "0deg");
+        });
+      });
+    }
+
     // Boot
     window.addEventListener("DOMContentLoaded", () => {
       initDOM();
       setupIntersectionObserver();
-      if (window.initFeltz3DMacBookStages) {
-        window.initFeltz3DMacBookStages();
-      }
+      setupCoverMicroInteractions();
       requestAnimationFrame(animateRings);
     });
   </script>
-  <script src="assets/js/three.min.js"></script>
-  <script src="assets/js/GLTFLoader.umd.js"></script>
-  <script src="assets/js/feltz_macbook_rig_b64.js"></script>
-  <script src="assets/js/feltz_macbook_3d_stage.js"></script>
 </body>
 </html>

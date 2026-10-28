@@ -1,0 +1,2732 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feltz Studio | Visual Strategist & Commercial Specialist</title>
+  <meta name="description" content="ยกระดับภาพลักษณ์แบรนด์ด้วยการเล่าเรื่องเชิงกลยุทธ์และจังหวะธรรมชาติ Authentic Visual Assets for Hospitality, Sports & Brands โดย มงคล วงศ์สกุลยานนท์ (เก่ง)">
+  
+  <!-- Preconnect Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       CSS VARIABLES & THEME DEFINITIONS
+       ========================================================================== */
+    :root {
+      /* Dark Theme (Default) */
+      --bg-base: #070b12;
+      --bg-surface: #0f172a;
+      --bg-surface-elevated: #151f34;
+      --bg-card: #111827;
+      --bg-card-hover: #1e293b;
+      --bg-glass: rgba(15, 23, 42, 0.82);
+      
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-subtle: #64748b;
+      
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-focus: rgba(56, 189, 248, 0.5);
+      
+      --accent-primary: #38bdf8;
+      --accent-hover: #0ea5e9;
+      --accent-glow: rgba(56, 189, 248, 0.2);
+      --accent-badge-bg: rgba(56, 189, 248, 0.12);
+      --accent-badge-text: #7dd3fc;
+      
+      --warning-border: rgba(245, 158, 11, 0.3);
+      --warning-bg: rgba(245, 158, 11, 0.08);
+      --warning-text: #fbbf24;
+
+      --font-en: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-th: 'Prompt', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      
+      --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      --transition-base: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      --transition-slow: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+      
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+      --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+      --shadow-lg: 0 20px 40px -10px rgba(0, 0, 0, 0.7);
+    }
+
+    [data-theme="light"] {
+      --bg-base: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-surface-elevated: #f1f5f9;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f8fafc;
+      --bg-glass: rgba(255, 255, 255, 0.88);
+      
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-subtle: #94a3b8;
+      
+      --border-subtle: rgba(15, 23, 42, 0.08);
+      --border-focus: rgba(2, 132, 199, 0.4);
+      
+      --accent-primary: #0284c7;
+      --accent-hover: #0369a1;
+      --accent-glow: rgba(2, 132, 199, 0.15);
+      --accent-badge-bg: rgba(2, 132, 199, 0.08);
+      --accent-badge-text: #0284c7;
+
+      --warning-border: rgba(217, 119, 6, 0.25);
+      --warning-bg: rgba(254, 243, 199, 0.6);
+      --warning-text: #b45309;
+
+      --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
+      --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+      --shadow-lg: 0 20px 40px -10px rgba(15, 23, 42, 0.12);
+    }
+
+    /* ==========================================================================
+       RESET & BASE STYLES
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      font-family: var(--font-th);
+      font-weight: 400;
+      line-height: 1.65;
+      overflow-x: hidden;
+      transition: background-color var(--transition-base), color var(--transition-base);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-en);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      color: var(--text-main);
+    }
+
+    p {
+      color: var(--text-muted);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+      outline: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1240px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+
+    .section-title-wrap {
+      text-align: center;
+      max-width: 780px;
+      margin: 0 auto 3.5rem auto;
+    }
+
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.9rem;
+      background: var(--accent-badge-bg);
+      color: var(--accent-badge-text);
+      font-family: var(--font-en);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-subtle);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: 2.25rem;
+      margin-bottom: 1rem;
+    }
+
+    @media (min-width: 768px) {
+      .section-title {
+        font-size: 2.85rem;
+      }
+    }
+
+    .section-desc {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ==========================================================================
+       HEADER & NAVIGATION
+       ========================================================================== */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: var(--bg-glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-subtle);
+      transition: background var(--transition-base), border-color var(--transition-base);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+    }
+
+    .brand-logo {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .brand-title {
+      font-family: var(--font-en);
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .brand-title span {
+      color: var(--accent-primary);
+    }
+
+    .brand-subtitle {
+      font-family: var(--font-en);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-subtle);
+    }
+
+    .nav-menu {
+      display: none;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    @media (min-width: 992px) {
+      .nav-menu {
+        display: flex;
+      }
+    }
+
+    .nav-link {
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      position: relative;
+      padding: 0.25rem 0;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--text-main);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-primary);
+      transition: width var(--transition-fast);
+    }
+
+    .nav-link:hover::after, .nav-link.active::after {
+      width: 100%;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn-theme-toggle {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-full);
+      background: var(--bg-surface-elevated);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border-subtle);
+      transition: all var(--transition-fast);
+    }
+
+    .btn-theme-toggle:hover {
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+    }
+
+    .btn-theme-toggle svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .theme-icon-sun {
+      display: none;
+    }
+    .theme-icon-moon {
+      display: block;
+    }
+
+    [data-theme="light"] .theme-icon-sun {
+      display: block;
+    }
+    [data-theme="light"] .theme-icon-moon {
+      display: none;
+    }
+
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.4rem;
+      font-family: var(--font-en);
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: var(--radius-full);
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .btn-cta-primary {
+      background: var(--accent-primary);
+      color: #000000;
+      box-shadow: 0 4px 15px var(--accent-glow);
+    }
+
+    .btn-cta-primary:hover {
+      background: var(--accent-hover);
+      color: #000000;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px var(--accent-glow);
+    }
+
+    .btn-cta-secondary {
+      background: var(--bg-surface-elevated);
+      color: var(--text-main);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .btn-cta-secondary:hover {
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+      transform: translateY(-1px);
+    }
+
+    .header-btn-cta {
+      display: none;
+    }
+
+    @media (min-width: 640px) {
+      .header-btn-cta {
+        display: inline-flex;
+      }
+    }
+
+    .btn-mobile-menu {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-md);
+      background: var(--bg-surface-elevated);
+      color: var(--text-main);
+      border: 1px solid var(--border-subtle);
+    }
+
+    @media (min-width: 992px) {
+      .btn-mobile-menu {
+        display: none;
+      }
+    }
+
+    /* Mobile Nav Drawer */
+    .mobile-drawer {
+      position: fixed;
+      top: 76px;
+      left: 0;
+      right: 0;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 1.5rem;
+      display: none;
+      flex-direction: column;
+      gap: 1rem;
+      box-shadow: var(--shadow-lg);
+      z-index: 999;
+    }
+
+    .mobile-drawer.open {
+      display: flex;
+    }
+
+    .mobile-drawer .nav-link {
+      font-size: 1.05rem;
+      padding: 0.5rem 0;
+    }
+
+    /* ==========================================================================
+       HERO SECTION
+       ========================================================================== */
+    .hero-section {
+      padding-top: 150px;
+      padding-bottom: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg-glow {
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 650px;
+      height: 380px;
+      background: radial-gradient(circle, var(--accent-glow) 0%, rgba(0,0,0,0) 70%);
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.4rem 1.2rem;
+      background: var(--accent-badge-bg);
+      border: 1px solid var(--border-focus);
+      border-radius: var(--radius-full);
+      color: var(--accent-badge-text);
+      font-family: var(--font-en);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1.75rem;
+    }
+
+    .hero-badge-pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-primary);
+      box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7);
+      animation: pulse-ring 2s infinite;
+    }
+
+    @keyframes pulse-ring {
+      0% {
+        box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 8px rgba(56, 189, 248, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(56, 189, 248, 0);
+      }
+    }
+
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.03em;
+    }
+
+    @media (min-width: 768px) {
+      .hero-title {
+        font-size: 3.85rem;
+      }
+    }
+
+    .hero-title .highlight {
+      background: linear-gradient(135deg, var(--text-main) 30%, var(--accent-primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-concept {
+      font-family: var(--font-en);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      margin-bottom: 1.25rem;
+      letter-spacing: 0.01em;
+    }
+
+    @media (min-width: 768px) {
+      .hero-concept {
+        font-size: 1.45rem;
+      }
+    }
+
+    .hero-desc {
+      font-size: 1.08rem;
+      color: var(--text-muted);
+      max-width: 750px;
+      margin: 0 auto 2.5rem auto;
+      line-height: 1.8;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 4rem;
+    }
+
+    .hero-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1.75rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+    }
+
+    @media (min-width: 768px) {
+      .hero-stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .hero-stat-item {
+      text-align: center;
+      padding: 0.5rem;
+    }
+
+    .hero-stat-number {
+      font-family: var(--font-en);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent-primary);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-stat-label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       STRATEGIC PHILOSOPHY SECTION
+       ========================================================================== */
+    .philosophy-section {
+      padding: 90px 0;
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+      transition: background var(--transition-base);
+    }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+    }
+
+    @media (min-width: 992px) {
+      .pillars-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .pillar-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      transition: all var(--transition-base);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pillar-card:hover {
+      border-color: var(--accent-primary);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .pillar-icon-box {
+      width: 54px;
+      height: 54px;
+      border-radius: var(--radius-md);
+      background: var(--accent-badge-bg);
+      color: var(--accent-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pillar-icon-box svg {
+      width: 26px;
+      height: 26px;
+    }
+
+    .pillar-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+    }
+
+    .pillar-desc {
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: var(--text-muted);
+    }
+
+    .pillar-highlight {
+      font-family: var(--font-en);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent-badge-text);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* Comparison Box */
+    .comparison-box {
+      margin-top: 3.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .comparison-box {
+        grid-template-columns: 1fr 1fr;
+        padding: 2.5rem;
+      }
+    }
+
+    .comp-col-title {
+      font-family: var(--font-en);
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .comp-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .comp-list li {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .comp-list li svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    .comp-list.negative li svg {
+      color: #ef4444;
+    }
+
+    .comp-list.positive li svg {
+      color: #10b981;
+    }
+
+    /* ==========================================================================
+       PORTFOLIO SECTION & FILTER TABS
+       ========================================================================== */
+    .portfolio-section {
+      padding: 100px 0;
+      position: relative;
+    }
+
+    .filter-tabs-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 3rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .filter-tabs {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .filter-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.25rem;
+      border-radius: var(--radius-full);
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: transparent;
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .filter-tab svg {
+      width: 16px;
+      height: 16px;
+      stroke-width: 2.2;
+    }
+
+    .filter-tab:hover {
+      color: var(--text-main);
+    }
+
+    .filter-tab.active {
+      background: var(--accent-primary);
+      color: #000000;
+      font-weight: 600;
+      box-shadow: 0 2px 10px var(--accent-glow);
+    }
+
+    /* Portfolio Gallery Grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 640px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      aspect-ratio: 4 / 3;
+      cursor: pointer;
+      transition: all var(--transition-base);
+    }
+
+    .gallery-item.hide {
+      display: none;
+    }
+
+    .gallery-item:hover,
+    .gallery-item:focus-visible {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--accent-primary);
+    }
+
+    .gallery-item:focus-visible {
+      outline: 3px solid var(--accent-primary);
+      outline-offset: 3px;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-slow);
+    }
+
+    .gallery-item:hover img,
+    .gallery-item:focus-visible img {
+      transform: scale(1.06);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(7, 11, 18, 0.92) 0%, rgba(7, 11, 18, 0.3) 50%, transparent 100%);
+      opacity: 0;
+      transition: opacity var(--transition-base);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.5rem;
+      color: #ffffff;
+    }
+
+    .gallery-item:hover .gallery-overlay,
+    .gallery-item:focus-visible .gallery-overlay {
+      opacity: 1;
+    }
+
+    .item-category-tag {
+      font-family: var(--font-en);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-primary);
+      margin-bottom: 0.35rem;
+    }
+
+    .item-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      color: #ffffff;
+    }
+
+    .item-caption {
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .item-zoom-icon {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-full);
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      transition: transform var(--transition-fast);
+    }
+
+    .gallery-item:hover .item-zoom-icon {
+      transform: scale(1.1);
+    }
+
+    /* ==========================================================================
+       SERVICES & RED LINES POLICY
+       ========================================================================== */
+    .services-section {
+      padding: 100px 0;
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+      margin-bottom: 3.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .service-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      transition: all var(--transition-base);
+    }
+
+    .service-card:hover {
+      border-color: var(--accent-primary);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .service-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .service-icon-box {
+      width: 50px;
+      height: 50px;
+      border-radius: var(--radius-md);
+      background: var(--accent-badge-bg);
+      color: var(--accent-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .service-icon-box svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .service-num {
+      font-family: var(--font-en);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-subtle);
+    }
+
+    .service-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+    }
+
+    .service-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .service-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-top: 0.5rem;
+    }
+
+    .service-features li {
+      font-size: 0.88rem;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .service-features li svg {
+      width: 15px;
+      height: 15px;
+      color: var(--accent-primary);
+      flex-shrink: 0;
+    }
+
+    /* Red Lines Policy Banner */
+    .policy-card {
+      background: var(--warning-bg);
+      border: 1px solid var(--warning-border);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .policy-card {
+        flex-direction: row;
+        align-items: center;
+        gap: 2.5rem;
+      }
+    }
+
+    .policy-icon-wrapper {
+      width: 64px;
+      height: 64px;
+      border-radius: var(--radius-md);
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--warning-text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .policy-icon-wrapper svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .policy-content {
+      flex: 1;
+    }
+
+    .policy-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+    }
+
+    .policy-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .policy-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+
+    .policy-tag {
+      font-family: var(--font-en);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.35rem 0.8rem;
+      background: var(--bg-card);
+      border: 1px solid var(--warning-border);
+      border-radius: var(--radius-full);
+      color: var(--warning-text);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* ==========================================================================
+       FOUNDER & BIO SECTION
+       ========================================================================== */
+    .founder-section {
+      padding: 100px 0;
+    }
+
+    .founder-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+
+    @media (min-width: 992px) {
+      .founder-grid {
+        grid-template-columns: 5fr 7fr;
+      }
+    }
+
+    .founder-img-card {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border-subtle);
+      max-width: 440px;
+      margin: 0 auto;
+    }
+
+    .founder-img-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: grayscale(15%);
+      transition: filter var(--transition-base);
+    }
+
+    .founder-img-card:hover img {
+      filter: grayscale(0%);
+    }
+
+    .founder-badge-overlay {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      right: 1.5rem;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(12px);
+      padding: 1.25rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .founder-role {
+      font-family: var(--font-en);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-primary);
+      margin-bottom: 0.2rem;
+    }
+
+    .founder-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .founder-bio-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .founder-headline {
+      font-size: 2.15rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .founder-text {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    .founder-specs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+
+    .spec-item {
+      background: var(--bg-surface-elevated);
+      padding: 1.2rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .spec-label {
+      font-family: var(--font-en);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.35rem;
+    }
+
+    .spec-val {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    /* ==========================================================================
+       CONTACT & INQUIRY SECTION
+       ========================================================================== */
+    .contact-section {
+      padding: 100px 0;
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    @media (min-width: 992px) {
+      .contact-grid {
+        grid-template-columns: 5fr 7fr;
+      }
+    }
+
+    .contact-info-col {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .contact-channels {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .channel-card {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 1.25rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      transition: all var(--transition-fast);
+    }
+
+    .channel-card:hover {
+      border-color: var(--accent-primary);
+      transform: translateX(4px);
+    }
+
+    .channel-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: var(--radius-md);
+      background: var(--accent-badge-bg);
+      color: var(--accent-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .channel-icon svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .channel-meta {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .channel-title {
+      font-family: var(--font-en);
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-subtle);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .channel-value {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .social-links-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+
+    .social-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.85rem 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: all var(--transition-fast);
+    }
+
+    .social-btn svg {
+      width: 18px;
+      height: 18px;
+      color: var(--accent-primary);
+      flex-shrink: 0;
+    }
+
+    .social-btn:hover {
+      color: var(--text-main);
+      border-color: var(--accent-primary);
+      background: var(--bg-surface-elevated);
+    }
+
+    /* Inquiry Form Card */
+    .inquiry-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-md);
+    }
+
+    .inquiry-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .form-label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.85rem 1.1rem;
+      border-radius: var(--radius-md);
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: all var(--transition-fast);
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    @media (min-width: 640px) {
+      .form-row {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    textarea.form-control {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .form-submit-btn {
+      width: 100%;
+      padding: 0.95rem;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .form-alert {
+      display: none;
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.9rem;
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+
+    .form-alert.success {
+      display: block;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #10b981;
+    }
+
+    /* ==========================================================================
+       LIGHTBOX MODAL
+       ========================================================================== */
+    .lightbox-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(7, 11, 18, 0.96);
+      backdrop-filter: blur(12px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      transition: opacity var(--transition-base);
+    }
+
+    .lightbox-modal.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 1100px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 75vh;
+      object-fit: contain;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .lightbox-caption-box {
+      margin-top: 1rem;
+      text-align: center;
+      color: #f8fafc;
+    }
+
+    .lightbox-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .lightbox-desc {
+      font-size: 0.9rem;
+      color: #94a3b8;
+    }
+
+    .lightbox-btn-close {
+      position: absolute;
+      top: -45px;
+      right: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all var(--transition-fast);
+    }
+
+    .lightbox-btn-close:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.08);
+    }
+
+    .lightbox-btn-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-full);
+      background: rgba(15, 23, 42, 0.85);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition-fast);
+    }
+
+    .lightbox-btn-nav:hover {
+      background: var(--accent-primary);
+      color: #000000;
+    }
+
+    .lightbox-btn-prev {
+      left: 1rem;
+    }
+
+    .lightbox-btn-next {
+      right: 1rem;
+    }
+
+    @media (min-width: 1200px) {
+      .lightbox-btn-prev {
+        left: -70px;
+      }
+      .lightbox-btn-next {
+        right: -70px;
+      }
+    }
+
+    /* ==========================================================================
+       FOOTER
+       ========================================================================== */
+    .site-footer {
+      background: var(--bg-base);
+      border-top: 1px solid var(--border-subtle);
+      padding: 50px 0 35px 0;
+      text-align: center;
+    }
+
+    .footer-brand {
+      font-family: var(--font-en);
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-tagline {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .footer-copy {
+      font-size: 0.82rem;
+      color: var(--text-subtle);
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================================
+       HEADER / NAVBAR
+       ======================================================================== -->
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <!-- Logo -->
+        <a href="#home" class="brand-logo" aria-label="Feltz Studio Home">
+          <div class="brand-title">FELTZ<span>.</span>STUDIO</div>
+          <div class="brand-subtitle">VISUAL STRATEGIST</div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <ul class="nav-menu" id="desktop-menu">
+          <li><a href="#home" class="nav-link active">หน้าแรก</a></li>
+          <li><a href="#philosophy" class="nav-link">จุดยืนแบรนด์</a></li>
+          <li><a href="#portfolio" class="nav-link">ผลงานคัดสรร</a></li>
+          <li><a href="#services" class="nav-link">บริการ</a></li>
+          <li><a href="#about" class="nav-link">เกี่ยวกับเรา</a></li>
+          <li><a href="#contact" class="nav-link">ติดต่อ</a></li>
+        </ul>
+
+        <!-- Action Items -->
+        <div class="header-actions">
+          <!-- Theme Switcher Button -->
+          <button type="button" class="btn-theme-toggle" id="theme-toggle" aria-label="Toggle Dark/Light Mode">
+            <!-- Moon SVG (Dark Mode) -->
+            <svg class="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <!-- Sun SVG (Light Mode) -->
+            <svg class="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </button>
+
+          <!-- Book Call CTA Button -->
+          <a href="#contact" class="btn-cta btn-cta-primary header-btn-cta">
+            <span>นัดหมายพูดคุย</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+
+          <!-- Mobile Hamburger Toggle -->
+          <button type="button" class="btn-mobile-menu" id="mobile-menu-btn" aria-label="Toggle Mobile Menu" aria-expanded="false" aria-controls="mobile-drawer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div class="mobile-drawer" id="mobile-drawer">
+      <a href="#home" class="nav-link">หน้าแรก</a>
+      <a href="#philosophy" class="nav-link">จุดยืนแบรนด์</a>
+      <a href="#portfolio" class="nav-link">ผลงานคัดสรร</a>
+      <a href="#services" class="nav-link">บริการ</a>
+      <a href="#about" class="nav-link">เกี่ยวกับเรา</a>
+      <a href="#contact" class="nav-link">ติดต่อเรา</a>
+      <a href="#contact" class="btn-cta btn-cta-primary" style="margin-top: 0.5rem; text-align: center;">นัดหมายพูดคุย</a>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       HERO SECTION
+       ======================================================================== -->
+  <section class="hero-section" id="home">
+    <div class="hero-bg-glow"></div>
+    <div class="container">
+      <div class="hero-content">
+        <!-- Brand Positioning Badge -->
+        <div class="hero-badge">
+          <span class="hero-badge-pulse"></span>
+          <span>Feltz Studio | Visual Strategist & Commercial Specialist</span>
+        </div>
+
+        <!-- Main Headline -->
+        <h1 class="hero-title">
+          ยกระดับภาพลักษณ์แบรนด์ด้วย<br>
+          <span class="highlight">การเล่าเรื่องเชิงกลยุทธ์และจังหวะธรรมชาติ</span>
+        </h1>
+
+        <!-- Slogan / English Concept -->
+        <p class="hero-concept">
+          Authentic Visual Assets for Hospitality, Sports & Brands
+        </p>
+
+        <!-- Subtitle & Brand Narrative -->
+        <p class="hero-desc">
+          เราไม่ใช่แค่ช่างภาพกดชัตเตอร์ปลายทาง แต่คือที่ปรึกษาด้านภาพลักษณ์ที่ช่วยคิดทิศทางสื่อสารตั้งแต่ต้นน้ำ 
+          บันทึกอารมณ์แท้จริงและมิติแสงธรรมชาติ โดย มงคล วงศ์สกุลยานนท์ (เก่ง)
+        </p>
+
+        <!-- CTA Button Group -->
+        <div class="hero-cta-group">
+          <a href="#portfolio" class="btn-cta btn-cta-primary">
+            <span>ชมผลงานคัดสรร</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </a>
+          <a href="#contact" class="btn-cta btn-cta-secondary">
+            <span>นัดหมายปรึกษาโปรเจกต์</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+        </div>
+
+        <!-- Trust Stats Bar -->
+        <div class="hero-stats-grid">
+          <div class="hero-stat-item">
+            <div class="hero-stat-number">12+</div>
+            <div class="hero-stat-label">ปีประสบการณ์งานพาณิชย์</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="hero-stat-number">100%</div>
+            <div class="hero-stat-label">จังหวะแท้จริง ไร้การจัดฉาก</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="hero-stat-number">4K/8K</div>
+            <div class="hero-stat-label">มาตรฐานไฟล์ความละเอียดสูง</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="hero-stat-number">Nationwide</div>
+            <div class="hero-stat-label">เชียงใหม่และทั่วประเทศไทย</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       STRATEGIC PHILOSOPHY SECTION
+       ======================================================================== -->
+  <section class="philosophy-section" id="philosophy">
+    <div class="container">
+      <div class="section-title-wrap">
+        <div class="section-badge">Brand Philosophy</div>
+        <h2 class="section-title">ปรัชญาการทำงานเชิงกลยุทธ์</h2>
+        <p class="section-desc">
+          ในยุคที่เทคโนโลยีทำให้ใครก็ถ่ายภาพได้ สิ่งที่ทรงพลังและลอกเลียนแบบไม่ได้คือ "สายตาการเล่าเรื่อง จังหวะอารมณ์แท้จริง และการเชื่อมโยงกับเป้าหมายของแบรนด์"
+        </p>
+      </div>
+
+      <!-- 3 Pillars Grid -->
+      <div class="pillars-grid">
+        <!-- Pillar 1 -->
+        <div class="pillar-card">
+          <div class="pillar-icon-box">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+            </svg>
+          </div>
+          <h3 class="pillar-title">Upstream Visual Strategy</h3>
+          <p class="pillar-desc">
+            เราเริ่มต้นจากคำถามว่า "ภาพชุดนี้แบรนด์ต้องการสื่อสารอะไรกับใคร และส่งผลต่อการตัดสินใจของลูกค้าอย่างไร" แทนที่จะเป็นเพียงผู้รับคำสั่งกดชัตเตอร์ปลายทาง
+          </p>
+          <div class="pillar-highlight">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Strategic Direction</span>
+          </div>
+        </div>
+
+        <!-- Pillar 2 -->
+        <div class="pillar-card">
+          <div class="pillar-icon-box">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+          </div>
+          <h3 class="pillar-title">Human Emotion & Candid Vibe</h3>
+          <p class="pillar-desc">
+            พลังของจังหวะธรรมชาติที่ปราศจากการนับหนึ่งสองสามยิ้ม ความเหนื่อยจริงในกีฬาสปอร์ต และมิติความผ่อนคลายในโรงแรม คือสิ่งที่สร้างความน่าเชื่อถือระดับพรีเมียม
+          </p>
+          <div class="pillar-highlight">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Authentic Moments</span>
+          </div>
+        </div>
+
+        <!-- Pillar 3 -->
+        <div class="pillar-card">
+          <div class="pillar-icon-box">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+          </div>
+          <h3 class="pillar-title">Cinematic & Global Grading</h3>
+          <p class="pillar-desc">
+            มาตรฐานงานภาพระดับสากล คัดเลือกแสงธรรมชาติอย่างพิถีพิถัน เกรดสีและควบคุมโทนด้วย DaVinci Resolve & Capture One ให้ภาพคงคุณค่าเหนือกาลเวลา
+          </p>
+          <div class="pillar-highlight">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Master Color Pipeline</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- General vs Feltz Studio Comparison -->
+      <div class="comparison-box">
+        <div>
+          <div class="comp-col-title" style="color: #ef4444;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+            <span>ช่างภาพทั่วไป (Conventional)</span>
+          </div>
+          <ul class="comp-list negative">
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+              <span>ถามแต่จำนวนชั่วโมงและจำนวนภาพที่ต้องการส่งมอบ</span>
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+              <span>เน้นการสั่งโพสจัดฉากแข็งทื่อ ขาดชีวิตชีวา</span>
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+              <span>แต่งโทนสีฉูดฉาดตามกระแสชั่วคราว ล้าสมัยได้เร็ว</span>
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+              <span>รับงานทุกรูปแบบโดยไม่มีการคัดกรองความถนัดเฉพาะทาง</span>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="comp-col-title" style="color: #10b981;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 8 8 12 12 16"></polyline><line x1="16" y1="12" x2="8" y2="12"></line></svg>
+            <span>Feltz Studio (Visual Strategist)</span>
+          </div>
+          <ul class="comp-list positive">
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              <span>วางแนวคิดและวิเคราะห์ภาพลักษณ์แบรนด์ร่วมกับลูกค้าก่อนถ่ายทำ</span>
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              <span>จับเสี้ยววินาทีอารมณ์แท้จริง (Candid) ที่สะท้อนเสน่ห์ของสถานที่และผู้คน</span>
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              <span>คุมโทนภาพคลีน เรียบเท่ คมชัดในมาตรฐานเดียวกับแบรนด์สากล</span>
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              <span>โฟกัสเฉพาะความเชี่ยวชาญ: Hospitality, Sports & Commercial</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       PORTFOLIO SECTION
+       ======================================================================== -->
+  <section class="portfolio-section" id="portfolio">
+    <div class="container">
+      <div class="section-title-wrap">
+        <div class="section-badge">Selected Works</div>
+        <h2 class="section-title">แฟ้มผลงานคัดสรร</h2>
+        <p class="section-desc">
+          ผลงานระดับมืออาชีพที่ผ่านการกลั่นกรองทั้งด้านการจัดองค์ประกอบ มิติแสง และการเล่าเรื่องเชิงอารมณ์
+        </p>
+      </div>
+
+      <!-- Filter Tabs (No Emojis, pure SVG + text) -->
+      <div class="filter-tabs-wrapper">
+        <div class="filter-tabs" role="tablist">
+          <button class="filter-tab active" data-filter="all" role="tab">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            <span>ทั้งหมด (All)</span>
+          </button>
+          <button class="filter-tab" data-filter="sports" role="tab">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="18.5" cy="17.5" r="3.5"></circle><circle cx="5.5" cy="17.5" r="3.5"></circle><circle cx="15" cy="5" r="1"></circle><path d="M12 17.5V14l-3-3 4-3 2 3h2"></path></svg>
+            <span>สปอร์ตและกีฬาความเร็วสูง</span>
+          </button>
+          <button class="filter-tab" data-filter="hospitality" role="tab">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 21h18"></path><path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"></path><path d="M9 7h1"></path><path d="M9 11h1"></path><path d="M9 15h1"></path><path d="M14 7h1"></path><path d="M14 11h1"></path><path d="M14 15h1"></path></svg>
+            <span>โรงแรมและสถาปัตยกรรม</span>
+          </button>
+          <button class="filter-tab" data-filter="commercial" role="tab">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+            <span>คอมเมอร์เชียลและอาหาร</span>
+          </button>
+          <button class="filter-tab" data-filter="events" role="tab">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+            <span>แคนดิดและอีเวนต์</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="gallery-grid" id="portfolio-gallery">
+
+        <!-- ================= SPORTS & ACTION ================= -->
+        <div class="gallery-item" tabindex="0" role="button" data-category="sports" data-title="High-Speed Peloton Attack" data-desc="การจับจังหวะการสปรินต์ในกลุ่มแข่งขันจักรยาน ความเร็วและพลังของกล้ามเนื้อกลางสนามแข่งจริง" data-img="Port/Cycling : Sport/Cycling.jpg">
+          <img src="Port/Cycling%20:%20Sport/Cycling.jpg" alt="Cycling Peloton High Speed Action" loading="lazy">
+          <div class="gallery-overlay">
+            <div class="item-zoom-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            </div>
+            <div class="item-category-tag">Sports & Action</div>
+            <div class="item-title">High-Speed Peloton Attack</div>
+            <div class="item-caption">ภาพแอ็กชันความเร็วสูงบนเส้นทางแข่งขันจักรยานทางไกล</div>
+          </div>
+        </div>
+
+        <div class="gallery-item" tabindex="0" role="button" data-category="sports" data-title="Pacing Rhythm on Open Road" data-desc="จังหวะคุมความเร็วบนถนนทางชัน แสงธรรมชาติและสภาพแวดล้อมที่ดุดัน" data-img="Port/Cycling : Sport/Cycling 2.jpg">
+          <img src="Port/Cycling%20:%20Sport/Cycling%202.jpg" alt="Cycling Road Pacing" loading="lazy">
+          <div class="gallery-overlay">
+            <div class="item-zoom-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            </div>
+            <div class="item-category-tag">Sports & Action</div>
+            <div class="item-title">Pacing Rhythm on Open Road</div>
+            <div class="item-caption">การควบคุมจังหวะหายใจและความเร็วบนถนนเปิด</div>
+          </div>
+        </div>
+
+        <div class="gallery-item" tabindex="0" role="button" data-category="sports" data-title="Climbing Passion" data-desc="ความมุ่งมั่นของนักกีฬาในการไต่ระดับความสูง แสดงพลังและความอึดอย่างเด่นชัด" data-img="Port/Cycling : Sport/Cycling 3.jpg">
+          <img src="Port/Cycling%20:%20Sport/Cycling%203.jpg" alt="Cycling Climbing Action" loading="lazy">
+          <div class="gallery-overlay">
+            <div class="item-zoom-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            </div>
+            <div class="item-category-tag">Sports & Action</div>
+            <div class="item-title">Climbing Passion</div>
+            <div class="item-caption">อารมณ์มุ่งมั่นระหว่างการไต่ระดับความสูงชัน</div>
+          </div>
+        </div>
+
+        <div class="gallery-item" tabindex="0" role="button" data-category="sports" data-title="Aero Dynamic Solo Break" data-desc="การยิงเดี่ยวฉีกกลุ่ม (Breakaway) ท่าทางการปั่นตามหลักอากาศพลศาสตร์" data-img="Port/Cycling : Sport/Cycling 5.jpg">
+          <img src="Port/Cycling%20:%20Sport/Cycling%205.jpg" alt="Cycling Breakaway Action" loading="lazy">
+          <div class="gallery-overlay">
+            <div class="item-zoom-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            </div>
+            <div class="item-category-tag">Sports & Action</div>
+            <div class="item-title">Aero Dynamic Solo Break</div>
+            <div class="item-caption">จังหวะ Breakaway เดี่ยวกลางเปลวแดด</div>
+          </div>
+        </div>
+
+        <div class="gallery-item" tabindex="0" role="button" data-category="sports" data-title="The Lead Group Focus" data-desc="สายตาแห่งการแข่งขันและสมาธิขั้นสูงสุดของผู้นำกลุ่ม" data-img="Photo/cycling_1.jpg">
+          <img src="Photo/cycling_1.jpg" alt="Cycling Lead Group" loading="lazy">
+          <div class="gallery-overlay">
+            <div class="item-zoom-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            </div>
+            <div class="item-category-tag">Sports & Action</div>
+            <div class="item-title">The Lead Group Focus</div>
+            <div class="item-caption">ภาพแอ็กชันมุมต่ำเน้นมิติความเร็วและการเคลื่อนไหว</div>
+          </div>
+        </div>
+
+        <div class="gallery-item" tabindex="0" role="button" data-category="sports" data-title="Endurance Challenge" data-desc="บททดสอบความอดทนและใจสู้บนเส้นทางระยะไกล" data-img="Photo/cycling_2.jpg">
+          <img src="Photo/cycling_2.jpg" alt="Cycling Endurance Action" loading="lazy">
+          <div class="gallery-overlay">
+            <div class="item-zoom-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            </div>
+            <div class="item-category-tag">Sports & Action</div>
+            <div class="item-title">Endurance Challenge</div>
+            <div class="item-caption">อารมณ์แห่งการทดสอบสมรรถภาพกลางแจ้ง</div>
+          </div>
+        </div>
+
+        <!-- ================= HOSPITALITY & ARCHITECTURE ================= -->
+        <div class="gallery-item" tabindex="0" role="button" data-category="hospitality" data-title="Serene Resort Atmosphere" data-desc="มุมมองสถาปัตยกรรมและการตกแต่งภายในรีสอร์ต สะท้อนความสงบและรสนิยมพรีเมียม" data-img="Port/Hotel/Hotel.jpg">
+          <img src="Port/Hotel/Hotel.jpg" alt="Resort Architecture and Ambiance" loading="lazy">
+          <div class="gallery-overlay">
+            <div class="item-zoom-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            </div>
+            <div class="item-category-tag">Hospitality & Architecture</div>
+            <div class="item-title">Serene Resort Atmosphere</div>
+            <div class="item-caption">การผสานแสงธรรมชาติเข้ากับงานออกแบบสถาปัตยกรรม</div>
+          </div>
+        </div>
+
+        <div class="gallery-item" tabindex="0" role="button" data-category="hospitality" data-title="Boutique Hotel Living Space" data-desc="การจัดแสงที่อบอุ่นและการเชื่อมต่อระหว่างพื้นที่พักผ่อนกับธรรมชาติ" data-img="Port/Hotel/Hotel 2.jpg">
+          <img src="Port/Hotel/Hotel%202.jpg" alt="Boutique Hotel Suite" loading="lazy">
+          <div class="gallery-overlay">
+            <div class="item-zoom-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            </div>
+            <div class="item-category-tag">Hospitality & Architecture</div>
+            <div class="item-title">Boutique Hotel Living Space</div>
+            <div class="item-caption">บรรยากาศห้องพักหรูที่มอบความผ่อนคลายระดับไฮเอนด์</div>
+          </div>
+        </div>
+
+        <div class="gallery-item" tabindex="0" role="button" data-category="hospitality" data-title="Luxury Suite Interior" data-desc="รายละเอียดของวัสดุและเส้นสายโครงสร้างห้องสวีท" data-img="Port/Hotel/Hotel 3.jpg">
+          <img src="Port/Hotel/Hotel%203.jpg" alt="Luxury Interior Suite" loading="lazy">
+          <div class="gallery-overlay">
+            <div class="item-zoom-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            </div>
+            <div class="item-category-tag">Hospitality & Architecture</div>
+            <div class="item-title">Luxury Suite Interior</div>
+            <div class="item-caption">สัดส่วนพื้นที่และการจัดวางเฟอร์นิเจอร์อย่างลงตัว</div>
+          </div>
+        </div>
+
+        <div class="gallery-item" tabindex="0" role="button" data-category="hospitality" data-title="Architectural Facade & Geometry" data-desc="เส้นสายเรขาคณิตของตัวอาคารโครงการอสังหาริมทรัพย์ระดับพรีเมียม" data-img="Port/Real Estate/Real Estate.jpg">
+          <img src="Port/Real%20Estate/Real%20Estate.jpg" alt="Modern Real Estate Facade" loading="lazy">
+          <div class="gallery-overlay">
+            <div class="item-zoom-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            </div>
+            <div class="item-category-tag">Hospitality & Architecture</div>
+            <div class="item-title">Architectural Facade & Geometry</div>
+            <div class="item-caption">มุมมองสถาปัตยกรรมภายนอก คมชัด มิติแสงเงาชัดเจน</div>
+          </div>
+        </div>
+
+        <div class="gallery-item" tabindex="0" role="button" data-category="hospitality" data-title="Modern Villa Lounge" data-desc="พื้นที่เลานจ์และห้องรับรองที่เปิดรับแสงธรรมชาติอย่างเต็มที่" data-img="Photo/realestate_1.jpg">
+          <img src="Photo/realestate_1.jpg" alt="Modern Villa Lounge" loading="lazy">
+          <div class="gallery-overlay">
+            <div class="item-zoom-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            </div>
+            <div class="item-category-tag">Hospitality & Architecture</div>
+            <div class="item-title">Modern Villa Lounge</div>
+            <div class="item-caption">การเก็บสเปซและบรรยากาศจริงเพื่อนำเสนอแก่ผู้ซื้อกลุ่มไฮเอนด์</div>
+          </div>
+        </div>
+
+        <div class="gallery-item" tabindex="0" role="button" data-category="hospitality" data-title="Architectural Perspective" data-desc="มุมมองมิติความลึกของอาคารโมเดิร์นที่สร้างเอกลักษณ์เฉพาะตัว" data-img="Photo/hotel_1.jpg">
+          <img src="Photo/hotel_1.jpg" alt="Architectural Perspective" loading="lazy">
+          <div class="gallery-overlay">
+            <div class="item-zoom-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            </div>
+            <div class="item-category-tag">Hospitality & Architecture</div>
+            <div class="item-title">Architectural Perspective</div>
+            <div class="item-caption">มุมมองมิติความลึกที่ช่วยเสริมความโอ่อ่าของสถานที่</div>
+          </div>
+        </div>
+
+        <!-- ================= COMMERCIAL & FOOD ================= -->
+        <div class="gallery-item" tabindex="0" role="button" data-category="commercial" data-title="Culinary Craftsmanship" data-desc="การจัดจานและสัมผัสความสดใหม่ของอาหารระดับไฟน์ไดนิ่ง" data-img="Port/Food/Food.jpg">
+          <img src="Port/Food/Food.jpg" alt="Fine Dining Culinary Plating" loading="lazy">
+          <div class="gallery-overlay">
+            <div class="item-zoom-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            </div>
+            <div class="item-category-tag">Commercial & Food</div>
+            <div class="item-title">Culinary Craftsmanship</div>
+            <div class="item-caption">การถ่ายทอด Texture และสีสันอาหารให้ออกมาน่าลิ้มลอง</div>
+          </div>
+        </div>
+
+        <div class="gallery-item" tabindex="0" role="button" data-category="commercial" data-title="Artisan Dish Presentation" data-desc="ศิลปะการประกอบอาหารและการตกแต่งจานอย่างประณีต" data-img="Port/Food/Food 2.jpg">
+          <img src="Port/Food/Food%202.jpg" alt="Artisan Dish Food Photography" loading="lazy">
+          <div class="gallery-overlay">
+            <div class="item-zoom-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            </div>
+            <div class="item-category-tag">Commercial & Food</div>
+            <div class="item-title">Artisan Dish Presentation</div>
+            <div class="item-caption">มุมมองท็อปวิวที่ขับเน้นดีเทลของวัตถุดิบพรีเมียม</div>
+          </div>
+        </div>
+
+        <div class="gallery-item" tabindex="0" role="button" data-category="commercial" data-title="Beverage & Bar Vibe" data-desc="ศาสตร์แห่งการรังสรรค์เครื่องดื่มและบรรยากาศบาร์สุดชิค" data-img="Port/Food/Food 4.jpg">
+          <img src="Port/Food/Food%204.jpg" alt="Craft Beverage Photography" loading="lazy">
+          <div class="gallery-overlay">
+            <div class="item-zoom-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            </div>
+            <div class="item-category-tag">Commercial & Food</div>
+            <div class="item-title">Beverage & Bar Vibe</div>
+            <div class="item-caption">มิติแสงสะท้อนในแก้วและบรรยากาศที่เป็นเอกลักษณ์</div>
+          </div>
+        </div>
+
+        <div class="gallery-item" tabindex="0" role="button" data-category="commercial" data-title="Product Texture & Finish" data-desc="ภาพถ่ายสินค้าพรีเมียม ถ่ายทอดวัสดุและพื้นผิวอย่างคมชัดไร้ที่ติ" data-img="Port/Product/Product.jpg">
+          <img src="Port/Product/Product.jpg" alt="Premium Product Commercial Photography" loading="lazy">
+          <div class="gallery-overlay">
+            <div class="item-zoom-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            </div>
+            <div class="item-category-tag">Commercial & Food</div>
+            <div class="item-title">Product Texture & Finish</div>
+            <div class="item-caption">การจัดแสงระดับสตูดิโอขับเน้นงานคราฟต์ของผลิตภัณฑ์</div>
+          </div>
+        </div>
+
+        <div class="gallery-item" tabindex="0" role="button" data-category="commercial" data-title="Commercial Studio Packaging" data-desc="ภาพถ่ายบรรจุภัณฑ์สำหรับงานโฆษณาและสื่อประชาสัมพันธ์แบรนด์" data-img="Photo/product_1.jpg">
+          <img src="Photo/product_1.jpg" alt="Studio Packaging Photography" loading="lazy">
+          <div class="gallery-overlay">
+            <div class="item-zoom-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            </div>
+            <div class="item-category-tag">Commercial & Food</div>
+            <div class="item-title">Commercial Studio Packaging</div>
+            <div class="item-caption">ภาพเพื่อการตลาดดิจิทัลและแคมเปญโฆษณาระดับไฮเอนด์</div>
+          </div>
+        </div>
+
+        <div class="gallery-item" tabindex="0" role="button" data-category="commercial" data-title="Gourmet Dining Experience" data-desc="ประสบการณ์บนโต๊ะอาหารที่ผสานรสนิยมและความอร่อยอย่างลงตัว" data-img="Photo/food_1.jpg">
+          <img src="Photo/food_1.jpg" alt="Gourmet Dining Setup" loading="lazy">
+          <div class="gallery-overlay">
+            <div class="item-zoom-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            </div>
+            <div class="item-category-tag">Commercial & Food</div>
+            <div class="item-title">Gourmet Dining Experience</div>
+            <div class="item-caption">การเล่าเรื่องผ่านจานอาหารที่สร้างความน่าเชื่อถือให้ร้าน</div>
+          </div>
+        </div>
+
+        <!-- ================= CANDID & EVENTS ================= -->
+        <div class="gallery-item" tabindex="0" role="button" data-category="events" data-title="Live Energy & Stage Presence" data-desc="ความมันส์และแสงสีบนเวทีคอนเสิร์ต จับอารมณ์ศิลปินในเสี้ยววินาทีจริง" data-img="Port/Concert/Concert.jpg">
+          <img src="Port/Concert/Concert.jpg" alt="Concert Stage Energy" loading="lazy">
+          <div class="gallery-overlay">
+            <div class="item-zoom-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            </div>
+            <div class="item-category-tag">Candid & Events</div>
+            <div class="item-title">Live Energy & Stage Presence</div>
+            <div class="item-caption">พลังการแสดงสดและแสงสปอตไลต์ที่ทรงพลัง</div>
+          </div>
+        </div>
+
+        <div class="gallery-item" tabindex="0" role="button" data-category="events" data-title="Corporate Gathering & Summit" data-desc="การปฏิสัมพันธ์ของผู้บริหารและการประชุมเชิงกลยุทธ์ที่ดูมีชีวิตชีวา" data-img="Port/Event/Event.jpg">
+          <img src="Port/Event/Event.jpg" alt="Corporate Summit and Conference" loading="lazy">
+          <div class="gallery-overlay">
+            <div class="item-zoom-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            </div>
+            <div class="item-category-tag">Candid & Events</div>
+            <div class="item-title">Corporate Gathering & Summit</div>
+            <div class="item-caption">บันทึกบรรยากาศงานประชุมโดยไร้การยืนเกร็งหน้าแบ็กดรอป</div>
+          </div>
+        </div>
+
+        <div class="gallery-item" tabindex="0" role="button" data-category="events" data-title="Audience Connection" data-desc="ช่วงเวลาแห่งการเชื่อมโยงความรู้สึกระหว่างผู้พูดและผู้ฟัง" data-img="Port/Event/Event 2.jpg">
+          <img src="Port/Event/Event%202.jpg" alt="Audience Engagement Event" loading="lazy">
+          <div class="gallery-overlay">
+            <div class="item-zoom-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            </div>
+            <div class="item-category-tag">Candid & Events</div>
+            <div class="item-title">Audience Connection</div>
+            <div class="item-caption">จังหวะแคนดิดของผู้เข้าร่วมงานที่เต็มไปด้วยความสนใจ</div>
+          </div>
+        </div>
+
+        <div class="gallery-item" tabindex="0" role="button" data-category="events" data-title="Authentic Emotional Nuance" data-desc="รอยยิ้มและแววตาแห่งความสุขจริงในวันสำคัญ บันทึกแบบสารคดีแท้" data-img="Photo/wedding_1.jpg">
+          <img src="Photo/wedding_1.jpg" alt="Authentic Candid Moments" loading="lazy">
+          <div class="gallery-overlay">
+            <div class="item-zoom-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            </div>
+            <div class="item-category-tag">Candid & Events</div>
+            <div class="item-title">Authentic Emotional Nuance</div>
+            <div class="item-caption">อารมณ์ความรู้สึกตามธรรมชาติที่จัดฉากไม่ได้</div>
+          </div>
+        </div>
+
+        <div class="gallery-item" tabindex="0" role="button" data-category="events" data-title="Unscripted Celebration" data-desc="ความทรงจำและเสียงหัวเราะที่เกิดขึ้นอย่างเป็นธรรมชาติรอบงาน" data-img="Photo/wedding_2.jpg">
+          <img src="Photo/wedding_2.jpg" alt="Unscripted Celebration" loading="lazy">
+          <div class="gallery-overlay">
+            <div class="item-zoom-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            </div>
+            <div class="item-category-tag">Candid & Events</div>
+            <div class="item-title">Unscripted Celebration</div>
+            <div class="item-caption">การเก็บจังหวะสารคดีงานแต่งงานที่ไร้การนับคิว</div>
+          </div>
+        </div>
+
+        <div class="gallery-item" tabindex="0" role="button" data-category="events" data-title="Networking Dynamics" data-desc="บรรยากาศการพูดคุยแลกเปลี่ยนไอเดียในงานธุรกิจและเอ็กซิบิชัน" data-img="Photo/event_1.jpg">
+          <img src="Photo/event_1.jpg" alt="Networking Dynamics" loading="lazy">
+          <div class="gallery-overlay">
+            <div class="item-zoom-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+            </div>
+            <div class="item-category-tag">Candid & Events</div>
+            <div class="item-title">Networking Dynamics</div>
+            <div class="item-caption">ความลื่นไหลของงานอีเวนต์ระดับมืออาชีพ</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SERVICES & OPERATING BOUNDARIES
+       ======================================================================== -->
+  <section class="services-section" id="services">
+    <div class="container">
+      <div class="section-title-wrap">
+        <div class="section-badge">Service Spectrum</div>
+        <h2 class="section-title">ขอบเขตบริการระดับพรีเมียม</h2>
+        <p class="section-desc">
+          เราโฟกัสกับกลุ่มงานที่สร้างคุณค่าสูงและต้องการความเชี่ยวชาญเฉพาะทาง ทั้งด้านเทคนิคความเร็วและมิติแสงสถาปัตยกรรม
+        </p>
+      </div>
+
+      <!-- 4 Core Service Cards -->
+      <div class="services-grid">
+        <!-- Service 1 -->
+        <div class="service-card">
+          <div class="service-header">
+            <div class="service-icon-box">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18.5" cy="17.5" r="3.5"></circle><circle cx="5.5" cy="17.5" r="3.5"></circle><circle cx="15" cy="5" r="1"></circle><path d="M12 17.5V14l-3-3 4-3 2 3h2"></path></svg>
+            </div>
+            <span class="service-num">01</span>
+          </div>
+          <h3 class="service-title">Sports & High-Speed Action</h3>
+          <p class="service-desc">
+            ถ่ายทอดการแข่งขันจักรยาน มาราธอน มอเตอร์สปอร์ต และแบรนด์อุปกรณ์กีฬา ด้วยเทคนิคชัตเตอร์ความเร็วสูงและการจับจังหวะสปรินต์ที่แม่นยำ
+          </p>
+          <ul class="service-features">
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> ถ่ายภาพการแข่งขันและการซ้อมระดับมืออาชีพ</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> แคมเปญโฆษณาเสื้อผ้าและอุปกรณ์กีฬา (Apparel & Gear)</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Visual Assets สำหรับโซเชียลมีเดียทีมและสปอนเซอร์</li>
+          </ul>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="service-card">
+          <div class="service-header">
+            <div class="service-icon-box">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"></path><path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"></path><path d="M9 7h1"></path><path d="M9 11h1"></path><path d="M9 15h1"></path><path d="M14 7h1"></path><path d="M14 11h1"></path><path d="M14 15h1"></path></svg>
+            </div>
+            <span class="service-num">02</span>
+          </div>
+          <h3 class="service-title">Hospitality & Architectural Spaces</h3>
+          <p class="service-desc">
+            บันทึกสเปซโรงแรมบูทีค วิลล่า คาเฟ่ และโครงการอสังหาริมทรัพย์ระดับพรีเมียม ให้ภาพสะท้อนบรรยากาศจริง (Atmosphere & Vibe) ดึงดูดกลุ่มลูกค้าระดับบน
+          </p>
+          <ul class="service-features">
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> การคัดเลือกช่วงเวลาแสงธรรมชาติ (Golden Hour & Twilight)</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> สถาปัตยกรรมภายในและภายนอกอาคาร (Interior & Exterior)</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> ภาพไลฟ์สไตล์ผู้เข้าพักแบบแคนดิดเป็นธรรมชาติ</li>
+          </ul>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="service-card">
+          <div class="service-header">
+            <div class="service-icon-box">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+            </div>
+            <span class="service-num">03</span>
+          </div>
+          <h3 class="service-title">Commercial & Food Photography</h3>
+          <p class="service-desc">
+            ผลิตภาพถ่ายสินค้าและอาหารเพื่อการโฆษณา ขับเน้นความพิถีพิถันของเชฟและรายละเอียดพื้นผิวผลิตภัณฑ์ เพื่อเพิ่มมูลค่าและการรับรู้ของแบรนด์
+          </p>
+          <ul class="service-features">
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> เมนูอาหารและเครื่องดื่มซิกเนเจอร์ (Signature Dishes & Drinks)</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> ภาพถ่ายแพ็กเกจจิ้งและสินค้าสำหรับการจัดจำหน่าย (Packaging)</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> การเซ็ตไฟสตูดิโอและการเกรดสีมาตรฐานสากล</li>
+          </ul>
+        </div>
+
+        <!-- Service 4 -->
+        <div class="service-card">
+          <div class="service-header">
+            <div class="service-icon-box">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+            </div>
+            <span class="service-num">04</span>
+          </div>
+          <h3 class="service-title">Candid Documentary & Corporate Events</h3>
+          <p class="service-desc">
+            บันทึกภาพงานสัมมนาองค์กร งานเปิดตัวสินค้า และงานแต่งงานเฉพาะสไตล์สารคดีแคนดิด (Unscripted) เก็บอารมณ์ รอยยิ้ม และจังหวะที่แท้จริง
+          </p>
+          <ul class="service-features">
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> งานสัมมนา B2B และการรวมตัวของผู้บริหารระดับสูง</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> ภาพแคนดิดงานแต่งงาน (Candid Wedding Only)</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> ถ่ายทอดความรู้สึกโดยไม่รบกวนจังหวะของงานจริง</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Strict Red Lines Policy Banner -->
+      <div class="policy-card">
+        <div class="policy-icon-wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+            <line x1="12" y1="9" x2="12" y2="13"></line>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+        </div>
+        <div class="policy-content">
+          <h3 class="policy-title">นโยบายจุดยืนและขอบเขตงาน (Strict Studio Policy)</h3>
+          <p class="policy-desc">
+            เพื่อให้ผลงานทุกชิ้นยังคงมาตรฐานสูงสุดและสะท้อนความเป็น Visual Strategist สตูดิโอจึงมีนโยบายงดรับงานที่ไม่ตรงกับความเชี่ยวชาญหลักโดยเด็ดขาด:
+          </p>
+          <div class="policy-tags">
+            <span class="policy-tag">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              ไม่รับงานรับปริญญา (Graduation) 100%
+            </span>
+            <span class="policy-tag">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              ไม่รับงานพรีเวดดิ้งจัดฉาก (Pre-wedding) 100%
+            </span>
+            <span class="policy-tag">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              ไม่รับงานแต่งงานแบบจัดฉากนับคิว (รับเฉพาะ Candid แท้)
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       FOUNDER & BIO SECTION
+       ======================================================================== -->
+  <section class="founder-section" id="about">
+    <div class="container">
+      <div class="founder-grid">
+        <!-- Founder Profile Image -->
+        <div class="founder-img-card">
+          <img src="keng_profile.jpg" alt="มงคล วงศ์สกุลยานนท์ - Feltz Studio Founder & Specialist" loading="lazy">
+          <div class="founder-badge-overlay">
+            <div class="founder-role">Founder & Solo Specialist</div>
+            <div class="founder-name">Mongkol Wongsakulyanon (เก่ง)</div>
+          </div>
+        </div>
+
+        <!-- Bio & Narrative -->
+        <div class="founder-bio-wrap">
+          <div class="section-badge" style="margin-bottom: 0;">About The Founder</div>
+          <h2 class="founder-headline">
+            ผู้เปลี่ยนผ่านเสี้ยววินาทีธรรมชาติ<br>
+            ให้กลายเป็นสินทรัพย์ภาพลักษณ์ทรงพลัง
+          </h2>
+          <p class="founder-text">
+            ผมเชื่อว่าภาพถ่ายที่ดีไม่ใช่ภาพที่ถูกสั่งให้ยืนเกร็งแล้วนับหนึ่งสองสาม แต่คือภาพที่บันทึก "ความจริงใจในสายตา ความเหนื่อยจริงในกีฬาสปอร์ต และมิติแสงที่ทำให้สถานที่นั้นมีชีวิต"
+          </p>
+          <p class="founder-text">
+            ด้วยประสบการณ์กว่า 12 ปีในสายงานพาณิชย์และสารคดี ผมทำหน้าที่เป็นช่างภาพเดี่ยว (Solo Specialist) เพื่อควบคุมความประณีตของมุมมองและเอกลักษณ์ของผลงานแบบ 100% พร้อมให้คำปรึกษาเชิงกลยุทธ์เพื่อให้ภาพทุกเซ็ตตอบโจทย์ธุรกิจของลูกค้าได้อย่างแท้จริง
+          </p>
+
+          <!-- Founder Specs -->
+          <div class="founder-specs-grid">
+            <div class="spec-item">
+              <div class="spec-label">Headquarters</div>
+              <div class="spec-val">เชียงใหม่ (พร้อมเดินทางทั่วประเทศ)</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-label">Camera Equipment</div>
+              <div class="spec-val">Sony Cinema & Alpha Series / G Master</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-label">Color Grading</div>
+              <div class="spec-val">DaVinci Resolve & Capture One Pro</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-label">Asset Delivery</div>
+              <div class="spec-val">Cloud Gallery & High-Res Master Files</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       CONTACT & INQUIRY SECTION
+       ======================================================================== -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="section-title-wrap">
+        <div class="section-badge">Get In Touch</div>
+        <h2 class="section-title">นัดหมายบรีฟงาน & ปรึกษาโปรเจกต์</h2>
+        <p class="section-desc">
+          พูดคุยทิศทางภาพลักษณ์ วางแผนการถ่ายทำ หรือขอใบเสนอราคาโดยตรงกับช่างภาพ
+        </p>
+      </div>
+
+      <div class="contact-grid">
+        <!-- Direct Contact Information -->
+        <div class="contact-info-col">
+          <div class="contact-channels">
+            <!-- Phone -->
+            <a href="tel:0895544355" class="channel-card">
+              <div class="channel-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              </div>
+              <div class="channel-meta">
+                <span class="channel-title">โทรศัพท์สายตรง</span>
+                <span class="channel-value">089-554-4355</span>
+              </div>
+            </a>
+
+            <!-- LINE Official -->
+            <a href="https://line.me/ti/p/~0895544355" target="_blank" rel="noopener noreferrer" class="channel-card">
+              <div class="channel-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+              </div>
+              <div class="channel-meta">
+                <span class="channel-title">LINE ID</span>
+                <span class="channel-value">0895544355</span>
+              </div>
+            </a>
+
+            <!-- Email -->
+            <a href="mailto:silver_nsx@hotmail.com" class="channel-card">
+              <div class="channel-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </div>
+              <div class="channel-meta">
+                <span class="channel-title">อีเมลติดต่อ</span>
+                <span class="channel-value">silver_nsx@hotmail.com</span>
+              </div>
+            </a>
+
+            <!-- Studio Base Location -->
+            <div class="channel-card">
+              <div class="channel-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              </div>
+              <div class="channel-meta">
+                <span class="channel-title">ที่ตั้งสตูดิโอ</span>
+                <span class="channel-value">65/1 ถ.ต้นขาม ต.ท่าศาลา อ.เมือง จ.เชียงใหม่ 50000</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social Badges Grid -->
+          <div class="social-links-grid">
+            <a href="https://line.me/ti/p/~0895544355" target="_blank" rel="noopener noreferrer" class="social-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+              <span>Line Chat</span>
+            </a>
+            <a href="https://fastwork.co" target="_blank" rel="noopener noreferrer" class="social-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon><line x1="12" y1="22" x2="12" y2="15.5"></line><polyline points="22 8.5 12 15.5 2 8.5"></polyline><polyline points="2 15.5 12 8.5 22 15.5"></polyline><line x1="12" y1="2" x2="12" y2="8.5"></line></svg>
+              <span>Fastwork</span>
+            </a>
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+              <span>Facebook</span>
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              <span>Instagram</span>
+            </a>
+            <a href="https://feltzstudio.myportfolio.com" target="_blank" rel="noopener noreferrer" class="social-btn" style="grid-column: span 2;">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+              <span>Official Adobe Portfolio</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Interactive Inquiry Form -->
+        <div class="inquiry-card">
+          <form id="project-inquiry-form" class="inquiry-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="client-name">ชื่อผู้ติดต่อ / แบรนด์ *</label>
+                <input class="form-control" type="text" id="client-name" name="name" placeholder="เช่น คุณสมชาย หรือ แบรนด์ของคุณ" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="client-phone">เบอร์โทรศัพท์ติดต่อ *</label>
+                <input class="form-control" type="tel" id="client-phone" name="phone" placeholder="เช่น 081-234-5678" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="client-email">อีเมลติดต่อกลับ *</label>
+                <input class="form-control" type="email" id="client-email" name="email" placeholder="name@company.com" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="service-type">หมวดหมู่งานที่สนใจ *</label>
+                <select class="form-control" id="service-type" name="service" required>
+                  <option value="" disabled selected>เลือกประเภทบริการ</option>
+                  <option value="sports">สปอร์ตและกีฬาความเร็วสูง (Sports & Action)</option>
+                  <option value="hospitality">โรงแรมและสถาปัตยกรรม (Hospitality & Spaces)</option>
+                  <option value="commercial">คอมเมอร์เชียลและอาหาร (Commercial & Food)</option>
+                  <option value="events">แคนดิดและอีเวนต์องค์กร (Candid & Corporate)</option>
+                  <option value="consulting">ที่ปรึกษาด้านภาพลักษณ์แบรนด์ (Visual Strategy)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="project-details">รายละเอียดโปรเจกต์ / สถานที่ / วันที่โดยประมาณ *</label>
+              <textarea class="form-control" id="project-details" name="details" placeholder="ระบุเป้าหมายของงาน เช่น ถ่ายทำรีสอร์ต 2 วัน เพื่อรีแบรนดิ้งเว็บไซต์ใหม่..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-cta btn-cta-primary form-submit-btn">
+              <span>ส่งข้อมูลโปรเจกต์เพื่อประเมิน</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </button>
+
+            <div id="form-feedback" class="form-alert"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       LIGHTBOX MODAL
+       ======================================================================== -->
+  <div class="lightbox-modal" id="lightbox-modal" role="dialog" aria-modal="true" aria-label="Image Preview">
+    <div class="lightbox-content">
+      <button class="lightbox-btn-close" id="lightbox-close" aria-label="Close Lightbox">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <button class="lightbox-btn-nav lightbox-btn-prev" id="lightbox-prev" aria-label="Previous Image">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+
+      <img class="lightbox-img" id="lightbox-image" src="" alt="">
+
+      <button class="lightbox-btn-nav lightbox-btn-next" id="lightbox-next" aria-label="Next Image">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+
+      <div class="lightbox-caption-box">
+        <div class="lightbox-title" id="lightbox-caption-title"></div>
+        <div class="lightbox-desc" id="lightbox-caption-desc"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-brand">FELTZ STUDIO</div>
+      <p class="footer-tagline">Visual Strategist & Commercial Specialist | Authentic Visual Assets for Hospitality, Sports & Brands</p>
+      <div class="footer-copy">
+        &copy; <span id="current-year"></span> Feltz Studio. Mongkol Wongsakulyanon. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       JAVASCRIPT LOGIC
+       ======================================================================== -->
+  <script>
+    (function () {
+      'use strict';
+
+      // 1. Current Year in Footer
+      var yearSpan = document.getElementById('current-year');
+      if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
+      }
+
+      // 2. Dark / Light Theme Toggle
+      var htmlEl = document.documentElement;
+      var themeToggleBtn = document.getElementById('theme-toggle');
+      var storedTheme = localStorage.getItem('feltz_theme') || 'dark';
+
+      function applyTheme(theme) {
+        htmlEl.setAttribute('data-theme', theme);
+        localStorage.setItem('feltz_theme', theme);
+      }
+
+      applyTheme(storedTheme);
+
+      if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', function () {
+          var current = htmlEl.getAttribute('data-theme') || 'dark';
+          var next = current === 'dark' ? 'light' : 'dark';
+          applyTheme(next);
+        });
+      }
+
+      // 3. Mobile Navigation Drawer
+      var mobileBtn = document.getElementById('mobile-menu-btn');
+      var mobileDrawer = document.getElementById('mobile-drawer');
+
+      if (mobileBtn && mobileDrawer) {
+        mobileBtn.addEventListener('click', function () {
+          var isOpen = mobileDrawer.classList.toggle('open');
+          mobileBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+
+        var mobileLinks = mobileDrawer.querySelectorAll('.nav-link, .btn-cta');
+        mobileLinks.forEach(function (link) {
+          link.addEventListener('click', function () {
+            mobileDrawer.classList.remove('open');
+            mobileBtn.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
+
+      // 4. Portfolio Filter Tabs Logic
+      var filterTabs = document.querySelectorAll('.filter-tab');
+      var galleryItems = document.querySelectorAll('.gallery-item');
+
+      filterTabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          filterTabs.forEach(function (t) { t.classList.remove('active'); });
+          this.classList.add('active');
+
+          var selectedFilter = this.getAttribute('data-filter');
+
+          galleryItems.forEach(function (item) {
+            var itemCategory = item.getAttribute('data-category');
+            if (selectedFilter === 'all' || itemCategory === selectedFilter) {
+              item.classList.remove('hide');
+            } else {
+              item.classList.add('hide');
+            }
+          });
+        });
+      });
+
+      // 5. Lightbox Modal Functionality
+      var lightboxModal = document.getElementById('lightbox-modal');
+      var lightboxImage = document.getElementById('lightbox-image');
+      var lightboxTitle = document.getElementById('lightbox-caption-title');
+      var lightboxDesc = document.getElementById('lightbox-caption-desc');
+      var lightboxClose = document.getElementById('lightbox-close');
+      var lightboxPrev = document.getElementById('lightbox-prev');
+      var lightboxNext = document.getElementById('lightbox-next');
+
+      var visibleItems = [];
+      var currentIdx = 0;
+
+      function updateVisibleItems() {
+        visibleItems = Array.from(galleryItems).filter(function (item) {
+          return !item.classList.contains('hide');
+        });
+      }
+
+      function openLightbox(index) {
+        updateVisibleItems();
+        if (index < 0 || index >= visibleItems.length) return;
+        currentIdx = index;
+
+        var targetItem = visibleItems[currentIdx];
+        var imgSrc = targetItem.getAttribute('data-img');
+        var title = targetItem.getAttribute('data-title') || '';
+        var desc = targetItem.getAttribute('data-desc') || '';
+
+        lightboxImage.src = imgSrc;
+        lightboxImage.alt = title;
+        lightboxTitle.textContent = title;
+        lightboxDesc.textContent = desc;
+
+        lightboxModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+        lightboxModal.classList.remove('active');
+        lightboxImage.src = '';
+        document.body.style.overflow = '';
+      }
+
+      function showPrevImage() {
+        updateVisibleItems();
+        if (visibleItems.length === 0) return;
+        currentIdx = (currentIdx - 1 + visibleItems.length) % visibleItems.length;
+        openLightbox(currentIdx);
+      }
+
+      function showNextImage() {
+        updateVisibleItems();
+        if (visibleItems.length === 0) return;
+        currentIdx = (currentIdx + 1) % visibleItems.length;
+        openLightbox(currentIdx);
+      }
+
+      galleryItems.forEach(function (item) {
+        item.addEventListener('click', function () {
+          updateVisibleItems();
+          var idx = visibleItems.indexOf(this);
+          if (idx !== -1) {
+            openLightbox(idx);
+          }
+        });
+
+        item.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            updateVisibleItems();
+            var idx = visibleItems.indexOf(this);
+            if (idx !== -1) {
+              openLightbox(idx);
+            }
+          }
+        });
+      });
+
+      if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+      if (lightboxPrev) lightboxPrev.addEventListener('click', showPrevImage);
+      if (lightboxNext) lightboxNext.addEventListener('click', showNextImage);
+
+      if (lightboxModal) {
+        lightboxModal.addEventListener('click', function (e) {
+          if (e.target === lightboxModal) {
+            closeLightbox();
+          }
+        });
+      }
+
+      // Keyboard Controls
+      document.addEventListener('keydown', function (e) {
+        if (!lightboxModal.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') showPrevImage();
+        if (e.key === 'ArrowRight') showNextImage();
+      });
+
+      // 6. Interactive Inquiry Form Submission
+      var inquiryForm = document.getElementById('project-inquiry-form');
+      var formAlert = document.getElementById('form-feedback');
+
+      if (inquiryForm && formAlert) {
+        inquiryForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var name = document.getElementById('client-name').value;
+          var phone = document.getElementById('client-phone').value;
+          var service = document.getElementById('service-type').value;
+
+          formAlert.style.display = 'block';
+          formAlert.className = 'form-alert success';
+          formAlert.textContent = 'ขอบคุณ ' + name + ' สำหรับข้อมูลโปรเจกต์ ทางสตูดิโอจะติดต่อกลับที่เบอร์ ' + phone + ' ภายใน 24 ชั่วโมง';
+          inquiryForm.reset();
+
+          setTimeout(function () {
+            formAlert.style.display = 'none';
+          }, 8000);
+        });
+      }
+
+      // 7. Navbar Active Link Update on Scroll
+      var sections = document.querySelectorAll('section[id]');
+      var navLinks = document.querySelectorAll('.site-header .nav-link');
+
+      window.addEventListener('scroll', function () {
+        var scrollY = window.pageYOffset + 120;
+
+        sections.forEach(function (current) {
+          var sectionHeight = current.offsetHeight;
+          var sectionTop = current.offsetTop;
+          var sectionId = current.getAttribute('id');
+
+          if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+            navLinks.forEach(function (link) {
+              link.classList.remove('active');
+              if (link.getAttribute('href') === '#' + sectionId) {
+                link.classList.add('active');
+              }
+            });
+          }
+        });
+      });
+
+    })();
+  </script>
+</body>
+</html>
