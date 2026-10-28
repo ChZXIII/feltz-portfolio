@@ -104,13 +104,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-bottom: 8px;
-      border-bottom: 1px solid rgba(232, 220, 200, 0.14);
-      transition: border-color 0.35s ease;
-    }
-
-    .top-nav.theme-light-active .masthead-bar {
-      border-bottom-color: rgba(22, 17, 16, 0.14);
+      padding-bottom: 0;
+      border-bottom: none;
     }
 
     .masthead-left {
@@ -118,26 +113,35 @@
       align-items: center;
       gap: 10px;
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 600;
-      letter-spacing: 0.16em;
-      color: var(--editorial-cream);
+      letter-spacing: 0.18em;
+      color: rgba(244, 239, 230, 0.78);
       text-transform: uppercase;
       pointer-events: auto;
       cursor: pointer;
-      background: rgba(11, 7, 7, 0.65);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      padding: 5px 12px;
-      border-radius: 4px;
-      border: 1px solid rgba(201, 59, 43, 0.25);
+      background: transparent;
+      padding: 4px 2px;
+      border: none;
       transition: all 0.25s ease;
     }
 
     .top-nav.theme-light-active .masthead-left {
-      background: rgba(244, 239, 230, 0.82);
+      background: transparent;
       color: #161110;
-      border-color: rgba(201, 59, 43, 0.28);
+    }
+
+    .masthead-center-year {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      color: rgba(244, 239, 230, 0.58);
+      pointer-events: none;
+    }
+
+    .top-nav.theme-light-active .masthead-center-year {
+      color: rgba(22, 17, 16, 0.58);
     }
 
     .masthead-left .sep {
@@ -150,32 +154,26 @@
       align-items: center;
       gap: 8px;
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 600;
-      letter-spacing: 0.14em;
-      color: var(--editorial-cream);
+      letter-spacing: 0.16em;
+      color: rgba(244, 239, 230, 0.82);
       text-transform: uppercase;
-      background: rgba(11, 7, 7, 0.65);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      padding: 5px 12px;
-      border-radius: 4px;
-      border: 1px solid rgba(201, 59, 43, 0.32);
+      background: transparent;
+      padding: 4px 2px;
+      border: none;
       cursor: pointer;
       pointer-events: auto;
       transition: all 0.25s ease;
     }
 
     .masthead-right-btn:hover {
-      background: rgba(201, 59, 43, 0.22);
-      border-color: var(--accent-vermilion);
       color: #ffffff;
     }
 
     .top-nav.theme-light-active .masthead-right-btn {
-      background: rgba(244, 239, 230, 0.82);
+      background: transparent;
       color: #161110;
-      border-color: rgba(201, 59, 43, 0.32);
     }
 
     .status-dot {
@@ -358,10 +356,10 @@
        ========================================================================== */
     .intro-section {
       background:
-        radial-gradient(circle at 50% 34%, rgba(168, 32, 20, 0.78) 0%, rgba(82, 14, 10, 0.62) 38%, rgba(15, 7, 7, 0.96) 76%),
-        linear-gradient(180deg, #2b0907 0%, #0b0707 100%);
+        radial-gradient(ellipse 88% 76% at 32% 28%, rgba(124, 28, 14, 0.92) 0%, rgba(68, 14, 8, 0.85) 42%, rgba(18, 4, 3, 0.98) 80%, #080202 100%),
+        linear-gradient(180deg, #3a0b06 0%, #080202 100%);
       color: var(--editorial-cream);
-      padding: 50px 28px 16px 28px;
+      padding: 40px 28px 14px 28px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -372,7 +370,7 @@
 
     .vanta-stage-shell {
       width: 100%;
-      max-width: 1340px;
+      max-width: 1420px;
       height: 100%;
       display: flex;
       flex-direction: column;
@@ -382,40 +380,15 @@
       z-index: 5;
     }
 
-    /* 1. Top External Meta Strip (Outside MacBook) */
+    /* 1. Top External Meta Strip (Hidden for pure VANTA//9 gallery space) */
     .vanta-external-top {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: var(--font-mono);
-      font-size: 10.5px;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      color: rgba(232, 220, 200, 0.72);
-      text-transform: uppercase;
-      z-index: 8;
-      padding: 2px 4px;
-    }
-
-    .vanta-external-top .ext-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 4px 12px;
-      border-radius: 999px;
-      background: rgba(16, 8, 8, 0.62);
-      border: 1px solid rgba(232, 220, 200, 0.16);
-    }
-
-    .vanta-external-top .ext-pill strong {
-      color: var(--accent-vermilion);
+      display: none;
     }
 
     /* 2. Giant Architectural Wall Typography Behind MacBook (Like VANTA//9) */
     .vanta-wall-backdrop {
       position: absolute;
-      top: 40%;
+      top: 37%;
       left: 50%;
       transform: translate(-50%, -50%);
       width: 100vw;
@@ -430,18 +403,18 @@
 
     .vanta-wall-word {
       font-family: var(--font-display);
-      font-size: clamp(5.6rem, 18.2vw, 17.5rem);
+      font-size: clamp(5.8rem, 17.6vw, 17.6rem);
       font-weight: 400;
-      color: #f4efe6;
+      color: #f3efe8;
       text-transform: uppercase;
-      letter-spacing: 0.01em;
+      letter-spacing: 0.008em;
       line-height: 0.82;
       white-space: nowrap;
-      opacity: 0.94;
-      text-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+      opacity: 0.96;
+      text-shadow: 0 24px 70px rgba(0, 0, 0, 0.58);
     }
 
-    /* 3. Center 3D MacBook Hardware Rig + Pedestal */
+    /* 3. Center 3D Blender MacBook Hardware Rig + Pedestal (WebGL GLTF Stage) */
     .macbook-rig-arena {
       position: relative;
       width: 100%;
@@ -450,47 +423,73 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      perspective: 1400px;
+      justify-content: flex-end;
       z-index: 6;
-      margin-top: 4px;
+      margin-top: 0;
     }
 
-    /* 3D Laptop Assembly */
-    .macbook-assembly {
+    .webgl-macbook-stage {
       position: relative;
-      width: min(68vw, 820px);
+      width: min(94vw, 1260px);
+      height: min(82vh, 750px);
       display: flex;
-      flex-direction: column;
       align-items: center;
-      transform-style: preserve-3d;
+      justify-content: center;
       z-index: 8;
+      cursor: ns-resize;
     }
 
-    /* MacBook Screen Lid (Hinged at bottom, opens on entry) */
-    .macbook-lid {
+    .webgl-macbook-stage canvas {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+      filter: drop-shadow(0 36px 70px rgba(0, 0, 0, 0.92));
+    }
+
+    .webgl-slide-hud {
+      display: none;
+    }
+
+    .command-webgl-stage {
       position: relative;
-      width: 100%;
-      height: min(54vh, 460px);
-      background: linear-gradient(145deg, #28282c 0%, #121215 100%);
-      border-radius: 16px 16px 4px 4px;
-      padding: 10px 10px 12px 10px;
-      border: 1.5px solid rgba(255, 255, 255, 0.20);
-      box-shadow:
-        0 28px 65px rgba(0, 0, 0, 0.90),
-        0 0 0 1px rgba(0, 0, 0, 0.95) inset;
-      transform-origin: bottom center;
-      transform: perspective(1400px) rotateX(-74deg) scale(0.96);
-      opacity: 1;
-      transition:
-        transform 1.25s cubic-bezier(0.16, 1, 0.3, 1);
+      width: min(74vw, 840px);
+      height: min(38vh, 335px);
       display: flex;
-      flex-direction: column;
-      overflow: hidden;
+      align-items: center;
+      justify-content: center;
+      z-index: 8;
+      cursor: ns-resize;
+      margin-top: -6px;
     }
 
-    .kinetic-section.is-in-view .macbook-lid {
-      transform: perspective(1400px) rotateX(0deg) scale(1);
+    .command-webgl-stage canvas {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+      filter: drop-shadow(0 22px 45px rgba(0, 0, 0, 0.85));
+    }
+
+    @media (max-width: 768px) {
+      .webgl-macbook-stage {
+        width: 100vw;
+        height: 68dvh;
+        max-height: 640px;
+      }
+
+      .webgl-slide-hud {
+        margin-top: -6px;
+        padding: 4px 8px;
+      }
+
+      .webgl-slide-hud .hud-label {
+        display: none;
+      }
+
+      .command-webgl-stage {
+        width: 98vw;
+        height: 27dvh;
+        max-height: 245px;
+      }
     }
 
     /* Camera Notch at Top Center of Bezel */
@@ -976,47 +975,45 @@
       text-transform: uppercase;
     }
 
-    /* 4. Bottom External Action Bar */
+    /* 4. Bottom External Action Bar (Minimalist VANTA//9 Gallery Micro-Type) */
     .vanta-external-bottom {
       width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
       z-index: 10;
-      padding-top: 6px;
-      border-top: 1px solid rgba(201, 59, 43, 0.26);
+      padding-top: 2px;
+      border-top: none;
     }
 
     .poster-client-ticker {
       font-family: var(--font-mono);
-      font-size: 10px;
-      color: rgba(232, 220, 200, 0.62);
-      letter-spacing: 0.08em;
+      font-size: 9.5px;
+      color: rgba(244, 239, 230, 0.42);
+      letter-spacing: 0.14em;
       text-transform: uppercase;
     }
 
     .poster-scroll-btn {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      background: rgba(201, 59, 43, 0.20);
-      border: 1px solid rgba(224, 79, 62, 0.55);
-      color: var(--editorial-cream);
-      padding: 8px 20px;
-      border-radius: 999px;
+      gap: 8px;
+      background: transparent;
+      border: none;
+      color: rgba(244, 239, 230, 0.68);
+      padding: 4px 2px;
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       cursor: pointer;
       transition: all 0.22s ease;
     }
 
     .poster-scroll-btn:hover {
-      background: var(--accent-crimson);
       color: #ffffff;
-      transform: translateY(-1px);
+      transform: translateY(1px);
     }
 
     /* Mobile Responsive VANTA//9 MacBook Cover (Zoomed-in Readable Screen on 430x932!) */
@@ -1062,7 +1059,7 @@
 
       .macbook-rig-arena {
         width: 100%;
-        justify-content: center;
+        justify-content: flex-end;
         margin-top: 0;
       }
 
@@ -2340,6 +2337,8 @@
         <span>EST. 2012</span>
       </div>
 
+      <div class="masthead-center-year">2026</div>
+
       <button type="button" class="masthead-right-btn" onclick="scrollToCategory(9)">
         <span>AVAILABLE FOR COMMISSION</span>
         <span class="status-dot"></span>
@@ -2374,142 +2373,13 @@
           <div class="vanta-wall-word">FELTZ STUDIO</div>
         </div>
 
-        <!-- 3. Center 3D Hinged MacBook Rig -->
+        <!-- 3. Center 3D Blender MacBook Pro Rig + Monolith Pedestal -->
         <div class="macbook-rig-arena">
-
-          <!-- 3D MacBook Hardware Assembly -->
-          <div class="macbook-assembly">
-
-            <!-- Hinged Screen Lid -->
-            <div class="macbook-lid" id="cover-macbook-lid">
-              <div class="macbook-notch" aria-hidden="true"></div>
-
-              <div class="macbook-screen">
-                <!-- Screen OS Header Bar -->
-                <div class="screen-os-bar">
-                  <div class="os-left-cluster">
-                    <div class="os-dots">
-                      <span></span><span></span><span></span>
-                    </div>
-                    <span class="screen-os-title">FELTZ_STUDIO // PROFILE.APP</span>
-                  </div>
-                  <div class="screen-slide-tabs">
-                    <button type="button" class="screen-tab-btn active" id="tab-btn-id" onclick="scrollCoverLaptopTo(0)">01 IDENTITY</button>
-                    <button type="button" class="screen-tab-btn" id="tab-btn-srv" onclick="scrollCoverLaptopTo(1)">02 WHAT I DO</button>
-                  </div>
-                </div>
-
-                <!-- Auto-Scrolling Inner Viewport -->
-                <div class="screen-scroll-viewport" id="cover-screen-viewport">
-                  <div class="screen-scroll-track" id="cover-screen-track">
-
-                    <!-- Page 1 Inside Screen: Photographer Profile & Cutout Portrait -->
-                    <div class="screen-page-identity" id="screen-sec-identity">
-                      <div class="screen-id-left">
-                        <div class="screen-id-kicker">FOUNDER &amp; VISUAL DIRECTOR</div>
-                        <div class="screen-id-headline">BUILT FOR<br/>COMMERCIAL<br/>IMPACT.</div>
-                        <p class="screen-quote-th">
-                          &ldquo;ทุกช็อตคือการวางกลยุทธ์ภาพลักษณ์ ถ่ายทอดสเปซ แสงจริง และอารมณ์สดให้กลายเป็นมูลค่าทางการค้าของแบรนด์&rdquo;
-                        </p>
-                        <span class="screen-sign">Mongkol W.</span>
-                      </div>
-
-                      <div class="screen-id-center">
-                        <div class="screen-crimson-sun"></div>
-                        <img src="assets/keng_cutout.png" alt="Mongkol Wongsakulyanon — Feltz Studio" class="screen-portrait-img" fetchpriority="high" />
-                      </div>
-
-                      <div class="screen-id-right">
-                        <div>
-                          <h1 class="screen-person-name">MONGKOL<br/>WONGSAKULYANON</h1>
-                          <div class="screen-person-role">FELTZ STUDIO // EST. 2012 CHIANG MAI</div>
-                        </div>
-                        <p class="screen-bio-th">
-                          ช่างภาพพาณิชย์และที่ปรึกษาภาพลักษณ์ประจำเชียงใหม่ เชี่ยวชาญการถ่ายทอดมิติสถาปัตยกรรม โรงแรม สปอร์ตความเร็วสูง คอนเสิร์ต และสินค้าแบรนด์ชั้นนำ พร้อมเดินทางถ่ายทำทั่วประเทศ
-                        </p>
-                        <div class="screen-stats-grid">
-                          <div class="screen-stat-box">
-                            <div class="screen-stat-num">12+ YRS</div>
-                            <div class="screen-stat-lbl">COMMERCIAL<br/>EXPERIENCE</div>
-                          </div>
-                          <div class="screen-stat-box">
-                            <div class="screen-stat-num">14+</div>
-                            <div class="screen-stat-lbl">ENTERPRISE<br/>CLIENTS</div>
-                          </div>
-                          <div class="screen-stat-box">
-                            <div class="screen-stat-num">DUAL</div>
-                            <div class="screen-stat-lbl">SONY ALPHA<br/>MASTER RIG</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Page 2 Inside Screen: WHAT I DO (4 Services Grid + Enterprise Clients) -->
-                    <div class="screen-page-services" id="screen-sec-services">
-                      <div class="screen-sec-head">
-                        <span class="screen-sec-title">WHAT I DO // 08 COMMERCIAL PORTFOLIOS</span>
-                        <span class="screen-sec-sub">TAP CATEGORY TO JUMP &rarr;</span>
-                      </div>
-
-                      <div class="screen-services-grid">
-                        <div class="screen-service-card" onclick="scrollToCategory(1)">
-                          <div class="screen-srv-top">
-                            <span>01 / 03</span>
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                          </div>
-                          <div class="screen-srv-name">STAGE &amp; SPORT</div>
-                          <div class="screen-srv-desc">คอนเสิร์ตใหญ่และกีฬาความเร็วสูง</div>
-                        </div>
-
-                        <div class="screen-service-card" onclick="scrollToCategory(2)">
-                          <div class="screen-srv-top">
-                            <span>02 / 04</span>
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/></svg>
-                          </div>
-                          <div class="screen-srv-name">SPACE &amp; HOTEL</div>
-                          <div class="screen-srv-desc">โรงแรม รีสอร์ต และอสังหาริมทรัพย์</div>
-                        </div>
-
-                        <div class="screen-service-card" onclick="scrollToCategory(5)">
-                          <div class="screen-srv-top">
-                            <span>05 / 06</span>
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-                          </div>
-                          <div class="screen-srv-name">BRAND &amp; DINING</div>
-                          <div class="screen-srv-desc">สินค้าโฆษณาและอาหารไฟน์ไดน์นิ่ง</div>
-                        </div>
-
-                        <div class="screen-service-card" onclick="scrollToCategory(7)">
-                          <div class="screen-srv-top">
-                            <span>07 / 08</span>
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
-                          </div>
-                          <div class="screen-srv-name">PORTRAIT &amp; EVENT</div>
-                          <div class="screen-srv-desc">พอร์ตเทรตผู้บริหารและอีเวนต์องค์กร</div>
-                        </div>
-                      </div>
-
-                      <div class="screen-client-bar">
-                        <span class="lbl">SELECTED ENTERPRISE CLIENTS //</span>
-                        <span>SINGHA &middot; KBANK &middot; THAI AIRASIA &middot; TRUE &middot; AIA &middot; YAMAHA &middot; TCEB &middot; GISTDA</span>
-                      </div>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- 3D Keyboard Deck & Monolith Pedestal Base -->
-            <div class="macbook-base-deck" aria-hidden="true">
-              <div class="macbook-keyboard-well"></div>
-              <div class="macbook-front-lip"></div>
-            </div>
-            <div class="macbook-pedestal" aria-hidden="true">
-              <span>FELTZ STUDIO // OPTICAL RIG</span>
-              <span>AUTO-SCROLLING PROFILE</span>
-            </div>
-
+          <div class="webgl-macbook-stage" id="cover-webgl-macbook-stage" aria-label="3D MacBook Pro Presentation"></div>
+          <div class="webgl-slide-hud">
+            <span class="hud-label">MACBOOK SCREEN //</span>
+            <button type="button" class="screen-tab-btn active" id="tab-btn-id" onclick="scrollCoverLaptopTo(0)">01 IDENTITY &amp; PROFILE</button>
+            <button type="button" class="screen-tab-btn" id="tab-btn-srv" onclick="scrollCoverLaptopTo(1)">02 WHAT I DO (08 PORTFOLIOS)</button>
           </div>
         </div>
 
@@ -2870,72 +2740,8 @@
             <div class="commission-wall-word">COMMISSION</div>
           </div>
 
-          <!-- 2. Top Studio Command MacBook (Displays 04 Workflow Steps & Optical Rig) -->
-          <div class="command-laptop-wrap">
-            <div class="command-macbook-lid">
-              <div class="macbook-notch" aria-hidden="true"></div>
-              <div class="macbook-screen">
-                <div class="screen-os-bar">
-                  <div class="os-left-cluster">
-                    <div class="os-dots">
-                      <span></span><span></span><span></span>
-                    </div>
-                    <span class="screen-os-title">FELTZ_STUDIO // WORKFLOW.SYS</span>
-                  </div>
-                  <span style="color: var(--accent-vermilion);">09 // COMMAND DESK</span>
-                </div>
-
-                <div class="screen-scroll-viewport" id="cmd-screen-viewport">
-                  <div class="command-screen-inner">
-                    <div class="cmd-process-grid">
-                      <div class="cmd-step-box">
-                        <span class="cmd-step-num">01</span>
-                        <div>
-                          <div class="cmd-step-name">BRIEF &amp; DIRECTION</div>
-                          <div class="cmd-step-desc">วิเคราะห์โจทย์แบรนด์และวางโครงเรื่องภาพ</div>
-                        </div>
-                      </div>
-
-                      <div class="cmd-step-box">
-                        <span class="cmd-step-num">02</span>
-                        <div>
-                          <div class="cmd-step-name">PRODUCTION &amp; RIG</div>
-                          <div class="cmd-step-desc">ถ่ายทำด้วยชุดกล้องคู่และจัดแสงสตูดิโอ</div>
-                        </div>
-                      </div>
-
-                      <div class="cmd-step-box">
-                        <span class="cmd-step-num">03</span>
-                        <div>
-                          <div class="cmd-step-name">COLOR GRADING</div>
-                          <div class="cmd-step-desc">เกรดสีและรีทัชด้วย Capture One &amp; DaVinci</div>
-                        </div>
-                      </div>
-
-                      <div class="cmd-step-box">
-                        <span class="cmd-step-num">04</span>
-                        <div>
-                          <div class="cmd-step-name">FAST DELIVERY</div>
-                          <div class="cmd-step-desc">ส่งมอบไฟล์ความละเอียดสูงพร้อมใช้งานทันที</div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="cmd-rig-strip">
-                      <span><strong>MASTER RIG:</strong> Dual Sony A7 IV &middot; FE 70-200mm GM II &middot; Sigma Art</span>
-                      <span><strong>CLIENTS:</strong> Singha &middot; KBank &middot; AirAsia &middot; True &middot; AIA</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="command-base-deck" aria-hidden="true">
-              <div class="macbook-keyboard-well"></div>
-              <div class="macbook-front-lip"></div>
-            </div>
-            <div class="command-pedestal" aria-hidden="true"></div>
-          </div>
+          <!-- 2. Top Studio Command 3D Blender MacBook (Displays 04 Workflow Steps & Optical Rig) -->
+          <div class="command-webgl-stage" id="command-webgl-macbook-stage" aria-label="3D Command Desk MacBook"></div>
 
           <!-- 3. External Direct Contact Channels & Editorial Inquiry Form Below Laptop -->
           <div class="contact-body-grid">
@@ -3328,6 +3134,11 @@
           if (entry.isIntersecting) {
             entry.target.classList.add("is-in-view");
 
+            if (window.setFeltz3DMacBookInView) {
+              if (idx === 0) window.setFeltz3DMacBookInView("cover", true);
+              if (idx === 9) window.setFeltz3DMacBookInView("command", true);
+            }
+
             ringControllers.forEach(st => {
               st.isPaused = false;
               st.isDragging = false;
@@ -3346,6 +3157,10 @@
             });
           } else {
             entry.target.classList.remove("is-in-view");
+            if (window.setFeltz3DMacBookInView) {
+              if (idx === 0) window.setFeltz3DMacBookInView("cover", false);
+              if (idx === 9) window.setFeltz3DMacBookInView("command", false);
+            }
             if (idx > 0 && ringControllers[idx - 1]) {
               ringControllers[idx - 1].isActiveSection = false;
             }
@@ -3527,9 +3342,15 @@
     window.addEventListener("DOMContentLoaded", () => {
       initDOM();
       setupIntersectionObserver();
-      setupCoverLaptopAutoScroll();
+      if (window.initFeltz3DMacBookStages) {
+        window.initFeltz3DMacBookStages();
+      }
       requestAnimationFrame(animateRings);
     });
   </script>
+  <script src="assets/js/three.min.js"></script>
+  <script src="assets/js/GLTFLoader.umd.js"></script>
+  <script src="assets/js/feltz_macbook_rig_b64.js"></script>
+  <script src="assets/js/feltz_macbook_3d_stage.js"></script>
 </body>
 </html>
