@@ -354,412 +354,643 @@
     }
 
     /* ==========================================================================
-       POINT 3: SECTION 00 — EDITORIAL MAGAZINE COVER POSTER (REF IMAGE 1)
+       POINT 3: SECTION 00 — VANTA//9 INSPIRED 3D MACBOOK STUDIO PRESENTATION
        ========================================================================== */
     .intro-section {
-      background: radial-gradient(circle at 50% 36%, #1f0c0b 0%, #0b0707 70%);
+      background:
+        radial-gradient(circle at 50% 34%, rgba(168, 32, 20, 0.78) 0%, rgba(82, 14, 10, 0.62) 38%, rgba(15, 7, 7, 0.96) 76%),
+        linear-gradient(180deg, #2b0907 0%, #0b0707 100%);
       color: var(--editorial-cream);
-      padding: 46px 32px 18px 32px;
+      padding: 50px 28px 16px 28px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
       position: relative;
+      overflow: hidden;
     }
 
-    .editorial-poster-shell {
+    .vanta-stage-shell {
       width: 100%;
-      max-width: 1320px;
+      max-width: 1340px;
       height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      align-items: center;
       position: relative;
       z-index: 5;
     }
 
-    /* 1. Giant Condensed Display Headline: FELTZ STUDIO */
-    .poster-headline-wrap {
-      position: relative;
+    /* 1. Top External Meta Strip (Outside MacBook) */
+    .vanta-external-top {
       width: 100%;
-      text-align: center;
-      z-index: 2;
-      padding-top: 4px;
-      line-height: 0.84;
-      user-select: none;
-    }
-
-    .poster-giant-word {
-      font-family: var(--font-display);
-      font-size: clamp(4.4rem, 15.2vw, 13.4rem);
-      font-weight: 400;
-      color: var(--editorial-cream);
-      text-transform: uppercase;
-      letter-spacing: 0.015em;
-      line-height: 0.84;
-      display: block;
-      width: 100%;
-      white-space: nowrap;
-      text-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
-    }
-
-    /* Rotating Editorial Stamp SVG (Top Right over Headline/Shoulder) */
-    .editorial-stamp {
-      position: absolute;
-      right: 3%;
-      bottom: -36px;
-      width: 94px;
-      height: 94px;
-      z-index: 8;
-      pointer-events: none;
-    }
-
-    .editorial-stamp svg.stamp-ring {
-      width: 100%;
-      height: 100%;
-      animation: spinStamp 18s linear infinite;
-    }
-
-    .editorial-stamp .stamp-star {
-      position: absolute;
-      inset: 0;
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      color: rgba(232, 220, 200, 0.72);
+      text-transform: uppercase;
+      z-index: 8;
+      padding: 2px 4px;
+    }
+
+    .vanta-external-top .ext-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: rgba(16, 8, 8, 0.62);
+      border: 1px solid rgba(232, 220, 200, 0.16);
+    }
+
+    .vanta-external-top .ext-pill strong {
       color: var(--accent-vermilion);
     }
 
-    @keyframes spinStamp {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    /* 2. Centerpiece Stage: Left Optical Column + Overlapping Cutout Portrait + Right Bio/Stats */
-    .poster-hero-stage {
-      position: relative;
-      display: grid;
-      grid-template-columns: 1fr 400px 1.1fr;
-      gap: 24px;
-      align-items: center;
-      width: 100%;
-      flex: 1;
-      min-height: 0;
-      margin-top: -4.2vw;
-      z-index: 6;
-    }
-
-    /* Left Column: OPTICAL / VISUAL / DIRECTION + Quote */
-    .poster-col-left {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 12px;
-      z-index: 7;
-      padding-right: 10px;
-    }
-
-    .poster-kicker-title {
-      font-family: var(--font-condensed);
-      font-size: clamp(1.35rem, 2.2vw, 2.1rem);
-      font-weight: 700;
-      color: var(--editorial-cream);
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-      line-height: 1.05;
-    }
-
-    .poster-sub-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--text-dark-sub);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .poster-red-rule {
-      width: 34px;
-      height: 2px;
-      background: var(--accent-crimson);
-      margin: 2px 0;
-    }
-
-    .poster-quote-box {
-      position: relative;
-      padding-left: 26px;
-    }
-
-    .poster-quote-mark {
+    /* 2. Giant Architectural Wall Typography Behind MacBook (Like VANTA//9) */
+    .vanta-wall-backdrop {
       position: absolute;
-      left: 0;
-      top: -8px;
-      font-family: Georgia, serif;
-      font-size: 38px;
-      line-height: 1;
-      color: var(--accent-crimson);
-      font-weight: 700;
-    }
-
-    .editorial-quote-th {
-      font-family: var(--font-th);
-      font-size: 13px;
-      font-weight: 400;
-      color: #d6c8b8;
-      line-height: 1.5;
-    }
-
-    .poster-signature {
-      font-family: var(--font-sign);
-      font-size: 24px;
-      color: var(--editorial-cream);
-      opacity: 0.88;
-      margin-top: 2px;
-      transform: rotate(-3deg);
-      display: inline-block;
-    }
-
-    /* Center Column: Crimson Sun Halo + Cutout PNG Overlapping Giant Title */
-    .poster-col-center {
-      position: relative;
-      height: 100%;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      z-index: 5;
-      pointer-events: none;
-    }
-
-    .crimson-halo-circle {
-      position: absolute;
-      width: 380px;
-      height: 380px;
-      border-radius: 50%;
       top: 40%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: radial-gradient(circle at 38% 35%, rgba(212, 56, 40, 0.76) 0%, rgba(145, 24, 16, 0.56) 52%, rgba(70, 10, 8, 0.22) 76%, transparent 100%);
-      box-shadow: 0 0 85px rgba(201, 59, 43, 0.38);
-      border: 1px solid rgba(224, 79, 62, 0.28);
+      width: 100vw;
+      text-align: center;
       z-index: 1;
-    }
-
-    .cutout-portrait-img {
-      position: relative;
-      z-index: 3;
-      height: min(60vh, 540px);
-      width: auto;
-      object-fit: contain;
-      object-position: bottom center;
-      filter: drop-shadow(0 18px 36px rgba(0, 0, 0, 0.85)) contrast(1.04);
-      margin-bottom: -4px;
-    }
-
-    /* Right Column: MONGKOL WONGSAKULYANON + Bio + 3 Circle Icon Stats */
-    .poster-col-right {
+      pointer-events: none;
+      user-select: none;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      gap: 10px;
-      z-index: 7;
-      padding-left: 14px;
+      align-items: center;
     }
 
-    .poster-person-name {
-      font-family: var(--font-condensed);
-      font-size: clamp(1.55rem, 2.5vw, 2.35rem);
-      font-weight: 700;
-      color: var(--editorial-cream);
-      letter-spacing: 0.03em;
-      line-height: 1.04;
+    .vanta-wall-word {
+      font-family: var(--font-display);
+      font-size: clamp(5.6rem, 18.2vw, 17.5rem);
+      font-weight: 400;
+      color: #f4efe6;
       text-transform: uppercase;
+      letter-spacing: 0.01em;
+      line-height: 0.82;
+      white-space: nowrap;
+      opacity: 0.94;
+      text-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
     }
 
-    .poster-person-role {
+    /* 3. Center 3D MacBook Hardware Rig + Pedestal */
+    .macbook-rig-arena {
+      position: relative;
+      width: 100%;
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      perspective: 1400px;
+      z-index: 6;
+      margin-top: 4px;
+    }
+
+    /* 3D Laptop Assembly */
+    .macbook-assembly {
+      position: relative;
+      width: min(68vw, 820px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform-style: preserve-3d;
+      z-index: 8;
+    }
+
+    /* MacBook Screen Lid (Hinged at bottom, opens on entry) */
+    .macbook-lid {
+      position: relative;
+      width: 100%;
+      height: min(54vh, 460px);
+      background: linear-gradient(145deg, #28282c 0%, #121215 100%);
+      border-radius: 16px 16px 4px 4px;
+      padding: 10px 10px 12px 10px;
+      border: 1.5px solid rgba(255, 255, 255, 0.20);
+      box-shadow:
+        0 28px 65px rgba(0, 0, 0, 0.90),
+        0 0 0 1px rgba(0, 0, 0, 0.95) inset;
+      transform-origin: bottom center;
+      transform: perspective(1400px) rotateX(-74deg) scale(0.96);
+      opacity: 1;
+      transition:
+        transform 1.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .kinetic-section.is-in-view .macbook-lid {
+      transform: perspective(1400px) rotateX(0deg) scale(1);
+    }
+
+    /* Camera Notch at Top Center of Bezel */
+    .macbook-notch {
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 92px;
+      height: 14px;
+      background: #09090b;
+      border-radius: 0 0 8px 8px;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .macbook-notch::before {
+      content: "";
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #1c2b38;
+      box-shadow: 0 0 3px rgba(74, 222, 128, 0.6);
+    }
+
+    .macbook-notch::after {
+      content: "";
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #22c55e;
+      opacity: 0.85;
+    }
+
+    /* Screen Display Viewport Inside Lid (Opaque Solid Dark so Wall Text Never Bleeds Through) */
+    .macbook-screen {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: #0c0707;
+      border-radius: 8px 8px 2px 2px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(232, 220, 200, 0.14);
+    }
+
+    /* Top OS Status Bar Inside Screen (Left-Aligned Title so Camera Notch Never Covers Text) */
+    .screen-os-bar {
+      height: 26px;
+      background: #150b0b;
+      border-bottom: 1px solid rgba(201, 59, 43, 0.30);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: rgba(232, 220, 200, 0.75);
+      flex-shrink: 0;
+      z-index: 20;
+    }
+
+    .os-left-cluster {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .os-dots {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .os-dots span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(232, 220, 200, 0.25);
+    }
+
+    .os-dots span:first-child {
+      background: var(--accent-vermilion);
+    }
+
+    .screen-slide-tabs {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .screen-tab-btn {
+      background: none;
+      border: 1px solid transparent;
+      color: rgba(232, 220, 200, 0.52);
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 2px 7px;
+      border-radius: 3px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.2s ease;
+    }
+
+    .screen-tab-btn.active,
+    .screen-tab-btn:hover {
+      color: var(--editorial-cream);
+      border-color: rgba(201, 59, 43, 0.45);
+      background: rgba(201, 59, 43, 0.18);
+    }
+
+    /* Auto-Scrolling Inner Viewport */
+    .screen-scroll-viewport {
+      position: relative;
+      width: 100%;
+      flex: 1;
+      height: calc(100% - 26px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      scroll-behavior: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      background: #0c0707;
+    }
+
+    .screen-scroll-viewport::-webkit-scrollbar {
+      display: none;
+    }
+
+    .screen-scroll-track {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Slide 1 Inside MacBook: Photographer Identity & Portrait (Full 100% Screen Height) */
+    .screen-page-identity {
+      position: relative;
+      height: 100%;
+      min-height: 100%;
+      flex-shrink: 0;
+      padding: 20px 26px;
+      display: grid;
+      grid-template-columns: 1fr 225px 1.15fr;
+      gap: 18px;
+      align-items: center;
+      background:
+        radial-gradient(circle at 48% 45%, rgba(185, 38, 25, 0.30) 0%, #0c0707 72%);
+      border-bottom: 1px solid rgba(201, 59, 43, 0.30);
+    }
+
+    .screen-id-left {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 4;
+    }
+
+    .screen-id-kicker {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
       font-weight: 700;
       color: var(--accent-vermilion);
       letter-spacing: 0.14em;
       text-transform: uppercase;
     }
 
-    .editorial-bio-th {
+    .screen-id-headline {
+      font-family: var(--font-condensed);
+      font-size: clamp(1.3rem, 2vw, 1.85rem);
+      font-weight: 700;
+      color: var(--editorial-cream);
+      line-height: 1.02;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .screen-quote-th {
       font-family: var(--font-th);
-      font-size: 12.5px;
-      color: var(--text-dark-sub);
-      line-height: 1.52;
-      padding-bottom: 10px;
-      border-bottom: 1px solid rgba(201, 59, 43, 0.26);
+      font-size: 11.5px;
+      color: #d8cabe;
+      line-height: 1.45;
+      border-left: 2px solid var(--accent-crimson);
+      padding-left: 10px;
+      letter-spacing: 0 !important;
     }
 
-    .poster-stats-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      padding-top: 4px;
+    .screen-sign {
+      font-family: var(--font-sign);
+      font-size: 20px;
+      color: var(--editorial-cream);
+      transform: rotate(-3deg);
+      display: inline-block;
     }
 
-    .poster-stat-item {
+    /* Center Cutout Portrait Inside Screen */
+    .screen-id-center {
+      position: relative;
+      height: 235px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      z-index: 3;
+    }
+
+    .screen-crimson-sun {
+      position: absolute;
+      width: 185px;
+      height: 185px;
+      border-radius: 50%;
+      top: 48%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle at 38% 35%, rgba(218, 60, 44, 0.85) 0%, rgba(140, 22, 14, 0.58) 58%, transparent 100%);
+      border: 1px solid rgba(224, 79, 62, 0.35);
+      box-shadow: 0 0 40px rgba(201, 59, 43, 0.45);
+    }
+
+    .screen-portrait-img {
+      position: relative;
+      z-index: 3;
+      height: 230px;
+      width: auto;
+      object-fit: contain;
+      object-position: bottom center;
+      filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.85));
+    }
+
+    /* Right Bio & 3 Stats Inside Screen */
+    .screen-id-right {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 8px;
+      z-index: 4;
     }
 
-    .stat-icon-circle {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: 1px solid rgba(224, 79, 62, 0.55);
-      background: rgba(201, 59, 43, 0.10);
+    .screen-person-name {
+      font-family: var(--font-condensed);
+      font-size: clamp(1.25rem, 1.9vw, 1.7rem);
+      font-weight: 700;
+      color: var(--editorial-cream);
+      line-height: 1.04;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .screen-person-role {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 700;
       color: var(--accent-vermilion);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 2px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
     }
 
-    .stat-icon-circle svg {
-      width: 13px;
-      height: 13px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 2;
+    .screen-bio-th {
+      font-family: var(--font-th);
+      font-size: 11px;
+      color: var(--text-dark-sub);
+      line-height: 1.45;
+      letter-spacing: 0 !important;
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(201, 59, 43, 0.24);
     }
 
-    .poster-stat-num {
+    .screen-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .screen-stat-box {
+      background: rgba(22, 12, 12, 0.85);
+      border: 1px solid rgba(201, 59, 43, 0.25);
+      border-radius: 5px;
+      padding: 6px 8px;
+    }
+
+    .screen-stat-num {
       font-family: var(--font-sans);
-      font-size: 18px;
+      font-size: 14px;
       font-weight: 800;
       color: var(--editorial-cream);
       line-height: 1.05;
     }
 
-    .poster-stat-label {
+    .screen-stat-lbl {
       font-family: var(--font-mono);
-      font-size: 9.5px;
-      font-weight: 600;
+      font-size: 8px;
       color: var(--text-dark-sub);
       letter-spacing: 0.06em;
-      text-transform: uppercase;
-      line-height: 1.25;
+      line-height: 1.2;
+      margin-top: 2px;
     }
 
-    /* 3. Bottom Strip: WHAT I DO (4 Editorial Grid Cards) + Scroll CTA Bar */
-    .poster-bottom-deck {
-      width: 100%;
-      z-index: 8;
+    /* Slide 2 Inside MacBook: WHAT I DO (4 Services Grid + Enterprise Clients) */
+    .screen-page-services {
+      height: 100%;
+      min-height: 100%;
+      flex-shrink: 0;
+      padding: 22px 26px;
+      background:
+        radial-gradient(circle at 50% 20%, rgba(185, 38, 25, 0.22) 0%, #0e0808 75%),
+        #0e0808;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .screen-sec-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid rgba(201, 59, 43, 0.28);
+      padding-bottom: 6px;
+    }
+
+    .screen-sec-title {
+      font-family: var(--font-condensed);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--editorial-cream);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .screen-sec-sub {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--accent-vermilion);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .screen-services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
       gap: 10px;
     }
 
-    .what-i-do-frame {
-      display: grid;
-      grid-template-columns: 145px repeat(4, 1fr);
-      border-top: 1px solid rgba(201, 59, 43, 0.32);
-      border-bottom: 1px solid rgba(201, 59, 43, 0.32);
-      background: rgba(14, 8, 8, 0.82);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
-
-    .what-i-do-head {
-      padding: 14px 16px;
+    .screen-service-card {
+      background: rgba(24, 13, 13, 0.9);
+      border: 1px solid rgba(201, 59, 43, 0.26);
+      border-radius: 6px;
+      padding: 10px 12px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      border-right: 1px solid rgba(201, 59, 43, 0.25);
-    }
-
-    .what-i-do-title {
-      font-family: var(--font-condensed);
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--editorial-cream);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      line-height: 1.1;
-    }
-
-    .what-i-do-sub {
-      font-family: var(--font-mono);
-      font-size: 9.5px;
-      color: var(--accent-vermilion);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .service-editorial-card {
-      padding: 12px 16px;
-      border-right: 1px solid rgba(201, 59, 43, 0.20);
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
+      gap: 4px;
       cursor: pointer;
-      transition: background 0.22s ease;
+      transition: all 0.2s ease;
     }
 
-    .service-editorial-card:last-child {
-      border-right: none;
+    .screen-service-card:hover {
+      border-color: var(--accent-vermilion);
+      background: rgba(201, 59, 43, 0.14);
+      transform: translateY(-2px);
     }
 
-    .service-editorial-card:hover {
-      background: rgba(201, 59, 43, 0.10);
-    }
-
-    .service-card-top {
+    .screen-srv-top {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 8px;
-    }
-
-    .service-icon {
-      color: var(--accent-vermilion);
-      width: 18px;
-      height: 18px;
-      flex-shrink: 0;
-    }
-
-    .service-num-tag {
+      align-items: center;
       font-family: var(--font-mono);
-      font-size: 9.5px;
-      color: rgba(232, 220, 200, 0.45);
-      letter-spacing: 0.08em;
+      font-size: 9px;
+      color: var(--accent-vermilion);
+      font-weight: 700;
     }
 
-    .service-name {
+    .screen-srv-name {
       font-family: var(--font-sans);
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 800;
       color: var(--editorial-cream);
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
       margin-top: 2px;
     }
 
-    .service-desc-th {
+    .screen-srv-desc {
       font-family: var(--font-th);
-      font-size: 11.5px;
+      font-size: 10.5px;
       color: var(--text-dark-sub);
-      line-height: 1.38;
+      line-height: 1.35;
+      letter-spacing: 0 !important;
     }
 
-    .poster-scroll-bar {
+    .screen-client-bar {
+      background: rgba(201, 59, 43, 0.10);
+      border: 1px solid rgba(201, 59, 43, 0.24);
+      border-radius: 5px;
+      padding: 8px 12px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 4px 2px 0 2px;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      color: var(--editorial-cream);
+      letter-spacing: 0.08em;
+    }
+
+    .screen-client-bar span.lbl {
+      color: var(--accent-vermilion);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* MacBook Lower Keyboard Deck & Monolith Stand (3D Base Like VANTA//9) */
+    .macbook-base-deck {
+      position: relative;
+      width: 112%;
+      height: 36px;
+      background: linear-gradient(180deg, #3a3a40 0%, #222226 58%, #121215 100%);
+      border-radius: 3px 3px 14px 14px;
+      margin-top: -2px;
+      box-shadow:
+        0 18px 36px rgba(0, 0, 0, 0.85),
+        0 1px 0 rgba(255, 255, 255, 0.28) inset;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 8% 5px 8%;
+      z-index: 9;
+    }
+
+    /* Recessed Keyboard Well Visual */
+    .macbook-keyboard-well {
+      width: 88%;
+      height: 14px;
+      background:
+        repeating-linear-gradient(
+          90deg,
+          #111113 0px,
+          #111113 14px,
+          #252529 14px,
+          #252529 16px
+        );
+      border-radius: 2px;
+      border: 1px solid rgba(0, 0, 0, 0.8);
+      opacity: 0.85;
+    }
+
+    /* Front Thumb Notch & Trackpad Line */
+    .macbook-front-lip {
+      width: 86px;
+      height: 5px;
+      background: #0d0d0f;
+      border-radius: 4px 4px 0 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    /* Dark Architectural Pedestal Block Under Laptop (From VANTA//9 Reference) */
+    .macbook-pedestal {
+      width: 122%;
+      height: 22px;
+      background: linear-gradient(180deg, #1b1717 0%, #090606 100%);
+      border-top: 1px solid rgba(232, 220, 200, 0.14);
+      border-left: 1px solid rgba(232, 220, 200, 0.08);
+      border-right: 1px solid rgba(232, 220, 200, 0.08);
+      border-radius: 2px;
+      margin-top: -2px;
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      color: rgba(232, 220, 200, 0.42);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    /* 4. Bottom External Action Bar */
+    .vanta-external-bottom {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+      padding-top: 6px;
+      border-top: 1px solid rgba(201, 59, 43, 0.26);
     }
 
     .poster-client-ticker {
       font-family: var(--font-mono);
       font-size: 10px;
-      color: rgba(232, 220, 200, 0.55);
+      color: rgba(232, 220, 200, 0.62);
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
@@ -768,10 +999,10 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      background: rgba(201, 59, 43, 0.16);
-      border: 1px solid rgba(224, 79, 62, 0.48);
+      background: rgba(201, 59, 43, 0.20);
+      border: 1px solid rgba(224, 79, 62, 0.55);
       color: var(--editorial-cream);
-      padding: 7px 18px;
+      padding: 8px 20px;
       border-radius: 999px;
       font-family: var(--font-mono);
       font-size: 11px;
@@ -788,238 +1019,202 @@
       transform: translateY(-1px);
     }
 
-    /* Mobile Responsive Magazine Cover Poster (Fits 100dvh on 430x932 cleanly!) */
+    /* Mobile Responsive VANTA//9 MacBook Cover (Zoomed-in Readable Screen on 430x932!) */
     @media (max-width: 768px) {
       .intro-section {
-        padding: 44px 14px 12px 14px;
+        padding: 46px 12px 12px 12px;
       }
 
-      .poster-headline-wrap {
-        padding-top: 2px;
-        margin-bottom: 0;
-        z-index: 2;
-      }
-
-      .poster-giant-word {
-        font-size: 17.2vw;
-        line-height: 0.84;
-        letter-spacing: 0.005em;
-        white-space: nowrap;
-        transform: scaleY(1.66);
-        transform-origin: top center;
-      }
-
-      .editorial-stamp {
-        width: 68px;
-        height: 68px;
-        right: 1%;
-        bottom: -72px;
-        z-index: 12;
-      }
-
-      .poster-hero-stage {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr auto;
-        gap: 0 10px;
-        margin-top: 0;
-        align-items: end;
-        z-index: 6;
-      }
-
-      /* Center Cutout spans top of mobile hero stage overlapping FELTZ STUDIO & grounded on bottom card */
-      .poster-col-center {
-        grid-column: 1 / -1;
-        grid-row: 1;
-        height: 100%;
-        position: relative;
-        display: flex;
-        align-items: flex-end;
-        justify-content: center;
-        z-index: 5;
-      }
-
-      .crimson-halo-circle {
-        width: 315px;
-        height: 315px;
-        top: 33%;
-        left: 58%;
-      }
-
-      .cutout-portrait-img {
-        height: min(55.5dvh, 516px);
-        margin-bottom: -2px;
-        transform: translateX(13%);
-      }
-
-      /* Left overlay on mobile portrait stage */
-      .poster-col-left {
-        grid-column: 1;
-        grid-row: 1;
-        align-self: center;
-        padding-right: 0;
-        gap: 6px;
-        z-index: 8;
-        max-width: 172px;
-        pointer-events: none;
-        padding-bottom: 12px;
-      }
-
-      .poster-kicker-title {
-        font-size: 1.15rem;
-        line-height: 1.04;
-      }
-
-      .poster-sub-list {
-        font-size: 8.8px;
-        letter-spacing: 0.06em;
-        gap: 2px;
-      }
-
-      .poster-quote-box {
-        padding-left: 15px;
-      }
-
-      .poster-quote-mark {
-        font-size: 25px;
-        top: -4px;
-      }
-
-      .editorial-quote-th {
-        font-size: 11px;
-        line-height: 1.38;
-      }
-
-      .poster-signature {
-        font-size: 19px;
-        margin-top: 2px;
-      }
-
-      /* Right column on mobile: Name/Role + 3 stats bar spanning below portrait */
-      .poster-col-right {
-        grid-column: 1 / -1;
-        grid-row: 2;
-        padding-left: 0;
-        gap: 6px;
-        background: rgba(16, 9, 9, 0.92);
-        border: 1px solid rgba(201, 59, 43, 0.32);
-        padding: 9px 12px;
-        border-radius: 6px;
-        z-index: 9;
-      }
-
-      .poster-person-header-mob {
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-        gap: 8px;
-        border-bottom: 1px solid rgba(201, 59, 43, 0.22);
-        padding-bottom: 5px;
-      }
-
-      .poster-person-name {
-        font-size: 1.1rem;
-      }
-
-      .poster-person-role {
+      .vanta-external-top {
         font-size: 8.5px;
         letter-spacing: 0.08em;
       }
 
-      .editorial-bio-th {
+      .vanta-external-top .ext-pill:last-child {
         display: none;
       }
 
-      .poster-stats-row {
-        gap: 8px;
-        padding-top: 2px;
+      /* Giant FELTZ STUDIO Headline Perched Above the Laptop on Mobile */
+      .vanta-wall-backdrop {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        width: 100%;
+        margin: 2px 0 4px 0;
       }
 
-      .poster-stat-item {
-        flex-direction: row;
-        align-items: center;
-        gap: 6px;
+      .vanta-wall-word {
+        font-size: 17.5vw;
+        line-height: 0.84;
       }
 
-      .stat-icon-circle {
-        width: 22px;
-        height: 22px;
-        margin-bottom: 0;
-        flex-shrink: 0;
-      }
-
-      .stat-icon-circle svg {
-        width: 11px;
-        height: 11px;
-      }
-
-      .poster-stat-num {
-        font-size: 13.5px;
-      }
-
-      .poster-stat-label {
-        font-size: 8px;
-        line-height: 1.15;
-      }
-
-      /* Bottom WHAT I DO 2x2 Grid on Mobile */
-      .what-i-do-frame {
-        grid-template-columns: repeat(2, 1fr);
-        border: 1px solid rgba(201, 59, 43, 0.30);
-        border-radius: 6px;
-        overflow: hidden;
-      }
-
-      .what-i-do-head {
-        grid-column: 1 / -1;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        padding: 6px 12px;
-        border-right: none;
-        border-bottom: 1px solid rgba(201, 59, 43, 0.24);
-        background: rgba(201, 59, 43, 0.10);
-      }
-
-      .what-i-do-title {
-        font-size: 13px;
-      }
-
-      .what-i-do-sub {
+      .vanta-wall-subband {
+        padding: 0 2px;
         font-size: 8.5px;
+        letter-spacing: 0.1em;
+        margin-top: 4px;
       }
 
-      .service-editorial-card {
+      .macbook-side-wing {
+        display: none;
+      }
+
+      .macbook-rig-arena {
+        width: 100%;
+        justify-content: center;
+        margin-top: 0;
+      }
+
+      .macbook-assembly {
+        width: 96vw;
+        max-width: 406px;
+      }
+
+      .macbook-lid {
+        aspect-ratio: auto;
+        height: 55dvh;
+        max-height: 515px;
+        padding: 8px 7px 10px 7px;
+        border-radius: 12px 12px 3px 3px;
+      }
+
+      .macbook-notch {
+        width: 72px;
+        height: 12px;
+        top: 6px;
+      }
+
+      .screen-os-bar {
+        height: 22px;
+        padding: 0 8px;
+        font-size: 8px;
+      }
+
+      .screen-os-title {
+        display: none;
+      }
+
+      .screen-page-identity {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+        padding: 12px 12px;
+        gap: 8px;
+      }
+
+      .screen-id-left {
+        grid-column: 1;
+        grid-row: 1;
+        gap: 5px;
+      }
+
+      .screen-id-headline {
+        font-size: 1.15rem;
+      }
+
+      .screen-quote-th {
+        font-size: 10.5px;
+        line-height: 1.35;
+        padding-left: 8px;
+      }
+
+      .screen-sign {
+        font-size: 17px;
+      }
+
+      .screen-id-center {
+        grid-column: 2;
+        grid-row: 1;
+        height: 195px;
+      }
+
+      .screen-crimson-sun {
+        width: 145px;
+        height: 145px;
+      }
+
+      .screen-portrait-img {
+        height: 195px;
+      }
+
+      .screen-id-right {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        gap: 6px;
+        background: rgba(18, 10, 10, 0.92);
+        border: 1px solid rgba(201, 59, 43, 0.28);
+        border-radius: 6px;
         padding: 8px 10px;
-        gap: 2px;
-        border-bottom: 1px solid rgba(201, 59, 43, 0.16);
       }
 
-      .service-editorial-card:nth-child(2n+1) {
-        border-right: none;
+      .screen-person-name {
+        font-size: 1.1rem;
       }
 
-      .service-editorial-card:nth-last-child(-n+2) {
-        border-bottom: none;
+      .screen-bio-th {
+        font-size: 10px;
+        line-height: 1.35;
+        padding-bottom: 5px;
       }
 
-      .service-icon {
-        width: 14px;
-        height: 14px;
+      .screen-stat-num {
+        font-size: 12.5px;
       }
 
-      .service-name {
+      .screen-stat-lbl {
+        font-size: 7.5px;
+      }
+
+      .screen-page-services {
+        padding: 12px 12px 14px 12px;
+        gap: 8px;
+      }
+
+      .screen-services-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 7px;
+      }
+
+      .screen-service-card {
+        padding: 8px 9px;
+      }
+
+      .screen-srv-name {
         font-size: 10.5px;
       }
 
-      .service-desc-th {
-        font-size: 10px;
-        line-height: 1.25;
+      .screen-srv-desc {
+        font-size: 9.5px;
       }
 
-      .poster-scroll-bar {
+      .screen-client-bar {
+        font-size: 8.5px;
+        padding: 6px 9px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+      }
+
+      .macbook-base-deck {
+        width: 103%;
+        height: 22px;
+        padding: 3px 6%;
+      }
+
+      .macbook-keyboard-well {
+        height: 8px;
+      }
+
+      .macbook-pedestal {
+        width: 104%;
+        height: 16px;
+        font-size: 7.5px;
+        padding: 0 10px;
+      }
+
+      .vanta-external-bottom {
         justify-content: center;
-        padding-top: 2px;
+        padding-top: 6px;
       }
 
       .poster-client-ticker {
@@ -1030,7 +1225,7 @@
         width: 100%;
         justify-content: center;
         padding: 8px 14px;
-        font-size: 10.5px;
+        font-size: 10px;
       }
     }
 
@@ -1197,23 +1392,12 @@
       cursor: grabbing;
     }
 
-    /* Editorial Center Crosshair behind the 3D Ring */
-    .stage-editorial-reticle {
-      position: absolute;
-      width: min(76vw, 520px);
-      height: min(42vh, 320px);
-      border: 1px dashed rgba(201, 59, 43, 0.18);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 2;
-    }
-
     .ring-pivot {
       position: relative;
       width: 0;
       height: 0;
       transform-style: preserve-3d;
-      transform: rotateX(-13deg) rotateZ(-4deg) rotateY(0deg);
+      transform: rotateX(-12deg) rotateZ(-3deg) rotateY(0deg);
       will-change: transform;
     }
 
@@ -1227,21 +1411,20 @@
       margin-top: calc(var(--card-h, 150px) / -2);
       transform-style: preserve-3d;
       border-radius: 8px;
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.42);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.52);
       cursor: pointer;
       overflow: hidden;
-      transition: opacity 0.25s ease;
       backface-visibility: visible;
       -webkit-backface-visibility: visible;
     }
 
     .kinetic-section[data-theme="dark"] .ring-card {
-      border: 1px solid rgba(232, 220, 200, 0.22);
+      border: 1px solid rgba(232, 220, 200, 0.24);
       background: #181010;
     }
 
     .kinetic-section[data-theme="light"] .ring-card {
-      border: 1px solid rgba(22, 17, 16, 0.18);
+      border: 1px solid rgba(22, 17, 16, 0.20);
       background: #e6dfd3;
     }
 
@@ -1310,16 +1493,16 @@
       stroke-width: 2;
     }
 
-    /* POINT 4 MOBILE OVERRIDES: Enlarge 3D Ring ~65% & Tighten Top/Bottom Space */
+    /* POINT 4 MOBILE OVERRIDES: Wide Curved Arc (Zero Card Clumping, Zero Dashed Line) */
     @media (max-width: 768px) {
       .category-meta {
-        top: 114px;
+        top: 102px;
         left: 18px;
         right: 18px;
-        padding-bottom: 14px;
+        padding-bottom: 12px;
         flex-direction: column;
         align-items: flex-start;
-        gap: 6px;
+        gap: 5px;
       }
 
       .meta-left-group {
@@ -1327,17 +1510,17 @@
       }
 
       .category-meta .meta-badge {
-        font-size: 1.65rem;
+        font-size: 1.62rem;
         gap: 10px;
       }
 
       .category-meta .meta-badge .badge-num {
-        font-size: 1.08rem;
+        font-size: 1.05rem;
         padding: 2px 9px;
       }
 
       .category-meta .meta-sub {
-        font-size: 0.98rem;
+        font-size: 0.96rem;
         padding-left: 10px;
       }
 
@@ -1347,43 +1530,37 @@
       }
 
       .ring-stage {
-        perspective: 820px;
-        margin-top: 1vh;
+        perspective: 960px;
+        margin-top: 2vh;
       }
 
-      .stage-editorial-reticle {
-        width: 368px;
-        height: 330px;
-        border-color: rgba(201, 59, 43, 0.28);
-      }
-
-      /* Large Editorial Cards on Mobile so Ring Fills the Center Stage */
+      /* Precision Mobile Cards on Inclined 3D Ring (Radius 198px + -15deg Tilt => Zero Clumping, Full Viewport Fit) */
       .ring-card.ratio-landscape {
-        --card-w: 162px;
-        --card-h: 110px;
+        --card-w: 156px;
+        --card-h: 106px;
       }
       .ring-card.ratio-cinema {
-        --card-w: 168px;
-        --card-h: 96px;
+        --card-w: 162px;
+        --card-h: 94px;
       }
       .ring-card.ratio-portrait {
-        --card-w: 114px;
-        --card-h: 168px;
+        --card-w: 112px;
+        --card-h: 166px;
       }
       .ring-card.ratio-square {
-        --card-w: 136px;
-        --card-h: 136px;
+        --card-w: 132px;
+        --card-h: 132px;
       }
 
       .giant-kinetic-title-wrap {
-        bottom: 86px;
+        bottom: 84px;
         left: 18px;
         right: 18px;
-        padding-top: 16px;
+        padding-top: 14px;
       }
 
       .giant-kinetic-title {
-        font-size: clamp(4.5rem, 19.5vw, 6.6rem);
+        font-size: clamp(4.4rem, 19vw, 6.4rem);
         transform: scaleY(1.14);
         transform-origin: bottom center;
       }
@@ -1397,7 +1574,7 @@
       }
 
       .interaction-hint {
-        bottom: 34px;
+        bottom: 32px;
         left: 50%;
         right: auto;
         transform: translateX(-50%);
@@ -1530,188 +1707,203 @@
     }
 
     /* ==========================================================================
-       POINT 6: SECTION 09 — EDITORIAL BACK COVER (MY PROCESS + COMMISSION)
+       POINT 6: SECTION 09 — STUDIO COMMAND DESK (MACBOOK + COMMISSION DECK)
        ========================================================================== */
     .contact-section {
-      background: radial-gradient(circle at 50% 22%, #210d0b 0%, #0b0707 72%);
+      background:
+        radial-gradient(circle at 50% 28%, rgba(168, 32, 20, 0.72) 0%, rgba(76, 12, 9, 0.56) 38%, rgba(12, 7, 7, 0.98) 74%),
+        linear-gradient(180deg, #240806 0%, #0b0707 100%);
       color: var(--editorial-cream);
-      padding: 48px 32px 20px 32px;
+      padding: 48px 28px 16px 28px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
       position: relative;
+      overflow: hidden;
     }
 
     .back-cover-shell {
       width: 100%;
-      max-width: 1320px;
+      max-width: 1180px;
       height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      align-items: center;
+      position: relative;
       z-index: 10;
     }
 
-    /* Top Giant Editorial Header for Back Cover */
-    .back-cover-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      border-bottom: 1px solid rgba(201, 59, 43, 0.32);
-      padding-bottom: 10px;
-      position: relative;
+    /* Giant COMMISSION Wall Backdrop Behind Command MacBook */
+    .commission-wall-backdrop {
+      position: absolute;
+      top: 19%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 104vw;
+      text-align: center;
+      z-index: 1;
+      pointer-events: none;
+      user-select: none;
     }
 
-    .back-giant-title {
+    .commission-wall-word {
       font-family: var(--font-display);
-      font-size: clamp(3.1rem, 8.2vw, 7.2rem);
+      font-size: clamp(4.8rem, 15.8vw, 15.2rem);
       font-weight: 400;
-      color: var(--editorial-cream);
+      color: #f4efe6;
+      text-transform: uppercase;
       letter-spacing: 0.015em;
-      line-height: 0.88;
-      text-transform: uppercase;
+      line-height: 0.82;
+      white-space: nowrap;
+      opacity: 0.90;
+      text-shadow: 0 18px 50px rgba(0, 0, 0, 0.65);
     }
 
-    .back-cover-subbox {
-      text-align: right;
-      max-width: 390px;
-    }
-
-    .back-cover-kicker {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--accent-vermilion);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      margin-bottom: 4px;
-    }
-
-    .back-cover-lead {
-      font-family: var(--font-th);
-      font-size: 13px;
-      color: var(--text-dark-sub);
-      line-height: 1.45;
-    }
-
-    /* Middle Process Strip: MY PROCESS 01 - 04 (From Reference Image 1) */
-    .process-editorial-strip {
-      display: grid;
-      grid-template-columns: 145px repeat(4, 1fr);
-      border-bottom: 1px solid rgba(201, 59, 43, 0.32);
-      background: rgba(16, 9, 9, 0.72);
-    }
-
-    .process-strip-head {
-      padding: 12px 14px;
-      border-right: 1px solid rgba(201, 59, 43, 0.25);
+    /* Top Command MacBook Assembly (Shows Workflow & Optical Rig Inside Screen) */
+    .command-laptop-wrap {
+      position: relative;
+      width: min(62vw, 720px);
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      gap: 4px;
+      align-items: center;
+      z-index: 6;
+      margin-top: 2px;
     }
 
-    .process-strip-title {
-      font-family: var(--font-condensed);
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--editorial-cream);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      line-height: 1.05;
-    }
-
-    .process-strip-tag {
-      font-family: var(--font-mono);
-      font-size: 9.5px;
-      color: var(--accent-vermilion);
-      letter-spacing: 0.1em;
-    }
-
-    .process-step-card {
-      padding: 12px 14px;
-      border-right: 1px solid rgba(201, 59, 43, 0.20);
+    .command-macbook-lid {
+      position: relative;
+      width: 100%;
+      height: 220px;
+      background: linear-gradient(145deg, #2a2a2e 0%, #141417 100%);
+      border-radius: 14px 14px 3px 3px;
+      padding: 8px 8px 11px 8px;
+      border: 1.5px solid rgba(255, 255, 255, 0.22);
+      box-shadow: 0 26px 65px rgba(0, 0, 0, 0.92);
+      transform-origin: bottom center;
+      transform: perspective(1200px) rotateX(-68deg) scale(0.96);
+      opacity: 1;
+      transition:
+        transform 1.15s cubic-bezier(0.16, 1, 0.3, 1);
       display: flex;
-      align-items: flex-start;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .kinetic-section.is-in-view .command-macbook-lid {
+      transform: perspective(1200px) rotateX(0deg) scale(1);
+    }
+
+    .command-screen-inner {
+      height: 100%;
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       gap: 10px;
+      background:
+        radial-gradient(circle at 50% 25%, rgba(185, 38, 25, 0.26) 0%, #0c0707 74%),
+        #0c0707;
     }
 
-    .process-step-card:last-child {
-      border-right: none;
+    .cmd-process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
     }
 
-    .process-num {
-      font-family: var(--font-display);
-      font-size: 24px;
-      color: var(--accent-vermilion);
-      line-height: 1;
-      flex-shrink: 0;
-    }
-
-    .process-info {
+    .cmd-step-box {
+      background: rgba(22, 12, 12, 0.92);
+      border: 1px solid rgba(201, 59, 43, 0.28);
+      border-radius: 5px;
+      padding: 9px 10px;
       display: flex;
       flex-direction: column;
       gap: 3px;
     }
 
-    .process-name {
+    .cmd-step-num {
+      font-family: var(--font-display);
+      font-size: 20px;
+      color: var(--accent-vermilion);
+      line-height: 1;
+    }
+
+    .cmd-step-name {
       font-family: var(--font-sans);
-      font-size: 11.5px;
+      font-size: 10.5px;
       font-weight: 800;
       color: var(--editorial-cream);
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
     }
 
-    .process-desc-th {
+    .cmd-step-desc {
       font-family: var(--font-th);
-      font-size: 11px;
+      font-size: 10px;
       color: var(--text-dark-sub);
-      line-height: 1.35;
+      line-height: 1.32;
+      letter-spacing: 0 !important;
     }
 
-    /* Lower Split: Direct Channels (Left) + Editorial Commission Form (Right) */
+    .cmd-rig-strip {
+      background: rgba(201, 59, 43, 0.12);
+      border: 1px solid rgba(201, 59, 43, 0.26);
+      border-radius: 5px;
+      padding: 8px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--editorial-cream);
+    }
+
+    .cmd-rig-strip strong {
+      color: var(--accent-vermilion);
+    }
+
+    .command-base-deck {
+      width: 110%;
+      height: 22px;
+      background: linear-gradient(180deg, #3a3a40 0%, #222226 58%, #121215 100%);
+      border-radius: 3px 3px 12px 12px;
+      margin-top: -2px;
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.85);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 3px 8%;
+    }
+
+    .command-pedestal {
+      width: 118%;
+      height: 14px;
+      background: linear-gradient(180deg, #1b1717 0%, #090606 100%);
+      border-top: 1px solid rgba(232, 220, 200, 0.14);
+      border-radius: 2px;
+      margin-top: -1px;
+    }
+
+    /* Lower External Direct Channels (Left) + Editorial Commission Form (Right) */
     .contact-body-grid {
+      width: 100%;
       display: grid;
       grid-template-columns: 1fr 1.35fr;
-      gap: 24px;
-      align-items: start;
-      padding: 12px 0;
+      gap: 20px;
+      align-items: stretch;
+      padding: 6px 0;
+      z-index: 8;
     }
 
     .contact-info-panel {
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
-      gap: 10px;
-    }
-
-    .studio-cred-card {
-      background: rgba(20, 11, 11, 0.82);
-      border: 1px solid rgba(201, 59, 43, 0.25);
-      border-radius: 6px;
-      padding: 11px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .studio-cred-title {
-      font-family: var(--font-mono);
-      font-size: 9.5px;
-      font-weight: 700;
-      color: var(--accent-vermilion);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .studio-cred-text {
-      font-family: var(--font-th);
-      font-size: 11.5px;
-      color: var(--text-dark-sub);
-      line-height: 1.42;
-      letter-spacing: 0 !important;
+      justify-content: space-between;
+      gap: 8px;
     }
 
     .form-panel-head {
@@ -1719,13 +1911,13 @@
       justify-content: space-between;
       align-items: baseline;
       border-bottom: 1px solid rgba(201, 59, 43, 0.24);
-      padding-bottom: 8px;
-      margin-bottom: 10px;
+      padding-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     .form-panel-title {
       font-family: var(--font-condensed);
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 700;
       color: var(--editorial-cream);
       letter-spacing: 0.04em;
@@ -1734,7 +1926,7 @@
 
     .form-panel-sub {
       font-family: var(--font-mono);
-      font-size: 9.5px;
+      font-size: 9px;
       color: var(--accent-vermilion);
       letter-spacing: 0.08em;
     }
@@ -1742,16 +1934,16 @@
     .contact-channel-cards {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      gap: 8px;
     }
 
     .contact-card-item {
       display: flex;
       align-items: center;
-      gap: 11px;
-      padding: 11px 13px;
-      background: rgba(20, 11, 11, 0.82);
-      border: 1px solid rgba(201, 59, 43, 0.25);
+      gap: 10px;
+      padding: 10px 12px;
+      background: rgba(18, 10, 10, 0.88);
+      border: 1px solid rgba(201, 59, 43, 0.28);
       border-radius: 6px;
       text-decoration: none;
       color: inherit;
@@ -1764,12 +1956,12 @@
 
     .contact-card-item:hover {
       border-color: var(--accent-vermilion);
-      background: rgba(201, 59, 43, 0.12);
+      background: rgba(201, 59, 43, 0.14);
     }
 
     .contact-card-icon {
-      width: 34px;
-      height: 34px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       border: 1px solid rgba(224, 79, 62, 0.45);
       background: rgba(201, 59, 43, 0.12);
@@ -1781,8 +1973,8 @@
     }
 
     .contact-card-icon svg {
-      width: 15px;
-      height: 15px;
+      width: 14px;
+      height: 14px;
     }
 
     .contact-card-meta {
@@ -1793,7 +1985,7 @@
 
     .contact-card-meta .lbl {
       font-family: var(--font-mono);
-      font-size: 9.5px;
+      font-size: 9px;
       font-weight: 600;
       color: var(--text-dark-sub);
       text-transform: uppercase;
@@ -1802,7 +1994,7 @@
 
     .contact-card-meta .val {
       font-family: var(--font-sans);
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 700;
       color: var(--editorial-cream);
       white-space: nowrap;
@@ -1821,12 +2013,12 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      padding: 8px 10px;
-      background: rgba(20, 11, 11, 0.72);
-      border: 1px solid rgba(201, 59, 43, 0.22);
+      padding: 7px 10px;
+      background: rgba(18, 10, 10, 0.82);
+      border: 1px solid rgba(201, 59, 43, 0.24);
       border-radius: 6px;
       font-family: var(--font-mono);
-      font-size: 10.5px;
+      font-size: 10px;
       font-weight: 600;
       color: var(--editorial-cream);
       text-decoration: none;
@@ -1850,10 +2042,10 @@
 
     /* Right Form Panel */
     .contact-form-panel {
-      background: rgba(18, 10, 10, 0.88);
-      border: 1px solid rgba(201, 59, 43, 0.32);
+      background: rgba(18, 10, 10, 0.90);
+      border: 1px solid rgba(201, 59, 43, 0.34);
       border-radius: 8px;
-      padding: 18px 22px;
+      padding: 14px 18px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -1862,37 +2054,37 @@
     .mockup-form {
       display: flex;
       flex-direction: column;
-      gap: 11px;
+      gap: 9px;
     }
 
     .form-row-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 10px;
     }
 
     .form-field {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 3px;
     }
 
     .field-label {
       font-family: var(--font-th);
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 600;
       color: var(--editorial-cream);
     }
 
     .field-input, .field-select, .field-textarea {
       width: 100%;
-      background: rgba(11, 7, 7, 0.85);
+      background: rgba(11, 7, 7, 0.88);
       border: 1px solid rgba(201, 59, 43, 0.28);
       border-radius: 5px;
-      padding: 8px 11px;
+      padding: 7px 10px;
       color: var(--editorial-cream);
       font-family: var(--font-sans);
-      font-size: 12px;
+      font-size: 11.5px;
       outline: none;
       transition: border-color 0.2s ease;
     }
@@ -1915,9 +2107,9 @@
       color: #ffffff;
       border: 1px solid var(--accent-vermilion);
       border-radius: 5px;
-      padding: 10px 18px;
+      padding: 9px 16px;
       font-family: var(--font-th);
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -1931,16 +2123,18 @@
     }
 
     .back-cover-footer {
+      width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
       border-top: 1px solid rgba(201, 59, 43, 0.24);
-      padding-top: 8px;
+      padding-top: 6px;
       font-family: var(--font-mono);
-      font-size: 10px;
+      font-size: 9.5px;
       color: var(--text-dark-sub);
       letter-spacing: 0.08em;
       text-transform: uppercase;
+      z-index: 8;
     }
 
     .back-top-btn {
@@ -1948,7 +2142,7 @@
       border: none;
       color: var(--editorial-cream);
       font-family: var(--font-mono);
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 700;
       letter-spacing: 0.1em;
       cursor: pointer;
@@ -1959,170 +2153,176 @@
       color: var(--accent-vermilion);
     }
 
-    /* Mobile Responsive Editorial Back Cover (Fits 100dvh on 430x932 cleanly!) */
+    /* Mobile Responsive Studio Command Desk (Section 09 on 430x932) */
     @media (max-width: 768px) {
       .contact-section {
-        padding: 42px 14px 12px 14px;
+        padding: 44px 12px 10px 12px;
       }
 
-      .back-cover-top {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 2px;
-        padding-bottom: 6px;
+      .commission-wall-backdrop {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        width: 100%;
+        margin-bottom: 2px;
       }
 
-      .back-giant-title {
-        font-size: clamp(2.6rem, 13.5vw, 3.8rem);
-        line-height: 0.88;
+      .commission-wall-word {
+        font-size: 16.5vw;
+        line-height: 0.84;
       }
 
-      .back-cover-subbox {
-        text-align: left;
-        max-width: 100%;
+      .command-laptop-wrap {
+        width: 96vw;
+        max-width: 406px;
       }
 
-      .back-cover-kicker {
-        display: none;
+      .command-macbook-lid {
+        height: 176px;
+        padding: 6px 6px 8px 6px;
+        border-radius: 10px 10px 3px 3px;
       }
 
-      .back-cover-lead {
-        font-size: 11px;
-        line-height: 1.3;
-      }
-
-      .process-editorial-strip {
-        grid-template-columns: repeat(2, 1fr);
-        border: 1px solid rgba(201, 59, 43, 0.28);
-        border-radius: 6px;
-        overflow: hidden;
-      }
-
-      .process-strip-head {
-        display: none;
-      }
-
-      .process-step-card {
-        padding: 6px 8px;
+      .command-screen-inner {
+        padding: 8px 10px;
         gap: 6px;
-        border-bottom: 1px solid rgba(201, 59, 43, 0.18);
       }
 
-      .process-step-card:nth-child(2n+1) {
-        border-right: none;
+      .cmd-process-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 5px;
       }
 
-      .process-step-card:nth-last-child(-n+2) {
-        border-bottom: none;
+      .cmd-step-box {
+        padding: 5px 7px;
+        flex-direction: row;
+        align-items: center;
+        gap: 6px;
       }
 
-      .process-num {
-        font-size: 18px;
+      .cmd-step-num {
+        font-size: 16px;
       }
 
-      .process-name {
-        font-size: 9.5px;
+      .cmd-step-name {
+        font-size: 9px;
       }
 
-      .process-desc-th {
-        font-size: 9.5px;
-        line-height: 1.2;
+      .cmd-step-desc {
+        font-size: 8.8px;
+        line-height: 1.18;
+      }
+
+      .cmd-rig-strip {
+        padding: 5px 8px;
+        font-size: 8px;
+      }
+
+      .command-base-deck {
+        width: 103%;
+        height: 14px;
+      }
+
+      .command-pedestal {
+        width: 104%;
+        height: 8px;
       }
 
       .contact-body-grid {
         grid-template-columns: 1fr;
-        gap: 8px;
-        padding: 6px 0;
+        gap: 6px;
+        padding: 4px 0;
       }
 
       .contact-info-panel {
-        gap: 6px;
+        gap: 5px;
       }
 
       .contact-channel-cards {
         grid-template-columns: repeat(2, 1fr);
-        gap: 6px;
+        gap: 5px;
       }
 
       .contact-card-item {
-        padding: 7px 9px;
-        gap: 7px;
-      }
-
-      .contact-card-icon {
-        width: 26px;
-        height: 26px;
-      }
-
-      .contact-card-icon svg {
-        width: 12px;
-        height: 12px;
-      }
-
-      .contact-card-meta .lbl {
-        font-size: 8px;
-      }
-
-      .contact-card-meta .val {
-        font-size: 11px;
-      }
-
-      .contact-social-grid {
+        padding: 6px 8px;
         gap: 6px;
       }
 
-      .social-pill {
-        padding: 5px 6px;
-        font-size: 9.5px;
-      }
-
-      .studio-cred-card {
+      .contact-card-item.hide-on-mob {
         display: none;
       }
 
+      .contact-card-icon {
+        width: 24px;
+        height: 24px;
+      }
+
+      .contact-card-icon svg {
+        width: 11px;
+        height: 11px;
+      }
+
+      .contact-card-meta .lbl {
+        font-size: 7.5px;
+      }
+
+      .contact-card-meta .val {
+        font-size: 10.5px;
+      }
+
+      .contact-social-grid {
+        gap: 5px;
+      }
+
+      .social-pill {
+        padding: 4px 6px;
+        font-size: 8.8px;
+      }
+
       .form-panel-head {
-        padding-bottom: 5px;
-        margin-bottom: 6px;
+        padding-bottom: 4px;
+        margin-bottom: 5px;
       }
 
       .form-panel-title {
-        font-size: 13px;
+        font-size: 12px;
       }
 
       .form-panel-sub {
-        font-size: 8.5px;
+        font-size: 8px;
       }
 
       .contact-form-panel {
-        padding: 10px 12px;
+        padding: 8px 10px;
       }
 
       .mockup-form {
-        gap: 7px;
+        gap: 5px;
       }
 
       .form-row-2 {
         grid-template-columns: 1fr 1fr;
-        gap: 8px;
+        gap: 6px;
       }
 
       .field-label {
-        font-size: 10px;
+        font-size: 9.5px;
       }
 
       .field-input, .field-select, .field-textarea {
-        padding: 6px 8px;
-        font-size: 11px;
+        padding: 5px 7px;
+        font-size: 10.5px;
       }
 
       .submit-inquiry-btn {
-        padding: 8px 14px;
-        font-size: 12px;
+        padding: 7px 12px;
+        font-size: 11.5px;
       }
 
       .back-cover-footer {
-        padding-top: 6px;
-        font-size: 8.5px;
+        padding-top: 4px;
+        font-size: 8px;
       }
     }
   </style>
@@ -2153,165 +2353,175 @@
   <nav class="side-indicator" id="side-indicator" aria-label="Category Navigation"></nav>
 
   <!-- =========================================================================
-       MAIN VIEWPORT CONTAINER (EDITORIAL POSTER COVER + 8 RINGS + BACK COVER)
+       MAIN VIEWPORT CONTAINER (VANTA//9 MACBOOK COVER + 8 RINGS + COMMAND DESK)
        ========================================================================= -->
   <main class="viewport-canvas" id="viewport-canvas">
 
     <!-- =======================================================================
-         SECTION 00: EDITORIAL MAGAZINE COVER POSTER (POINT 3)
+         SECTION 00: VANTA//9 INSPIRED 3D MACBOOK STUDIO PRESENTATION
          ======================================================================= -->
     <section class="kinetic-section intro-section" id="sec-intro" data-theme="dark" data-index="0">
-      <div class="editorial-poster-shell">
+      <div class="vanta-stage-shell">
 
-        <!-- 1. Giant Condensed Magazine Title -->
-        <div class="poster-headline-wrap">
-          <h1 class="poster-giant-word">FELTZ STUDIO</h1>
+        <!-- 1. External Top Strip (Outside MacBook) -->
+        <div class="vanta-external-top">
+          <span class="ext-pill"><strong>00 // COVER</strong> &middot; COMMERCIAL PHOTOGRAPHY STUDIO</span>
+          <span class="ext-pill">CHIANG MAI BASE &middot; <strong>NATIONWIDE COMMISSION</strong></span>
+        </div>
 
-          <!-- Rotating Editorial Stamp SVG -->
-          <div class="editorial-stamp" aria-hidden="true">
-            <svg class="stamp-ring" viewBox="0 0 120 120">
-              <defs>
-                <path id="stampCirclePath" d="M 60, 60 m -44, 0 a 44,44 0 1,1 88,0 a 44,44 0 1,1 -88,0" />
-              </defs>
-              <text fill="#e8dcc8" font-family="JetBrains Mono, monospace" font-size="9.2" font-weight="700" letter-spacing="2.2">
-                <textPath href="#stampCirclePath">COMMERCIAL · STAGE · SPACE · SPORT ·</textPath>
-              </text>
-            </svg>
-            <div class="stamp-star">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 1L14.5 9.5L23 12L14.5 14.5L12 23L9.5 14.5L1 12L9.5 9.5L12 1Z" />
-              </svg>
+        <!-- 2. Giant Architectural Wall Headline Behind MacBook (Like VANTA//9) -->
+        <div class="vanta-wall-backdrop" aria-hidden="true">
+          <div class="vanta-wall-word">FELTZ STUDIO</div>
+        </div>
+
+        <!-- 3. Center 3D Hinged MacBook Rig -->
+        <div class="macbook-rig-arena">
+
+          <!-- 3D MacBook Hardware Assembly -->
+          <div class="macbook-assembly">
+
+            <!-- Hinged Screen Lid -->
+            <div class="macbook-lid" id="cover-macbook-lid">
+              <div class="macbook-notch" aria-hidden="true"></div>
+
+              <div class="macbook-screen">
+                <!-- Screen OS Header Bar -->
+                <div class="screen-os-bar">
+                  <div class="os-left-cluster">
+                    <div class="os-dots">
+                      <span></span><span></span><span></span>
+                    </div>
+                    <span class="screen-os-title">FELTZ_STUDIO // PROFILE.APP</span>
+                  </div>
+                  <div class="screen-slide-tabs">
+                    <button type="button" class="screen-tab-btn active" id="tab-btn-id" onclick="scrollCoverLaptopTo(0)">01 IDENTITY</button>
+                    <button type="button" class="screen-tab-btn" id="tab-btn-srv" onclick="scrollCoverLaptopTo(1)">02 WHAT I DO</button>
+                  </div>
+                </div>
+
+                <!-- Auto-Scrolling Inner Viewport -->
+                <div class="screen-scroll-viewport" id="cover-screen-viewport">
+                  <div class="screen-scroll-track" id="cover-screen-track">
+
+                    <!-- Page 1 Inside Screen: Photographer Profile & Cutout Portrait -->
+                    <div class="screen-page-identity" id="screen-sec-identity">
+                      <div class="screen-id-left">
+                        <div class="screen-id-kicker">FOUNDER &amp; VISUAL DIRECTOR</div>
+                        <div class="screen-id-headline">BUILT FOR<br/>COMMERCIAL<br/>IMPACT.</div>
+                        <p class="screen-quote-th">
+                          &ldquo;ทุกช็อตคือการวางกลยุทธ์ภาพลักษณ์ ถ่ายทอดสเปซ แสงจริง และอารมณ์สดให้กลายเป็นมูลค่าทางการค้าของแบรนด์&rdquo;
+                        </p>
+                        <span class="screen-sign">Mongkol W.</span>
+                      </div>
+
+                      <div class="screen-id-center">
+                        <div class="screen-crimson-sun"></div>
+                        <img src="assets/keng_cutout.png" alt="Mongkol Wongsakulyanon — Feltz Studio" class="screen-portrait-img" fetchpriority="high" />
+                      </div>
+
+                      <div class="screen-id-right">
+                        <div>
+                          <h1 class="screen-person-name">MONGKOL<br/>WONGSAKULYANON</h1>
+                          <div class="screen-person-role">FELTZ STUDIO // EST. 2012 CHIANG MAI</div>
+                        </div>
+                        <p class="screen-bio-th">
+                          ช่างภาพพาณิชย์และที่ปรึกษาภาพลักษณ์ประจำเชียงใหม่ เชี่ยวชาญการถ่ายทอดมิติสถาปัตยกรรม โรงแรม สปอร์ตความเร็วสูง คอนเสิร์ต และสินค้าแบรนด์ชั้นนำ พร้อมเดินทางถ่ายทำทั่วประเทศ
+                        </p>
+                        <div class="screen-stats-grid">
+                          <div class="screen-stat-box">
+                            <div class="screen-stat-num">12+ YRS</div>
+                            <div class="screen-stat-lbl">COMMERCIAL<br/>EXPERIENCE</div>
+                          </div>
+                          <div class="screen-stat-box">
+                            <div class="screen-stat-num">14+</div>
+                            <div class="screen-stat-lbl">ENTERPRISE<br/>CLIENTS</div>
+                          </div>
+                          <div class="screen-stat-box">
+                            <div class="screen-stat-num">DUAL</div>
+                            <div class="screen-stat-lbl">SONY ALPHA<br/>MASTER RIG</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Page 2 Inside Screen: WHAT I DO (4 Services Grid + Enterprise Clients) -->
+                    <div class="screen-page-services" id="screen-sec-services">
+                      <div class="screen-sec-head">
+                        <span class="screen-sec-title">WHAT I DO // 08 COMMERCIAL PORTFOLIOS</span>
+                        <span class="screen-sec-sub">TAP CATEGORY TO JUMP &rarr;</span>
+                      </div>
+
+                      <div class="screen-services-grid">
+                        <div class="screen-service-card" onclick="scrollToCategory(1)">
+                          <div class="screen-srv-top">
+                            <span>01 / 03</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                          </div>
+                          <div class="screen-srv-name">STAGE &amp; SPORT</div>
+                          <div class="screen-srv-desc">คอนเสิร์ตใหญ่และกีฬาความเร็วสูง</div>
+                        </div>
+
+                        <div class="screen-service-card" onclick="scrollToCategory(2)">
+                          <div class="screen-srv-top">
+                            <span>02 / 04</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/></svg>
+                          </div>
+                          <div class="screen-srv-name">SPACE &amp; HOTEL</div>
+                          <div class="screen-srv-desc">โรงแรม รีสอร์ต และอสังหาริมทรัพย์</div>
+                        </div>
+
+                        <div class="screen-service-card" onclick="scrollToCategory(5)">
+                          <div class="screen-srv-top">
+                            <span>05 / 06</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                          </div>
+                          <div class="screen-srv-name">BRAND &amp; DINING</div>
+                          <div class="screen-srv-desc">สินค้าโฆษณาและอาหารไฟน์ไดน์นิ่ง</div>
+                        </div>
+
+                        <div class="screen-service-card" onclick="scrollToCategory(7)">
+                          <div class="screen-srv-top">
+                            <span>07 / 08</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+                          </div>
+                          <div class="screen-srv-name">PORTRAIT &amp; EVENT</div>
+                          <div class="screen-srv-desc">พอร์ตเทรตผู้บริหารและอีเวนต์องค์กร</div>
+                        </div>
+                      </div>
+
+                      <div class="screen-client-bar">
+                        <span class="lbl">SELECTED ENTERPRISE CLIENTS //</span>
+                        <span>SINGHA &middot; KBANK &middot; THAI AIRASIA &middot; TRUE &middot; AIA &middot; YAMAHA &middot; TCEB &middot; GISTDA</span>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
             </div>
+
+            <!-- 3D Keyboard Deck & Monolith Pedestal Base -->
+            <div class="macbook-base-deck" aria-hidden="true">
+              <div class="macbook-keyboard-well"></div>
+              <div class="macbook-front-lip"></div>
+            </div>
+            <div class="macbook-pedestal" aria-hidden="true">
+              <span>FELTZ STUDIO // OPTICAL RIG</span>
+              <span>AUTO-SCROLLING PROFILE</span>
+            </div>
+
           </div>
         </div>
 
-        <!-- 2. Centerpiece Stage: Left Optical Direction + Center Cutout Portrait + Right Identity & Stats -->
-        <div class="poster-hero-stage">
-
-          <!-- Left Column -->
-          <div class="poster-col-left">
-            <div class="poster-kicker-title">OPTICAL / VISUAL /<br/>DIRECTION</div>
-            <ul class="poster-sub-list">
-              <li>COMMERCIAL PHOTOGRAPHY</li>
-              <li>CONCERT &amp; LIVE STAGE</li>
-              <li>REAL ESTATE &amp; HOSPITALITY</li>
-            </ul>
-            <div class="poster-red-rule"></div>
-            <div class="poster-quote-box">
-              <span class="poster-quote-mark">&ldquo;</span>
-              <p class="editorial-quote-th">
-                ทุกช็อตคือการวางกลยุทธ์ภาพลักษณ์ ถ่ายทอดสเปซ แสงจริง และอารมณ์สดให้กลายเป็นมูลค่าทางการค้าของแบรนด์
-              </p>
-              <span class="poster-signature">Mongkol W.</span>
-            </div>
+        <!-- 4. External Bottom Bar -->
+        <div class="vanta-external-bottom">
+          <div class="poster-client-ticker">
+            TRUSTED BY: SINGHA &middot; KBANK &middot; THAI AIRASIA &middot; TRUE &middot; AIA &middot; YAMAHA &middot; TCEB &middot; GISTDA
           </div>
-
-          <!-- Center Cutout Portrait Overlapping Giant Title -->
-          <div class="poster-col-center">
-            <div class="crimson-halo-circle"></div>
-            <img src="assets/keng_cutout.png" alt="Mongkol Wongsakulyanon — Feltz Studio" class="cutout-portrait-img" fetchpriority="high" />
-          </div>
-
-          <!-- Right Column -->
-          <div class="poster-col-right">
-            <div class="poster-person-header-mob">
-              <h2 class="poster-person-name">MONGKOL<br/>WONGSAKULYANON</h2>
-              <div class="poster-person-role">FOUNDER &amp; LEAD VISUAL DIRECTOR</div>
-            </div>
-            <p class="editorial-bio-th">
-              ช่างภาพพาณิชย์และที่ปรึกษาภาพลักษณ์ประจำเชียงใหม่ (ก่อตั้งปี 2012) เชี่ยวชาญการถ่ายทอดมิติสถาปัตยกรรม โรงแรม สปอร์ตความเร็วสูง คอนเสิร์ต และสินค้าแบรนด์ชั้นนำ พร้อมเดินทางถ่ายทำทั่วประเทศ
-            </p>
-
-            <!-- 3 Editorial Stats with Thin Red Circle Icons -->
-            <div class="poster-stats-row">
-              <div class="poster-stat-item">
-                <div class="stat-icon-circle">
-                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-                </div>
-                <div>
-                  <div class="poster-stat-num">12+</div>
-                  <div class="poster-stat-label">YEARS<br/>EXPERIENCE</div>
-                </div>
-              </div>
-
-              <div class="poster-stat-item">
-                <div class="stat-icon-circle">
-                  <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
-                </div>
-                <div>
-                  <div class="poster-stat-num">14+</div>
-                  <div class="poster-stat-label">ENTERPRISE<br/>BRANDS</div>
-                </div>
-              </div>
-
-              <div class="poster-stat-item">
-                <div class="stat-icon-circle">
-                  <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-                </div>
-                <div>
-                  <div class="poster-stat-num">DUAL</div>
-                  <div class="poster-stat-label">SONY ALPHA<br/>MASTER RIG</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- 3. Bottom Strip: WHAT I DO (4 Service Cards) + Scroll CTA -->
-        <div class="poster-bottom-deck">
-          <div class="what-i-do-frame">
-            <div class="what-i-do-head">
-              <div class="what-i-do-title">WHAT I DO</div>
-              <div class="what-i-do-sub">08 PORTFOLIOS</div>
-            </div>
-
-            <div class="service-editorial-card" onclick="scrollToCategory(1)">
-              <div class="service-card-top">
-                <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                <span class="service-num-tag">01 / 03</span>
-              </div>
-              <div class="service-name">STAGE &amp; SPORT</div>
-              <div class="service-desc-th">คอนเสิร์ตใหญ่และกีฬาความเร็วสูง</div>
-            </div>
-
-            <div class="service-editorial-card" onclick="scrollToCategory(2)">
-              <div class="service-card-top">
-                <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/></svg>
-                <span class="service-num-tag">02 / 04</span>
-              </div>
-              <div class="service-name">SPACE &amp; HOTEL</div>
-              <div class="service-desc-th">โรงแรม รีสอร์ต และอสังหาริมทรัพย์</div>
-            </div>
-
-            <div class="service-editorial-card" onclick="scrollToCategory(5)">
-              <div class="service-card-top">
-                <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-                <span class="service-num-tag">05 / 06</span>
-              </div>
-              <div class="service-name">BRAND &amp; DINING</div>
-              <div class="service-desc-th">สินค้าโฆษณาและอาหารไฟน์ไดน์นิ่ง</div>
-            </div>
-
-            <div class="service-editorial-card" onclick="scrollToCategory(7)">
-              <div class="service-card-top">
-                <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
-                <span class="service-num-tag">07 / 08</span>
-              </div>
-              <div class="service-name">PORTRAIT &amp; EVENT</div>
-              <div class="service-desc-th">พอร์ตเทรตผู้บริหารและอีเวนต์องค์กร</div>
-            </div>
-          </div>
-
-          <div class="poster-scroll-bar">
-            <div class="poster-client-ticker">
-              TRUSTED BY: SINGHA · KBANK · THAI AIRASIA · TRUE · AIA · YAMAHA · TCEB · GISTDA
-            </div>
-            <button type="button" class="poster-scroll-btn" onclick="scrollToCategory(1)">
-              <span>SCROLL TO EXPLORE 08 PORTFOLIOS</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-            </button>
-          </div>
+          <button type="button" class="poster-scroll-btn" onclick="scrollToCategory(1)">
+            <span>SCROLL TO EXPLORE 08 PORTFOLIOS</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+          </button>
         </div>
 
       </div>
@@ -2572,21 +2782,17 @@
         `;
         sec.appendChild(meta);
 
-        // 3D Ring Stage
+        // 3D Ring Stage (Zero Dashed Reticle, Wide Curved Arc on Mobile)
         const stage = document.createElement("div");
         stage.className = "ring-stage";
         stage.id = `stage-${cat.id}`;
-
-        const reticle = document.createElement("div");
-        reticle.className = "stage-editorial-reticle";
-        stage.appendChild(reticle);
 
         const pivot = document.createElement("div");
         pivot.className = "ring-pivot";
         pivot.id = `pivot-${cat.id}`;
 
         const isMobile = window.innerWidth <= 768;
-        const radius = isMobile ? 148 : 375;
+        const radius = isMobile ? 198 : 375;
         const stepDeg = 360 / cat.photos.length;
         const fetchPri = cIdx < 2 ? "fetchpriority=\"high\"" : "fetchpriority=\"low\"";
 
@@ -2596,6 +2802,7 @@
           const deg = pIdx * stepDeg;
           card.style.transform = `rotateY(${deg}deg) translateZ(${radius}px)`;
           card.setAttribute("data-photo-idx", pIdx);
+          card.setAttribute("data-base-deg", deg);
 
           card.innerHTML = `
             <img src="${photo.thumb}" alt="${photo.title}" decoding="async" ${fetchPri} draggable="false" />
@@ -2639,7 +2846,7 @@
         setupRingController(cat, stage, pivot, cIdx);
       });
 
-      // 3. Build Section 09: Editorial Back Cover (MY PROCESS 01-04 + Commission Brief)
+      // 3. Build Section 09: Studio Command Desk (Option 1 — MacBook + Commission Deck)
       const contactIndex = 9;
       const contactDot = document.createElement("button");
       contactDot.type = "button";
@@ -2658,56 +2865,79 @@
         <div class="ambient-glow" style="--glow-color: rgba(201, 59, 43, 0.28);"></div>
         <div class="back-cover-shell">
 
-          <!-- 1. Editorial Back Cover Giant Header -->
-          <div class="back-cover-top">
-            <h2 class="back-giant-title">FELTZ COMMISSION</h2>
-            <div class="back-cover-subbox">
-              <div class="back-cover-kicker">09 // BOOKING &amp; PRODUCTION INQUIRY</div>
-              <p class="back-cover-lead">พูดคุยทิศทางภาพลักษณ์ วางแผนการถ่ายทำ หรือขอใบเสนอราคาโดยตรงกับ มงคล วงศ์สกุลยานนท์ (เก่ง)</p>
-            </div>
+          <!-- 1. Giant COMMISSION Wall Backdrop Behind Command MacBook -->
+          <div class="commission-wall-backdrop" aria-hidden="true">
+            <div class="commission-wall-word">COMMISSION</div>
           </div>
 
-          <!-- 2. MY PROCESS // 01-04 (Matching Editorial Poster Reference) -->
-          <div class="process-editorial-strip">
-            <div class="process-strip-head">
-              <div class="process-strip-title">MY PROCESS</div>
-              <div class="process-strip-tag">04 WORKFLOW STEPS</div>
-            </div>
+          <!-- 2. Top Studio Command MacBook (Displays 04 Workflow Steps & Optical Rig) -->
+          <div class="command-laptop-wrap">
+            <div class="command-macbook-lid">
+              <div class="macbook-notch" aria-hidden="true"></div>
+              <div class="macbook-screen">
+                <div class="screen-os-bar">
+                  <div class="os-left-cluster">
+                    <div class="os-dots">
+                      <span></span><span></span><span></span>
+                    </div>
+                    <span class="screen-os-title">FELTZ_STUDIO // WORKFLOW.SYS</span>
+                  </div>
+                  <span style="color: var(--accent-vermilion);">09 // COMMAND DESK</span>
+                </div>
 
-            <div class="process-step-card">
-              <span class="process-num">01</span>
-              <div class="process-info">
-                <div class="process-name">BRIEF &amp; DIRECTION</div>
-                <div class="process-desc-th">วิเคราะห์โจทย์แบรนด์และวางโครงเรื่องภาพ</div>
+                <div class="screen-scroll-viewport" id="cmd-screen-viewport">
+                  <div class="command-screen-inner">
+                    <div class="cmd-process-grid">
+                      <div class="cmd-step-box">
+                        <span class="cmd-step-num">01</span>
+                        <div>
+                          <div class="cmd-step-name">BRIEF &amp; DIRECTION</div>
+                          <div class="cmd-step-desc">วิเคราะห์โจทย์แบรนด์และวางโครงเรื่องภาพ</div>
+                        </div>
+                      </div>
+
+                      <div class="cmd-step-box">
+                        <span class="cmd-step-num">02</span>
+                        <div>
+                          <div class="cmd-step-name">PRODUCTION &amp; RIG</div>
+                          <div class="cmd-step-desc">ถ่ายทำด้วยชุดกล้องคู่และจัดแสงสตูดิโอ</div>
+                        </div>
+                      </div>
+
+                      <div class="cmd-step-box">
+                        <span class="cmd-step-num">03</span>
+                        <div>
+                          <div class="cmd-step-name">COLOR GRADING</div>
+                          <div class="cmd-step-desc">เกรดสีและรีทัชด้วย Capture One &amp; DaVinci</div>
+                        </div>
+                      </div>
+
+                      <div class="cmd-step-box">
+                        <span class="cmd-step-num">04</span>
+                        <div>
+                          <div class="cmd-step-name">FAST DELIVERY</div>
+                          <div class="cmd-step-desc">ส่งมอบไฟล์ความละเอียดสูงพร้อมใช้งานทันที</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="cmd-rig-strip">
+                      <span><strong>MASTER RIG:</strong> Dual Sony A7 IV &middot; FE 70-200mm GM II &middot; Sigma Art</span>
+                      <span><strong>CLIENTS:</strong> Singha &middot; KBank &middot; AirAsia &middot; True &middot; AIA</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div class="process-step-card">
-              <span class="process-num">02</span>
-              <div class="process-info">
-                <div class="process-name">PRODUCTION &amp; RIG</div>
-                <div class="process-desc-th">ถ่ายทำด้วยชุดกล้องคู่และจัดแสงระดับสตูดิโอ</div>
-              </div>
+            <div class="command-base-deck" aria-hidden="true">
+              <div class="macbook-keyboard-well"></div>
+              <div class="macbook-front-lip"></div>
             </div>
-
-            <div class="process-step-card">
-              <span class="process-num">03</span>
-              <div class="process-info">
-                <div class="process-name">COLOR LAB GRADING</div>
-                <div class="process-desc-th">เกรดสีและรีทัชด้วย Capture One &amp; DaVinci</div>
-              </div>
-            </div>
-
-            <div class="process-step-card">
-              <span class="process-num">04</span>
-              <div class="process-info">
-                <div class="process-name">FAST DELIVERY</div>
-                <div class="process-desc-th">ส่งมอบไฟล์ความละเอียดสูงพร้อมใช้งานทันที</div>
-              </div>
-            </div>
+            <div class="command-pedestal" aria-hidden="true"></div>
           </div>
 
-          <!-- 3. Direct Contact Channels & Editorial Inquiry Form -->
+          <!-- 3. External Direct Contact Channels & Editorial Inquiry Form Below Laptop -->
           <div class="contact-body-grid">
             <div class="contact-info-panel">
               <div class="contact-channel-cards">
@@ -2741,7 +2971,7 @@
                   </div>
                 </a>
 
-                <div class="contact-card-item full-span">
+                <div class="contact-card-item full-span hide-on-mob">
                   <div class="contact-card-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                   </div>
@@ -2750,11 +2980,6 @@
                     <span class="val">65/1 ถ.ต้นขาม ต.ท่าศาลา อ.เมือง จ.เชียงใหม่ 50000</span>
                   </div>
                 </div>
-              </div>
-
-              <div class="studio-cred-card">
-                <div class="studio-cred-title">OPTICAL RIG &amp; ENTERPRISE CLIENTS</div>
-                <div class="studio-cred-text">Dual Sony A7 IV · FE 70-200mm GM II · Sigma Art · Capture One &amp; DaVinci Resolve<br/>Singha · KBank · Thai AirAsia · True · AIA · Yamaha · TCEB · GISTDA</div>
               </div>
 
               <div class="contact-social-grid">
@@ -2841,10 +3066,12 @@
     // 3D RING CONTROLLER (AUTO SPIN + TOUCH INERTIA + HOVER/TOUCH PAUSE)
     // =========================================================================
     function setupRingController(cat, stageElem, pivotElem, catIdx) {
+      const cards = Array.from(pivotElem.querySelectorAll(".ring-card"));
       const state = {
         cat,
         catIdx,
         pivot: pivotElem,
+        cards,
         currentRotation: 0,
         velocity: 0,
         isDragging: false,
@@ -2924,7 +3151,6 @@
       window.addEventListener("touchend", onPointerUp, { passive: true });
       window.addEventListener("touchcancel", onPointerUp, { passive: true });
 
-      const cards = pivotElem.querySelectorAll(".ring-card");
       cards.forEach((cardEl, pIdx) => {
         cardEl.addEventListener("click", () => {
           if (state.dragDistance < 8 && !isLightboxSpatialAnimating) {
@@ -2934,11 +3160,11 @@
       });
     }
 
-    // Animation Loop (Uses deeper oval tilt on mobile so the ring fills vertical space)
+    // Animation Loop (With Inclined Elliptical Tilt & Front-Arc Depth Culling on Mobile so Cards Never Clump)
     function animateRings() {
       const isMobile = window.innerWidth <= 768;
-      const tiltX = isMobile ? -19 : -13;
-      const tiltZ = isMobile ? -5 : -4;
+      const tiltX = isMobile ? -15 : -12;
+      const tiltZ = isMobile ? -3.5 : -3.5;
 
       ringControllers.forEach(ctrl => {
         if (!ctrl.isNearView) return;
@@ -2953,9 +3179,121 @@
         }
 
         ctrl.pivot.style.transform = `rotateX(${tiltX}deg) rotateZ(${tiltZ}deg) rotateY(${ctrl.currentRotation}deg)`;
+
+        // Depth Culling per Card so Front Cards Stand Out Cleanly Without Back-Row Clutter
+        const stepDeg = 360 / ctrl.cards.length;
+        ctrl.cards.forEach((cardEl, idx) => {
+          if (cardEl === activeClickedCardEl) return;
+          const totalDeg = (idx * stepDeg) + ctrl.currentRotation;
+          const rad = (totalDeg * Math.PI) / 180;
+          const depth = Math.cos(rad); // +1 = Front Center, 0 = Left/Right Edge, -1 = Back Center
+          cardEl.style.zIndex = String(Math.round((depth + 1) * 50));
+
+          if (isMobile) {
+            if (depth > 0.45) {
+              cardEl.style.opacity = "1";
+              cardEl.style.pointerEvents = "auto";
+            } else if (depth > -0.05) {
+              cardEl.style.opacity = "0.78";
+              cardEl.style.pointerEvents = "auto";
+            } else {
+              cardEl.style.opacity = "0.14";
+              cardEl.style.pointerEvents = "none";
+            }
+          } else {
+            if (depth >= 0) {
+              cardEl.style.opacity = "1";
+              cardEl.style.pointerEvents = "auto";
+            } else {
+              const backOp = Math.max(0.28, 0.28 + (depth + 1) * 0.52);
+              cardEl.style.opacity = backOp.toFixed(2);
+              cardEl.style.pointerEvents = "auto";
+            }
+          }
+        });
       });
 
       requestAnimationFrame(animateRings);
+    }
+
+    // =========================================================================
+    // COVER MACBOOK AUTO-SCROLL PRESENTATION ENGINE (LIKE VANTA//9 REF)
+    // =========================================================================
+    let coverLaptopPaused = false;
+    let coverLaptopDir = 1; // 1 = scrolling down slowly, -1 = returning up
+    let coverLaptopHoldTimer = 0;
+
+    function scrollCoverLaptopTo(pageIdx) {
+      const vp = document.getElementById("cover-screen-viewport");
+      const btnId = document.getElementById("tab-btn-id");
+      const btnSrv = document.getElementById("tab-btn-srv");
+      if (!vp) return;
+
+      coverLaptopPaused = true;
+      const targetTop = pageIdx === 0 ? 0 : vp.scrollHeight - vp.clientHeight;
+      vp.scrollTo({ top: targetTop, behavior: "smooth" });
+
+      if (btnId && btnSrv) {
+        btnId.classList.toggle("active", pageIdx === 0);
+        btnSrv.classList.toggle("active", pageIdx === 1);
+      }
+
+      setTimeout(() => {
+        coverLaptopPaused = false;
+        coverLaptopHoldTimer = 90;
+      }, 3200);
+    }
+
+    function setupCoverLaptopAutoScroll() {
+      const vp = document.getElementById("cover-screen-viewport");
+      const btnId = document.getElementById("tab-btn-id");
+      const btnSrv = document.getElementById("tab-btn-srv");
+      if (!vp) return;
+
+      // Hold on Mongkol's Profile for ~2.2 seconds after lid opens before gliding down
+      coverLaptopHoldTimer = 135;
+
+      vp.addEventListener("mouseenter", () => { coverLaptopPaused = true; });
+      vp.addEventListener("mouseleave", () => { coverLaptopPaused = false; });
+      vp.addEventListener("touchstart", () => { coverLaptopPaused = true; }, { passive: true });
+      vp.addEventListener("touchend", () => {
+        setTimeout(() => { coverLaptopPaused = false; }, 2200);
+      }, { passive: true });
+
+      function stepLaptopScroll() {
+        const introSec = document.getElementById("sec-intro");
+        const isCoverVisible = introSec && introSec.classList.contains("is-in-view");
+
+        if (isCoverVisible && !coverLaptopPaused) {
+          const maxScroll = vp.scrollHeight - vp.clientHeight;
+          if (maxScroll > 12) {
+            if (coverLaptopHoldTimer > 0) {
+              coverLaptopHoldTimer--;
+            } else {
+              vp.scrollTop += coverLaptopDir * 0.55;
+
+              if (vp.scrollTop >= maxScroll - 2) {
+                vp.scrollTop = maxScroll;
+                coverLaptopDir = -1;
+                coverLaptopHoldTimer = 140; // Pause on WHAT I DO
+              } else if (vp.scrollTop <= 2) {
+                vp.scrollTop = 0;
+                coverLaptopDir = 1;
+                coverLaptopHoldTimer = 150; // Pause on Profile Identity
+              }
+            }
+
+            if (btnId && btnSrv) {
+              const onSecondHalf = vp.scrollTop > maxScroll * 0.45;
+              btnId.classList.toggle("active", !onSecondHalf);
+              btnSrv.classList.toggle("active", onSecondHalf);
+            }
+          }
+        }
+        requestAnimationFrame(stepLaptopScroll);
+      }
+
+      requestAnimationFrame(stepLaptopScroll);
     }
 
     function scrollToCategory(idx) {
@@ -3176,11 +3514,10 @@
     // Dynamic Angle & Radius Update on Resize (360 / cat.photos.length)
     window.addEventListener("resize", () => {
       const isMobile = window.innerWidth <= 768;
-      const radius = isMobile ? 148 : 375;
+      const radius = isMobile ? 198 : 375;
       ringControllers.forEach(ctrl => {
         const stepDeg = 360 / ctrl.cat.photos.length;
-        const cards = ctrl.pivot.querySelectorAll(".ring-card");
-        cards.forEach((c, idx) => {
+        ctrl.cards.forEach((c, idx) => {
           c.style.transform = `rotateY(${idx * stepDeg}deg) translateZ(${radius}px)`;
         });
       });
@@ -3190,6 +3527,7 @@
     window.addEventListener("DOMContentLoaded", () => {
       initDOM();
       setupIntersectionObserver();
+      setupCoverLaptopAutoScroll();
       requestAnimationFrame(animateRings);
     });
   </script>
