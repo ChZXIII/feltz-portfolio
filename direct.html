@@ -6204,8 +6204,7 @@
       // Initial render on page load
       renderStoryAssemble(0);
 
-      // 3. UNIFIED MASTER COVER BEAT (6.2s):
-      // Fires FELTZ STUDIO bounce + 01 PROFILE/02 WHAT I DO/03 SKILLS glide + Left Category Story simultaneously
+      // 3A. SYNCED PAIR ONLY (Top FELTZ STUDIO bounce + Bottom 01 PROFILE / 02 WHAT I DO / 03 SKILLS glide):
       setTimeout(() => {
         setInterval(() => {
           const vp = document.getElementById("viewport-canvas");
@@ -6213,23 +6212,28 @@
           if (document.getElementById("dossier-modal")?.classList.contains("is-open")) return;
           if (document.getElementById("exhibition-modal")?.classList.contains("is-open")) return;
 
-          // A) Bounce FELTZ STUDIO simultaneously
+          // Bounce FELTZ STUDIO & Glide Bottom 01/02/03 Deck at the exact same moment
           if (typeof window.triggerFeltzCoverBeatBoing === "function") {
             window.triggerFeltzCoverBeatBoing();
           }
-
-          // B) Glide 01 PROFILE -> 02 WHAT I DO -> 03 SKILLS simultaneously
           if (typeof window.advanceMobileCoverDeckOnBeat === "function") {
             window.advanceMobileCoverDeckOnBeat();
           }
+        }, 4400);
+      }, 2600);
 
-          // C) Transition Left 8-Category Story simultaneously
-          shatterCurrentStory(() => {
-            currentStoryIdx = (currentStoryIdx + 1) % COVER_STORY_ROTATION.length;
-            renderStoryAssemble(currentStoryIdx);
-          });
-        }, 6200);
-      }, 2800);
+      // 3B. INDEPENDENT LEFT-MIDDLE CATEGORY STORY (8.2s own rhythm — NOT synced with top/bottom):
+      setInterval(() => {
+        const vp = document.getElementById("viewport-canvas");
+        if (vp && vp.scrollTop > window.innerHeight * 0.6) return;
+        if (document.getElementById("dossier-modal")?.classList.contains("is-open")) return;
+        if (document.getElementById("exhibition-modal")?.classList.contains("is-open")) return;
+
+        shatterCurrentStory(() => {
+          currentStoryIdx = (currentStoryIdx + 1) % COVER_STORY_ROTATION.length;
+          renderStoryAssemble(currentStoryIdx);
+        });
+      }, 8200);
     }
 
     // =========================================================================
