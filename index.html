@@ -1082,10 +1082,15 @@
       transform: translateY(-1px);
     }
 
-    /* Mobile Responsive Magazine Cover Poster (Fits 100dvh on 430x932 cleanly!) */
+    /* Desktop hides mobile-only 3D stacked deck */
+    .mobile-cover-deck {
+      display: none;
+    }
+
+    /* Mobile Responsive Magazine Cover Poster (3D Stacked Deck Rotator - Option 2) */
     @media (max-width: 768px) {
       .intro-section {
-        padding: 44px 14px 12px 14px;
+        padding: 44px 14px 10px 14px;
       }
 
       .poster-headline-wrap {
@@ -1104,24 +1109,26 @@
       }
 
       .editorial-stamp {
-        width: 68px;
-        height: 68px;
+        width: 64px;
+        height: 64px;
         right: 1%;
-        bottom: -72px;
+        bottom: -66px;
         z-index: 12;
       }
 
       .poster-hero-stage {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr auto;
+        grid-template-rows: 1fr;
         gap: 0 10px;
         margin-top: 0;
         align-items: end;
         z-index: 6;
+        flex: 1;
+        min-height: 0;
       }
 
-      /* Center Cutout spans top of mobile hero stage overlapping FELTZ STUDIO & grounded on bottom card */
+      /* Center Cutout spans top of mobile hero stage overlapping FELTZ STUDIO & grounded cleanly above deck */
       .poster-col-center {
         grid-column: 1 / -1;
         grid-row: 1;
@@ -1134,16 +1141,28 @@
       }
 
       .crimson-halo-circle {
-        width: 315px;
-        height: 315px;
-        top: 33%;
+        width: 295px;
+        height: 295px;
+        top: 38%;
         left: 58%;
       }
 
       .cutout-portrait-img {
-        height: min(55.5dvh, 516px);
+        height: min(46dvh, 425px);
         margin-bottom: -2px;
         transform: translateX(13%);
+        animation: portraitUncoilRiseMobile 1.12s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
+      }
+
+      @keyframes portraitUncoilRiseMobile {
+        0% {
+          opacity: 0;
+          transform: translateX(13%) translateY(15vh) scale(0.84);
+        }
+        100% {
+          opacity: 1;
+          transform: translateX(13%) translateY(0) scale(1);
+        }
       }
 
       /* Left overlay on mobile portrait stage */
@@ -1156,7 +1175,7 @@
         z-index: 8;
         max-width: 172px;
         pointer-events: none;
-        padding-bottom: 12px;
+        padding-bottom: 8px;
       }
 
       .poster-kicker-title {
@@ -1189,182 +1208,416 @@
         margin-top: 2px;
       }
 
-      /* Right column on mobile: Name/Role + 3 stats bar spanning below portrait */
-      .poster-col-right {
-        grid-column: 1 / -1;
-        grid-row: 2;
-        padding-left: 0;
-        gap: 6px;
-        background: rgba(16, 9, 9, 0.92);
-        border: 1px solid rgba(201, 59, 43, 0.32);
-        padding: 9px 12px;
-        border-radius: 6px;
-        z-index: 9;
+      /* Hide desktop right column & desktop static WHAT I DO grid on mobile so they never overlap */
+      .poster-col-right,
+      .poster-bottom-deck > .what-i-do-frame {
+        display: none !important;
       }
 
-      .poster-person-header-mob {
+      .poster-bottom-deck {
+        gap: 8px;
+        z-index: 14;
+      }
+
+      /* =====================================================================
+         MOBILE 3D STACKED DECK ROTATOR (OPTION 2: PROFILE + WHAT I DO + SKILLS)
+         ===================================================================== */
+      .mobile-cover-deck {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+        position: relative;
+        z-index: 15;
+        user-select: none;
+        -webkit-user-select: none;
+      }
+
+      /* Sliding Tabs Switcher Bar (Transitions.dev #16) */
+      .m-deck-tabs {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        align-items: center;
+        padding: 3px;
+        border-radius: 999px;
+        background: rgba(16, 9, 9, 0.94);
+        border: 1px solid rgba(201, 59, 43, 0.34);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.55);
+      }
+
+      .m-deck-pill {
+        position: absolute;
+        top: 3px;
+        left: 0;
+        height: calc(100% - 6px);
+        width: calc((100% - 6px) / 3);
+        background: linear-gradient(135deg, rgba(201, 59, 43, 0.42) 0%, rgba(145, 34, 24, 0.28) 100%);
+        border: 1px solid rgba(224, 79, 62, 0.62);
+        border-radius: 999px;
+        transform: translate3d(3px, 0, 0);
+        transition: transform 0.34s cubic-bezier(0.22, 1, 0.36, 1), width 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+        will-change: transform, width;
+        z-index: 0;
+      }
+
+      .m-deck-tab {
+        position: relative;
+        z-index: 1;
+        appearance: none;
+        border: 0;
+        background: transparent;
+        padding: 6px 4px;
+        font-family: var(--font-mono);
+        font-size: 9.5px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        color: rgba(232, 220, 200, 0.56);
+        text-transform: uppercase;
+        cursor: pointer;
+        border-radius: 999px;
+        transition: color 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+      }
+
+      .m-deck-tab[aria-selected="true"] {
+        color: #f6efe2;
+      }
+
+      .m-deck-tab .tab-num {
+        color: var(--accent-vermilion);
+        font-weight: 800;
+      }
+
+      /* 3D Stacked Card Stage (Transitions.dev #32 Banner Stacking + 3D Depth Arc) */
+      .m-deck-stack {
+        position: relative;
+        width: 100%;
+        height: 152px;
+        perspective: 900px;
+        transform-style: preserve-3d;
+        touch-action: pan-y;
+      }
+
+      .m-deck-card {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(165deg, #170c0d 0%, #0d0707 100%);
+        border: 1px solid rgba(201, 59, 43, 0.42);
+        border-radius: 10px;
+        padding: 11px 13px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transform-origin: 50% 0%;
+        will-change: transform, opacity;
+        transition:
+          transform 0.46s cubic-bezier(0.22, 1, 0.36, 1),
+          opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+          border-color 0.32s ease;
+        overflow: hidden;
+      }
+
+      .m-deck-card > * {
+        transition: opacity 0.24s ease;
+      }
+
+      .m-deck-card:not([data-depth="0"]) > * {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      /* Top Auto-Cycle Progress Hairline inside Active Card */
+      .m-deck-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 2px;
+        width: 100%;
+        background: linear-gradient(90deg, var(--accent-crimson), var(--accent-vermilion));
+        transform-origin: left center;
+        transform: scaleX(0);
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .m-deck-card[data-depth="0"]::before {
+        opacity: 0.95;
+        animation: deckCycleProgress 4.0s linear forwards;
+      }
+
+      .mobile-cover-deck.is-user-paused .m-deck-card[data-depth="0"]::before {
+        animation-play-state: paused;
+        opacity: 0.35;
+      }
+
+      @keyframes deckCycleProgress {
+        0% { transform: scaleX(0); }
+        100% { transform: scaleX(1); }
+      }
+
+      /* Depth 0: Front Active Card */
+      .m-deck-card[data-depth="0"] {
+        z-index: 4;
+        transform: translate3d(0, 0, 0) scale(1) rotateX(0deg);
+        opacity: 1;
+        border-color: rgba(224, 79, 62, 0.56);
+        box-shadow: 0 14px 32px rgba(0, 0, 0, 0.82), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        pointer-events: auto;
+      }
+
+      /* Depth 1: Second Card Peeking Above */
+      .m-deck-card[data-depth="1"] {
+        z-index: 3;
+        transform: translate3d(0, -8px, -28px) scale(0.955) rotateX(3deg);
+        opacity: 0.72;
+        border-color: rgba(201, 59, 43, 0.32);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.55);
+        pointer-events: none;
+      }
+
+      /* Depth 2: Third Card Peeking Highest in Back */
+      .m-deck-card[data-depth="2"] {
+        z-index: 2;
+        transform: translate3d(0, -15px, -56px) scale(0.91) rotateX(6deg);
+        opacity: 0.42;
+        border-color: rgba(201, 59, 43, 0.20);
+        pointer-events: none;
+      }
+
+      /* Outgoing 3D Arc when Flipping Front Card to Back of Deck */
+      .m-deck-card.is-deck-leaving {
+        z-index: 5 !important;
+        transform: translate3d(0, 14px, 18px) scale(0.96) rotateX(-10deg) !important;
+        opacity: 0.15 !important;
+        pointer-events: none !important;
+      }
+
+      /* Shared Card Header inside Mobile 3D Deck */
+      .m-card-head {
         display: flex;
         justify-content: space-between;
         align-items: baseline;
         gap: 8px;
         border-bottom: 1px solid rgba(201, 59, 43, 0.22);
-        padding-bottom: 5px;
+        padding-bottom: 6px;
       }
 
-      .poster-person-name {
-        font-size: 1.1rem;
-      }
-
-      .poster-person-role {
+      .m-card-head-right {
+        font-family: var(--font-mono);
         font-size: 8.5px;
+        font-weight: 700;
+        color: var(--accent-vermilion);
         letter-spacing: 0.08em;
+        text-transform: uppercase;
+        white-space: nowrap;
       }
 
-      .editorial-bio-th {
-        display: none;
-      }
-
-      .poster-stats-row {
+      /* --- CARD 01: MONGKOL WONGSAKULYANON + 12+ / 14+ / DUAL --- */
+      .m-profile-title-group {
+        display: flex;
+        align-items: baseline;
         gap: 8px;
+        min-width: 0;
+      }
+
+      .m-profile-name {
+        font-family: var(--font-condensed);
+        font-size: 1.04rem;
+        font-weight: 700;
+        color: var(--editorial-cream);
+        letter-spacing: 0.025em;
+        line-height: 1;
+        white-space: nowrap;
+      }
+
+      .m-profile-role {
+        font-family: var(--font-mono);
+        font-size: 8.2px;
+        font-weight: 700;
+        color: var(--accent-vermilion);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .m-profile-bio-line {
+        font-family: var(--font-th);
+        font-size: 9.5px;
+        color: var(--text-dark-sub);
+        line-height: 1.3;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .m-profile-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
         padding-top: 2px;
       }
 
-      .poster-stat-item {
-        flex-direction: row;
+      .m-stat-box {
+        display: flex;
         align-items: center;
         gap: 6px;
+        background: rgba(201, 59, 43, 0.07);
+        border: 1px solid rgba(201, 59, 43, 0.20);
+        border-radius: 7px;
+        padding: 6px 7px;
       }
 
-      .stat-icon-circle {
-        width: 22px;
-        height: 22px;
+      .m-stat-box .stat-icon-circle {
+        width: 24px;
+        height: 24px;
         margin-bottom: 0;
         flex-shrink: 0;
       }
 
-      .stat-icon-circle svg {
-        width: 11px;
-        height: 11px;
-      }
-
-      .poster-stat-num {
-        font-size: 13.5px;
-      }
-
-      .poster-stat-label {
-        font-size: 8px;
-        line-height: 1.15;
-      }
-
-      .skills-console-card {
-        margin-top: 2px;
-        padding: 7px 10px 8px 10px;
-        gap: 6px;
-        background: rgba(24, 13, 14, 0.95);
-        border-radius: 8px;
-      }
-
-      .skills-head-left {
-        font-size: 9.5px;
-        gap: 5px;
-      }
-
-      .skills-head-left svg {
+      .m-stat-box .stat-icon-circle svg {
         width: 12px;
         height: 12px;
       }
 
-      .skills-badge-row {
-        gap: 6px;
+      .m-stat-box .poster-stat-num {
+        font-size: 13.5px;
+        line-height: 1;
       }
 
-      .skill-squircle {
-        width: 36px;
-        height: 36px;
-        border-radius: 9px;
-        font-size: 13px;
+      .m-stat-box .poster-stat-label {
+        font-size: 7.5px;
+        line-height: 1.12;
+        margin-top: 2px;
       }
 
-      .skill-app-name {
-        font-size: 8.5px;
+      /* --- CARD 02: WHAT I DO (2x2 COMPACT GRID) --- */
+      .m-what-title {
+        font-family: var(--font-condensed);
+        font-size: 1.08rem;
+        font-weight: 700;
+        color: var(--editorial-cream);
+        letter-spacing: 0.04em;
+        line-height: 1;
       }
 
-      .cutout-portrait-img {
-        height: min(46.5dvh, 435px);
-        margin-bottom: -2px;
-        transform: translateX(13%);
-        animation: portraitUncoilRiseMobile 1.12s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
-      }
-
-      @keyframes portraitUncoilRiseMobile {
-        0% {
-          opacity: 0;
-          transform: translateX(13%) translateY(15vh) scale(0.84);
-        }
-        100% {
-          opacity: 1;
-          transform: translateX(13%) translateY(0) scale(1);
-        }
-      }
-
-      /* Bottom WHAT I DO 2x2 Grid on Mobile */
-      .what-i-do-frame {
+      .m-what-grid {
+        display: grid;
         grid-template-columns: repeat(2, 1fr);
-        border: 1px solid rgba(201, 59, 43, 0.30);
-        border-radius: 6px;
-        overflow: hidden;
+        gap: 6px;
+        flex: 1;
+        align-items: stretch;
+        padding-top: 5px;
       }
 
-      .what-i-do-head {
-        grid-column: 1 / -1;
-        flex-direction: row;
+      .m-what-item {
+        background: rgba(201, 59, 43, 0.07);
+        border: 1px solid rgba(201, 59, 43, 0.22);
+        border-radius: 6px;
+        padding: 5px 8px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 2px;
+        cursor: pointer;
+        transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+      }
+
+      .m-what-item:active {
+        transform: scale(0.97);
+        border-color: var(--accent-vermilion);
+        background: rgba(201, 59, 43, 0.18);
+      }
+
+      .m-what-item-top {
+        display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 6px 12px;
-        border-right: none;
-        border-bottom: 1px solid rgba(201, 59, 43, 0.24);
-        background: rgba(201, 59, 43, 0.10);
       }
 
-      .what-i-do-title {
-        font-size: 13px;
+      .m-what-item-title {
+        font-family: var(--font-sans);
+        font-size: 10px;
+        font-weight: 800;
+        color: var(--editorial-cream);
+        letter-spacing: 0.03em;
+        display: flex;
+        align-items: center;
+        gap: 4px;
       }
 
-      .what-i-do-sub {
-        font-size: 8.5px;
+      .m-what-item-title svg {
+        width: 11px;
+        height: 11px;
+        color: var(--accent-vermilion);
+        flex-shrink: 0;
       }
 
-      .service-editorial-card {
-        padding: 8px 10px;
-        gap: 2px;
-        border-bottom: 1px solid rgba(201, 59, 43, 0.16);
+      .m-what-item-tag {
+        font-family: var(--font-mono);
+        font-size: 8px;
+        color: rgba(232, 220, 200, 0.45);
       }
 
-      .service-editorial-card:nth-child(2n+1) {
-        border-right: none;
+      .m-what-item-desc {
+        font-family: var(--font-th);
+        font-size: 9.5px;
+        color: var(--text-dark-sub);
+        line-height: 1.2;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
-      .service-editorial-card:nth-last-child(-n+2) {
-        border-bottom: none;
+      /* --- CARD 03: SKILLS (4 PRO APPS: C1, Ps, Lr, Ad) --- */
+      .m-skills-title {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-family: var(--font-sans);
+        font-size: 11px;
+        font-weight: 800;
+        color: #f4efe6;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
       }
 
-      .service-icon {
+      .m-skills-title svg {
         width: 14px;
         height: 14px;
+        color: var(--accent-vermilion);
       }
 
-      .service-name {
-        font-size: 10.5px;
+      .m-skills-row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+        padding-top: 6px;
+        align-items: center;
       }
 
-      .service-desc-th {
-        font-size: 10px;
-        line-height: 1.25;
+      .m-skills-row .skill-squircle {
+        width: 46px;
+        height: 46px;
+        border-radius: 12px;
+        font-size: 15px;
+      }
+
+      .m-skills-row .skill-app-name {
+        font-size: 9.5px;
       }
 
       .poster-scroll-bar {
         justify-content: center;
-        padding-top: 2px;
+        padding-top: 0;
       }
 
       .poster-client-ticker {
@@ -2670,6 +2923,147 @@
             </div>
           </div>
 
+          <!-- Mobile-Only 3D Stacked Deck Rotator (Option 2: 01 Profile / 02 What I Do / 03 Skills) -->
+          <div class="mobile-cover-deck ribbon-snap-item" id="mobile-cover-deck" style="--ribbon-order: 2; --from-x: 24vw; --from-y: 24vh; --from-ry: -46deg; --from-rx: 32deg; --from-rz: 10deg;">
+            <!-- Sliding Pill Tab Switcher (Transitions.dev #16) -->
+            <div class="m-deck-tabs" id="m-deck-tabs" role="tablist" aria-label="Cover Highlights">
+              <span class="m-deck-pill" id="m-deck-pill" aria-hidden="true"></span>
+              <button type="button" class="m-deck-tab" role="tab" aria-selected="true" data-deck-tab="0">
+                <span class="tab-num">01</span><span>PROFILE</span>
+              </button>
+              <button type="button" class="m-deck-tab" role="tab" aria-selected="false" data-deck-tab="1">
+                <span class="tab-num">02</span><span>WHAT I DO</span>
+              </button>
+              <button type="button" class="m-deck-tab" role="tab" aria-selected="false" data-deck-tab="2">
+                <span class="tab-num">03</span><span>SKILLS</span>
+              </button>
+            </div>
+
+            <!-- 3D Stacked Card Stage (Transitions.dev #32 Banner Stacking) -->
+            <div class="m-deck-stack" id="m-deck-stack">
+              <!-- Card 01: MONGKOL WONGSAKULYANON + 12+ / 14+ / DUAL -->
+              <article class="m-deck-card" data-deck-card="0" data-depth="0">
+                <div class="m-card-head">
+                  <div class="m-profile-title-group">
+                    <span class="m-profile-name">MONGKOL WONGSAKULYANON</span>
+                  </div>
+                  <span class="m-card-head-right">FOUNDER &amp; DIRECTOR · 1/3</span>
+                </div>
+                <div class="m-profile-bio-line">
+                  ช่างภาพพาณิชย์และที่ปรึกษาภาพลักษณ์ประจำเชียงใหม่ พร้อมเดินทางทั่วประเทศ
+                </div>
+                <div class="m-profile-stats-grid">
+                  <div class="m-stat-box">
+                    <div class="stat-icon-circle">
+                      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+                    </div>
+                    <div>
+                      <div class="poster-stat-num">12+</div>
+                      <div class="poster-stat-label">YEARS<br/>EXPERIENCE</div>
+                    </div>
+                  </div>
+                  <div class="m-stat-box">
+                    <div class="stat-icon-circle">
+                      <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+                    </div>
+                    <div>
+                      <div class="poster-stat-num">14+</div>
+                      <div class="poster-stat-label">ENTERPRISE<br/>BRANDS</div>
+                    </div>
+                  </div>
+                  <div class="m-stat-box">
+                    <div class="stat-icon-circle">
+                      <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                    </div>
+                    <div>
+                      <div class="poster-stat-num">DUAL</div>
+                      <div class="poster-stat-label">SONY ALPHA<br/>MASTER RIG</div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Card 02: WHAT I DO (4 Service Categories) -->
+              <article class="m-deck-card" data-deck-card="1" data-depth="1">
+                <div class="m-card-head">
+                  <span class="m-what-title">WHAT I DO</span>
+                  <span class="m-card-head-right">08 PORTFOLIOS · 2/3</span>
+                </div>
+                <div class="m-what-grid">
+                  <div class="m-what-item" onclick="event.stopPropagation(); scrollToCategory(1)">
+                    <div class="m-what-item-top">
+                      <span class="m-what-item-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                        STAGE &amp; SPORT
+                      </span>
+                      <span class="m-what-item-tag">01/03</span>
+                    </div>
+                    <div class="m-what-item-desc">คอนเสิร์ตใหญ่และกีฬาความเร็วสูง</div>
+                  </div>
+                  <div class="m-what-item" onclick="event.stopPropagation(); scrollToCategory(2)">
+                    <div class="m-what-item-top">
+                      <span class="m-what-item-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/></svg>
+                        SPACE &amp; HOTEL
+                      </span>
+                      <span class="m-what-item-tag">02/04</span>
+                    </div>
+                    <div class="m-what-item-desc">โรงแรม รีสอร์ต และอสังหาริมทรัพย์</div>
+                  </div>
+                  <div class="m-what-item" onclick="event.stopPropagation(); scrollToCategory(5)">
+                    <div class="m-what-item-top">
+                      <span class="m-what-item-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                        BRAND &amp; DINING
+                      </span>
+                      <span class="m-what-item-tag">05/06</span>
+                    </div>
+                    <div class="m-what-item-desc">สินค้าโฆษณาและอาหารไฟน์ไดน์นิ่ง</div>
+                  </div>
+                  <div class="m-what-item" onclick="event.stopPropagation(); scrollToCategory(7)">
+                    <div class="m-what-item-top">
+                      <span class="m-what-item-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+                        PORTRAIT &amp; EVENT
+                      </span>
+                      <span class="m-what-item-tag">07/08</span>
+                    </div>
+                    <div class="m-what-item-desc">พอร์ตเทรตผู้บริหารและอีเวนต์องค์กร</div>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Card 03: SKILLS (Capture One, Photoshop, Lightroom, Affinity Design) -->
+              <article class="m-deck-card" data-deck-card="2" data-depth="2">
+                <div class="m-card-head">
+                  <div class="m-skills-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                    <span>SKILLS</span>
+                  </div>
+                  <span class="m-card-head-right">MASTER SUITE · 3/3</span>
+                </div>
+                <div class="m-skills-row" id="m-skills-badge-group">
+                  <div class="skill-app-item">
+                    <div class="skill-squircle">C1</div>
+                    <span class="skill-app-name">Capture One</span>
+                  </div>
+                  <div class="skill-app-item">
+                    <div class="skill-squircle">Ps</div>
+                    <span class="skill-app-name">Photoshop</span>
+                  </div>
+                  <div class="skill-app-item">
+                    <div class="skill-squircle">Lr</div>
+                    <span class="skill-app-name">Lightroom</span>
+                  </div>
+                  <div class="skill-app-item">
+                    <div class="skill-squircle">Ad</div>
+                    <span class="skill-app-name">Affinity Design</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+
           <div class="poster-scroll-bar ribbon-snap-item" style="--ribbon-order: 7; --from-x: 0vw; --from-y: 18vh; --from-ry: 0deg; --from-rx: 25deg; --from-rz: 0deg;">
             <div class="poster-client-ticker">
               TRUSTED BY: SINGHA · KBANK · THAI AIRASIA · TRUE · AIA · YAMAHA · TCEB · GISTDA
@@ -3590,12 +3984,13 @@
     });
 
     // =========================================================================
-    // TRANSITIONS.DEV MICRO-INTERACTIONS (SKILLS SPRING LIFT + 3D CARD TILT)
+    // TRANSITIONS.DEV MICRO-INTERACTIONS (SKILLS SPRING LIFT + 3D CARD TILT + MOBILE 3D DECK)
     // =========================================================================
     function setupCoverMicroInteractions() {
-      // 1. Avatar Group Hover Spring on SKILLS Badges (C1, Ps, Lr, Ad)
-      const skillsGroup = document.getElementById("skills-badge-group");
-      if (skillsGroup) {
+      // 1. Avatar Group Hover Spring on SKILLS Badges (Desktop & Mobile C1, Ps, Lr, Ad)
+      ["skills-badge-group", "m-skills-badge-group"].forEach((groupId) => {
+        const skillsGroup = document.getElementById(groupId);
+        if (!skillsGroup) return;
         const items = Array.from(skillsGroup.querySelectorAll(".skill-app-item"));
         const lift = -6;
         const falloff = 0.45;
@@ -3627,7 +4022,7 @@
         skillsGroup.addEventListener("touchend", () => {
           setTimeout(() => setSkillShifts(-1, "out"), 380);
         }, { passive: true });
-      }
+      });
 
       // 2. 3D Pointer Hover Tilt + Cursor Glare on WHAT I DO Service Cards
       const srvCards = document.querySelectorAll(".service-editorial-card");
@@ -3648,6 +4043,152 @@
           card.style.setProperty("--tilt-ry", "0deg");
         });
       });
+
+      // 3. Mobile 3D Stacked Deck Rotator (Option 2: 01 Profile / 02 What I Do / 03 Skills)
+      setupMobileCoverDeck();
+    }
+
+    function setupMobileCoverDeck() {
+      const deckWrap = document.getElementById("mobile-cover-deck");
+      const tabsBar = document.getElementById("m-deck-tabs");
+      const pill = document.getElementById("m-deck-pill");
+      const stack = document.getElementById("m-deck-stack");
+      if (!deckWrap || !tabsBar || !pill || !stack) return;
+
+      const tabs = Array.from(tabsBar.querySelectorAll(".m-deck-tab"));
+      const cards = Array.from(stack.querySelectorAll(".m-deck-card"));
+      const total = cards.length;
+      let activeIdx = 0;
+      let autoCycleTimer = null;
+      let resumeTimer = null;
+      let isUserPaused = false;
+
+      const syncSlidingPill = (idx, instant = false) => {
+        const activeTab = tabs[idx];
+        if (!activeTab) return;
+        if (instant) {
+          pill.style.transition = "none";
+        }
+        const offsetLeft = activeTab.offsetLeft;
+        const offsetWidth = activeTab.offsetWidth;
+        if (offsetWidth > 0) {
+          pill.style.width = `${offsetWidth}px`;
+          pill.style.transform = `translate3d(${offsetLeft}px, 0, 0)`;
+        }
+        if (instant) {
+          void pill.offsetWidth;
+          pill.style.transition = "";
+        }
+      };
+
+      const activateCard = (nextIdx, isManual = false) => {
+        const normalized = ((nextIdx % total) + total) % total;
+        if (normalized === activeIdx && !isManual) return;
+
+        const prevIdx = activeIdx;
+        activeIdx = normalized;
+
+        // Update tabs aria-selected & sliding pill
+        tabs.forEach((tab, i) => {
+          tab.setAttribute("aria-selected", i === activeIdx ? "true" : "false");
+        });
+        syncSlidingPill(activeIdx);
+
+        // Animate outgoing card with 3D lift-and-tuck arc
+        if (prevIdx !== activeIdx && cards[prevIdx]) {
+          const prevCard = cards[prevIdx];
+          prevCard.classList.add("is-deck-leaving");
+          setTimeout(() => {
+            prevCard.classList.remove("is-deck-leaving");
+          }, 210);
+        }
+
+        // Update 3D stack depths (0 = front, 1 = middle, 2 = back)
+        cards.forEach((card, i) => {
+          const relDepth = (i - activeIdx + total) % total;
+          card.setAttribute("data-depth", String(relDepth));
+        });
+      };
+
+      const pauseAutoCycleOnTouch = () => {
+        isUserPaused = true;
+        deckWrap.classList.add("is-user-paused");
+        if (autoCycleTimer) {
+          clearInterval(autoCycleTimer);
+          autoCycleTimer = null;
+        }
+        if (resumeTimer) clearTimeout(resumeTimer);
+        resumeTimer = setTimeout(() => {
+          isUserPaused = false;
+          deckWrap.classList.remove("is-user-paused");
+          startAutoCycle();
+        }, 10000);
+      };
+
+      const startAutoCycle = () => {
+        if (autoCycleTimer) clearInterval(autoCycleTimer);
+        autoCycleTimer = setInterval(() => {
+          if (isUserPaused) return;
+          if (window.innerWidth > 768) return;
+          // Only cycle when Cover (sec-intro) is near the viewport top
+          const canvas = document.getElementById("viewport-canvas");
+          if (canvas && canvas.scrollTop > window.innerHeight * 0.5) return;
+          activateCard(activeIdx + 1, false);
+        }, 4000);
+      };
+
+      // Tab clicks
+      tabs.forEach((tab, idx) => {
+        tab.addEventListener("click", (e) => {
+          e.stopPropagation();
+          pauseAutoCycleOnTouch();
+          activateCard(idx, true);
+        });
+      });
+
+      // Tap on Card 0 or Card 2 (or Card 1 header) cycles to next card
+      cards.forEach((card) => {
+        card.addEventListener("click", () => {
+          pauseAutoCycleOnTouch();
+          activateCard(activeIdx + 1, true);
+        });
+      });
+
+      // Touch swipe left / right on the 3D card stack
+      let touchStartX = 0;
+      let touchStartY = 0;
+      stack.addEventListener("touchstart", (e) => {
+        if (!e.touches || !e.touches.length) return;
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        pauseAutoCycleOnTouch();
+      }, { passive: true });
+
+      stack.addEventListener("touchend", (e) => {
+        if (!e.changedTouches || !e.changedTouches.length) return;
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const dy = e.changedTouches[0].clientY - touchStartY;
+        if (Math.abs(dx) > 32 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+          if (dx < 0) {
+            activateCard(activeIdx + 1, true);
+          } else {
+            activateCard(activeIdx - 1, true);
+          }
+        }
+      }, { passive: true });
+
+      window.addEventListener("resize", () => {
+        syncSlidingPill(activeIdx, true);
+      });
+
+      // Initial pill position & start auto-cycle after entry animation settles
+      requestAnimationFrame(() => {
+        syncSlidingPill(0, true);
+      });
+      setTimeout(() => {
+        syncSlidingPill(activeIdx, true);
+        startAutoCycle();
+      }, 1400);
     }
 
     // Boot
