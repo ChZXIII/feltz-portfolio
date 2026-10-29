@@ -2718,43 +2718,84 @@
     }
 
     /* ==========================================================================
-       PREVIEW UPGRADE 1: FELTZ STUDIO IDLE "DOOK-DIK" LIVING WAVE (POST-ENTRY)
+       PREVIEW UPGRADE 1: FELTZ STUDIO SEQUENTIAL BOING + RANDOM SINGLE-CHAR BOING
        ========================================================================== */
-    .poster-giant-word.is-idle-alive .helix-char {
-      opacity: 1;
-      animation: feltzDookDikWave 4.4s ease-in-out infinite !important;
-      animation-delay: calc(var(--char-i, 0) * 0.16s) !important;
-      cursor: default;
+    .poster-giant-word.is-settled .helix-char {
+      opacity: 1 !important;
+      animation: none;
+      transform: perspective(1100px) translate3d(0, 0, 0) scale(1, 1);
+      transform-origin: 50% 85%;
+      cursor: pointer;
       transition: color 0.25s ease, text-shadow 0.25s ease;
     }
 
-    .poster-giant-word.is-idle-alive .helix-char:hover {
+    .poster-giant-word.is-settled .helix-char.is-boing {
+      animation: feltzCharBoing 560ms cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+    }
+
+    .poster-giant-word.is-settled .helix-char:hover {
       color: #ffffff;
       text-shadow: 0 0 28px rgba(224, 79, 62, 0.75), 0 12px 40px rgba(0, 0, 0, 0.65);
     }
 
-    @keyframes feltzDookDikWave {
-      0%, 100% {
-        transform: perspective(1100px) translate3d(0, 0px, 0px) rotateY(0deg) rotateZ(0deg) scaleY(1);
+    @keyframes feltzCharBoing {
+      0% {
+        transform: perspective(1100px) translate3d(0, 0, 0) scale(1, 1);
       }
-      28% {
-        transform: perspective(1100px) translate3d(0, -5px, 18px) rotateY(6deg) rotateZ(-1.4deg) scaleY(1.035);
+      18% {
+        transform: perspective(1100px) translate3d(0, 3px, 0) scale(1.15, 0.82);
       }
-      58% {
-        transform: perspective(1100px) translate3d(0, 2px, -8px) rotateY(-4.5deg) rotateZ(1.1deg) scaleY(0.985);
+      44% {
+        transform: perspective(1100px) translate3d(0, -15px, 26px) scale(0.90, 1.16);
+        color: #ffffff;
+        text-shadow: 0 10px 26px rgba(224, 79, 62, 0.72);
+      }
+      66% {
+        transform: perspective(1100px) translate3d(0, 2px, 0) scale(1.07, 0.93);
       }
       82% {
-        transform: perspective(1100px) translate3d(0, -2px, 8px) rotateY(2.5deg) rotateZ(-0.6deg) scaleY(1.015);
+        transform: perspective(1100px) translate3d(0, -5px, 10px) scale(0.97, 1.04);
+      }
+      100% {
+        transform: perspective(1100px) translate3d(0, 0, 0) scale(1, 1);
       }
     }
 
     /* ==========================================================================
-       PREVIEW UPGRADE 2: LEFT COLUMN 8-CATEGORY WORD ASSEMBLE & SHATTER LOOP
+       PREVIEW UPGRADE 2: LEFT COLUMN 8-CATEGORY FULL-BLOCK ASSEMBLE & SHATTER LOOP
        ========================================================================== */
     .poster-col-left {
-      perspective: 900px;
+      perspective: 950px;
       transform-style: preserve-3d;
-      min-height: 215px;
+      align-self: center;
+      justify-content: flex-start;
+      height: 246px;
+      min-height: 246px;
+    }
+
+    .poster-kicker-title {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-height: 2.12em;
+    }
+
+    .kicker-line-row {
+      display: block;
+      white-space: nowrap;
+      line-height: 1.05;
+    }
+
+    .poster-sub-list {
+      min-height: 3.9em;
+    }
+
+    .poster-sub-list li {
+      white-space: nowrap;
+    }
+
+    .editorial-quote-th {
+      min-height: 3.0em;
     }
 
     .kinetic-cat-badge {
@@ -2768,14 +2809,18 @@
       letter-spacing: 0.14em;
       text-transform: uppercase;
       margin-bottom: 2px;
+      min-height: 14px;
     }
 
     .kinetic-cat-badge .k-dot {
+      display: inline-block;
       width: 6px;
       height: 6px;
       border-radius: 50%;
       background: var(--accent-vermilion);
       box-shadow: 0 0 8px var(--accent-vermilion);
+      margin-right: 4px;
+      vertical-align: middle;
     }
 
     .frag-word {
@@ -2784,8 +2829,8 @@
       transform-origin: center center;
       margin-right: 0.26em;
       transition:
-        transform 0.68s cubic-bezier(0.16, 1, 0.3, 1),
-        opacity 0.54s cubic-bezier(0.16, 1, 0.3, 1);
+        transform 0.86s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.68s cubic-bezier(0.16, 1, 0.3, 1);
       transition-delay: var(--frag-delay, 0ms);
     }
 
@@ -2795,11 +2840,24 @@
       white-space: nowrap;
     }
 
+    .frag-word.frag-rule {
+      display: block;
+      margin-right: 0;
+    }
+
+    .frag-word.frag-quote-mark {
+      margin-right: 0;
+    }
+
+    .frag-word.frag-sign {
+      margin-right: 0.28em;
+    }
+
     .frag-word.is-scattered-in {
       opacity: 0;
       transform: translate3d(var(--in-x, -38px), var(--in-y, -26px), var(--in-z, 70px))
                  rotateX(var(--in-rx, 35deg)) rotateY(var(--in-ry, -28deg)) rotateZ(var(--in-rz, -14deg))
-                 scale(0.42);
+                 scale(0.45);
     }
 
     .frag-word.is-assembled {
@@ -2810,21 +2868,25 @@
     .frag-word.is-shattered-out {
       opacity: 0;
       transition:
-        transform 0.52s cubic-bezier(0.55, 0.06, 0.68, 0.19),
-        opacity 0.42s ease-in;
+        transform 0.64s cubic-bezier(0.42, 0, 0.58, 1),
+        opacity 0.52s ease-in-out;
       transition-delay: var(--out-delay, 0ms);
       transform: translate3d(var(--out-x, 42px), var(--out-y, 28px), var(--out-z, -65px))
                  rotateX(var(--out-rx, -32deg)) rotateY(var(--out-ry, 36deg)) rotateZ(var(--out-rz, 18deg))
-                 scale(0.46);
+                 scale(0.48);
     }
 
     @media (max-width: 768px) {
       .poster-col-left {
-        min-height: 158px;
+        height: 172px;
+        min-height: 172px;
       }
       .kinetic-cat-badge {
         font-size: 8px;
         letter-spacing: 0.08em;
+      }
+      .editorial-quote-th {
+        min-height: 4.1em;
       }
     }
 
@@ -3037,12 +3099,14 @@
       position: relative;
       width: 100%;
       height: 100%;
-      min-height: 440px;
+      min-height: 460px;
+      padding: 28px 16px 20px 16px;
       display: flex;
       align-items: center;
       justify-content: center;
       perspective: 1500px;
       user-select: none;
+      overflow: hidden;
     }
 
     /* Dark Glossy Reflective Floor under 3D Stack (Ref 2 Signature Look) */
@@ -3050,7 +3114,7 @@
       position: absolute;
       bottom: 4%;
       width: 78%;
-      height: 110px;
+      height: 96px;
       background: radial-gradient(ellipse at center, rgba(201, 59, 43, 0.22) 0%, rgba(232, 220, 200, 0.05) 45%, transparent 75%);
       transform: rotateX(76deg) rotateZ(-16deg);
       pointer-events: none;
@@ -3059,33 +3123,34 @@
 
     .dossier-stack-pivot {
       position: relative;
-      width: 470px;
-      height: 310px;
+      width: 446px;
+      height: 368px;
       transform-style: preserve-3d;
-      transform: rotateX(-9deg) rotateY(22deg) rotateZ(-2deg);
+      transform: rotateX(-8deg) rotateY(18deg) rotateZ(-1.5deg);
       transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
       z-index: 5;
     }
 
-    /* Front-Most Category Cover Plate with Bespoke Kinetic Font & Emblem (Ref 2 Front Plate) */
+    /* Front-Most Category Cover Plate with Bespoke Kinetic Font (Anchored cleanly inside bottom of pivot) */
     .dossier-front-cover-plate {
       position: absolute;
       left: 0;
       right: 0;
-      bottom: -36px;
-      height: 176px;
-      background: linear-gradient(155deg, rgba(20, 14, 15, 0.97) 0%, rgba(9, 7, 8, 0.99) 100%);
-      border: 1px solid rgba(232, 220, 200, 0.24);
-      border-top: 2px solid rgba(224, 79, 62, 0.72);
+      bottom: 0;
+      height: 132px;
+      background: linear-gradient(160deg, #180d0e 0%, #0a0607 100%);
+      border: 1px solid rgba(232, 220, 200, 0.28);
+      border-top: 2px solid rgba(224, 79, 62, 0.78);
       border-radius: 8px;
-      padding: 16px 24px;
+      padding: 13px 22px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transform: translate3d(0, 28px, 92px);
-      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.94), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      transform: translate3d(0, 0, 74px);
+      box-shadow: 0 24px 56px rgba(0, 0, 0, 0.96), inset 0 1px 0 rgba(255, 255, 255, 0.08);
       pointer-events: none;
       overflow: hidden;
+      z-index: 25;
     }
 
     /* Signature Red Corner Tab from Ref 2 */
@@ -3094,7 +3159,7 @@
       top: 0;
       right: 18px;
       width: 10px;
-      height: 28px;
+      height: 26px;
       background: var(--accent-vermilion);
       box-shadow: 0 0 14px rgba(224, 79, 62, 0.8);
       border-radius: 0 0 3px 3px;
@@ -3105,47 +3170,10 @@
       justify-content: space-between;
       align-items: center;
       font-family: var(--font-mono);
-      font-size: 10px;
-      color: rgba(232, 220, 200, 0.55);
+      font-size: 9.5px;
+      color: rgba(232, 220, 200, 0.58);
       letter-spacing: 0.14em;
       padding-right: 22px;
-    }
-
-    /* Animated Segmented Lens / Radar Ring on Front Cover Plate (Ref 2 Center Graphic) */
-    .cover-plate-kinetic-emblem {
-      position: absolute;
-      right: 26px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 168px;
-      height: 168px;
-      opacity: 0.42;
-      pointer-events: none;
-    }
-
-    .cover-plate-kinetic-emblem svg {
-      width: 100%;
-      height: 100%;
-    }
-
-    .emblem-ring-outer {
-      transform-origin: 50% 50%;
-      animation: dossierRingSpin 16s linear infinite;
-    }
-
-    .emblem-ring-inner {
-      transform-origin: 50% 50%;
-      animation: dossierRingSpinRev 11s linear infinite;
-    }
-
-    @keyframes dossierRingSpin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    @keyframes dossierRingSpinRev {
-      0% { transform: rotate(360deg); }
-      100% { transform: rotate(0deg); }
     }
 
     /* Category-Specific Kinetic Typography on Front Cover Plate */
@@ -3154,13 +3182,13 @@
       z-index: 3;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 3px;
       margin-top: auto;
     }
 
     .cover-plate-kicker {
       font-family: var(--font-mono);
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 700;
       color: var(--accent-vermilion);
       letter-spacing: 0.18em;
@@ -3169,8 +3197,8 @@
 
     .cover-plate-main-word {
       font-family: var(--font-display);
-      font-size: 2.35rem;
-      line-height: 0.92;
+      font-size: 2.15rem;
+      line-height: 0.94;
       letter-spacing: 0.03em;
       color: var(--editorial-cream);
       text-transform: uppercase;
@@ -3195,18 +3223,18 @@
 
     @keyframes coverTypoPulse {
       0%, 100% { transform: translateX(0) skewX(0deg); opacity: 1; }
-      45% { transform: translateX(8px) skewX(-4deg); opacity: 0.88; color: #ffffff; }
+      45% { transform: translateX(6px) skewX(-3deg); opacity: 0.9; color: #ffffff; }
     }
 
     .cover-plate-bottom-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-top: 10px;
-      margin-top: 8px;
+      padding-top: 7px;
+      margin-top: 6px;
       border-top: 1px solid rgba(232, 220, 200, 0.14);
       font-family: var(--font-mono);
-      font-size: 9.5px;
+      font-size: 9px;
       color: var(--text-dark-sub);
       letter-spacing: 0.1em;
     }
@@ -3214,7 +3242,10 @@
     /* Stacked Project Folder Cards Behind the Front Cover Plate */
     .dossier-folder-card {
       position: absolute;
-      inset: 0;
+      top: 38px;
+      left: 0;
+      right: 0;
+      height: 218px;
       background: #140d0e;
       border: 1px solid rgba(232, 220, 200, 0.22);
       border-radius: 8px;
@@ -3223,26 +3254,32 @@
       transform-style: preserve-3d;
       /* Default resting position in the 3D stack based on --slot-i */
       transform: translate3d(
-        calc(var(--slot-i, 0) * -22px),
-        calc(var(--slot-i, 0) * -22px - 18px),
-        calc(30px - var(--slot-i, 0) * 52px)
+        calc(var(--slot-i, 0) * -11px),
+        calc(var(--slot-i, 0) * -8px + 12px),
+        calc(10px - var(--slot-i, 0) * 34px)
       );
-      opacity: calc(1 - var(--slot-i, 0) * 0.11);
+      opacity: calc(0.92 - var(--slot-i, 0) * 0.11);
       transition:
         transform 0.95s cubic-bezier(0.16, 1, 0.3, 1),
         opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
         border-color 0.4s ease,
         box-shadow 0.6s ease;
-      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.82);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.85);
     }
 
-    /* Active Project Folder rises smoothly UP and FORWARD above the Front Cover Plate! */
+    /* Active Project Folder rises smoothly UP and FORWARD cleanly above the Front Cover Plate! */
     .dossier-folder-card.is-risen-active {
-      transform: translate3d(18px, -138px, 72px) rotateY(-6deg) rotateX(3deg) scale(1.03);
+      transform: translate3d(10px, -32px, 46px) rotateY(-4deg) rotateX(2deg) scale(1.01);
       opacity: 1 !important;
       border-color: var(--accent-vermilion);
-      box-shadow: 0 32px 80px rgba(0, 0, 0, 0.95), 0 0 36px rgba(201, 59, 43, 0.38);
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.95), 0 0 32px rgba(201, 59, 43, 0.38);
       z-index: 15;
+    }
+
+    /* Hide bottom text overlay on non-active background folders so text never piles up behind the front plate */
+    .dossier-folder-card:not(.is-risen-active) .folder-card-bottom-overlay {
+      opacity: 0;
+      pointer-events: none;
     }
 
     .dossier-folder-card img {
@@ -3250,7 +3287,7 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      opacity: 0.82;
+      opacity: 0.78;
       transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease;
     }
 
@@ -3281,17 +3318,18 @@
       left: 0;
       right: 0;
       bottom: 0;
-      padding: 28px 18px 14px 18px;
+      padding: 24px 16px 12px 16px;
       background: linear-gradient(0deg, rgba(9, 5, 5, 0.96) 0%, rgba(9, 5, 5, 0.78) 62%, transparent 100%);
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
       gap: 12px;
+      transition: opacity 0.35s ease;
     }
 
     .folder-card-title {
       font-family: var(--font-condensed);
-      font-size: 1.35rem;
+      font-size: 1.3rem;
       font-weight: 700;
       color: #ffffff;
       letter-spacing: 0.03em;
@@ -3464,46 +3502,74 @@
         display: none;
       }
       .dossier-main-stage {
-        grid-template-columns: 1fr;
-        gap: 12px;
-        padding: 10px 14px;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+        padding: 10px 14px 20px 14px;
         overflow-y: auto;
       }
       .dossier-3d-viewport {
-        min-height: 305px;
-        height: 305px;
-        padding-top: 38px;
+        flex: 0 0 auto;
+        min-height: 274px;
+        height: 274px;
+        padding: 14px 10px 10px 10px;
+        border-bottom: 1px solid rgba(201, 59, 43, 0.22);
+        overflow: hidden;
       }
       .dossier-stack-pivot {
-        width: 300px;
-        height: 196px;
-        transform: rotateX(-8deg) rotateY(16deg) rotateZ(-1.5deg);
+        width: min(302px, 82vw);
+        height: 236px;
+        transform: rotateX(-6deg) rotateY(14deg) rotateZ(-1deg);
       }
-      .dossier-front-cover-plate {
-        padding: 10px 14px;
-        height: 112px;
-        bottom: -24px;
-        transform: translate3d(0, 20px, 68px);
-      }
-      .cover-plate-main-word {
-        font-size: 1.45rem;
-      }
-      .cover-plate-kinetic-emblem {
-        width: 105px;
-        height: 105px;
-        right: 12px;
+      .dossier-folder-card {
+        top: 28px;
+        height: 142px;
+        transform: translate3d(
+          calc(var(--slot-i, 0) * -7px),
+          calc(var(--slot-i, 0) * -5px + 8px),
+          calc(6px - var(--slot-i, 0) * 22px)
+        );
       }
       .dossier-folder-card.is-risen-active {
-        transform: translate3d(8px, -88px, 52px) rotateY(-4deg) rotateX(2deg) scale(1.02);
+        transform: translate3d(6px, -22px, 34px) rotateY(-3deg) rotateX(1.5deg) scale(1);
+      }
+      .dossier-front-cover-plate {
+        padding: 8px 14px;
+        height: 86px;
+        bottom: 0;
+        transform: translate3d(0, 0, 56px);
+      }
+      .cover-plate-top-meta {
+        font-size: 8px;
+        letter-spacing: 0.1em;
+      }
+      .cover-plate-kicker {
+        font-size: 8px;
+      }
+      .cover-plate-main-word {
+        font-size: 1.28rem;
+      }
+      .cover-plate-bottom-bar {
+        padding-top: 4px;
+        margin-top: 4px;
+        font-size: 7.5px;
       }
       .folder-card-title {
-        font-size: 1rem;
+        font-size: 0.98rem;
       }
       .folder-card-sub {
         display: none;
       }
+      .folder-card-open-pill {
+        font-size: 9.5px;
+        padding: 5px 11px;
+      }
       .dossier-selector-panel {
+        flex: 0 0 auto;
+        width: 100%;
         max-height: none;
+        overflow: visible;
       }
       .dossier-project-row {
         grid-template-columns: 54px 1fr auto;
@@ -4747,7 +4813,7 @@
         const frameCountStr = String(cat.photos.length).padStart(2, "0");
         const archiveAlbums = (window.FELTZ_ARCHIVE_CATALOG && window.FELTZ_ARCHIVE_CATALOG[cat.id]) || [];
         const totalArchivePhotos = archiveAlbums.reduce((acc, a) => acc + (a.count || 0), 0);
-        const isMultiProject = archiveAlbums.length > 1;
+        const isMultiProject = (cat.id === "sport" || cat.id === "live_event" || archiveAlbums.length > 1);
         const btnLabel = isMultiProject
           ? `เลือกชมแยกตามงาน (${archiveAlbums.length} งาน)`
           : `ดูแกลเลอรีพอร์ตเต็ม`;
@@ -5632,111 +5698,165 @@
 
 
     // =========================================================================
-    // PREVIEW ENGINE A: FELTZ STUDIO IDLE "DOOK-DIK" WAVE + 8-CATEGORY WORD ASSEMBLE/SHATTER
+    // PREVIEW ENGINE A: FELTZ STUDIO SEQUENTIAL + RANDOM BOING & 8-CATEGORY FULL-BLOCK ASSEMBLE/SHATTER
     // =========================================================================
     const COVER_STORY_ROTATION = [
       {
-        badge: "01 // CONCERT & STAGE",
-        kicker: "CONCERT / LIVE / STAGE",
+        badgeTokens: ["01 //", "CONCERT", "& STAGE"],
+        kickerLines: ["CONCERT / LIVE /", "STAGE"],
         bullets: ["FESTIVAL MAIN STAGE", "ARTIST LIVE EMOTION", "DYNAMIC STAGE LIGHTING"],
-        quoteWords: ["บันทึกพลังแสงสี", "และอารมณ์สด", "บนเวทีคอนเสิร์ต", "ระดับเทศกาล", "ให้ทุกช็อตมีชีวิต", "เหมือนอยู่ในเหตุการณ์จริง"]
+        quoteWords: ["บันทึกพลังแสงสี", "และอารมณ์สดบนเวทีคอนเสิร์ต", "ให้ทุกช็อตมีชีวิต", "เหมือนอยู่ในเหตุการณ์จริง"]
       },
       {
-        badge: "02 // HOTEL & RESORT",
-        kicker: "LUXURY / HOTEL / RESORT",
+        badgeTokens: ["02 //", "HOTEL", "& RESORT"],
+        kickerLines: ["LUXURY / HOTEL /", "RESORT"],
         bullets: ["HOSPITALITY ARCHITECTURE", "NATURAL DAYLIGHT MOOD", "HIGH-CONVERTING VISUALS"],
-        quoteWords: ["ถ่ายทอดมิติแสงธรรมชาติ", "และบรรยากาศพักผ่อน", "ระดับลักชัวรี", "เพื่อดึงดูดการจองห้องพัก", "ตั้งแต่แรกเห็น"]
+        quoteWords: ["ถ่ายทอดมิติแสงธรรมชาติ", "และบรรยากาศพักผ่อนลักชัวรี", "เพื่อดึงดูดการจองห้องพัก", "ตั้งแต่แรกเห็น"]
       },
       {
-        badge: "03 // CYCLING & SPORT",
-        kicker: "HIGH-SPEED / SPORT / ACTION",
+        badgeTokens: ["03 //", "CYCLING", "& SPORT"],
+        kickerLines: ["SPEED / SPORT /", "ACTION"],
         bullets: ["PELOTON & ROAD CYCLING", "SUPERCAR & MOTORSPORT", "SPLIT-SECOND PRECISION"],
-        quoteWords: ["จับเสี้ยววินาทีความเร็วสูง", "และพลังการแข่งขัน", "อย่างแม่นยำ", "คมชัดทุกจังหวะสปรินต์", "และโค้งสำคัญ"]
+        quoteWords: ["จับเสี้ยววินาทีความเร็วสูง", "และพลังการแข่งขันอย่างแม่นยำ", "คมชัดทุกจังหวะสปรินต์", "และโค้งสำคัญ"]
       },
       {
-        badge: "04 // REAL ESTATE",
-        kicker: "SPACE / VILLA / PROPERTY",
+        badgeTokens: ["04 //", "REAL", "ESTATE"],
+        kickerLines: ["SPACE / VILLA /", "PROPERTY"],
         bullets: ["LUXURY VILLA & CONDO", "TRUE SPATIAL PROPORTION", "COMMERCIAL REAL ESTATE"],
-        quoteWords: ["ถ่ายทอดสเปซบ้าน", "วิลล่าและคอนโด", "ให้ดูกว้างขวาง", "น่าอยู่อาศัย", "และปิดการขายได้ไวขึ้น"]
+        quoteWords: ["ถ่ายทอดสเปซบ้าน", "วิลล่าและคอนโดให้ดูกว้างขวาง", "น่าอยู่อาศัย", "และปิดการขายได้ไวขึ้น"]
       },
       {
-        badge: "05 // FOOD & DINING",
-        kicker: "CULINARY / FINE / DINING",
+        badgeTokens: ["05 //", "FOOD", "& DINING"],
+        kickerLines: ["CULINARY / FINE /", "DINING"],
         bullets: ["CHEF SIGNATURE DISHES", "APPETIZING TEXTURE & LIGHT", "BEVERAGE & BAR STYLING"],
-        quoteWords: ["ขับเน้นความพิถีพิถัน", "ของรสชาติ", "และเท็กซ์เจอร์อาหารจานพิเศษ", "ให้ดูสดใหม่", "ชวนลิ้มลองในทุกมิติ"]
+        quoteWords: ["ขับเน้นความพิถีพิถัน", "ของรสชาติและเท็กซ์เจอร์อาหาร", "ให้ดูสดใหม่", "ชวนลิ้มลองในทุกมิติ"]
       },
       {
-        badge: "06 // PRODUCT & BRAND",
-        kicker: "COMMERCIAL / BRAND / PACKSHOT",
+        badgeTokens: ["06 //", "PRODUCT", "& BRAND"],
+        kickerLines: ["BRAND / STUDIO /", "PACKSHOT"],
         bullets: ["STUDIO LIGHT CONTROL", "HERO ADVERTISING KEY ART", "SURFACE & MATERIAL DETAIL"],
-        quoteWords: ["ยกระดับมูลค่าสินค้า", "และภาพลักษณ์แบรนด์", "เพื่อการโฆษณา", "ด้วยการจัดแสงสตูดิโอ", "ที่คุมละเอียดทุกพื้นผิว"]
+        quoteWords: ["ยกระดับมูลค่าสินค้า", "และภาพลักษณ์แบรนด์โฆษณา", "ด้วยการจัดแสงสตูดิโอ", "ที่คุมละเอียดทุกพื้นผิว"]
       },
       {
-        badge: "07 // STUDIO & PORTRAIT",
-        kicker: "EXECUTIVE / STUDIO / PORTRAIT",
+        badgeTokens: ["07 //", "STUDIO", "& PORTRAIT"],
+        kickerLines: ["STUDIO / MASTER /", "PORTRAIT"],
         bullets: ["FOUNDER & CEO PORTRAIT", "EDITORIAL FASHION MOOD", "MASTER STUDIO LIGHTING"],
-        quoteWords: ["ดึงคาแรกเตอร์", "และเสน่ห์เฉพาะตัว", "ของผู้บริหารและศิลปิน", "ด้วยการจัดแสง", "ระดับสตูดิโอที่ทรงพลัง"]
+        quoteWords: ["ดึงคาแรกเตอร์", "และเสน่ห์เฉพาะตัวของผู้บริหาร", "ด้วยการจัดแสง", "ระดับสตูดิโอที่ทรงพลัง"]
       },
       {
-        badge: "08 // CORPORATE & EVENT",
-        kicker: "SUMMIT / GALA / CORPORATE",
+        badgeTokens: ["08 //", "CORPORATE", "& EVENT"],
+        kickerLines: ["SUMMIT / GALA /", "CORPORATE"],
         bullets: ["INTERNATIONAL CONFERENCE", "LUXURY BRAND GALA NIGHT", "KEYNOTE & VIP MOMENTS"],
-        quoteWords: ["บันทึกจังหวะสำคัญ", "ของงานประชุมนานาชาติ", "และอีเวนต์องค์กร", "ครบทุกโมเมนต์สำคัญ", "ของแบรนด์"]
+        quoteWords: ["บันทึกจังหวะสำคัญ", "ของงานประชุมนานาชาติ", "และอีเวนต์องค์กร", "ครบทุกโมเมนต์สำคัญของแบรนด์"]
       }
     ];
 
-    function makeFragSpan(token, idx, isThai = false) {
-      const span = document.createElement("span");
-      span.className = "frag-word is-scattered-in" + (isThai ? " thai-frag" : "");
-      span.textContent = token;
-      // Deterministic 3D scatter vectors so words fly in from all directions & shatter outward
+    function assignScatterVectors(el, idx) {
+      // Deterministic 3D scatter vectors so all pieces float in & out gracefully
       const angle = (idx * 137.5) * (Math.PI / 180);
-      const dist = 34 + (idx % 4) * 16;
+      const dist = 36 + (idx % 4) * 15;
       const inX = Math.round(Math.cos(angle) * dist);
       const inY = Math.round(Math.sin(angle) * dist);
-      const inZ = ((idx % 3) - 1) * 55;
-      const inRx = ((idx % 2 === 0 ? 1 : -1) * (24 + (idx % 3) * 12));
-      const inRy = ((idx % 2 === 1 ? 1 : -1) * (28 + (idx % 4) * 10));
-      const inRz = ((idx % 2 === 0 ? -1 : 1) * (10 + (idx % 3) * 6));
+      const inZ = ((idx % 3) - 1) * 52;
+      const inRx = ((idx % 2 === 0 ? 1 : -1) * (22 + (idx % 3) * 10));
+      const inRy = ((idx % 2 === 1 ? 1 : -1) * (24 + (idx % 4) * 9));
+      const inRz = ((idx % 2 === 0 ? -1 : 1) * (9 + (idx % 3) * 5));
 
-      const outX = Math.round(Math.cos(angle + 0.9) * (dist + 18));
-      const outY = Math.round(Math.sin(angle + 0.9) * (dist + 18));
+      const outX = Math.round(Math.cos(angle + 0.85) * (dist + 18));
+      const outY = Math.round(Math.sin(angle + 0.85) * (dist + 18));
       const outZ = -inZ;
 
-      span.style.setProperty("--in-x", `${inX}px`);
-      span.style.setProperty("--in-y", `${inY}px`);
-      span.style.setProperty("--in-z", `${inZ}px`);
-      span.style.setProperty("--in-rx", `${inRx}deg`);
-      span.style.setProperty("--in-ry", `${inRy}deg`);
-      span.style.setProperty("--in-rz", `${inRz}deg`);
-      span.style.setProperty("--frag-delay", `${idx * 26}ms`);
+      el.style.setProperty("--in-x", `${inX}px`);
+      el.style.setProperty("--in-y", `${inY}px`);
+      el.style.setProperty("--in-z", `${inZ}px`);
+      el.style.setProperty("--in-rx", `${inRx}deg`);
+      el.style.setProperty("--in-ry", `${inRy}deg`);
+      el.style.setProperty("--in-rz", `${inRz}deg`);
+      el.style.setProperty("--frag-delay", `${idx * 22}ms`);
 
-      span.style.setProperty("--out-x", `${outX}px`);
-      span.style.setProperty("--out-y", `${outY}px`);
-      span.style.setProperty("--out-z", `${outZ}px`);
-      span.style.setProperty("--out-rx", `${-inRx}deg`);
-      span.style.setProperty("--out-ry", `${-inRy}deg`);
-      span.style.setProperty("--out-rz", `${-inRz}deg`);
-      span.style.setProperty("--out-delay", `${idx * 16}ms`);
+      el.style.setProperty("--out-x", `${outX}px`);
+      el.style.setProperty("--out-y", `${outY}px`);
+      el.style.setProperty("--out-z", `${outZ}px`);
+      el.style.setProperty("--out-rx", `${-inRx}deg`);
+      el.style.setProperty("--out-ry", `${-inRy}deg`);
+      el.style.setProperty("--out-rz", `${-inRz}deg`);
+      el.style.setProperty("--out-delay", `${idx * 14}ms`);
+    }
+
+    function makeFragSpan(token, idx, extraClass = "") {
+      const span = document.createElement("span");
+      span.className = "frag-word is-scattered-in" + (extraClass ? ` ${extraClass}` : "");
+      span.textContent = token;
+      assignScatterVectors(span, idx);
       return span;
     }
 
     function setupCoverLivingAnimations() {
-      // 1. Activate continuous "Dook-Dik" living wave on FELTZ STUDIO after entry uncoil finishes
+      // 1. FELTZ STUDIO: Sequential Bounce ("ดึ๋ง ดึ๋ง ดึ๋ง ดึ๋ง") once after entry -> STOP -> Random Single-Char Bounce
       const giantWord = document.getElementById("poster-giant-word");
       if (giantWord) {
+        const allChars = Array.from(giantWord.querySelectorAll(".helix-char"));
+        const bounceableChars = allChars.filter((el) => (el.textContent || "").trim().length > 0);
+
+        const triggerSingleCharBoing = (charEl) => {
+          if (!charEl) return;
+          charEl.classList.remove("is-boing");
+          void charEl.offsetWidth;
+          charEl.classList.add("is-boing");
+          setTimeout(() => {
+            charEl.classList.remove("is-boing");
+          }, 580);
+        };
+
+        // Allow playful hover/click bounce on individual letters once settled
+        bounceableChars.forEach((chEl) => {
+          chEl.addEventListener("mouseenter", () => {
+            if (giantWord.classList.contains("is-settled")) {
+              triggerSingleCharBoing(chEl);
+            }
+          });
+        });
+
+        // Step 1A: Wait for initial 3D entry uncoil to finish (~1680ms), then play 1 sequential bounce across F-E-L-T-Z S-T-U-D-I-O and STOP
         setTimeout(() => {
-          giantWord.classList.add("is-idle-alive");
-        }, 1850);
+          giantWord.classList.add("is-settled");
+          bounceableChars.forEach((chEl, i) => {
+            setTimeout(() => {
+              triggerSingleCharBoing(chEl);
+            }, i * 68);
+          });
+
+          // Step 1B: After the sequential bounce stops completely, occasionally bounce 1 random letter (e.g., E, then U, etc.) and stop
+          let lastRandomIdx = -1;
+          setTimeout(() => {
+            setInterval(() => {
+              const vp = document.getElementById("viewport-canvas");
+              if (vp && vp.scrollTop > window.innerHeight * 0.6) return;
+              if (document.getElementById("dossier-modal")?.classList.contains("is-open")) return;
+              if (document.getElementById("exhibition-modal")?.classList.contains("is-open")) return;
+              if (!bounceableChars.length) return;
+
+              let pickIdx = Math.floor(Math.random() * bounceableChars.length);
+              if (bounceableChars.length > 1 && pickIdx === lastRandomIdx) {
+                pickIdx = (pickIdx + 3) % bounceableChars.length;
+              }
+              lastRandomIdx = pickIdx;
+              triggerSingleCharBoing(bounceableChars[pickIdx]);
+            }, 2400);
+          }, bounceableChars.length * 68 + 900);
+        }, 1680);
       }
 
-      // 2. Setup 8-Category Assemble & Shatter Loop on Left Column
+      // 2. Setup 8-Category Full-Block Assemble & Shatter Loop on Left Column (Zero Jump-Cut + Longer Hold)
       const leftCol = document.querySelector(".poster-col-left");
       if (!leftCol) return;
 
       const kickerEl = leftCol.querySelector(".poster-kicker-title");
       const subListEl = leftCol.querySelector(".poster-sub-list");
+      const redRuleEl = leftCol.querySelector(".poster-red-rule");
+      const quoteMarkEl = leftCol.querySelector(".poster-quote-mark");
       const quoteEl = leftCol.querySelector(".editorial-quote-th");
+      const sigEl = leftCol.querySelector(".poster-signature");
       if (!kickerEl || !subListEl || !quoteEl) return;
 
       let badgeEl = leftCol.querySelector(".kinetic-cat-badge");
@@ -5752,37 +5872,71 @@
         const item = COVER_STORY_ROTATION[storyIdx];
         let globalWordCounter = 0;
 
-        // Badge
-        badgeEl.innerHTML = `<span class="k-dot"></span><span>${item.badge}</span>`;
-
-        // Kicker words
-        kickerEl.innerHTML = "";
-        item.kicker.split(" ").forEach((w) => {
-          kickerEl.appendChild(makeFragSpan(w, globalWordCounter++, false));
+        // 1) Category Badge (01 // CONCERT & STAGE) + glowing dot all float in together
+        badgeEl.innerHTML = "";
+        const dotSpan = document.createElement("span");
+        dotSpan.className = "k-dot frag-word is-scattered-in";
+        assignScatterVectors(dotSpan, globalWordCounter++);
+        badgeEl.appendChild(dotSpan);
+        (item.badgeTokens || []).forEach((bt) => {
+          badgeEl.appendChild(makeFragSpan(bt, globalWordCounter++));
         });
 
-        // Bullet lines
+        // 2) Kicker words (Strictly 2 balanced lines for every category so height never jumps)
+        kickerEl.innerHTML = "";
+        (item.kickerLines || []).forEach((lineStr) => {
+          const lineRow = document.createElement("span");
+          lineRow.className = "kicker-line-row";
+          lineStr.split(" ").forEach((w) => {
+            lineRow.appendChild(makeFragSpan(w, globalWordCounter++));
+          });
+          kickerEl.appendChild(lineRow);
+        });
+
+        // 3) Bullet lines (3 single-line bullets)
         subListEl.innerHTML = "";
         item.bullets.forEach((bLine) => {
           const li = document.createElement("li");
           bLine.split(" ").forEach((w) => {
-            li.appendChild(makeFragSpan(w, globalWordCounter++, false));
+            li.appendChild(makeFragSpan(w, globalWordCounter++));
           });
           subListEl.appendChild(li);
         });
 
-        // Thai Quote chunks
+        // 4) Orange/Crimson Horizontal Rule (.poster-red-rule) floats out & back in too
+        if (redRuleEl) {
+          redRuleEl.classList.remove("is-assembled", "is-shattered-out");
+          redRuleEl.classList.add("frag-word", "frag-rule", "is-scattered-in");
+          assignScatterVectors(redRuleEl, globalWordCounter++);
+        }
+
+        // 5) Quotation Mark (“) floats out & back in too
+        if (quoteMarkEl) {
+          quoteMarkEl.classList.remove("is-assembled", "is-shattered-out");
+          quoteMarkEl.classList.add("frag-word", "frag-quote-mark", "is-scattered-in");
+          assignScatterVectors(quoteMarkEl, globalWordCounter++);
+        }
+
+        // 6) Thai Quote chunks
         quoteEl.innerHTML = "";
-        const thChunks = item.quoteWords || [item.quote];
+        const thChunks = item.quoteWords || [];
         thChunks.forEach((ch) => {
-          quoteEl.appendChild(makeFragSpan(ch, globalWordCounter++, true));
+          quoteEl.appendChild(makeFragSpan(ch, globalWordCounter++, "thai-frag"));
         });
 
-        // Trigger fly-in assembly on next frame
+        // 7) Signature (Mongkol W.) floats out & back in together with the whole left block
+        if (sigEl) {
+          sigEl.innerHTML = "";
+          ["Mongkol", "W."].forEach((sTok) => {
+            sigEl.appendChild(makeFragSpan(sTok, globalWordCounter++, "frag-sign"));
+          });
+        }
+
+        // Trigger smooth fly-in assembly on next frame
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
             leftCol.querySelectorAll(".frag-word").forEach((el) => {
-              el.classList.remove("is-scattered-in");
+              el.classList.remove("is-scattered-in", "is-shattered-out");
               el.classList.add("is-assembled");
             });
           });
@@ -5795,14 +5949,14 @@
           el.classList.remove("is-assembled");
           el.classList.add("is-shattered-out");
         });
-        setTimeout(onDone, 580);
+        setTimeout(onDone, 780);
       };
 
-      // Initial render after entry animation
+      // Initial render on page load
       renderStoryAssemble(0);
 
+      // Longer, relaxed cycle (~8.2 seconds per category) so viewers can comfortably read before transition
       setInterval(() => {
-        // Only run when cover is near top of viewport and no modal is open
         const vp = document.getElementById("viewport-canvas");
         if (vp && vp.scrollTop > window.innerHeight * 0.6) return;
         if (document.getElementById("dossier-modal")?.classList.contains("is-open")) return;
@@ -5812,7 +5966,7 @@
           currentStoryIdx = (currentStoryIdx + 1) % COVER_STORY_ROTATION.length;
           renderStoryAssemble(currentStoryIdx);
         });
-      }, 4800);
+      }, 8200);
     }
 
     // =========================================================================
@@ -5829,8 +5983,8 @@
       const albums = catalog[catId] || [];
       if (!albums.length) return;
 
-      // Event & Sport have multiple projects -> Step 1: 3D Folder Dossier
-      if (albums.length > 1) {
+      // Event & Sport use Step 1: 3D Folder Dossier before Step 2: Exhibition Room
+      if (catId === "sport" || catId === "live_event" || albums.length > 1) {
         openDossierModal(catId);
       } else {
         // Single-collection categories -> Direct Step 1: Luxury Exhibition Viewing Room
@@ -5898,7 +6052,7 @@
         pivotEl.appendChild(card);
       });
 
-      // Front-Most Category Cover Plate with Bespoke Font Motion & Segmented Emblem (Ref 2)
+      // Front-Most Category Cover Plate with Bespoke Font Motion (Spinning circles removed per Keng's feedback)
       const isSport = catId === "sport";
       const coverPlate = document.createElement("div");
       coverPlate.className = "dossier-front-cover-plate";
@@ -5909,13 +6063,6 @@
         <div class="cover-plate-top-meta">
           <span>FELTZ STUDIO // ARCHIVE SYSTEM</span>
           <span>CAT ${catObj.num}</span>
-        </div>
-        <div class="cover-plate-kinetic-emblem" aria-hidden="true">
-          <svg viewBox="0 0 200 200" fill="none">
-            <circle class="emblem-ring-outer" cx="100" cy="100" r="78" stroke="#e8dcc8" stroke-width="8" stroke-dasharray="28 14 12 14" opacity="0.55" />
-            <circle class="emblem-ring-inner" cx="100" cy="100" r="54" stroke="#e04f3e" stroke-width="6" stroke-dasharray="18 12 8 12" opacity="0.75" />
-            <circle cx="100" cy="100" r="24" stroke="#e8dcc8" stroke-width="1.5" opacity="0.4" />
-          </svg>
         </div>
         <div class="cover-plate-typo-stage">
           <span class="cover-plate-kicker">${catObj.num} // MASTER PORTFOLIO FILES</span>
