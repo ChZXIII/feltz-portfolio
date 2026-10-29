@@ -1,0 +1,2458 @@
+<!DOCTYPE html>
+<html lang="th" data-lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>GHN168 Media & Creation — Interactive Company Profile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* Matte Paper Dual Palette (Blvck Tumbler x GHN168 Crimson x Warm Paper) */
+      --paper-black-deep: #121316;
+      --paper-black-soft: #1a1c21;
+      --paper-black-elevated: #22252b;
+      --paper-white-warm: #f2efe9;
+      --paper-white-card: #e8e4dc;
+      --ink-white: #f5f3ee;
+      --ink-muted-on-dark: #a0a4ae;
+      --ink-dark: #141518;
+      --ink-muted-on-light: #54575f;
+      --ghn-red: #e02424;
+      --ghn-red-deep: #b81818;
+      --hairline-dark: rgba(245, 243, 238, 0.12);
+      --hairline-light: rgba(20, 21, 24, 0.14);
+
+      --font-display: 'Outfit', 'Prompt', sans-serif;
+      --font-body: 'IBM Plex Sans Thai', 'Prompt', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --ease-cushioned: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--paper-black-deep);
+      color: var(--ink-white);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      overflow-x: hidden;
+      background-color: var(--paper-black-deep);
+      line-height: 1.6;
+    }
+
+    /* ==========================================================================
+       MATTE PAPER GRAIN LAYER (Strictly on backgrounds only, NEVER on text/UI)
+       ========================================================================== */
+    .paper-section {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      scroll-margin-top: 68px;
+    }
+
+    .paper-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.32;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paperNoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paperNoise)' opacity='0.28'/%3E%3C/svg%3E");
+      background-size: 220px 220px;
+    }
+
+    .paper-dark {
+      background-color: var(--paper-black-deep);
+      color: var(--ink-white);
+    }
+
+    .paper-light {
+      background-color: var(--paper-white-warm);
+      color: var(--ink-dark);
+    }
+
+    .paper-light::before {
+      opacity: 0.42;
+      mix-blend-mode: multiply;
+    }
+
+    /* Content always sits cleanly above the paper texture (Smooth Ink Layer) */
+    .ink-layer {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Spot-UV Gloss Black-on-Black Decorative Background Typography */
+    .gloss-watermark {
+      position: absolute;
+      z-index: 1;
+      pointer-events: none;
+      user-select: none;
+      font-family: var(--font-display);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 0.88;
+      text-transform: uppercase;
+      background: linear-gradient(
+        118deg,
+        rgba(12, 13, 16, 0.92) 0%,
+        rgba(39, 43, 52, 0.55) 44%,
+        rgba(72, 77, 90, 0.28) 50%,
+        rgba(24, 26, 32, 0.75) 58%,
+        rgba(14, 15, 18, 0.95) 100%
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.04);
+      transition: transform 0.9s var(--ease-cushioned);
+    }
+
+    /* ==========================================================================
+       TOP NAVIGATION & LANGUAGE SWITCHER (Transitions.dev #16 Sliding Pill)
+       ========================================================================== */
+    .top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 36px;
+      background: #121316;
+      border-bottom: 1px solid var(--hairline-dark);
+      transition: background-color 0.45s var(--ease-cushioned);
+    }
+
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--ink-white);
+    }
+
+    .brand-tri {
+      width: 0;
+      height: 0;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-left: 13px solid var(--ghn-red);
+      transition: transform 0.4s var(--ease-cushioned);
+    }
+
+    .brand-mark:hover .brand-tri {
+      transform: translateX(3px);
+    }
+
+    .brand-wordmark {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: 0.08em;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .brand-sub {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 400;
+      color: var(--ink-muted-on-dark);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--ink-muted-on-dark);
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 2px;
+      position: relative;
+      transition: color 0.35s var(--ease-cushioned);
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--ghn-red);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.45s var(--ease-cushioned);
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--ink-white);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Sliding Language Switcher (TH / EN) */
+    .lang-switch {
+      position: relative;
+      display: inline-grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--paper-black-elevated);
+      border: 1px solid var(--hairline-dark);
+      border-radius: 999px;
+      padding: 3px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .lang-pill {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: calc(50% - 3px);
+      height: calc(100% - 6px);
+      background: var(--ghn-red);
+      border-radius: 999px;
+      transition: transform 0.55s var(--ease-cushioned);
+      z-index: 1;
+    }
+
+    html[data-lang="en"] .lang-pill {
+      transform: translateX(100%);
+    }
+
+    .lang-btn {
+      position: relative;
+      z-index: 2;
+      background: transparent;
+      border: none;
+      color: var(--ink-white);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      padding: 5px 12px;
+      cursor: pointer;
+      transition: opacity 0.35s ease;
+    }
+
+    .print-btn {
+      background: transparent;
+      border: 1px solid var(--hairline-dark);
+      color: var(--ink-white);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      padding: 7px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: border-color 0.35s ease, background-color 0.35s ease, transform 0.25s ease;
+    }
+
+    .print-btn:hover {
+      border-color: var(--ghn-red);
+      background: rgba(224, 36, 36, 0.12);
+    }
+
+    .print-btn:active {
+      transform: scale(0.97);
+    }
+
+    /* Language visibility helper */
+    html[data-lang="th"] [data-en] { display: none !important; }
+    html[data-lang="en"] [data-th] { display: none !important; }
+
+    /* ==========================================================================
+       00 // COVER & VISION (Blvck Tumbler Split Matte Paper + Synced 4.6s Deck)
+       ========================================================================== */
+    .hero-section {
+      min-height: 100vh;
+      padding: 96px 48px 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(90deg, var(--paper-black-deep) 0%, var(--paper-black-deep) 50%, var(--paper-black-soft) 50%, var(--paper-black-soft) 100%);
+      border-bottom: 1px solid var(--hairline-dark);
+    }
+
+    .hero-watermark {
+      top: 13%;
+      right: 3%;
+      font-size: clamp(5.5rem, 15vw, 14rem);
+      text-align: right;
+    }
+
+    /* Corner Matte Blocks inspired by Blvck Tumbler */
+    .hero-corner-block-left {
+      position: absolute;
+      left: 0;
+      bottom: 12%;
+      width: 24%;
+      height: 220px;
+      background: var(--paper-black-soft);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .hero-corner-block-right {
+      position: absolute;
+      right: 0;
+      bottom: 12%;
+      width: 28%;
+      height: 220px;
+      background: var(--paper-black-deep);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .hero-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 1px solid var(--hairline-dark);
+      padding-bottom: 18px;
+      gap: 20px;
+    }
+
+    .hero-kicker {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
+      color: var(--ghn-red);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 6.6vw, 6.2rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 0.94;
+      color: var(--ink-white);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.18em;
+    }
+
+    .hero-title .char-group {
+      display: inline-block;
+      transition: transform 0.85s var(--ease-cushioned), color 0.85s var(--ease-cushioned);
+    }
+
+    .hero-title.is-pulsing .char-group-1 {
+      transform: translateY(-6px);
+    }
+
+    .hero-title.is-pulsing .char-group-2 {
+      color: var(--ghn-red);
+      transform: translateY(-6px);
+    }
+
+    .hero-meta-badge {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--ink-muted-on-dark);
+      text-align: right;
+      letter-spacing: 0.08em;
+    }
+
+    /* Main Split Stage */
+    .hero-stage {
+      display: grid;
+      grid-template-columns: 1.05fr 1.15fr 1.1fr;
+      gap: 36px;
+      align-items: center;
+      margin: auto 0;
+      padding: 28px 0;
+    }
+
+    /* Left Narrative Column */
+    .hero-quote-col {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .quote-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-muted-on-dark);
+    }
+
+    .quote-headline {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 2.7vw, 2.65rem);
+      font-weight: 800;
+      line-height: 1.12;
+      color: var(--ink-white);
+    }
+
+    .quote-headline .accent-red {
+      color: var(--ghn-red);
+    }
+
+    .quote-sub {
+      font-size: 0.98rem;
+      color: var(--ink-muted-on-dark);
+      max-width: 44ch;
+      line-height: 1.7;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 6px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--ghn-red);
+      color: var(--ink-white);
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 13px 22px;
+      border-radius: 4px;
+      border: 1px solid var(--ghn-red);
+      transition: background-color 0.35s var(--ease-cushioned), transform 0.25s var(--ease-cushioned);
+    }
+
+    .btn-primary:hover {
+      background: var(--ghn-red-deep);
+      transform: translateY(-2px);
+    }
+
+    .btn-primary:active {
+      transform: scale(0.98);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--ink-white);
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 13px 20px;
+      border-radius: 4px;
+      border: 1px solid var(--hairline-dark);
+      transition: border-color 0.35s var(--ease-cushioned), background-color 0.35s var(--ease-cushioned);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--ink-white);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Center Hero Photo + Crimson Ring (Blvck Tumbler Signature Element) */
+    .hero-centerpiece {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 18px;
+    }
+
+    .crimson-ring {
+      position: absolute;
+      top: -12px;
+      right: 6%;
+      width: 156px;
+      height: 156px;
+      border-radius: 50%;
+      border: 18px solid var(--ghn-red);
+      z-index: 1;
+      pointer-events: none;
+      transition: transform 1.08s var(--ease-cushioned);
+    }
+
+    .hero-centerpiece:hover .crimson-ring {
+      transform: scale(1.05) translate(4px, -4px);
+    }
+
+    .hero-photo-frame {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      background: var(--paper-black-deep);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: 0 28px 60px rgba(0, 0, 0, 0.65);
+      overflow: hidden;
+    }
+
+    .hero-photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 1.1s var(--ease-cushioned);
+    }
+
+    .hero-photo-frame:hover img {
+      transform: scale(1.03);
+    }
+
+    .hero-photo-caption {
+      position: absolute;
+      left: 14px;
+      bottom: 12px;
+      z-index: 3;
+      background: rgba(18, 19, 22, 0.88);
+      border-left: 3px solid var(--ghn-red);
+      padding: 6px 12px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      color: var(--ink-white);
+    }
+
+    /* Right Synced 3-Card Deck (01 PROFILE / 02 G-H-N / 03 CAPABILITIES) */
+    .hero-deck-col {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .deck-tabs {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background: var(--paper-black-deep);
+      border: 1px solid var(--hairline-dark);
+      border-radius: 6px;
+      padding: 4px;
+    }
+
+    .deck-tab-indicator {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: calc((100% - 8px) / 3);
+      height: calc(100% - 8px);
+      background: var(--ghn-red);
+      border-radius: 4px;
+      transition: transform 1.05s var(--ease-cushioned);
+      z-index: 1;
+    }
+
+    .deck-tab-btn {
+      position: relative;
+      z-index: 2;
+      background: transparent;
+      border: none;
+      color: var(--ink-muted-on-dark);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      padding: 8px 6px;
+      cursor: pointer;
+      transition: color 0.4s ease;
+    }
+
+    .deck-tab-btn.active {
+      color: var(--ink-white);
+    }
+
+    .deck-stage {
+      position: relative;
+      min-height: 250px;
+      perspective: 1000px;
+    }
+
+    .deck-card {
+      position: absolute;
+      inset: 0;
+      background: var(--paper-black-deep);
+      border: 1px solid var(--hairline-dark);
+      border-top: 3px solid var(--ghn-red);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate3d(0, 14px, -30px) scale(0.96);
+      transition:
+        opacity 1.05s var(--ease-cushioned),
+        transform 1.05s var(--ease-cushioned);
+    }
+
+    .deck-card.is-active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate3d(0, 0, 0) scale(1);
+      z-index: 3;
+    }
+
+    .deck-card.is-next {
+      opacity: 0;
+      transform: translate3d(0, 10px, -18px) scale(0.975);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .deck-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--ghn-red);
+      letter-spacing: 0.12em;
+      margin-bottom: 10px;
+    }
+
+    .deck-card-title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--ink-white);
+      margin-bottom: 8px;
+    }
+
+    .deck-card-body {
+      font-size: 0.9rem;
+      color: var(--ink-muted-on-dark);
+      line-height: 1.65;
+    }
+
+    .deck-stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      padding-top: 14px;
+      margin-top: 14px;
+      border-top: 1px solid var(--hairline-dark);
+    }
+
+    .deck-stat-num {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--ink-white);
+    }
+
+    .deck-stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      color: var(--ink-muted-on-dark);
+      text-transform: uppercase;
+    }
+
+    /* Hero Bottom Metadata Bar */
+    .hero-bottom-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid var(--hairline-dark);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--ink-muted-on-dark);
+      letter-spacing: 0.08em;
+    }
+
+    /* ==========================================================================
+       01 // ABOUT, G-H-N MISSION & SERVICES (Warm Matte Off-White Paper Zone)
+       ========================================================================== */
+    .section-wrap {
+      padding: 96px 48px;
+      border-bottom: 1px solid var(--hairline-dark);
+    }
+
+    .paper-light.section-wrap {
+      border-bottom: 1px solid var(--hairline-light);
+    }
+
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+      padding-bottom: 28px;
+      margin-bottom: 48px;
+      border-bottom: 2px solid currentColor;
+    }
+
+    .section-index {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      color: var(--ghn-red);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+    }
+
+    .section-desc {
+      max-width: 48ch;
+      font-size: 0.98rem;
+      opacity: 0.82;
+    }
+
+    /* G - H - N Three Pillars */
+    .ghn-pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 64px;
+    }
+
+    .ghn-pillar-card {
+      background: var(--paper-white-card);
+      border: 1px solid var(--hairline-light);
+      padding: 32px 28px;
+      position: relative;
+      transition: transform 0.5s var(--ease-cushioned), border-color 0.5s var(--ease-cushioned);
+    }
+
+    .ghn-pillar-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--ghn-red);
+    }
+
+    .ghn-big-letter {
+      font-family: var(--font-display);
+      font-size: 4.8rem;
+      font-weight: 900;
+      line-height: 0.9;
+      color: var(--ink-dark);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+
+    .ghn-big-letter span {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--ghn-red);
+      letter-spacing: 0.12em;
+    }
+
+    .ghn-pillar-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--ghn-red);
+      display: inline-block;
+    }
+
+    .ghn-pillar-desc {
+      font-size: 0.94rem;
+      color: var(--ink-muted-on-light);
+      line-height: 1.65;
+    }
+
+    /* 6 Services Swiss Editorial Grid */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--hairline-light);
+      border-left: 1px solid var(--hairline-light);
+    }
+
+    .service-cell {
+      padding: 30px 26px;
+      border-right: 1px solid var(--hairline-light);
+      border-bottom: 1px solid var(--hairline-light);
+      background: rgba(255, 255, 255, 0.35);
+      transition: background-color 0.4s var(--ease-cushioned);
+    }
+
+    .service-cell:hover {
+      background: #ffffff;
+    }
+
+    .service-num {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--ghn-red);
+      letter-spacing: 0.12em;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .service-name {
+      font-family: var(--font-display);
+      font-size: 1.22rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      color: var(--ink-dark);
+    }
+
+    .service-detail {
+      font-size: 0.92rem;
+      color: var(--ink-muted-on-light);
+      line-height: 1.65;
+    }
+
+    /* ==========================================================================
+       02 // THE FOUNDERS (3 Co-Founders: Keng, Hom, Nick — Matte Dark Paper)
+       ========================================================================== */
+    .founders-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .founder-card {
+      background: var(--paper-black-soft);
+      border: 1px solid var(--hairline-dark);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: border-color 0.5s var(--ease-cushioned), transform 0.5s var(--ease-cushioned);
+    }
+
+    .founder-card:hover {
+      border-color: var(--ghn-red);
+      transform: translateY(-4px);
+    }
+
+    .founder-photo-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 4.8;
+      background: #0d0e10;
+      overflow: hidden;
+      border-bottom: 3px solid var(--ghn-red);
+    }
+
+    .founder-photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      transition: transform 0.9s var(--ease-cushioned);
+    }
+
+    .founder-card:hover .founder-photo-wrap img {
+      transform: scale(1.03);
+    }
+
+    .founder-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(18, 19, 22, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 4px 10px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: var(--ink-white);
+    }
+
+    .founder-info {
+      padding: 26px 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .founder-name-first {
+      font-family: var(--font-display);
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--ghn-red);
+      line-height: 1.1;
+    }
+
+    .founder-name-last {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--ink-white);
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .founder-role {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      color: var(--ink-white);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .founder-desc {
+      font-size: 0.9rem;
+      color: var(--ink-muted-on-dark);
+      line-height: 1.6;
+    }
+
+    .founder-contact {
+      padding-top: 14px;
+      border-top: 1px solid var(--hairline-dark);
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--ink-muted-on-dark);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .founder-contact a {
+      color: var(--ink-white);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .founder-contact a:hover {
+      color: var(--ghn-red);
+    }
+
+    /* ==========================================================================
+       03 // SELECTED WORKS (15 Real Projects — EAST 64 Interactive Stage + 4 Stills)
+       ========================================================================== */
+    .works-filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 32px;
+    }
+
+    .filter-btn {
+      background: var(--paper-black-soft);
+      border: 1px solid var(--hairline-dark);
+      color: var(--ink-muted-on-dark);
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 10px 18px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition:
+        background-color 0.45s var(--ease-cushioned),
+        color 0.45s var(--ease-cushioned),
+        border-color 0.45s var(--ease-cushioned),
+        transform 0.25s ease;
+    }
+
+    .filter-btn:hover {
+      color: var(--ink-white);
+      border-color: rgba(255, 255, 255, 0.32);
+    }
+
+    .filter-btn.active {
+      background: var(--ghn-red);
+      border-color: var(--ghn-red);
+      color: var(--ink-white);
+    }
+
+    .filter-btn:active {
+      transform: scale(0.97);
+    }
+
+    /* Interactive Split Showcase: Left Index List (EAST 64 style) + Right 4-Frame Viewer */
+    .works-showcase {
+      display: grid;
+      grid-template-columns: 0.95fr 1.45fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .works-index-list {
+      background: var(--paper-black-soft);
+      border: 1px solid var(--hairline-dark);
+      divide-y: 1px solid var(--hairline-dark);
+      max-height: 640px;
+      overflow-y: auto;
+    }
+
+    .work-row-btn {
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--hairline-dark);
+      padding: 16px 20px;
+      display: grid;
+      grid-template-columns: 42px 1fr auto;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      color: rgba(245, 243, 238, 0.36); /* Subtle dark-on-dark when inactive like EAST 64 Films */
+      transition:
+        color 0.45s var(--ease-cushioned),
+        background-color 0.45s var(--ease-cushioned),
+        padding-left 0.45s var(--ease-cushioned);
+    }
+
+    .work-row-btn:hover {
+      color: rgba(245, 243, 238, 0.82);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .work-row-btn.active {
+      color: var(--ink-white);
+      background: rgba(224, 36, 36, 0.12);
+      border-left: 4px solid var(--ghn-red);
+      padding-left: 24px;
+    }
+
+    .work-row-num {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: inherit;
+    }
+
+    .work-row-btn.active .work-row-num {
+      color: var(--ghn-red);
+    }
+
+    .work-row-title {
+      font-family: var(--font-display);
+      font-size: 1.02rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .work-row-cat {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.78;
+    }
+
+    /* Right 4-Still Stage (16:9 True Horizontal Aspect Ratio - Zero Vertical Cropping) */
+    .work-stage-panel {
+      background: var(--paper-black-soft);
+      border: 1px solid var(--hairline-dark);
+      padding: 24px;
+      transition: opacity 0.55s var(--ease-cushioned), transform 0.55s var(--ease-cushioned);
+    }
+
+    .work-stage-panel.is-switching {
+      opacity: 0.25;
+      transform: translateY(6px);
+    }
+
+    .work-main-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9.6;
+      background: #0b0c0e;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+
+    .work-main-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.55s var(--ease-cushioned), transform 0.85s var(--ease-cushioned);
+    }
+
+    .work-sub-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .work-thumb-btn {
+      position: relative;
+      aspect-ratio: 16 / 9.6;
+      background: #0b0c0e;
+      border: 2px solid transparent;
+      padding: 0;
+      cursor: pointer;
+      overflow: hidden;
+      opacity: 0.58;
+      transition: opacity 0.4s var(--ease-cushioned), border-color 0.4s var(--ease-cushioned), transform 0.3s ease;
+    }
+
+    .work-thumb-btn:hover,
+    .work-thumb-btn.active {
+      opacity: 1;
+      border-color: var(--ghn-red);
+    }
+
+    .work-thumb-btn img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .work-meta-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+      padding-top: 12px;
+      border-top: 1px solid var(--hairline-dark);
+    }
+
+    .work-active-cat {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--ghn-red);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .work-active-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+      font-weight: 800;
+      color: var(--ink-white);
+    }
+
+    .work-counter-pill {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--ink-muted-on-dark);
+      padding: 6px 12px;
+      border: 1px solid var(--hairline-dark);
+    }
+
+    /* ==========================================================================
+       04 // WORKFLOW & PROCESS (8 Steps on Warm Matte Paper)
+       ========================================================================== */
+    .workflow-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .workflow-card {
+      background: var(--paper-white-card);
+      border: 1px solid var(--hairline-light);
+      border-top: 3px solid var(--ink-dark);
+      padding: 24px 22px;
+      transition: border-color 0.4s var(--ease-cushioned), transform 0.4s var(--ease-cushioned), background-color 0.4s ease;
+    }
+
+    .workflow-card:hover {
+      border-top-color: var(--ghn-red);
+      background: #ffffff;
+      transform: translateY(-3px);
+    }
+
+    .wf-step-num {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--ghn-red);
+      letter-spacing: 0.12em;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .wf-step-title {
+      font-family: var(--font-display);
+      font-size: 1.12rem;
+      font-weight: 800;
+      color: var(--ink-dark);
+      margin-bottom: 10px;
+    }
+
+    .wf-step-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.88rem;
+      color: var(--ink-muted-on-light);
+    }
+
+    .wf-step-list li {
+      position: relative;
+      padding-left: 14px;
+    }
+
+    .wf-step-list li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: var(--ghn-red);
+    }
+
+    /* ==========================================================================
+       05 // DIRECT CONTACT & PROCUREMENT CREDENTIALS
+       ========================================================================== */
+    .contact-box {
+      display: grid;
+      grid-template-columns: 1.25fr 0.95fr;
+      background: var(--paper-black-soft);
+      border: 1px solid var(--hairline-dark);
+      border-left: 6px solid var(--ghn-red);
+      overflow: hidden;
+    }
+
+    .contact-details {
+      padding: 48px 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 28px;
+    }
+
+    .corp-table {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      padding: 24px 0;
+      border-top: 1px solid var(--hairline-dark);
+      border-bottom: 1px solid var(--hairline-dark);
+    }
+
+    .corp-item-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--ghn-red);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .corp-item-val {
+      font-size: 0.98rem;
+      font-weight: 500;
+      color: var(--ink-white);
+    }
+
+    .corp-item-val a {
+      color: var(--ink-white);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+      transition: border-color 0.3s ease, color 0.3s ease;
+    }
+
+    .corp-item-val a:hover {
+      color: var(--ghn-red);
+      border-color: var(--ghn-red);
+    }
+
+    .contact-photo-col {
+      position: relative;
+      min-height: 420px;
+      background: #0d0e11;
+    }
+
+    .contact-photo-col img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ==========================================================================
+       MOBILE-FIRST RESPONSIVE ENGINE (<= 900px & <= 768px — 60 FPS Zero Overlap)
+       ========================================================================== */
+    @media (max-width: 1024px) {
+      .hero-stage {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+      .ghn-pillars,
+      .services-grid,
+      .founders-grid,
+      .works-showcase,
+      .contact-box {
+        grid-template-columns: 1fr;
+      }
+      .workflow-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .top-bar {
+        padding: 12px 18px;
+      }
+      .nav-links,
+      .brand-sub,
+      .print-btn {
+        display: none;
+      }
+      .hero-section {
+        padding: 78px 18px 28px;
+        min-height: auto;
+      }
+      .hero-watermark {
+        font-size: 4.5rem;
+        top: 9%;
+      }
+      .section-wrap {
+        padding: 64px 18px;
+      }
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      .crimson-ring {
+        width: 104px;
+        height: 104px;
+        border-width: 12px;
+        top: -8px;
+        right: 2%;
+      }
+      .deck-stage {
+        min-height: 268px;
+      }
+      .workflow-grid,
+      .corp-table {
+        grid-template-columns: 1fr;
+      }
+      .contact-details {
+        padding: 28px 22px;
+      }
+      .contact-photo-col {
+        min-height: 260px;
+      }
+      .works-index-list {
+        max-height: 310px;
+      }
+    }
+
+    @media print {
+      .top-bar { position: static; background: #121316; }
+      .print-btn { display: none; }
+      .paper-section { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR WITH INSTANT TH / EN SWITCHER -->
+  <header class="top-bar">
+    <a href="#top" class="brand-mark">
+      <span class="brand-tri"></span>
+      <span class="brand-wordmark">
+        GHN168
+        <span class="brand-sub">Media &amp; Creation Co., Ltd.</span>
+      </span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#about"><span data-th>01 พันธกิจ &amp; บริการ</span><span data-en>01 Philosophy &amp; Services</span></a></li>
+      <li><a href="#team"><span data-th>02 ผู้ร่วมก่อตั้ง</span><span data-en>02 The Founders</span></a></li>
+      <li><a href="#works"><span data-th>03 ผลงาน (15)</span><span data-en>03 Selected Works (15)</span></a></li>
+      <li><a href="#workflow"><span data-th>04 ขั้นตอนทำงาน</span><span data-en>04 Workflow</span></a></li>
+      <li><a href="#contact"><span data-th>05 ข้อมูลติดต่อ</span><span data-en>05 Contact</span></a></li>
+    </ul>
+
+    <div class="top-actions">
+      <div class="lang-switch" id="langSwitch" role="group" aria-label="Language Switcher">
+        <div class="lang-pill"></div>
+        <button type="button" class="lang-btn" data-set-lang="th">TH</button>
+        <button type="button" class="lang-btn" data-set-lang="en">EN</button>
+      </div>
+      <button type="button" class="print-btn" onclick="window.print()">
+        <span data-th>พิมพ์ / PDF</span>
+        <span data-en>PRINT / PDF</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- 00 // COVER & VISION (Matte Black Split Paper + Blvck Tumbler Aesthetic + Synced 4.6s Deck) -->
+  <section id="top" class="paper-section paper-dark hero-section">
+    <div class="hero-corner-block-left"></div>
+    <div class="hero-corner-block-right"></div>
+    <div class="gloss-watermark hero-watermark">GHN168<br/>STUDIO</div>
+
+    <div class="ink-layer hero-top-row">
+      <div>
+        <div class="hero-kicker">
+          <span class="brand-tri"></span>
+          <span data-th>COMPANY PROFILE // โปรดักชันเฮาส์ครบวงจร เชียงใหม่ – กรุงเทพฯ</span>
+          <span data-en>COMPANY PROFILE // FULL-SCALE PRODUCTION HOUSE</span>
+        </div>
+        <h1 class="hero-title" id="heroTitle">
+          <span class="char-group char-group-1">GHN168</span>
+          <span class="char-group char-group-2">MEDIA</span>
+        </h1>
+      </div>
+      <div class="hero-meta-badge">
+        <div>TAX ID: 0505566010089</div>
+        <div data-th>บริษัท จีเอชเอ็น 168 มีเดีย แอนด์ ครีเอชั่น จำกัด</div>
+        <div data-en>GHN168 MEDIA &amp; CREATION CO., LTD.</div>
+      </div>
+    </div>
+
+    <div class="ink-layer hero-stage">
+      <!-- Left Column: Core Message -->
+      <div class="hero-quote-col">
+        <div class="quote-tag">
+          <span data-th>00 // ข้อความถึงลูกค้าของเรา</span>
+          <span data-en>00 // OUR MESSAGE</span>
+        </div>
+        <h2 class="quote-headline">
+          “Through the Lens: Capturing <span class="accent-red">Moments</span>, Creating <span class="accent-red">Memories</span>.”
+        </h2>
+        <p class="quote-sub" data-th>
+          บันทึกช่วงเวลา สร้างสรรค์ความทรงจำผ่านเลนส์ของพวกเรา — ทีมผู้เชี่ยวชาญสายโปรดักชันที่รวมตัวกันเพื่อสื่อสารและทำงานร่วมกับลูกค้าโดยตรง ไม่ผ่านเอเจนซี่หลายทอด แม่นยำ รวดเร็ว และพิถีพิถันในทุกรายละเอียด
+        </p>
+        <p class="quote-sub" data-en>
+          Driven by a shared passion for visual storytelling, our founders united after years in agency production to work directly with clients—delivering commercial films, live broadcasts, and event highlights with unmatched speed and precision.
+        </p>
+        <div class="hero-cta-row">
+          <a href="#works" class="btn-primary">
+            <span data-th>▶ ดูผลงานทั้ง 15 โปรเจกต์</span>
+            <span data-en>▶ EXPLORE 15 WORKS</span>
+          </a>
+          <a href="#contact" class="btn-ghost">
+            <span data-th>ติดต่อบรีฟงาน</span>
+            <span data-en>DIRECT CONTACT</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Center Column: Behind-the-Scenes Hero Frame + Crimson Ring -->
+      <div class="hero-centerpiece">
+        <div class="crimson-ring"></div>
+        <div class="hero-photo-frame">
+          <img src="assets/profile_media/bts_about.jpg" alt="GHN168 Production Crew on Set" />
+          <div class="hero-photo-caption">
+            <span data-th>GHN168 ON SET // ทีมโปรดักชันคุยตรงกับลูกค้า 100%</span>
+            <span data-en>GHN168 ON SET // DIRECT CREATIVE PRODUCTION</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Synced 3-Card Deck (01 ABOUT / 02 G-H-N / 03 CAPABILITIES) -->
+      <div class="hero-deck-col" id="heroDeck">
+        <div class="deck-tabs">
+          <div class="deck-tab-indicator" id="deckIndicator"></div>
+          <button type="button" class="deck-tab-btn active" data-deck-idx="0">01 // ABOUT</button>
+          <button type="button" class="deck-tab-btn" data-deck-idx="1">02 // G·H·N</button>
+          <button type="button" class="deck-tab-btn" data-deck-idx="2">03 // SCOPE</button>
+        </div>
+
+        <div class="deck-stage">
+          <!-- Card 01 -->
+          <article class="deck-card is-active" data-card-idx="0">
+            <div>
+              <div class="deck-card-header">
+                <span>01 // DIRECT PRODUCTION</span>
+                <span>EST. 2023</span>
+              </div>
+              <h3 class="deck-card-title">
+                <span data-th>ทำไมต้อง GHN168?</span>
+                <span data-en>Why Direct with GHN168?</span>
+              </h3>
+              <p class="deck-card-body" data-th>
+                หลังจากสั่งสมประสบการณ์ทำงานเบื้องหลังให้เอเจนซี่มานานหลายปี พวกเรารวมตัวกันก่อตั้งบริษัทเพื่อให้ลูกค้าได้คุยกับผู้กำกับ ช่างภาพ และโปรดิวเซอร์ตัวจริงโดยตรง ตัดขั้นตอนที่ล่าช้าและควบคุมคุณภาพได้เต็ม 100%
+              </p>
+              <p class="deck-card-body" data-en>
+                Having spent years executing complex shoots for agencies, our 3 co-founders built GHN168 so clients communicate directly with the director, DoP, and producer—eliminating middleman delays.
+              </p>
+            </div>
+            <div class="deck-stats-row">
+              <div>
+                <div class="deck-stat-num">3</div>
+                <div class="deck-stat-label"><span data-th>ผู้ก่อตั้งลงหน้างาน</span><span data-en>CO-FOUNDERS</span></div>
+              </div>
+              <div>
+                <div class="deck-stat-num">15+</div>
+                <div class="deck-stat-label"><span data-th>แคมเปญใหญ่</span><span data-en>KEY CAMPAIGNS</span></div>
+              </div>
+              <div>
+                <div class="deck-stat-num">100%</div>
+                <div class="deck-stat-label"><span data-th>ดูแลครบวงจร</span><span data-en>IN-HOUSE</span></div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 02 -->
+          <article class="deck-card is-next" data-card-idx="1">
+            <div>
+              <div class="deck-card-header">
+                <span>02 // CORE DNA</span>
+                <span>G · H · N</span>
+              </div>
+              <h3 class="deck-card-title">
+                <span data-th>Groundbreaking · Happiness · Nirvana</span>
+                <span data-en>Groundbreaking · Happiness · Nirvana</span>
+              </h3>
+              <p class="deck-card-body" data-th>
+                • <strong>G (Groundbreaking):</strong> ผลงานและมุมมองที่ล้ำสมัย เปิดโลกทัศน์ใหม่<br/>
+                • <strong>H (Happiness):</strong> ความสุขจากการทำงานและผลลัพธ์ที่ตรงใจลูกค้า<br/>
+                • <strong>N (Nirvana):</strong> เป้าหมายสูงสุดในการส่งมอบงานที่มีจิตวิญญาณ
+              </p>
+              <p class="deck-card-body" data-en>
+                • <strong>G (Groundbreaking):</strong> Pioneering visual ideas that break new ground.<br/>
+                • <strong>H (Happiness):</strong> Contentment born from seamless collaboration.<br/>
+                • <strong>N (Nirvana):</strong> Ultimate fulfillment in delivering flagship work.
+              </p>
+            </div>
+            <div class="deck-stats-row">
+              <div>
+                <div class="deck-stat-num">G</div>
+                <div class="deck-stat-label"><span data-th>ล้ำสมัย</span><span data-en>PIONEERING</span></div>
+              </div>
+              <div>
+                <div class="deck-stat-num">H</div>
+                <div class="deck-stat-label"><span data-th>ความสุข</span><span data-en>HAPPINESS</span></div>
+              </div>
+              <div>
+                <div class="deck-stat-num">N</div>
+                <div class="deck-stat-label"><span data-th>สมบูรณ์แบบ</span><span data-en>NIRVANA</span></div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 03 -->
+          <article class="deck-card" data-card-idx="2">
+            <div>
+              <div class="deck-card-header">
+                <span>03 // FULL CAPABILITIES</span>
+                <span>END-TO-END</span>
+              </div>
+              <h3 class="deck-card-title">
+                <span data-th>บริการโปรดักชันครบวงจร</span>
+                <span data-en>End-to-End Media Production</span>
+              </h3>
+              <p class="deck-card-body" data-th>
+                รับผลิตวิดีโอโฆษณา (Commercial), วิดีโอไฮไลต์งานอีเวนต์ระดับนานาชาติ, วิดีโอพรีเซนเทชันองค์กร, ถ่ายทอดสด (Live Streaming), ภาพนิ่งโฆษณา และบริการตัดต่อ/เกรดสีครบจบในทีมเดียว
+              </p>
+              <p class="deck-card-body" data-en>
+                Commercial advertising, international event highlights, corporate video presentations, multi-cam live streaming, commercial photography, and cinema-grade color &amp; post-production.
+              </p>
+            </div>
+            <div class="deck-stats-row">
+              <div>
+                <div class="deck-stat-num">4K+</div>
+                <div class="deck-stat-label"><span data-th>ซีนีม่าเกรด</span><span data-en>CINEMA RAW</span></div>
+              </div>
+              <div>
+                <div class="deck-stat-num">LIVE</div>
+                <div class="deck-stat-label"><span data-th>สตรีมมิงสด</span><span data-en>BROADCAST</span></div>
+              </div>
+              <div>
+                <div class="deck-stat-num">VAT</div>
+                <div class="deck-stat-label"><span data-th>นิติบุคคลเต็มรูปแบบ</span><span data-en>CORP READY</span></div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="ink-layer hero-bottom-bar">
+      <div>[ 00 // COVER ] — MATTE PAPER EDITION</div>
+      <div data-th>แตะการ์ดหรือเลื่อนลงเพื่อชมรายละเอียดองค์กรและผลงาน</div>
+      <div data-en>TAP DECK OR SCROLL TO EXPLORE CREDENTIALS &amp; WORKS</div>
+    </div>
+  </section>
+
+  <!-- 01 // PHILOSOPHY & SERVICES (Warm Off-White Matte Paper Contrast Zone) -->
+  <section id="about" class="paper-section paper-light section-wrap">
+    <div class="ink-layer container">
+      <div class="section-header">
+        <div>
+          <div class="section-index">
+            <span class="brand-tri"></span>
+            <span>01 // MISSION, CORE VALUES &amp; SERVICES</span>
+          </div>
+          <h2 class="section-title">
+            <span data-th>พันธกิจ และบริการของเรา</span>
+            <span data-en>Philosophy &amp; Core Services</span>
+          </h2>
+        </div>
+        <p class="section-desc" data-th>
+          เรามุ่งมั่นสร้างสรรค์โซลูชันด้านภาพและวิดีโอที่ออกแบบเฉพาะสำหรับแต่ละองค์กร เพื่อส่งมอบผลลัพธ์ที่โดดเด่นและบรรลุเป้าหมายทางธุรกิจร่วมกัน
+        </p>
+        <p class="section-desc" data-en>
+          Dedicated to crafting customized visual solutions tailored to your organization, maximizing impact and delivering results that exceed expectations.
+        </p>
+      </div>
+
+      <!-- G - H - N Three Pillars -->
+      <div class="ghn-pillars">
+        <div class="ghn-pillar-card">
+          <div class="ghn-big-letter">G <span>01 // PILLAR</span></div>
+          <h3 class="ghn-pillar-title">
+            <span data-th>GROUNDBREAKING | ล้ำ ทันสมัย</span>
+            <span data-en>GROUNDBREAKING | Pioneering</span>
+          </h3>
+          <p class="ghn-pillar-desc" data-th>
+            ผลงานหรือแนวคิดที่เปล่งประกายด้วยความคิดสร้างสรรค์ และเปิดโลกทัศน์สู่แนวทางการนำเสนอใหม่ๆ ให้แบรนด์ของคุณโดดเด่นกว่าใคร
+          </p>
+          <p class="ghn-pillar-desc" data-en>
+            Innovative, pioneering visual ideas that introduce fresh perspectives and break new ground in commercial storytelling.
+          </p>
+        </div>
+
+        <div class="ghn-pillar-card">
+          <div class="ghn-big-letter">H <span>02 // PILLAR</span></div>
+          <h3 class="ghn-pillar-title">
+            <span data-th>HAPPINESS | ความสุข</span>
+            <span data-en>HAPPINESS | Contentment</span>
+          </h3>
+          <p class="ghn-pillar-desc" data-th>
+            ความสุขที่เปล่งประกายจากภายในยามได้บรรลุเป้าหมาย การทำงานที่ราบรื่น คุยง่าย และสร้างความประทับใจให้ทั้งทีมงานและลูกค้า
+          </p>
+          <p class="ghn-pillar-desc" data-en>
+            Positive collaboration and peace of mind that come from working with a responsive, direct, and reliable production team.
+          </p>
+        </div>
+
+        <div class="ghn-pillar-card">
+          <div class="ghn-big-letter">N <span>03 // PILLAR</span></div>
+          <h3 class="ghn-pillar-title">
+            <span data-th>NIRVANA | เป้าหมายสูงสุด</span>
+            <span data-en>NIRVANA | Ultimate Fulfillment</span>
+          </h3>
+          <p class="ghn-pillar-desc" data-th>
+            สร้างสรรค์ผลงานที่มีจิตวิญญาณและปรัชญา พาทุกโปรเจกต์ไปถึงเป้าหมายสูงสุดของลูกค้าอย่างสมบูรณ์แบบไร้ที่ติ
+          </p>
+          <p class="ghn-pillar-desc" data-en>
+            Crafting soulful, high-impact visual works that achieve the highest standard of quality and client satisfaction.
+          </p>
+        </div>
+      </div>
+
+      <!-- 6 Core Services Grid -->
+      <div class="services-grid">
+        <div class="service-cell">
+          <span class="service-num">SERVICE // 01</span>
+          <h3 class="service-name">
+            <span data-th>บริการถ่ายภาพนิ่ง (Photography)</span>
+            <span data-en>Commercial Photography</span>
+          </h3>
+          <p class="service-detail" data-th>
+            ถ่ายภาพบุคคลผู้บริหาร, ภาพงานอีเวนต์องค์กรและปาร์ตี้, ภาพสินค้าโฆษณา, ภาพโรงแรมและอสังหาริมทรัพย์ รวมถึงภาพทิวทัศน์และสถาปัตยกรรม
+          </p>
+          <p class="service-detail" data-en>
+            Executive portraits, corporate events, product advertising, hotel &amp; real estate architecture, and landscape photography.
+          </p>
+        </div>
+
+        <div class="service-cell">
+          <span class="service-num">SERVICE // 02</span>
+          <h3 class="service-name">
+            <span data-th>บริการถ่ายทำวิดีโอ (Videography)</span>
+            <span data-en>Cinema &amp; Event Videography</span>
+          </h3>
+          <p class="service-detail" data-th>
+            วิดีโอโฆษณา (Commercial), วิดีโอไฮไลต์งานอีเวนต์และงานประชุมระดับนานาชาติ, วิดีโอพรีเซนเทชันองค์กร, สารคดี และภาพยนตร์สั้น
+          </p>
+          <p class="service-detail" data-en>
+            Commercial ads, concert &amp; conference event highlights, corporate video presentations, documentaries, and promotional films.
+          </p>
+        </div>
+
+        <div class="service-cell">
+          <span class="service-num">SERVICE // 03</span>
+          <h3 class="service-name">
+            <span data-th>การเล่าเรื่องด้วยภาพ (Visual Storytelling)</span>
+            <span data-en>Visual Storytelling &amp; Direction</span>
+          </h3>
+          <p class="service-detail" data-th>
+            ออกแบบโครงเรื่อง สตอรี่บอร์ด และเทคนิคการสื่อสารที่ทรงพลัง เพื่อถ่ายทอดข้อความสำคัญของแบรนด์ผ่านภาพเคลื่อนไหวและกราฟิก
+          </p>
+          <p class="service-detail" data-en>
+            Creative concept development, storyboarding, and narrative direction that turn brand messages into compelling visual stories.
+          </p>
+        </div>
+
+        <div class="service-cell">
+          <span class="service-num">SERVICE // 04</span>
+          <h3 class="service-name">
+            <span data-th>ตัดต่อและเกรดสี (Post-Production)</span>
+            <span data-en>Post-Production &amp; Color Grading</span>
+          </h3>
+          <p class="service-detail" data-th>
+            บริการหลังการถ่ายทำครบวงจร ตัดต่อลำดับภาพ เกรดสีภาพยนตร์ (Color Grading) มิกซ์เสียง และรีทัชตกแต่งภาพความละเอียดสูง
+          </p>
+          <p class="service-detail" data-en>
+            Full post-production pipeline including video editing, cinema color grading, sound design, and high-end photo retouching.
+          </p>
+        </div>
+
+        <div class="service-cell">
+          <span class="service-num">SERVICE // 05</span>
+          <h3 class="service-name">
+            <span data-th>ถ่ายทอดสดและโปรดักชันมืออาชีพ (Live &amp; Crew)</span>
+            <span data-en>Live Streaming &amp; Full Crew</span>
+          </h3>
+          <p class="service-detail" data-th>
+            ระบบถ่ายทอดสดงานประชุมวิชาการและอีเวนต์ออนไลน์ พร้อมทีมกล้อง ไฟ และเสียงระดับมืออาชีพที่พร้อมรับมือทุกสถานการณ์หน้างาน
+          </p>
+          <p class="service-detail" data-en>
+            Multi-camera live streaming for conferences and hybrid events, backed by a seasoned technical camera, lighting, and audio crew.
+          </p>
+        </div>
+
+        <div class="service-cell">
+          <span class="service-num">SERVICE // 06</span>
+          <h3 class="service-name">
+            <span data-th>ดูแลตรงถึงมือลูกค้า (Client Commitment)</span>
+            <span data-en>Direct Client Satisfaction</span>
+          </h3>
+          <p class="service-detail" data-th>
+            ผู้ก่อตั้งลงควบคุมงานเองทุกโปรเจกต์ ปรับจูนดราฟต์งานรวดเร็วตามฟีดแบ็ก และส่งมอบไฟล์ตรงเวลาพร้อมเอกสารทางบัญชีนิติบุคคลครบถ้วน
+          </p>
+          <p class="service-detail" data-en>
+            Direct founder oversight on every shoot, fast turnaround revisions, and full corporate tax/VAT compliance for enterprise procurement.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 // THE FOUNDERS (3 Co-Founders: Keng, Hom, Nick — Matte Dark Paper) -->
+  <section id="team" class="paper-section paper-dark section-wrap">
+    <div class="gloss-watermark" style="bottom: 4%; left: 2%; font-size: clamp(4.5rem, 12vw, 11rem);">FOUNDERS</div>
+    <div class="ink-layer container">
+      <div class="section-header">
+        <div>
+          <div class="section-index">
+            <span class="brand-tri"></span>
+            <span>02 // LEADERSHIP &amp; CO-FOUNDERS</span>
+          </div>
+          <h2 class="section-title">
+            <span data-th>ทีมผู้ร่วมก่อตั้งของเรา (3 Co-Founders)</span>
+            <span data-en>Meet the 3 Co-Founders</span>
+          </h2>
+        </div>
+        <p class="section-desc" data-th>
+          ผู้ร่วมก่อตั้งและหุ้นส่วนหลักทั้ง 3 คนที่ลงควบคุมทิศทางภาพ การผลิต และการตัดต่อด้วยตัวเองในทุกโปรเจกต์
+        </p>
+        <p class="section-desc" data-en>
+          Our three co-founders personally lead direction, cinematography, production management, and post-production on every commission.
+        </p>
+      </div>
+
+      <div class="founders-grid">
+        <!-- 1. Keng (Mongkol) -->
+        <article class="founder-card">
+          <div class="founder-photo-wrap">
+            <img src="assets/profile_media/founder_keng.jpg" alt="Mongkol Wongsakulyanon — Co-Founder & Managing Director" />
+            <span class="founder-badge">CO-FOUNDER // 01</span>
+          </div>
+          <div class="founder-info">
+            <div>
+              <div class="founder-name-first">
+                <span data-th>มงคล</span>
+                <span data-en>MONGKOL</span>
+              </div>
+              <div class="founder-name-last">
+                <span data-th>วงศ์สกุลยานนท์</span>
+                <span data-en>WONGSAKULYANON</span>
+              </div>
+              <div class="founder-role">
+                <span data-th>ผู้ร่วมก่อตั้ง, กรรมการผู้จัดการ &amp; ผู้กำกับ/ช่างภาพ</span>
+                <span data-en>Co-Founder, Managing Director, Director &amp; Photographer</span>
+              </div>
+              <p class="founder-desc" data-th>
+                กำกับทิศทางภาพรวมของโปรเจกต์ ดูแลงานถ่ายภาพนิ่งโฆษณา กำกับแสง (Gaffer) และบริหารงานกลยุทธ์องค์กร
+              </p>
+              <p class="founder-desc" data-en>
+                Leads overall creative direction, commercial photography, lighting design (Gaffer), and corporate strategy.
+              </p>
+            </div>
+            <div class="founder-contact">
+              <div>EMAIL: <a href="mailto:ghn168media@gmail.com">ghn168media@gmail.com</a></div>
+              <div>TEL: <a href="tel:0895544355">089-554-4355</a></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. Hom (Nuttawat) -->
+        <article class="founder-card">
+          <div class="founder-photo-wrap">
+            <img src="assets/profile_media/founder_hom.jpg" alt="Nuttawat Puangjunhom — Co-Founder & Executive Producer" />
+            <span class="founder-badge">CO-FOUNDER // 02</span>
+          </div>
+          <div class="founder-info">
+            <div>
+              <div class="founder-name-first">
+                <span data-th>ณัฐวัฒน์</span>
+                <span data-en>NUTTAWAT</span>
+              </div>
+              <div class="founder-name-last">
+                <span data-th>ปวงจันทร์หอม</span>
+                <span data-en>PUANGJUNHOM</span>
+              </div>
+              <div class="founder-role">
+                <span data-th>ผู้ร่วมก่อตั้ง, เอ็กเซ็กคิวทีฟโปรดิวเซอร์ &amp; หัวหน้าฝ่ายตัดต่อ</span>
+                <span data-en>Co-Founder, Executive Producer, Videographer &amp; Lead Editor</span>
+              </div>
+              <p class="founder-desc" data-th>
+                ควบคุมการผลิตงานโปรดักชัน ประสานงานกองถ่าย ถ่ายทำวิดีโอ และกำกับงานตัดต่อลำดับภาพหลังการผลิต
+              </p>
+              <p class="founder-desc" data-en>
+                Oversees production execution, on-set coordination, cinema videography, and post-production editing.
+              </p>
+            </div>
+            <div class="founder-contact">
+              <div>EMAIL: <a href="mailto:ghn168media@gmail.com">ghn168media@gmail.com</a></div>
+              <div>TEL: <a href="tel:0861989590">086-198-9590</a></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3. Nick (Anuchit) -->
+        <article class="founder-card">
+          <div class="founder-photo-wrap">
+            <img src="assets/profile_media/founder_nick.jpg" alt="Anuchit Apichai — Co-Founder & Director of Photography" />
+            <span class="founder-badge">CO-FOUNDER // 03</span>
+          </div>
+          <div class="founder-info">
+            <div>
+              <div class="founder-name-first">
+                <span data-th>อนุชิต</span>
+                <span data-en>ANUCHIT</span>
+              </div>
+              <div class="founder-name-last">
+                <span data-th>อภิชัย</span>
+                <span data-en>APICHAI</span>
+              </div>
+              <div class="founder-role">
+                <span data-th>ผู้ร่วมก่อตั้ง, โปรดิวเซอร์, ผู้กำกับภาพ (DoP) &amp; ครีเอทีฟ</span>
+                <span data-en>Co-Founder, Producer, Director of Photography &amp; Copywriter</span>
+              </div>
+              <p class="founder-desc" data-th>
+                ดูแลการออกแบบมุมกล้อง กำกับภาพเคลื่อนไหว อุปกรณ์เทคนิคหน้ากองถ่าย และเขียนบท/คำโฆษณา
+              </p>
+              <p class="founder-desc" data-en>
+                Directs cinematography, camera movement, technical gear operations, and creative copywriting.
+              </p>
+            </div>
+            <div class="founder-contact">
+              <div>EMAIL: <a href="mailto:ghn168media@gmail.com">ghn168media@gmail.com</a></div>
+              <div>TEL: <a href="tel:0898505708">089-850-5708</a></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 // SELECTED WORKS (15 Real Projects — EAST 64 Interactive Stage + 4 Authentic Stills per Work) -->
+  <section id="works" class="paper-section paper-dark section-wrap" style="background-color: var(--paper-black-soft);">
+    <div class="gloss-watermark" style="top: 6%; right: 2%; font-size: clamp(4.5rem, 11vw, 10rem);">ARCHIVE</div>
+    <div class="ink-layer container">
+      <div class="section-header">
+        <div>
+          <div class="section-index">
+            <span class="brand-tri"></span>
+            <span>03 // PREVIOUS WORKS ARCHIVE (15 PROJECTS)</span>
+          </div>
+          <h2 class="section-title">
+            <span data-th>ผลงานที่ผ่านมาของเรา</span>
+            <span data-en>Selected Works Archive</span>
+          </h2>
+        </div>
+        <p class="section-desc" data-th>
+          เลือกหมวดหมู่ด้านล่าง แล้วคลิกชื่อโปรเจกต์เพื่อชมภาพจากงานจริงครบทั้ง 4 มุมกล้อง (แสดงผลสัดส่วนแนวนอน 16:9 ตามต้นฉบับจริง)
+        </p>
+        <p class="section-desc" data-en>
+          Filter by category and select any project from the index to inspect all 4 authentic production frames in uncropped 16:9 format.
+        </p>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div class="works-filter-bar" id="worksFilterBar">
+        <button type="button" class="filter-btn active" data-filter="all">
+          <span data-th>ทั้งหมด (15)</span><span data-en>ALL WORKS (15)</span>
+        </button>
+        <button type="button" class="filter-btn" data-filter="event">
+          <span data-th>ไฮไลต์อีเวนต์ (6)</span><span data-en>EVENT HIGHLIGHT (6)</span>
+        </button>
+        <button type="button" class="filter-btn" data-filter="presentation">
+          <span data-th>วิดีโอองค์กร (5)</span><span data-en>VIDEO PRESENTATION (5)</span>
+        </button>
+        <button type="button" class="filter-btn" data-filter="testimonial">
+          <span data-th>วิดีโอสัมภาษณ์ (2)</span><span data-en>TESTIMONIALS (2)</span>
+        </button>
+        <button type="button" class="filter-btn" data-filter="advertising">
+          <span data-th>โฆษณา (1)</span><span data-en>ADVERTISING (1)</span>
+        </button>
+        <button type="button" class="filter-btn" data-filter="live">
+          <span data-th>ถ่ายทอดสด (1)</span><span data-en>LIVE STREAMING (1)</span>
+        </button>
+      </div>
+
+      <!-- EAST 64 Style Interactive Split Stage -->
+      <div class="works-showcase">
+        <div class="works-index-list" id="worksIndexList" role="listbox" aria-label="Project List">
+          <!-- Populated dynamically from the 15 authentic projects -->
+        </div>
+
+        <div class="work-stage-panel" id="workStagePanel">
+          <div class="work-main-frame">
+            <img id="workMainImg" src="assets/profile_media/work_01_main.jpg" alt="Selected Project Main Frame" />
+          </div>
+
+          <div class="work-sub-grid" id="workThumbGrid">
+            <button type="button" class="work-thumb-btn active" data-shot="main">
+              <img id="thumbMain" src="assets/profile_media/work_01_main.jpg" alt="Frame 1" />
+            </button>
+            <button type="button" class="work-thumb-btn" data-shot="sub1">
+              <img id="thumbSub1" src="assets/profile_media/work_01_sub1.jpg" alt="Frame 2" />
+            </button>
+            <button type="button" class="work-thumb-btn" data-shot="sub2">
+              <img id="thumbSub2" src="assets/profile_media/work_01_sub2.jpg" alt="Frame 3" />
+            </button>
+            <button type="button" class="work-thumb-btn" data-shot="sub3">
+              <img id="thumbSub3" src="assets/profile_media/work_01_sub3.jpg" alt="Frame 4" />
+            </button>
+          </div>
+
+          <div class="work-meta-bar">
+            <div>
+              <div class="work-active-cat" id="workActiveCat">ADVERTISING // วิดีโอโฆษณา</div>
+              <h3 class="work-active-title" id="workActiveTitle">GUN INFINITY</h3>
+            </div>
+            <div class="work-counter-pill" id="workCounterPill">PROJECT 01 / 15</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 // WORKFLOW & PROCESS (8 Authentic Steps on Warm Matte Paper) -->
+  <section id="workflow" class="paper-section paper-light section-wrap">
+    <div class="ink-layer container">
+      <div class="section-header">
+        <div>
+          <div class="section-index">
+            <span class="brand-tri"></span>
+            <span>04 // WORKFLOW AND PROCESS</span>
+          </div>
+          <h2 class="section-title">
+            <span data-th>ขั้นตอนการทำงานมาตรฐาน 8 ขั้นตอน</span>
+            <span data-en>8-Stage Production Workflow</span>
+          </h2>
+        </div>
+        <p class="section-desc" data-th>
+          ระบบการทำงานที่ชัดเจนตั้งแต่การรับบรีฟ วางแผนเตรียมกอง ถ่ายทำ ไปจนถึงการส่งมอบไฟล์คุณภาพสูงสุด
+        </p>
+        <p class="section-desc" data-en>
+          A transparent, disciplined 8-step pipeline from initial briefing and location scouting to final master delivery.
+        </p>
+      </div>
+
+      <div class="workflow-grid">
+        <div class="workflow-card">
+          <div class="wf-step-num">STEP // 01</div>
+          <h3 class="wf-step-title">
+            <span data-th>การปรึกษาหารือเบื้องต้น</span>
+            <span data-en>Initial Consultation</span>
+          </h3>
+          <ul class="wf-step-list" data-th>
+            <li>พูดคุยกับลูกค้าเพื่อทำความเข้าใจวิสัยทัศน์ เป้าหมาย และความคาดหวัง</li>
+            <li>กำหนดขอบเขตงาน สถานที่ เวลา และความต้องการพิเศษ</li>
+          </ul>
+          <ul class="wf-step-list" data-en>
+            <li>Meet with the client to align on vision, goals, and expectations.</li>
+            <li>Define project scope, locations, timeline, and special requirements.</li>
+          </ul>
+        </div>
+
+        <div class="workflow-card">
+          <div class="wf-step-num">STEP // 02</div>
+          <h3 class="wf-step-title">
+            <span data-th>การวางแผนก่อนการผลิต</span>
+            <span data-en>Planning &amp; Pre-Production</span>
+          </h3>
+          <ul class="wf-step-list" data-th>
+            <li>สำรวจสถานที่ถ่ายทำจริง (Location Scouting)</li>
+            <li>จัดทำ Shot List หรือ Storyboard สรุปภาพและฉาก</li>
+            <li>ประสานงานทีมงานและขออนุญาตสถานที่ถ่ายทำ</li>
+          </ul>
+          <ul class="wf-step-list" data-en>
+            <li>Scout locations and assess lighting/sound conditions.</li>
+            <li>Create shot lists or storyboards outlining every scene.</li>
+            <li>Coordinate crew and secure location shooting permits.</li>
+          </ul>
+        </div>
+
+        <div class="workflow-card">
+          <div class="wf-step-num">STEP // 03</div>
+          <h3 class="wf-step-title">
+            <span data-th>การตั้งค่าและเตรียมอุปกรณ์</span>
+            <span data-en>Equipment Setup</span>
+          </h3>
+          <ul class="wf-step-list" data-th>
+            <li>ตรวจสอบความพร้อมของอุปกรณ์ถ่ายภาพและวิดีโอทั้งหมด</li>
+            <li>เซ็ตอัพกล้อง ขาตั้ง ระบบไฟ และไมโครโฟนบันทึกเสียง</li>
+            <li>ทดสอบสัญญาณและการตั้งค่าที่ดีที่สุดก่อนเริ่มงาน</li>
+          </ul>
+          <ul class="wf-step-list" data-en>
+            <li>Verify all cinema cameras, lenses, lighting, and audio gear.</li>
+            <li>Rig cameras, tripods/gimbals, lighting, and wireless audio.</li>
+            <li>Run technical tests to lock optimal exposure and sound.</li>
+          </ul>
+        </div>
+
+        <div class="workflow-card">
+          <div class="wf-step-num">STEP // 04</div>
+          <h3 class="wf-step-title">
+            <span data-th>การถ่ายทำหน้างาน</span>
+            <span data-en>Production Shooting</span>
+          </h3>
+          <ul class="wf-step-list" data-th>
+            <li>บันทึกภาพนิ่งและวิดีโอฟุตเทจครบถ้วนตาม Shot List</li>
+            <li>คุมองค์ประกอบภาพ แสง และเสียงให้คมชัดระดับมืออาชีพ</li>
+            <li>ปรับตัวรับมือกับจังหวะสำคัญหน้างานอย่างแม่นยำ</li>
+          </ul>
+          <ul class="wf-step-list" data-en>
+            <li>Capture photos and video footage according to the shot list.</li>
+            <li>Maintain strict composition, lighting, and clean audio recording.</li>
+            <li>Adapt seamlessly to dynamic live moments on set.</li>
+          </ul>
+        </div>
+
+        <div class="workflow-card">
+          <div class="wf-step-num">STEP // 05</div>
+          <h3 class="wf-step-title">
+            <span data-th>ขั้นตอนหลังการผลิต</span>
+            <span data-en>Post-Production</span>
+          </h3>
+          <ul class="wf-step-list" data-th>
+            <li>สำรองและจัดระเบียบไฟล์ภาพและฟุตเทจทั้งหมด</li>
+            <li>คัดเลือกและปรับแต่งสี/ความคมชัดของภาพนิ่ง</li>
+            <li>ตัดต่อวิดีโอ เกรดสี มิกซ์เสียง และใส่ดนตรีประกอบ</li>
+          </ul>
+          <ul class="wf-step-list" data-en>
+            <li>Backup and organize all RAW photos and video footage.</li>
+            <li>Retouch and color-correct still imagery.</li>
+            <li>Edit video, grade colors, mix audio, and score music.</li>
+          </ul>
+        </div>
+
+        <div class="workflow-card">
+          <div class="wf-step-num">STEP // 06</div>
+          <h3 class="wf-step-title">
+            <span data-th>การตรวจสอบและข้อเสนอแนะ</span>
+            <span data-en>Review &amp; Feedback</span>
+          </h3>
+          <ul class="wf-step-list" data-th>
+            <li>ส่งมอบดราฟต์งานให้ลูกค้าตรวจสอบ</li>
+            <li>ปรับแก้รายละเอียดตามคำแนะนำของลูกค้าอย่างรวดเร็ว</li>
+          </ul>
+          <ul class="wf-step-list" data-en>
+            <li>Share draft versions with the client for structured review.</li>
+            <li>Execute revisions accurately based on client feedback.</li>
+          </ul>
+        </div>
+
+        <div class="workflow-card">
+          <div class="wf-step-num">STEP // 07</div>
+          <h3 class="wf-step-title">
+            <span data-th>การส่งมอบผลลัพธ์ขั้นสุดท้าย</span>
+            <span data-en>Final Deliverables</span>
+          </h3>
+          <ul class="wf-step-list" data-th>
+            <li>ส่งมอบไฟล์ภาพความละเอียดสูงและวิดีโอมาสเตอร์</li>
+            <li>รองรับทุกรูปแบบไฟล์สำหรับใช้ในสื่อออนไลน์และงานฉาย</li>
+          </ul>
+          <ul class="wf-step-list" data-en>
+            <li>Deliver high-resolution images and master video files.</li>
+            <li>Provide tailored formats for social, broadcast, or event screens.</li>
+          </ul>
+        </div>
+
+        <div class="workflow-card">
+          <div class="wf-step-num">STEP // 08</div>
+          <h3 class="wf-step-title">
+            <span data-th>การดูแลความพึงพอใจลูกค้า</span>
+            <span data-en>Client Satisfaction</span>
+          </h3>
+          <ul class="wf-step-list" data-th>
+            <li>ตรวจสอบความเรียบร้อยขั้นสุดท้ายจนลูกค้าพึงพอใจ 100%</li>
+            <li>ซัพพอร์ตเอกสารวางบิล/ใบกำกับภาษีครบถ้วน</li>
+          </ul>
+          <ul class="wf-step-list" data-en>
+            <li>Ensure complete satisfaction with the final deliverables.</li>
+            <li>Provide full corporate tax invoice and billing documentation.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 // DIRECT CONTACT & CORPORATE CREDENTIALS -->
+  <section id="contact" class="paper-section paper-dark section-wrap">
+    <div class="ink-layer container">
+      <div class="section-header">
+        <div>
+          <div class="section-index">
+            <span class="brand-tri"></span>
+            <span>05 // CONTACT &amp; CORPORATE REGISTRATION</span>
+          </div>
+          <h2 class="section-title">
+            <span data-th>ติดต่อเรา และข้อมูลนิติบุคคล</span>
+            <span data-en>Contact &amp; Corporate Credentials</span>
+          </h2>
+        </div>
+        <p class="section-desc" data-th>
+          พร้อมรับบรีฟงานโปรดักชันทั่วประเทศ พร้อมเอกสารนิติบุคคล (ภ.พ.20 / หนังสือรับรอง DBD / บัญชีธนาคารบริษัท) สำหรับฝ่ายจัดซื้อองค์กร
+        </p>
+        <p class="section-desc" data-en>
+          Ready for nationwide commissions with complete corporate registration and VAT documentation for enterprise procurement.
+        </p>
+      </div>
+
+      <div class="contact-box">
+        <div class="contact-details">
+          <div>
+            <div class="hero-kicker">
+              <span class="brand-tri"></span>
+              <span>GROUNDBREAKING · HAPPINESS · NIRVANA</span>
+            </div>
+            <h3 style="font-family: var(--font-display); font-size: clamp(1.5rem, 2.5vw, 2.2rem); font-weight: 800; margin-bottom: 6px;">
+              <span data-th>บริษัท จีเอชเอ็น 168 มีเดีย แอนด์ ครีเอชั่น จำกัด</span>
+              <span data-en>GHN168 Media &amp; Creation Co., Ltd.</span>
+            </h3>
+            <p style="color: var(--ink-muted-on-dark); font-size: 0.94rem;">
+              <span data-th>ความมุ่งมั่นของเราต่อคุณภาพที่ล้ำสมัย จุดประกายความสุข และส่งมอบงานที่สมบูรณ์แบบให้ลูกค้าทุกองค์กร</span>
+              <span data-en>Our commitment to groundbreaking quality ignites happiness and delivers exceptional results for every client.</span>
+            </p>
+          </div>
+
+          <div class="corp-table">
+            <div>
+              <div class="corp-item-label"><span data-th>โทรศัพท์ติดต่อ (สายตรง)</span><span data-en>DIRECT PHONE</span></div>
+              <div class="corp-item-val">
+                <a href="tel:0895544355">089-554-4355 (คุณเก่ง)</a><br/>
+                <a href="tel:0861989590">086-198-9590 (คุณหอม)</a>
+              </div>
+            </div>
+
+            <div>
+              <div class="corp-item-label"><span data-th>อีเมลทางการ</span><span data-en>OFFICIAL EMAIL</span></div>
+              <div class="corp-item-val">
+                <a href="mailto:ghn168media@gmail.com">ghn168media@gmail.com</a>
+              </div>
+            </div>
+
+            <div>
+              <div class="corp-item-label"><span data-th>ช่องทางโซเชียล &amp; ลิงก์รวม</span><span data-en>SOCIAL &amp; LINKS</span></div>
+              <div class="corp-item-val">
+                <a href="https://linktr.ee/ghn168" target="_blank" rel="noopener">linktr.ee/ghn168</a><br/>
+                <span>FB: GHN168 Media &amp; Creation</span>
+              </div>
+            </div>
+
+            <div>
+              <div class="corp-item-label"><span data-th>เลขทะเบียนนิติบุคคล (VAT 7%)</span><span data-en>TAX ID (HEAD OFFICE)</span></div>
+              <div class="corp-item-val">
+                0505566010089 <span data-th>(สำนักงานใหญ่)</span><span data-en>(Head Office 00000)</span>
+              </div>
+            </div>
+
+            <div style="grid-column: 1 / -1;">
+              <div class="corp-item-label"><span data-th>ที่ตั้งสำนักงานใหญ่</span><span data-en>REGISTERED ADDRESS</span></div>
+              <div class="corp-item-val">
+                <span data-th>65/1 ถนนต้นขาม 2 ตำบลท่าศาลา อำเภอเมืองเชียงใหม่ จังหวัดเชียงใหม่ 50000</span>
+                <span data-en>65/1 Ton Kham 2 Rd., Tha Sala, Mueang Chiang Mai, Chiang Mai 50000, Thailand</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-cta-row">
+            <a href="tel:0895544355" class="btn-primary">
+              <span data-th>▶ โทรติดต่อ 089-554-4355</span>
+              <span data-en>▶ CALL 089-554-4355</span>
+            </a>
+            <a href="https://linktr.ee/ghn168" target="_blank" rel="noopener" class="btn-ghost">
+              <span>LINKTREE // GHN168</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-photo-col">
+          <img src="assets/profile_media/bts_contact.jpg" alt="GHN168 Studio Production Set" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    /* ==========================================================================
+       1. INSTANT BILINGUAL SWITCHER (TH / EN)
+       ========================================================================== */
+    const htmlEl = document.documentElement;
+    const langBtns = document.querySelectorAll('[data-set-lang]');
+
+    function setLanguage(lang) {
+      htmlEl.setAttribute('data-lang', lang);
+      htmlEl.setAttribute('lang', lang);
+      renderWorksList();
+      updateWorkStage(currentWorkIndex, false);
+    }
+
+    langBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        setLanguage(btn.getAttribute('data-set-lang'));
+      });
+    });
+
+    /* ==========================================================================
+       2. SYNCED 4.6s HERO DECK + TITLE CADENCE (Core Revision DNA #1 & #5)
+       ========================================================================== */
+    const heroTitle = document.getElementById('heroTitle');
+    const deckIndicator = document.getElementById('deckIndicator');
+    const deckTabs = document.querySelectorAll('.deck-tab-btn');
+    const deckCards = document.querySelectorAll('.deck-card');
+    const heroDeck = document.getElementById('heroDeck');
+    let activeDeckIdx = 0;
+    let deckPaused = false;
+
+    function setDeckIndex(idx, pulseTitle = true) {
+      activeDeckIdx = (idx + 3) % 3;
+      deckIndicator.style.transform = `translateX(${activeDeckIdx * 100}%)`;
+
+      deckTabs.forEach((t, i) => {
+        t.classList.toggle('active', i === activeDeckIdx);
+      });
+
+      deckCards.forEach((c, i) => {
+        c.classList.remove('is-active', 'is-next');
+        if (i === activeDeckIdx) {
+          c.classList.add('is-active');
+        } else if (i === (activeDeckIdx + 1) % 3) {
+          c.classList.add('is-next');
+        }
+      });
+
+      if (pulseTitle && heroTitle) {
+        heroTitle.classList.add('is-pulsing');
+        setTimeout(() => heroTitle.classList.remove('is-pulsing'), 850);
+      }
+    }
+
+    deckTabs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        setDeckIndex(parseInt(btn.getAttribute('data-deck-idx'), 10), true);
+      });
+    });
+
+    heroDeck.addEventListener('pointerenter', () => { deckPaused = true; });
+    heroDeck.addEventListener('pointerleave', () => { deckPaused = false; });
+    heroDeck.addEventListener('touchstart', () => { deckPaused = true; }, { passive: true });
+
+    setInterval(() => {
+      if (!deckPaused && !document.hidden) {
+        setDeckIndex(activeDeckIdx + 1, true);
+      }
+    }, 4600);
+
+    /* ==========================================================================
+       3. 15 AUTHENTIC PROJECTS ARCHIVE (4 Real Frames each — Zero Vertical Crop)
+       ========================================================================== */
+    const WORKS_DATA = [
+      { id: 1, code: '01', title: 'GUN INFINITY', filter: 'advertising', catEN: 'ADVERTISING', catTH: 'วิดีโอโฆษณา' },
+      { id: 2, code: '02', title: 'TSRI ONLINE CONFERENCE', filter: 'live', catEN: 'LIVE STREAMING', catTH: 'ถ่ายทอดสด' },
+      { id: 3, code: '03', title: 'IAAPA TESTIMONIAL', filter: 'testimonial', catEN: 'TESTIMONIALS', catTH: 'วิดีโอสัมภาษณ์' },
+      { id: 4, code: '04', title: 'SUUNTO 9 PEAK - JAY JANTARABOON', filter: 'testimonial', catEN: 'TESTIMONIALS', catTH: 'วิดีโอสัมภาษณ์' },
+      { id: 5, code: '05', title: 'TEASER TOUR DE CMU 2023', filter: 'event', catEN: 'EVENT VIDEO - HIGHLIGHT', catTH: 'วิดีโอสรุปเนื้อหางาน' },
+      { id: 6, code: '06', title: 'WSB THAILAND TRIP 2023', filter: 'event', catEN: 'EVENT VIDEO - HIGHLIGHT', catTH: 'วิดีโอสรุปเนื้อหางาน' },
+      { id: 7, code: '07', title: 'ADIDAS GOLF APAC INVITATION 2023', filter: 'event', catEN: 'EVENT VIDEO - HIGHLIGHT', catTH: 'วิดีโอสรุปเนื้อหางาน' },
+      { id: 8, code: '08', title: 'ADIDAS LPGA TOUR 2023', filter: 'event', catEN: 'EVENT VIDEO - HIGHLIGHT', catTH: 'วิดีโอสรุปเนื้อหางาน' },
+      { id: 9, code: '09', title: 'ROLLS ROYCE 2022', filter: 'event', catEN: 'EVENT VIDEO - HIGHLIGHT', catTH: 'วิดีโอสรุปเนื้อหางาน' },
+      { id: 10, code: '10', title: 'BEYOND THE ELEPHANT IN THE ROOM 2022', filter: 'event', catEN: 'EVENT VIDEO - HIGHLIGHT', catTH: 'วิดีโอสรุปเนื้อหางาน' },
+      { id: 11, code: '11', title: 'ITALTHAI CENTER CHIANG MAI', filter: 'presentation', catEN: 'VIDEO PRESENTATION', catTH: 'วิดีโองานนำเสนอ' },
+      { id: 12, code: '12', title: 'TRAFFIC POLICE DIVISION', filter: 'presentation', catEN: 'VIDEO PRESENTATION', catTH: 'วิดีโองานนำเสนอ' },
+      { id: 13, code: '13', title: 'VISIONX THERMAL SCAN', filter: 'presentation', catEN: 'VIDEO PRESENTATION', catTH: 'วิดีโองานนำเสนอ' },
+      { id: 14, code: '14', title: 'LANNA VIRTUAL EXPO 2021', filter: 'presentation', catEN: 'VIDEO PRESENTATION', catTH: 'วิดีโองานนำเสนอ' },
+      { id: 15, code: '15', title: 'CHIANG MAI TRAFFIC POLICE CENTER', filter: 'presentation', catEN: 'VIDEO PRESENTATION', catTH: 'วิดีโองานนำเสนอ' }
+    ];
+
+    let activeFilter = 'all';
+    let currentWorkIndex = 0;
+
+    const worksIndexList = document.getElementById('worksIndexList');
+    const workStagePanel = document.getElementById('workStagePanel');
+    const workMainImg = document.getElementById('workMainImg');
+    const thumbMain = document.getElementById('thumbMain');
+    const thumbSub1 = document.getElementById('thumbSub1');
+    const thumbSub2 = document.getElementById('thumbSub2');
+    const thumbSub3 = document.getElementById('thumbSub3');
+    const workActiveCat = document.getElementById('workActiveCat');
+    const workActiveTitle = document.getElementById('workActiveTitle');
+    const workCounterPill = document.getElementById('workCounterPill');
+    const thumbBtns = document.querySelectorAll('.work-thumb-btn');
+
+    function getFilteredWorks() {
+      if (activeFilter === 'all') return WORKS_DATA;
+      return WORKS_DATA.filter(w => w.filter === activeFilter);
+    }
+
+    function renderWorksList() {
+      const lang = htmlEl.getAttribute('data-lang') || 'th';
+      const list = getFilteredWorks();
+      worksIndexList.innerHTML = '';
+
+      list.forEach((item) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'work-row-btn' + (WORKS_DATA[currentWorkIndex].id === item.id ? ' active' : '');
+        const catLabel = lang === 'th' ? item.catTH : item.catEN;
+        btn.innerHTML = `
+          <span class="work-row-num">${item.code}</span>
+          <span class="work-row-title">${item.title}</span>
+          <span class="work-row-cat">${catLabel}</span>
+        `;
+        btn.addEventListener('click', () => {
+          const realIdx = WORKS_DATA.findIndex(w => w.id === item.id);
+          if (realIdx !== -1 && realIdx !== currentWorkIndex) {
+            currentWorkIndex = realIdx;
+            renderWorksList();
+            updateWorkStage(currentWorkIndex, true);
+          }
+        });
+        worksIndexList.appendChild(btn);
+      });
+    }
+
+    function updateWorkStage(idx, animate = true) {
+      const item = WORKS_DATA[idx];
+      if (!item) return;
+      const lang = htmlEl.getAttribute('data-lang') || 'th';
+      const code = item.code;
+
+      const applyContent = () => {
+        workMainImg.src = `assets/profile_media/work_${code}_main.jpg`;
+        thumbMain.src = `assets/profile_media/work_${code}_main.jpg`;
+        thumbSub1.src = `assets/profile_media/work_${code}_sub1.jpg`;
+        thumbSub2.src = `assets/profile_media/work_${code}_sub2.jpg`;
+        thumbSub3.src = `assets/profile_media/work_${code}_sub3.jpg`;
+
+        thumbBtns.forEach((b, i) => b.classList.toggle('active', i === 0));
+        workActiveCat.textContent = lang === 'th' ? `${item.catEN} // ${item.catTH}` : item.catEN;
+        workActiveTitle.textContent = item.title;
+        workCounterPill.textContent = `PROJECT ${code} / 15`;
+      };
+
+      if (animate) {
+        workStagePanel.classList.add('is-switching');
+        setTimeout(() => {
+          applyContent();
+          workStagePanel.classList.remove('is-switching');
+        }, 240);
+      } else {
+        applyContent();
+      }
+    }
+
+    thumbBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const shot = btn.getAttribute('data-shot');
+        const code = WORKS_DATA[currentWorkIndex].code;
+        thumbBtns.forEach(b => b.classList.toggle('active', b === btn));
+        workMainImg.style.opacity = '0.3';
+        setTimeout(() => {
+          workMainImg.src = `assets/profile_media/work_${code}_${shot}.jpg`;
+          workMainImg.style.opacity = '1';
+        }, 180);
+      });
+    });
+
+    document.querySelectorAll('#worksFilterBar .filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#worksFilterBar .filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeFilter = btn.getAttribute('data-filter');
+        const list = getFilteredWorks();
+        if (list.length > 0) {
+          currentWorkIndex = WORKS_DATA.findIndex(w => w.id === list[0].id);
+        }
+        renderWorksList();
+        updateWorkStage(currentWorkIndex, true);
+      });
+    });
+
+    renderWorksList();
+    updateWorkStage(0, false);
+  </script>
+</body>
+</html>
