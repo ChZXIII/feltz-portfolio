@@ -1256,7 +1256,9 @@
         border: 1px solid rgba(224, 79, 62, 0.62);
         border-radius: 999px;
         transform: translate3d(3px, 0, 0);
-        transition: transform 0.34s cubic-bezier(0.22, 1, 0.36, 1), width 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+        transition:
+          transform 0.88s cubic-bezier(0.34, 0.02, 0.16, 1),
+          width 0.88s cubic-bezier(0.34, 0.02, 0.16, 1);
         will-change: transform, width;
         z-index: 0;
       }
@@ -1276,7 +1278,7 @@
         text-transform: uppercase;
         cursor: pointer;
         border-radius: 999px;
-        transition: color 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+        transition: color 0.55s cubic-bezier(0.34, 0.02, 0.16, 1);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1292,7 +1294,7 @@
         font-weight: 800;
       }
 
-      /* 3D Stacked Card Stage (Transitions.dev #32 Banner Stacking + 3D Depth Arc) */
+      /* 3D Stacked Card Stage (Transitions.dev #32 Banner Stacking + Cushioned 3D Glide) */
       .m-deck-stack {
         position: relative;
         width: 100%;
@@ -1317,19 +1319,28 @@
         transform-origin: 50% 0%;
         will-change: transform, opacity;
         transition:
-          transform 0.46s cubic-bezier(0.22, 1, 0.36, 1),
-          opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1),
-          border-color 0.32s ease;
+          transform 1.08s cubic-bezier(0.34, 0.02, 0.16, 1),
+          opacity 0.88s cubic-bezier(0.34, 0.02, 0.16, 1),
+          border-color 0.68s ease,
+          box-shadow 0.88s ease;
         overflow: hidden;
       }
 
       .m-deck-card > * {
-        transition: opacity 0.24s ease;
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+        transition:
+          opacity 0.64s cubic-bezier(0.34, 0.02, 0.16, 1) 0.12s,
+          transform 0.72s cubic-bezier(0.34, 0.02, 0.16, 1) 0.12s;
       }
 
       .m-deck-card:not([data-depth="0"]) > * {
         opacity: 0;
+        transform: translate3d(0, 6px, 0);
         pointer-events: none;
+        transition:
+          opacity 0.36s cubic-bezier(0.4, 0, 0.2, 1) 0s,
+          transform 0.42s cubic-bezier(0.4, 0, 0.2, 1) 0s;
       }
 
       /* Top Auto-Cycle Progress Hairline inside Active Card */
@@ -1365,7 +1376,7 @@
 
       /* Depth 0: Front Active Card */
       .m-deck-card[data-depth="0"] {
-        z-index: 4;
+        z-index: 5;
         transform: translate3d(0, 0, 0) scale(1) rotateX(0deg);
         opacity: 1;
         border-color: rgba(224, 79, 62, 0.56);
@@ -1392,12 +1403,10 @@
         pointer-events: none;
       }
 
-      /* Outgoing 3D Arc when Flipping Front Card to Back of Deck */
+      /* Outgoing Cushion State when Front Card Settles into Depth (No mid-flight z-index snap) */
       .m-deck-card.is-deck-leaving {
-        z-index: 5 !important;
-        transform: translate3d(0, 14px, 18px) scale(0.96) rotateX(-10deg) !important;
-        opacity: 0.15 !important;
-        pointer-events: none !important;
+        z-index: 4;
+        pointer-events: none;
       }
 
       /* Shared Card Header inside Mobile 3D Deck */
@@ -5617,7 +5626,7 @@
       const cards = Array.from(stack.querySelectorAll(".m-deck-card"));
       const total = cards.length;
       let activeIdx = 0;
-      let autoCycleTimer = null;
+      let leavingTimer = null;
       let resumeTimer = null;
       let isUserPaused = false;
 
@@ -5639,7 +5648,7 @@
         }
       };
 
-      const activateCard = (nextIdx, isManual = false) => {
+      const activateCard = (nextIdx, isManual = false, fromMasterBeat = false) => {
         const normalized = ((nextIdx % total) + total) % total;
         if (normalized === activeIdx && !isManual) return;
 
@@ -5652,13 +5661,15 @@
         });
         syncSlidingPill(activeIdx);
 
-        // Animate outgoing card with 3D lift-and-tuck arc
+        // Smoothly cushion outgoing card without mid-flight z-index snap
+        if (leavingTimer) clearTimeout(leavingTimer);
+        cards.forEach((c) => c.classList.remove("is-deck-leaving"));
         if (prevIdx !== activeIdx && cards[prevIdx]) {
           const prevCard = cards[prevIdx];
           prevCard.classList.add("is-deck-leaving");
-          setTimeout(() => {
+          leavingTimer = setTimeout(() => {
             prevCard.classList.remove("is-deck-leaving");
-          }, 210);
+          }, 1050);
         }
 
         // Update 3D stack depths (0 = front, 1 = middle, 2 = back)
@@ -5666,33 +5677,27 @@
           const relDepth = (i - activeIdx + total) % total;
           card.setAttribute("data-depth", String(relDepth));
         });
+
+        // Synchronize FELTZ STUDIO bounce whenever the card changes (both on auto beat & manual tap)
+        if (!fromMasterBeat && typeof window.triggerFeltzCoverBeatBoing === "function") {
+          window.triggerFeltzCoverBeatBoing();
+        }
       };
 
       const pauseAutoCycleOnTouch = () => {
         isUserPaused = true;
         deckWrap.classList.add("is-user-paused");
-        if (autoCycleTimer) {
-          clearInterval(autoCycleTimer);
-          autoCycleTimer = null;
-        }
         if (resumeTimer) clearTimeout(resumeTimer);
         resumeTimer = setTimeout(() => {
           isUserPaused = false;
           deckWrap.classList.remove("is-user-paused");
-          startAutoCycle();
         }, 10000);
       };
 
-      const startAutoCycle = () => {
-        if (autoCycleTimer) clearInterval(autoCycleTimer);
-        autoCycleTimer = setInterval(() => {
-          if (isUserPaused) return;
-          if (window.innerWidth > 768) return;
-          // Only cycle when Cover (sec-intro) is near the viewport top
-          const canvas = document.getElementById("viewport-canvas");
-          if (canvas && canvas.scrollTop > window.innerHeight * 0.5) return;
-          activateCard(activeIdx + 1, false);
-        }, 4000);
+      // Expose to Unified Cover Master Beat so PROFILE -> WHAT I DO -> SKILLS, FELTZ STUDIO bounce, and Left Story move in 100% lockstep
+      window.advanceMobileCoverDeckOnBeat = () => {
+        if (isUserPaused) return;
+        activateCard(activeIdx + 1, false, true);
       };
 
       // Tab clicks
@@ -5700,7 +5705,7 @@
         tab.addEventListener("click", (e) => {
           e.stopPropagation();
           pauseAutoCycleOnTouch();
-          activateCard(idx, true);
+          activateCard(idx, true, false);
         });
       });
 
@@ -5708,7 +5713,7 @@
       cards.forEach((card) => {
         card.addEventListener("click", () => {
           pauseAutoCycleOnTouch();
-          activateCard(activeIdx + 1, true);
+          activateCard(activeIdx + 1, true, false);
         });
       });
 
@@ -5728,9 +5733,9 @@
         const dy = e.changedTouches[0].clientY - touchStartY;
         if (Math.abs(dx) > 32 && Math.abs(dx) > Math.abs(dy) * 1.2) {
           if (dx < 0) {
-            activateCard(activeIdx + 1, true);
+            activateCard(activeIdx + 1, true, false);
           } else {
-            activateCard(activeIdx - 1, true);
+            activateCard(activeIdx - 1, true, false);
           }
         }
       }, { passive: true });
@@ -5739,13 +5744,12 @@
         syncSlidingPill(activeIdx, true);
       });
 
-      // Initial pill position & start auto-cycle after entry animation settles
+      // Initial pill position after entry animation settles
       requestAnimationFrame(() => {
         syncSlidingPill(0, true);
       });
       setTimeout(() => {
         syncSlidingPill(activeIdx, true);
-        startAutoCycle();
       }, 1400);
     }
 
@@ -5845,8 +5849,10 @@
     }
 
     function setupCoverLivingAnimations() {
-      // 1. FELTZ STUDIO: Sequential Bounce ("ดึ๋ง ดึ๋ง ดึ๋ง ดึ๋ง") once after entry -> STOP -> Random Single-Char Bounce
+      // 1. FELTZ STUDIO: Sequential Bounce ("ดึ๋ง ดึ๋ง ดึ๋ง ดึ๋ง") once after entry -> STOP -> Synchronized Beat Bounce
       const giantWord = document.getElementById("poster-giant-word");
+      let lastRandomIdx = -1;
+
       if (giantWord) {
         const allChars = Array.from(giantWord.querySelectorAll(".helix-char"));
         const bounceableChars = allChars.filter((el) => (el.textContent || "").trim().length > 0);
@@ -5859,6 +5865,17 @@
           setTimeout(() => {
             charEl.classList.remove("is-boing");
           }, 580);
+        };
+
+        // Synchronized Beat Bounce: Triggered at the exact same moment as 01 PROFILE -> 02 WHAT I DO -> 03 SKILLS
+        window.triggerFeltzCoverBeatBoing = () => {
+          if (!giantWord.classList.contains("is-settled") || !bounceableChars.length) return;
+          let pickIdx = Math.floor(Math.random() * bounceableChars.length);
+          if (bounceableChars.length > 1 && pickIdx === lastRandomIdx) {
+            pickIdx = (pickIdx + 3) % bounceableChars.length;
+          }
+          lastRandomIdx = pickIdx;
+          triggerSingleCharBoing(bounceableChars[pickIdx]);
         };
 
         // Allow playful hover/click bounce on individual letters once settled
@@ -5878,29 +5895,10 @@
               triggerSingleCharBoing(chEl);
             }, i * 68);
           });
-
-          // Step 1B: After the sequential bounce stops completely, occasionally bounce 1 random letter (e.g., E, then U, etc.) and stop
-          let lastRandomIdx = -1;
-          setTimeout(() => {
-            setInterval(() => {
-              const vp = document.getElementById("viewport-canvas");
-              if (vp && vp.scrollTop > window.innerHeight * 0.6) return;
-              if (document.getElementById("dossier-modal")?.classList.contains("is-open")) return;
-              if (document.getElementById("exhibition-modal")?.classList.contains("is-open")) return;
-              if (!bounceableChars.length) return;
-
-              let pickIdx = Math.floor(Math.random() * bounceableChars.length);
-              if (bounceableChars.length > 1 && pickIdx === lastRandomIdx) {
-                pickIdx = (pickIdx + 3) % bounceableChars.length;
-              }
-              lastRandomIdx = pickIdx;
-              triggerSingleCharBoing(bounceableChars[pickIdx]);
-            }, 2400);
-          }, bounceableChars.length * 68 + 900);
         }, 1680);
       }
 
-      // 2. Setup 8-Category Full-Block Assemble & Shatter Loop on Left Column (Zero Jump-Cut + Longer Hold)
+      // 2. Setup 8-Category Full-Block Assemble & Shatter Loop on Left Column (Zero Jump-Cut + Synchronized Master Beat)
       const leftCol = document.querySelector(".poster-col-left");
       if (!leftCol) return;
 
@@ -6008,18 +6006,32 @@
       // Initial render on page load
       renderStoryAssemble(0);
 
-      // Longer, relaxed cycle (~8.2 seconds per category) so viewers can comfortably read before transition
-      setInterval(() => {
-        const vp = document.getElementById("viewport-canvas");
-        if (vp && vp.scrollTop > window.innerHeight * 0.6) return;
-        if (document.getElementById("dossier-modal")?.classList.contains("is-open")) return;
-        if (document.getElementById("exhibition-modal")?.classList.contains("is-open")) return;
+      // 3. UNIFIED MASTER COVER BEAT (6.2s):
+      // Fires FELTZ STUDIO bounce + 01 PROFILE/02 WHAT I DO/03 SKILLS glide + Left Category Story simultaneously
+      setTimeout(() => {
+        setInterval(() => {
+          const vp = document.getElementById("viewport-canvas");
+          if (vp && vp.scrollTop > window.innerHeight * 0.6) return;
+          if (document.getElementById("dossier-modal")?.classList.contains("is-open")) return;
+          if (document.getElementById("exhibition-modal")?.classList.contains("is-open")) return;
 
-        shatterCurrentStory(() => {
-          currentStoryIdx = (currentStoryIdx + 1) % COVER_STORY_ROTATION.length;
-          renderStoryAssemble(currentStoryIdx);
-        });
-      }, 8200);
+          // A) Bounce FELTZ STUDIO simultaneously
+          if (typeof window.triggerFeltzCoverBeatBoing === "function") {
+            window.triggerFeltzCoverBeatBoing();
+          }
+
+          // B) Glide 01 PROFILE -> 02 WHAT I DO -> 03 SKILLS simultaneously
+          if (typeof window.advanceMobileCoverDeckOnBeat === "function") {
+            window.advanceMobileCoverDeckOnBeat();
+          }
+
+          // C) Transition Left 8-Category Story simultaneously
+          shatterCurrentStory(() => {
+            currentStoryIdx = (currentStoryIdx + 1) % COVER_STORY_ROTATION.length;
+            renderStoryAssemble(currentStoryIdx);
+          });
+        }, 6200);
+      }, 2800);
     }
 
     // =========================================================================
