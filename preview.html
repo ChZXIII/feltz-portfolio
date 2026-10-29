@@ -2994,25 +2994,77 @@
        PREVIEW UPGRADE 4: 3D ISOMETRIC FOLDER DOSSIER MODAL (REF 2: EVENT & SPORT)
        Slow, smooth 3D folder stack with Crimson Corner Tabs & Category Font Motion
        ========================================================================== */
+    /* Smooth Background Stage Recede when Archive / Dossier Modal is Open */
+    #viewport-canvas {
+      transition:
+        transform 0.84s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+      transform-origin: center center;
+    }
+
+    body.has-archive-modal #viewport-canvas {
+      transform: scale(0.955) translate3d(0, -10px, 0);
+      opacity: 0.26;
+      pointer-events: none;
+    }
+
     .dossier-modal-overlay {
       position: fixed;
       inset: 0;
       z-index: 1100;
-      background: radial-gradient(circle at 42% 48%, #1a0b0b 0%, #070505 72%);
+      background: radial-gradient(circle at 42% 48%, rgba(26, 11, 11, 0.98) 0%, rgba(7, 5, 5, 0.99) 72%);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       opacity: 0;
       pointer-events: none;
-      transform: scale(1.03);
-      transition: opacity 0.42s cubic-bezier(0.16, 1, 0.3, 1), transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translate3d(0, 28px, 0) scale(0.972);
+      transition:
+        opacity 0.82s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.86s cubic-bezier(0.22, 1, 0.36, 1);
       overflow: hidden;
+      will-change: transform, opacity;
     }
 
     .dossier-modal-overlay.is-open {
       opacity: 1;
       pointer-events: auto;
-      transform: scale(1);
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    .dossier-modal-overlay.is-receding-behind {
+      opacity: 0;
+      pointer-events: none;
+      transform: translate3d(0, -18px, 0) scale(0.945);
+    }
+
+    /* Staggered Entrance of Dossier Top Bar, 3D Stack, and Project Selector Rows */
+    .dossier-top-bar,
+    .dossier-3d-viewport,
+    .dossier-panel-header {
+      opacity: 0;
+      transform: translate3d(0, 18px, 0);
+      transition:
+        opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.78s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .dossier-modal-overlay.is-open:not(.is-receding-behind) .dossier-top-bar {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+      transition-delay: 0.06s;
+    }
+
+    .dossier-modal-overlay.is-open:not(.is-receding-behind) .dossier-3d-viewport {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+      transition-delay: 0.14s;
+    }
+
+    .dossier-modal-overlay.is-open:not(.is-receding-behind) .dossier-panel-header {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+      transition-delay: 0.18s;
     }
 
     .dossier-top-bar {
@@ -3239,7 +3291,7 @@
       letter-spacing: 0.1em;
     }
 
-    /* Stacked Project Folder Cards Behind the Front Cover Plate */
+    /* Stacked Project Folder Cards Behind the Front Cover Plate (Slow, Cushioned S-Curve Glide) */
     .dossier-folder-card {
       position: absolute;
       top: 38px;
@@ -3252,6 +3304,7 @@
       overflow: hidden;
       cursor: pointer;
       transform-style: preserve-3d;
+      z-index: calc(12 - var(--slot-i, 0));
       /* Default resting position in the 3D stack based on --slot-i */
       transform: translate3d(
         calc(var(--slot-i, 0) * -11px),
@@ -3260,11 +3313,16 @@
       );
       opacity: calc(0.92 - var(--slot-i, 0) * 0.11);
       transition:
-        transform 0.95s cubic-bezier(0.16, 1, 0.3, 1),
-        opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
-        border-color 0.4s ease,
-        box-shadow 0.6s ease;
+        transform 1.65s cubic-bezier(0.42, 0.0, 0.18, 1),
+        opacity 1.35s cubic-bezier(0.42, 0.0, 0.18, 1),
+        border-color 0.85s ease,
+        box-shadow 1.25s ease;
       box-shadow: 0 18px 45px rgba(0, 0, 0, 0.85);
+    }
+
+    /* Smooth z-index handoff while outgoing active card glides gently back into the stack */
+    .dossier-folder-card.is-settling-back {
+      z-index: 14;
     }
 
     /* Active Project Folder rises smoothly UP and FORWARD cleanly above the Front Cover Plate! */
@@ -3273,7 +3331,7 @@
       opacity: 1 !important;
       border-color: var(--accent-vermilion);
       box-shadow: 0 28px 70px rgba(0, 0, 0, 0.95), 0 0 32px rgba(201, 59, 43, 0.38);
-      z-index: 15;
+      z-index: 18;
     }
 
     /* Hide bottom text overlay on non-active background folders so text never piles up behind the front plate */
@@ -3288,7 +3346,7 @@
       object-fit: cover;
       display: block;
       opacity: 0.78;
-      transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease;
+      transition: transform 1.55s cubic-bezier(0.42, 0.0, 0.18, 1), opacity 0.85s ease;
     }
 
     .dossier-folder-card.is-risen-active img {
@@ -3580,7 +3638,7 @@
 
     /* ==========================================================================
        PREVIEW UPGRADE 5: LUXURY EXHIBITION VIEWING ROOM (LEICA / MAGNUM GALLERY)
-       Asymmetrical Museum Spotlight Walk + Contact Sheet Grid Switcher
+       Alternating White Alabaster & Dark Obsidian Museum Walls + Smooth Transitions
        ========================================================================== */
     .exhibition-modal-overlay {
       position: fixed;
@@ -3592,14 +3650,25 @@
       flex-direction: column;
       opacity: 0;
       pointer-events: none;
-      transform: translateY(18px);
-      transition: opacity 0.42s cubic-bezier(0.16, 1, 0.3, 1), transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translate3d(0, 32px, 0) scale(0.976);
+      transition:
+        opacity 0.82s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.86s cubic-bezier(0.22, 1, 0.36, 1),
+        background-color 0.65s ease,
+        color 0.55s ease;
+      will-change: transform, opacity;
     }
 
     .exhibition-modal-overlay.is-open {
       opacity: 1;
       pointer-events: auto;
-      transform: translateY(0);
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    /* Light Museum Entrance Theme (Matches 02 Hotel, 04 Real Estate, 05 Food, 06 Product, 07 Portrait) */
+    .exhibition-modal-overlay[data-exh-theme="light"] {
+      background: #f5f0e6;
+      color: #161110;
     }
 
     .exhibition-header {
@@ -3611,8 +3680,14 @@
       align-items: center;
       gap: 14px;
       padding: 14px 36px;
-      background: rgba(9, 6, 6, 0.94);
+      background: rgba(9, 6, 6, 0.95);
       border-bottom: 1px solid rgba(201, 59, 43, 0.26);
+      transition: background-color 0.5s ease, border-color 0.5s ease;
+    }
+
+    .exhibition-modal-overlay[data-exh-theme="light"] .exhibition-header {
+      background: rgba(245, 240, 230, 0.96);
+      border-bottom-color: rgba(201, 59, 43, 0.28);
     }
 
     .exh-head-left {
@@ -3636,14 +3711,23 @@
       font-weight: 600;
       cursor: pointer;
       white-space: nowrap;
-      transition: all 0.2s ease;
+      transition: all 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .exhibition-modal-overlay[data-exh-theme="light"] .exh-back-dossier-btn,
+    .exhibition-modal-overlay[data-exh-theme="light"] .exhibition-header .dossier-close-btn {
+      background: rgba(22, 17, 16, 0.08);
+      border-color: rgba(201, 59, 43, 0.48);
+      color: #161110;
     }
 
     .exh-back-dossier-btn.is-visible {
       display: inline-flex;
     }
 
-    .exh-back-dossier-btn:hover {
+    .exh-back-dossier-btn:hover,
+    .exhibition-modal-overlay[data-exh-theme="light"] .exh-back-dossier-btn:hover,
+    .exhibition-modal-overlay[data-exh-theme="light"] .exhibition-header .dossier-close-btn:hover {
       background: var(--accent-crimson);
       color: #ffffff;
     }
@@ -3663,6 +3747,10 @@
       text-transform: uppercase;
     }
 
+    .exhibition-modal-overlay[data-exh-theme="light"] .exh-head-kicker {
+      color: var(--accent-crimson);
+    }
+
     .exh-head-name {
       font-family: var(--font-condensed);
       font-size: 1.25rem;
@@ -3673,6 +3761,10 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+
+    .exhibition-modal-overlay[data-exh-theme="light"] .exh-head-name {
+      color: #161110;
     }
 
     .exh-head-right {
@@ -3692,6 +3784,11 @@
       border-radius: 999px;
     }
 
+    .exhibition-modal-overlay[data-exh-theme="light"] .exh-mode-switcher {
+      background: #e6dfd2;
+      border-color: rgba(201, 59, 43, 0.35);
+    }
+
     .exh-mode-pill {
       position: absolute;
       top: 3px;
@@ -3700,7 +3797,7 @@
       height: calc(100% - 6px);
       background: var(--accent-crimson);
       border-radius: 999px;
-      transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: transform 0.48s cubic-bezier(0.22, 1, 0.36, 1);
       z-index: 0;
     }
 
@@ -3721,11 +3818,16 @@
       padding: 6px 14px;
       cursor: pointer;
       border-radius: 999px;
-      transition: color 0.25s ease;
+      transition: color 0.32s ease;
       white-space: nowrap;
     }
 
-    .exh-mode-btn.is-active {
+    .exhibition-modal-overlay[data-exh-theme="light"] .exh-mode-btn {
+      color: rgba(22, 17, 16, 0.62);
+    }
+
+    .exh-mode-btn.is-active,
+    .exhibition-modal-overlay[data-exh-theme="light"] .exh-mode-btn.is-active {
       color: #ffffff;
     }
 
@@ -3734,19 +3836,31 @@
       overflow-y: auto;
       overflow-x: hidden;
       scroll-behavior: smooth;
-      padding: 0 36px 80px 36px;
+      padding: 0 0 80px 0;
+      transition:
+        opacity 0.44s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .exh-scroll-container.is-switching-content {
+      opacity: 0;
+      transform: translate3d(0, 18px, 0) scale(0.99);
     }
 
     /* Curatorial Entrance Placard inside Exhibition Room */
     .exh-hero-placard {
       max-width: 1160px;
-      margin: 48px auto 56px auto;
-      padding-bottom: 32px;
+      margin: 48px auto 44px auto;
+      padding: 0 36px 32px 36px;
       border-bottom: 1px solid rgba(232, 220, 200, 0.14);
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
       gap: 24px;
+    }
+
+    .exhibition-modal-overlay[data-exh-theme="light"] .exh-hero-placard {
+      border-bottom-color: rgba(22, 17, 16, 0.14);
     }
 
     .exh-placard-tag {
@@ -3759,6 +3873,10 @@
       margin-bottom: 8px;
     }
 
+    .exhibition-modal-overlay[data-exh-theme="light"] .exh-placard-tag {
+      color: var(--accent-crimson);
+    }
+
     .exh-placard-title {
       font-family: var(--font-display);
       font-size: clamp(2.8rem, 6vw, 5.2rem);
@@ -3769,6 +3887,10 @@
       text-transform: uppercase;
     }
 
+    .exhibition-modal-overlay[data-exh-theme="light"] .exh-placard-title {
+      color: #161110;
+    }
+
     .exh-placard-desc {
       font-family: var(--font-th);
       font-size: 15px;
@@ -3776,6 +3898,10 @@
       margin-top: 12px;
       max-width: 620px;
       line-height: 1.55;
+    }
+
+    .exhibition-modal-overlay[data-exh-theme="light"] .exh-placard-desc {
+      color: #4f433d;
     }
 
     .exh-placard-stats {
@@ -3792,6 +3918,10 @@
       line-height: 1;
     }
 
+    .exhibition-modal-overlay[data-exh-theme="light"] .exh-stat-col .num {
+      color: #161110;
+    }
+
     .exh-stat-col .lbl {
       font-size: 10px;
       color: var(--text-dark-sub);
@@ -3799,10 +3929,15 @@
       margin-top: 4px;
     }
 
+    .exhibition-modal-overlay[data-exh-theme="light"] .exh-stat-col .lbl {
+      color: #6b5d55;
+    }
+
     /* Project Switcher Pills Bar inside Exhibition (for Event & Sport quick jumping) */
     .exh-subproject-bar {
       max-width: 1160px;
-      margin: -28px auto 44px auto;
+      margin: -16px auto 36px auto;
+      padding: 0 36px;
       display: none;
       flex-wrap: wrap;
       gap: 8px;
@@ -3822,7 +3957,13 @@
       font-size: 12px;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.22s ease;
+      transition: all 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .exhibition-modal-overlay[data-exh-theme="light"] .exh-subproject-pill {
+      background: #e9e2d5;
+      border-color: rgba(22, 17, 16, 0.16);
+      color: #4f433d;
     }
 
     .exh-subproject-pill:hover,
@@ -3830,19 +3971,43 @@
       background: var(--accent-crimson);
       border-color: var(--accent-vermilion);
       color: #ffffff;
+      transform: translateY(-1px);
     }
 
-    /* MODE 1: LEICA / MAGNUM ASYMMETRICAL EXHIBITION WALK */
+    /* MODE 1: LEICA / MAGNUM ASYMMETRICAL EXHIBITION WALK (WITH ALTERNATING WHITE & DARK MUSEUM WALL BAYS) */
     .exh-walk-canvas {
-      max-width: 1240px;
+      width: 100%;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 88px;
+      gap: 0;
+      transition:
+        opacity 0.46s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* Full-Bleed Museum Wall Bay (Alternates Dark Obsidian & Warm Museum White!) */
+    .exh-wall-bay {
+      width: 100%;
+      padding: 64px 36px;
+      border-bottom: 1px solid rgba(201, 59, 43, 0.16);
+      transition: background-color 0.45s ease;
+    }
+
+    .exh-wall-bay.wall-theme-dark {
+      background: #090606;
+      color: var(--editorial-cream);
+    }
+
+    .exh-wall-bay.wall-theme-light {
+      background: #f5f0e6;
+      color: #161110;
     }
 
     .exh-wall-row {
       width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
     }
 
     /* Wall Pattern A: Monumental Hero Solo Frame */
@@ -3895,13 +4060,25 @@
       border: 1px solid rgba(232, 220, 200, 0.14);
       border-radius: 4px;
       box-shadow: 0 28px 70px rgba(0, 0, 0, 0.85), 0 0 90px rgba(201, 59, 43, 0.08);
-      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.45s ease;
+      transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease, box-shadow 0.45s ease;
+    }
+
+    /* Crisp White Museum Mat Board inside Light Wall Bays */
+    .exh-wall-bay.wall-theme-light .exh-frame-mat {
+      background: #ffffff;
+      border: 1px solid rgba(22, 17, 16, 0.14);
+      box-shadow: 0 22px 54px rgba(22, 17, 16, 0.14), 0 4px 14px rgba(22, 17, 16, 0.06);
     }
 
     .exh-frame-unit:hover .exh-frame-mat {
       transform: translateY(-5px);
       border-color: rgba(224, 79, 62, 0.55);
       box-shadow: 0 36px 90px rgba(0, 0, 0, 0.95), 0 0 110px rgba(201, 59, 43, 0.22);
+    }
+
+    .exh-wall-bay.wall-theme-light .exh-frame-unit:hover .exh-frame-mat {
+      border-color: var(--accent-crimson);
+      box-shadow: 0 28px 68px rgba(22, 17, 16, 0.22), 0 0 40px rgba(201, 59, 43, 0.14);
     }
 
     .exh-img-box {
@@ -3911,12 +4088,16 @@
       position: relative;
     }
 
+    .exh-wall-bay.wall-theme-light .exh-img-box {
+      background: #e8e1d5;
+    }
+
     .exh-img-box img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .exh-frame-unit:hover .exh-img-box img {
@@ -3935,6 +4116,10 @@
       letter-spacing: 0.1em;
     }
 
+    .exh-wall-bay.wall-theme-light .exh-museum-plaque {
+      color: rgba(22, 17, 16, 0.65);
+    }
+
     .exh-plaque-left {
       display: flex;
       align-items: center;
@@ -3944,6 +4129,10 @@
     .exh-plaque-num {
       color: var(--accent-vermilion);
       font-weight: 700;
+    }
+
+    .exh-wall-bay.wall-theme-light .exh-plaque-num {
+      color: var(--accent-crimson);
     }
 
     .exh-plaque-zoom {
@@ -3956,13 +4145,21 @@
       color: var(--editorial-cream);
     }
 
-    /* MODE 2: ARCHIVAL CONTACT SHEET GRID */
+    .exh-wall-bay.wall-theme-light .exh-frame-unit:hover .exh-plaque-zoom {
+      color: #161110;
+    }
+
+    /* MODE 2: ARCHIVAL CONTACT SHEET GRID (Smooth Crossfade + Light/Dark Support) */
     .exh-contact-grid {
       max-width: 1320px;
       margin: 0 auto;
+      padding: 16px 36px;
       display: none;
       grid-template-columns: repeat(4, 1fr);
       gap: 18px;
+      transition:
+        opacity 0.46s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.48s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .exhibition-modal-overlay[data-view-mode="grid"] .exh-walk-canvas {
@@ -3971,6 +4168,12 @@
 
     .exhibition-modal-overlay[data-view-mode="grid"] .exh-contact-grid {
       display: grid;
+    }
+
+    .exh-walk-canvas.is-mode-fading,
+    .exh-contact-grid.is-mode-fading {
+      opacity: 0;
+      transform: translate3d(0, 16px, 0) scale(0.99);
     }
 
     .contact-sheet-cell {
@@ -3982,7 +4185,14 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
-      transition: transform 0.25s ease, border-color 0.25s ease;
+      transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.28s ease, box-shadow 0.28s ease;
+    }
+
+    /* Alternating Light / Dark Contact Sheet Cards or Light Room Theme */
+    .exhibition-modal-overlay[data-exh-theme="light"] .contact-sheet-cell {
+      background: #ffffff;
+      border-color: rgba(22, 17, 16, 0.14);
+      box-shadow: 0 8px 24px rgba(22, 17, 16, 0.08);
     }
 
     .contact-sheet-cell:hover {
@@ -3996,6 +4206,10 @@
       overflow: hidden;
       background: #1a1111;
       border-radius: 3px;
+    }
+
+    .exhibition-modal-overlay[data-exh-theme="light"] .contact-sheet-cell .cs-img-wrap {
+      background: #ebe4d8;
     }
 
     .contact-sheet-cell img {
@@ -4013,6 +4227,10 @@
       color: var(--text-dark-sub);
     }
 
+    .exhibition-modal-overlay[data-exh-theme="light"] .contact-sheet-cell .cs-meta {
+      color: #5b4e46;
+    }
+
     .exh-footer-cta {
       max-width: 960px;
       margin: 72px auto 20px auto;
@@ -4024,6 +4242,7 @@
       justify-content: space-between;
       align-items: center;
       gap: 20px;
+      color: var(--editorial-cream);
     }
 
     .exh-footer-text h4 {
@@ -4055,19 +4274,25 @@
         font-size: 9px;
       }
       .exh-scroll-container {
-        padding: 0 14px 60px 14px;
+        padding: 0 0 60px 0;
       }
       .exh-hero-placard {
         flex-direction: column;
         align-items: flex-start;
-        margin: 24px auto 32px auto;
-        padding-bottom: 20px;
+        margin: 24px auto 28px auto;
+        padding: 0 14px 20px 14px;
+      }
+      .exh-subproject-bar {
+        padding: 0 14px;
       }
       .exh-placard-stats {
         text-align: left;
       }
-      .exh-walk-canvas {
-        gap: 40px;
+      .exh-wall-bay {
+        padding: 36px 14px;
+      }
+      .exh-contact-grid {
+        padding: 12px 14px;
       }
       .exh-wall-row.wall-diptych,
       .exh-wall-row.wall-triptych,
@@ -5261,19 +5486,45 @@
       });
     }
 
+    let activeScrollRaf = null;
     function scrollToCategory(idx) {
       const allSections = document.querySelectorAll(".kinetic-section");
-      if (allSections[idx]) {
-        const vp = document.getElementById("viewport-canvas");
-        if (vp) {
-          vp.scrollTo({
-            top: allSections[idx].offsetTop,
-            behavior: "smooth"
-          });
-        } else {
-          allSections[idx].scrollIntoView({ behavior: "smooth", block: "start" });
-        }
+      const targetSec = allSections[idx];
+      if (!targetSec) return;
+
+      const vp = document.getElementById("viewport-canvas");
+      if (!vp) {
+        targetSec.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
       }
+
+      if (activeScrollRaf) cancelAnimationFrame(activeScrollRaf);
+      const startTop = vp.scrollTop;
+      const targetTop = targetSec.offsetTop;
+      const delta = targetTop - startTop;
+      if (Math.abs(delta) < 2) return;
+
+      const duration = Math.min(920, Math.max(640, Math.abs(delta) * 0.22));
+      const startTime = performance.now();
+      vp.style.scrollSnapType = "none";
+
+      const easeInOutCubic = (t) =>
+        t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+      const step = (now) => {
+        const progress = Math.min(1, (now - startTime) / duration);
+        const eased = easeInOutCubic(progress);
+        vp.scrollTop = startTop + delta * eased;
+        if (progress < 1) {
+          activeScrollRaf = requestAnimationFrame(step);
+        } else {
+          vp.scrollTop = targetTop;
+          vp.style.scrollSnapType = "y mandatory";
+          activeScrollRaf = null;
+        }
+      };
+
+      activeScrollRaf = requestAnimationFrame(step);
     }
 
     function setupIntersectionObserver() {
@@ -6106,8 +6357,12 @@
         listEl.appendChild(row);
       });
 
-      modal.classList.add("is-open");
-      modal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("has-archive-modal");
+      modal.classList.remove("is-receding-behind");
+      requestAnimationFrame(() => {
+        modal.classList.add("is-open");
+        modal.setAttribute("aria-hidden", "false");
+      });
       startDossierSlowAutoCycle(albums.length);
     }
 
@@ -6121,11 +6376,18 @@
       const total = cards.length;
       if (!total) return;
 
-      activeDossierIndex = ((idx % total) + total) % total;
+      const prevIdx = activeDossierIndex;
+      const nextIdx = ((idx % total) + total) % total;
+      activeDossierIndex = nextIdx;
 
       cards.forEach((c, i) => {
         const isTarget = i === activeDossierIndex;
+        const wasActive = i === prevIdx && prevIdx !== activeDossierIndex;
         c.classList.toggle("is-risen-active", isTarget);
+        if (wasActive) {
+          c.classList.add("is-settling-back");
+          setTimeout(() => c.classList.remove("is-settling-back"), 900);
+        }
         // Re-order remaining slots smoothly behind
         const relSlot = isTarget ? 0 : ((i - activeDossierIndex + total) % total);
         c.style.setProperty("--slot-i", String(relSlot));
@@ -6144,19 +6406,23 @@
     function startDossierSlowAutoCycle(total) {
       if (dossierAutoTimer) clearInterval(dossierAutoTimer);
       if (total <= 1) return;
-      // Slow, relaxed 4.2s cycle as requested by Keng
+      // Slow, gentle 6.0s cycle so each folder card glides smoothly for 1.65s and rests calmly
       dossierAutoTimer = setInterval(() => {
         const modal = document.getElementById("dossier-modal");
-        if (!modal || !modal.classList.contains("is-open")) return;
+        if (!modal || !modal.classList.contains("is-open") || modal.classList.contains("is-receding-behind")) return;
         setActiveDossierFolder(activeDossierIndex + 1, false);
-      }, 4200);
+      }, 6000);
     }
 
     function closeDossierModal() {
       const modal = document.getElementById("dossier-modal");
+      const exhModal = document.getElementById("exhibition-modal");
       if (modal) {
-        modal.classList.remove("is-open");
+        modal.classList.remove("is-open", "is-receding-behind");
         modal.setAttribute("aria-hidden", "true");
+      }
+      if (!exhModal || !exhModal.classList.contains("is-open")) {
+        document.body.classList.remove("has-archive-modal");
       }
       if (dossierAutoTimer) {
         clearInterval(dossierAutoTimer);
@@ -6165,21 +6431,9 @@
     }
 
     // =========================================================================
-    // LUXURY EXHIBITION VIEWING ROOM ENGINE (LEICA / MAGNUM GALLERY WALK + GRID)
+    // LUXURY EXHIBITION VIEWING ROOM ENGINE (ALTERNATING WHITE & DARK MUSEUM ROOMS)
     // =========================================================================
-    function openExhibitionModal(catId, albumObj, cameFromDossier = false) {
-      const catObj = CATEGORIES.find(c => c.id === catId);
-      if (!catObj || !albumObj) return;
-
-      activeExhibitionCatId = catId;
-      activeExhibitionAlbum = albumObj;
-
-      // Close dossier underneath if open so screen is clean
-      const dossierModal = document.getElementById("dossier-modal");
-      if (dossierModal && dossierModal.classList.contains("is-open")) {
-        if (dossierAutoTimer) clearInterval(dossierAutoTimer);
-      }
-
+    function populateExhibitionContent(catObj, albumObj, cameFromDossier) {
       const modal = document.getElementById("exhibition-modal");
       const backBtn = document.getElementById("exh-back-dossier-btn");
       const kickerEl = document.getElementById("exh-head-kicker");
@@ -6194,10 +6448,16 @@
       const contactGrid = document.getElementById("exh-contact-grid");
       const scrollContainer = document.getElementById("exh-scroll-container");
 
+      const catId = catObj.id;
       const allCatAlbums = (window.FELTZ_ARCHIVE_CATALOG && window.FELTZ_ARCHIVE_CATALOG[catId]) || [];
       const hasMultipleAlbums = allCatAlbums.length > 1;
+      const isDossierCat = (catId === "sport" || catId === "live_event" || hasMultipleAlbums);
+      const isLightRoom = catObj.theme === "light";
 
-      backBtn.classList.toggle("is-visible", hasMultipleAlbums || cameFromDossier);
+      // Set base room theme ("light" for Hotel/Real Estate/Food/Product/Portrait, "dark" for Concert/Sport/Event)
+      modal.setAttribute("data-exh-theme", isLightRoom ? "light" : "dark");
+
+      backBtn.classList.toggle("is-visible", isDossierCat || cameFromDossier);
       kickerEl.textContent = `${catObj.num} // ${catObj.label}`;
       nameEl.textContent = albumObj.title;
       placTag.textContent = `FELTZ STUDIO // ${catObj.label} EXHIBITION`;
@@ -6215,15 +6475,17 @@
           pill.type = "button";
           pill.className = "exh-subproject-pill" + (alb.albumId === albumObj.albumId ? " is-active" : "");
           pill.textContent = `0${idx + 1} · ${alb.title} (${alb.count})`;
-          pill.onclick = () => openExhibitionModal(catId, alb, true);
+          pill.onclick = () => {
+            if (activeExhibitionAlbum && activeExhibitionAlbum.albumId === alb.albumId) return;
+            openExhibitionModal(catId, alb, true);
+          };
           subBar.appendChild(pill);
         });
       } else {
         subBar.classList.remove("is-visible");
       }
 
-      // Build Mode 1: Leica / Magnum Asymmetrical Exhibition Walk
-      // Rhythm pattern: [1 Hero Solo] -> [2 Staggered Diptych] -> [3 Triptych] -> [2 Offset Pair]
+      // Build Mode 1: Leica / Magnum Asymmetrical Exhibition Walk with Alternating White & Dark Museum Wall Bays!
       walkCanvas.innerHTML = "";
       const photos = albumObj.photos || [];
       const patternCycle = [
@@ -6240,8 +6502,14 @@
       while (cursor < photos.length) {
         const pat = patternCycle[patIdx % patternCycle.length];
         const slice = photos.slice(cursor, cursor + pat.take);
+
+        // Rhythmically alternate White Alabaster Museum Bays & Dark Obsidian Spotlight Bays!
+        const bayIsLight = isLightRoom ? (patIdx % 2 === 0) : (patIdx % 2 === 1);
+        const bayEl = document.createElement("section");
+        bayEl.className = `exh-wall-bay ${bayIsLight ? "wall-theme-light" : "wall-theme-dark"}`;
+
         const rowEl = document.createElement("div");
-        rowEl.className = `exh-wall-row ${ slice.length === 1 ? "wall-solo" : pat.cls }`;
+        rowEl.className = `exh-wall-row ${slice.length === 1 ? "wall-solo" : pat.cls}`;
 
         slice.forEach((p, sIdx) => {
           const globalIdx = cursor + sIdx;
@@ -6271,7 +6539,8 @@
           rowEl.appendChild(unit);
         });
 
-        walkCanvas.appendChild(rowEl);
+        bayEl.appendChild(rowEl);
+        walkCanvas.appendChild(bayEl);
         cursor += slice.length;
         patIdx++;
       }
@@ -6295,30 +6564,105 @@
         contactGrid.appendChild(cell);
       });
 
-      setExhibitionViewMode("walk");
-      modal.classList.add("is-open");
-      modal.setAttribute("aria-hidden", "false");
       if (scrollContainer) scrollContainer.scrollTop = 0;
     }
 
-    function setExhibitionViewMode(mode) {
+    function openExhibitionModal(catId, albumObj, cameFromDossier = false) {
+      const catObj = CATEGORIES.find(c => c.id === catId);
+      if (!catObj || !albumObj) return;
+
+      const modal = document.getElementById("exhibition-modal");
+      const scrollContainer = document.getElementById("exh-scroll-container");
+      const dossierModal = document.getElementById("dossier-modal");
+      const isAlreadyOpen = modal && modal.classList.contains("is-open");
+
+      activeExhibitionCatId = catId;
+      activeExhibitionAlbum = albumObj;
+
+      document.body.classList.add("has-archive-modal");
+
+      // If Dossier is open underneath, make it smoothly recede into depth while Exhibition glides forward
+      if (dossierModal && dossierModal.classList.contains("is-open")) {
+        dossierModal.classList.add("is-receding-behind");
+        if (dossierAutoTimer) {
+          clearInterval(dossierAutoTimer);
+          dossierAutoTimer = null;
+        }
+      }
+
+      // If Exhibition is already open (e.g., switching between sub-project pills 01 -> 02), smoothly fade & glide content
+      if (isAlreadyOpen && scrollContainer) {
+        scrollContainer.classList.add("is-switching-content");
+        setTimeout(() => {
+          populateExhibitionContent(catObj, albumObj, cameFromDossier);
+          requestAnimationFrame(() => {
+            scrollContainer.classList.remove("is-switching-content");
+          });
+        }, 280);
+        return;
+      }
+
+      populateExhibitionContent(catObj, albumObj, cameFromDossier);
+      setExhibitionViewMode("walk", true);
+      requestAnimationFrame(() => {
+        modal.classList.add("is-open");
+        modal.setAttribute("aria-hidden", "false");
+      });
+    }
+
+    let exhModeSwitchTimer = null;
+    function setExhibitionViewMode(mode, instant = false) {
       const modal = document.getElementById("exhibition-modal");
       const switcher = document.getElementById("exh-mode-switcher");
+      const walkCanvas = document.getElementById("exh-walk-canvas");
+      const contactGrid = document.getElementById("exh-contact-grid");
       if (!modal || !switcher) return;
-      modal.setAttribute("data-view-mode", mode);
+
+      const currentMode = modal.getAttribute("data-view-mode") || "walk";
       switcher.setAttribute("data-mode", mode);
       switcher.querySelectorAll(".exh-mode-btn").forEach(btn => {
         btn.classList.toggle("is-active", btn.getAttribute("data-mode-btn") === mode);
       });
+
+      if (instant || currentMode === mode || !walkCanvas || !contactGrid) {
+        modal.setAttribute("data-view-mode", mode);
+        walkCanvas?.classList.remove("is-mode-fading");
+        contactGrid?.classList.remove("is-mode-fading");
+        return;
+      }
+
+      if (exhModeSwitchTimer) clearTimeout(exhModeSwitchTimer);
+      const outgoingEl = currentMode === "grid" ? contactGrid : walkCanvas;
+      const incomingEl = mode === "grid" ? contactGrid : walkCanvas;
+
+      outgoingEl.classList.add("is-mode-fading");
+      exhModeSwitchTimer = setTimeout(() => {
+        incomingEl.classList.add("is-mode-fading");
+        modal.setAttribute("data-view-mode", mode);
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            incomingEl.classList.remove("is-mode-fading");
+            outgoingEl.classList.remove("is-mode-fading");
+          });
+        });
+      }, 240);
     }
 
     function backFromExhibitionToDossier() {
       const exhModal = document.getElementById("exhibition-modal");
+      const dossierModal = document.getElementById("dossier-modal");
       if (exhModal) {
         exhModal.classList.remove("is-open");
         exhModal.setAttribute("aria-hidden", "true");
       }
-      if (activeExhibitionCatId) {
+      if (dossierModal && activeDossierCatId === activeExhibitionCatId && dossierModal.querySelector(".dossier-folder-card")) {
+        // Smoothly bring existing Dossier back forward from depth without a hard DOM rebuild
+        dossierModal.classList.remove("is-receding-behind");
+        dossierModal.classList.add("is-open");
+        dossierModal.setAttribute("aria-hidden", "false");
+        const albums = (window.FELTZ_ARCHIVE_CATALOG && window.FELTZ_ARCHIVE_CATALOG[activeDossierCatId]) || [];
+        startDossierSlowAutoCycle(albums.length);
+      } else if (activeExhibitionCatId) {
         openDossierModal(activeExhibitionCatId);
       }
     }
@@ -6330,6 +6674,7 @@
         exhModal.setAttribute("aria-hidden", "true");
       }
       closeDossierModal();
+      document.body.classList.remove("has-archive-modal");
     }
 
     function bookFromExhibition() {
