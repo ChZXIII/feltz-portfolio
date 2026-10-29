@@ -4332,8 +4332,8 @@
         <span>EST. 2012</span>
       </div>
 
-      <button type="button" class="masthead-right-btn" onclick="scrollToCategory(9)">
-        <span>AVAILABLE FOR COMMISSION</span>
+      <button type="button" class="masthead-right-btn" onclick="scrollToCategory(1)">
+        <span>08 PORTFOLIOS // ARCHIVE</span>
         <span class="status-dot"></span>
       </button>
     </div>
@@ -4811,14 +4811,14 @@
       <!-- Mode 2: Numbered Contact Sheet Grid -->
       <div class="exh-contact-grid" id="exh-contact-grid"></div>
 
-      <!-- Footer Booking CTA -->
+      <!-- Footer Archive Return CTA -->
       <div class="exh-footer-cta">
         <div class="exh-footer-text">
-          <h4>INTERESTED IN THIS VISUAL DIRECTION?</h4>
-          <p>พูดคุยรายละเอียดโปรเจกต์ เช็กคิวว่าง หรือขอใบเสนอราคาสำหรับงานถ่ายทำหมวดนี้โดยตรง</p>
+          <h4>EXPLORE OTHER PORTFOLIO CATEGORIES</h4>
+          <p>กลับไปที่หน้าวงแหวนหลักเพื่อเลือกชมผลงานหมวดหมู่อื่นๆ ทั้ง 8 หมวด</p>
         </div>
-        <button type="button" class="open-archive-btn" onclick="bookFromExhibition()">
-          <span>จองคิวถ่ายภาพสไตล์นี้ (BOOK NOW)</span>
+        <button type="button" class="open-archive-btn" onclick="closeExhibitionModal()">
+          <span>กลับไปเลือกดูหมวดหมู่อื่น (BACK TO PORTFOLIOS)</span>
           <svg class="arrow-ic" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </button>
       </div>
@@ -5129,204 +5129,6 @@
 
         setupRingController(cat, stage, pivot, cIdx);
       });
-
-      // 3. Build Section 09: Editorial Back Cover (MY PROCESS 01-04 + Commission Brief)
-      const contactIndex = 9;
-      const contactDot = document.createElement("button");
-      contactDot.type = "button";
-      contactDot.className = "indicator-dot";
-      contactDot.setAttribute("data-index", contactIndex);
-      contactDot.innerHTML = `<span class="idx-num">09 CONTACT</span><span class="idx-bar"></span>`;
-      contactDot.onclick = () => scrollToCategory(contactIndex);
-      sideNav.appendChild(contactDot);
-
-      const contactSec = document.createElement("section");
-      contactSec.className = "kinetic-section contact-section";
-      contactSec.id = "sec-contact";
-      contactSec.setAttribute("data-theme", "dark");
-      contactSec.setAttribute("data-index", contactIndex);
-      contactSec.innerHTML = `
-        <div class="ambient-glow" style="--glow-color: rgba(201, 59, 43, 0.28);"></div>
-        <div class="back-cover-shell">
-
-          <!-- 1. Editorial Back Cover Giant Header -->
-          <div class="back-cover-top">
-            <h2 class="back-giant-title">FELTZ COMMISSION</h2>
-            <div class="back-cover-subbox">
-              <div class="back-cover-kicker">09 // BOOKING &amp; PRODUCTION INQUIRY</div>
-              <p class="back-cover-lead">พูดคุยทิศทางภาพลักษณ์ วางแผนการถ่ายทำ หรือขอใบเสนอราคาโดยตรงกับ มงคล วงศ์สกุลยานนท์ (เก่ง)</p>
-            </div>
-          </div>
-
-          <!-- 2. MY PROCESS // 01-04 (Matching Editorial Poster Reference) -->
-          <div class="process-editorial-strip">
-            <div class="process-strip-head">
-              <div class="process-strip-title">MY PROCESS</div>
-              <div class="process-strip-tag">04 WORKFLOW STEPS</div>
-            </div>
-
-            <div class="process-step-card">
-              <span class="process-num">01</span>
-              <div class="process-info">
-                <div class="process-name">BRIEF &amp; DIRECTION</div>
-                <div class="process-desc-th">วิเคราะห์โจทย์แบรนด์และวางโครงเรื่องภาพ</div>
-              </div>
-            </div>
-
-            <div class="process-step-card">
-              <span class="process-num">02</span>
-              <div class="process-info">
-                <div class="process-name">PRODUCTION &amp; RIG</div>
-                <div class="process-desc-th">ถ่ายทำด้วยชุดกล้องคู่และจัดแสงระดับสตูดิโอ</div>
-              </div>
-            </div>
-
-            <!-- 03: COLOR LAB GRADING -->
-            <div class="process-step-card">
-              <span class="process-num">03</span>
-              <div class="process-info">
-                <div class="process-name">COLOR LAB GRADING</div>
-                <div class="process-desc-th">เกรดสีและรีทัชด้วย Capture One, Photoshop &amp; Lightroom</div>
-              </div>
-            </div>
-
-            <div class="process-step-card">
-              <span class="process-num">04</span>
-              <div class="process-info">
-                <div class="process-name">FAST DELIVERY</div>
-                <div class="process-desc-th">ส่งมอบไฟล์ความละเอียดสูงพร้อมใช้งานทันที</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 3. Direct Contact Channels & Editorial Inquiry Form -->
-          <div class="contact-body-grid">
-            <div class="contact-info-panel">
-              <div class="contact-channel-cards">
-                <a href="tel:0895544355" class="contact-card-item">
-                  <div class="contact-card-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                  </div>
-                  <div class="contact-card-meta">
-                    <span class="lbl">DIRECT PHONE</span>
-                    <span class="val">089-554-4355</span>
-                  </div>
-                </a>
-
-                <a href="https://line.me/ti/p/~0895544355" target="_blank" rel="noopener noreferrer" class="contact-card-item">
-                  <div class="contact-card-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-                  </div>
-                  <div class="contact-card-meta">
-                    <span class="lbl">LINE OFFICIAL / ID</span>
-                    <span class="val">0895544355</span>
-                  </div>
-                </a>
-
-                <a href="mailto:silver_nsx@hotmail.com" class="contact-card-item full-span">
-                  <div class="contact-card-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                  </div>
-                  <div class="contact-card-meta">
-                    <span class="lbl">EMAIL DIRECT</span>
-                    <span class="val">silver_nsx@hotmail.com</span>
-                  </div>
-                </a>
-
-                <div class="contact-card-item full-span">
-                  <div class="contact-card-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                  </div>
-                  <div class="contact-card-meta">
-                    <span class="lbl">CHIANG MAI STUDIO BASE (NATIONWIDE SERVICE)</span>
-                    <span class="val">65/1 ถ.ต้นขาม ต.ท่าศาลา อ.เมือง จ.เชียงใหม่ 50000</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="studio-cred-card">
-                <div class="studio-cred-title">OPTICAL RIG &amp; ENTERPRISE CLIENTS</div>
-                <div class="studio-cred-text">Dual Sony A7 IV · FE 70-200mm GM II · Sigma Art · Capture One, Photoshop, Lightroom &amp; Affinity Design<br/>Singha · KBank · Thai AirAsia · True · AIA · Yamaha · TCEB · GISTDA</div>
-              </div>
-
-              <div class="contact-social-grid">
-                <a href="https://line.me/ti/p/~0895544355" target="_blank" rel="noopener noreferrer" class="social-pill">
-                  <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M12 2C6.48 2 2 5.92 2 10.75c0 2.92 1.63 5.5 4.14 7.05-.18.66-.66 2.4-1 3.65 0 0-.08.31.17.43.25.11.53-.02.53-.02 2.87-1.92 3.86-2.58 4.25-2.85.94.22 1.91.34 2.91.34 5.52 0 10-3.92 10-8.75S17.52 2 12 2z"/></svg>
-                  <span>LINE</span>
-                </a>
-                <a href="https://fastwork.co" target="_blank" rel="noopener noreferrer" class="social-pill">
-                  <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                  <span>FASTWORK</span>
-                </a>
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-pill">
-                  <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-                  <span>FACEBOOK</span>
-                </a>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-pill">
-                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg>
-                  <span>INSTAGRAM</span>
-                </a>
-              </div>
-            </div>
-
-            <!-- Right: Editorial Commission Form -->
-            <div class="contact-form-panel">
-              <div class="form-panel-head">
-                <span class="form-panel-title">COMMISSION BRIEF // ใบแจ้งรายละเอียดงาน</span>
-                <span class="form-panel-sub">DIRECT STUDIO RESPONSE</span>
-              </div>
-              <form id="project-inquiry-mockup" class="mockup-form" onsubmit="event.preventDefault(); alert('ขอบคุณครับ! ข้อมูลโปรเจกต์ส่งถึง Feltz Studio เรียบร้อย');">
-                <div class="form-row-2">
-                  <div class="form-field">
-                    <label class="field-label">ชื่อผู้ติดต่อ / แบรนด์ *</label>
-                    <input type="text" class="field-input" placeholder="เช่น คุณสมชาย หรือ ชื่อบริษัท" required />
-                  </div>
-                  <div class="form-field">
-                    <label class="field-label">เบอร์โทรศัพท์ติดต่อ *</label>
-                    <input type="tel" class="field-input" placeholder="เช่น 081-234-5678" required />
-                  </div>
-                </div>
-                <div class="form-row-2">
-                  <div class="form-field">
-                    <label class="field-label">อีเมลติดต่อกลับ *</label>
-                    <input type="email" class="field-input" placeholder="name@company.com" required />
-                  </div>
-                  <div class="form-field">
-                    <label class="field-label">หมวดหมู่งานที่สนใจ *</label>
-                    <select class="field-select" required>
-                      <option value="" disabled selected>เลือกประเภทบริการ</option>
-                      <option value="concert">01 // คอนเสิร์ตและเวทีการแสดง (Concert &amp; Stage)</option>
-                      <option value="hotel">02 // โรงแรมและรีสอร์ต (Hotel &amp; Resort)</option>
-                      <option value="sport">03 // สปอร์ตและจักรยานความเร็วสูง (Cycling &amp; Sport)</option>
-                      <option value="realestate">04 // อสังหาริมทรัพย์และสเปซ (Real Estate)</option>
-                      <option value="food">05 // อาหารและไฟน์ไดน์นิ่ง (Food &amp; Dining)</option>
-                      <option value="product">06 // สินค้าและผลิตภัณฑ์แบรนด์ (Product &amp; Brand)</option>
-                      <option value="portrait">07 // สตูดิโอพอร์ตเทรตผู้บริหาร (Studio &amp; Portrait)</option>
-                      <option value="event">08 // อีเวนต์องค์กรและการประชุม (Corporate &amp; Event)</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="form-field">
-                  <label class="field-label">รายละเอียดโปรเจกต์ / สถานที่ / วันที่โดยประมาณ *</label>
-                  <textarea class="field-textarea" rows="2" placeholder="ระบุเป้าหมายของงาน เช่น ถ่ายทำรีสอร์ต 2 วัน เพื่อรีแบรนดิ้งเว็บไซต์ใหม่..." required></textarea>
-                </div>
-                <button type="submit" class="submit-inquiry-btn">
-                  <span>ส่งบรีฟโปรเจกต์เพื่อประเมินราคา (SEND COMMISSION BRIEF)</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-                </button>
-              </form>
-            </div>
-          </div>
-
-          <!-- 4. Editorial Back Cover Footer -->
-          <div class="back-cover-footer">
-            <span>&copy; FELTZ STUDIO // MONGKOL WONGSAKULYANON — ALL RIGHTS RESERVED</span>
-            <button type="button" class="back-top-btn" onclick="scrollToCategory(0)">BACK TO COVER &uarr;</button>
-          </div>
-
-        </div>
-      `;
-      viewport.appendChild(contactSec);
     }
 
     // =========================================================================
@@ -6679,7 +6481,6 @@
 
     function bookFromExhibition() {
       closeExhibitionModal();
-      scrollToCategory(9);
     }
 
     // Bridge Archive Photos into the High-Res Spatial Lightbox Inspector
