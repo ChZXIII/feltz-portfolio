@@ -6,7 +6,7 @@
   <title>GHN168 Media & Creation — Interactive Company Profile</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&family=Prompt:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
       /* Matte Paper Dual Palette (Blvck Tumbler x GHN168 Crimson x Warm Paper) */
@@ -25,8 +25,8 @@
       --hairline-light: rgba(20, 21, 24, 0.14);
 
       --font-display: 'Outfit', 'Prompt', sans-serif;
-      --font-body: 'IBM Plex Sans Thai', 'Prompt', sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
+      --font-body: 'Anuphan', 'IBM Plex Sans Thai', sans-serif;
+      --font-mono: 'JetBrains Mono', 'Anuphan', sans-serif;
 
       --ease-cushioned: cubic-bezier(0.16, 1, 0.3, 1);
       --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
@@ -762,104 +762,536 @@
       opacity: 0.82;
     }
 
-    /* G - H - N Three Pillars */
-    .ghn-pillars {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-bottom: 64px;
+    /* ==========================================================================
+       01A // G · H · N 3D ORBITAL DEPTH STAGE (9.5s Reader-Paced Rotation)
+       ========================================================================== */
+    .ghn-orbit-shell {
+      margin-bottom: 84px;
     }
 
-    .ghn-pillar-card {
+    .orbit-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .orbit-pills {
+      display: inline-flex;
       background: var(--paper-white-card);
       border: 1px solid var(--hairline-light);
-      padding: 32px 28px;
-      position: relative;
-      transition: transform 0.5s var(--ease-cushioned), border-color 0.5s var(--ease-cushioned);
+      border-radius: 999px;
+      padding: 4px;
+      gap: 4px;
     }
 
-    .ghn-pillar-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--ghn-red);
-    }
-
-    .ghn-big-letter {
+    .orbit-pill-btn {
+      background: transparent;
+      border: none;
+      color: var(--ink-muted-on-light);
       font-family: var(--font-display);
-      font-size: 4.8rem;
-      font-weight: 900;
-      line-height: 0.9;
-      color: var(--ink-dark);
-      margin-bottom: 18px;
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 8px 18px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition:
+        background-color 0.45s var(--ease-cushioned),
+        color 0.45s var(--ease-cushioned),
+        transform 0.25s ease;
     }
 
-    .ghn-big-letter span {
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
+    .orbit-pill-btn:hover {
+      color: var(--ink-dark);
+    }
+
+    .orbit-pill-btn.active {
+      background: var(--ghn-red);
+      color: var(--ink-white);
+    }
+
+    .orbit-nav-arrows {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .orbit-hint {
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--ink-muted-on-light);
+      margin-right: 6px;
+    }
+
+    .orbit-arrow-btn {
+      background: var(--paper-white-card);
+      border: 1px solid var(--hairline-light);
+      color: var(--ink-dark);
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 999px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition:
+        background-color 0.35s var(--ease-cushioned),
+        color 0.35s var(--ease-cushioned),
+        border-color 0.35s var(--ease-cushioned),
+        transform 0.25s ease;
+    }
+
+    .orbit-arrow-btn:hover {
+      background: var(--ink-dark);
+      color: var(--ink-white);
+      border-color: var(--ink-dark);
+    }
+
+    .orbit-arrow-btn:active {
+      transform: scale(0.96);
+    }
+
+    /* 3D Perspective Stage */
+    .ghn-3d-viewport {
+      position: relative;
+      height: 410px;
+      perspective: 1500px;
+      transform-style: preserve-3d;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      user-select: none;
+    }
+
+    /* Subtle floor depth shadow under the floating 3D card */
+    .ghn-3d-viewport::after {
+      content: "";
+      position: absolute;
+      bottom: 8px;
+      width: 56%;
+      height: 28px;
+      background: radial-gradient(ellipse at center, rgba(20, 21, 24, 0.22) 0%, rgba(20, 21, 24, 0) 72%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .ghn-3d-card {
+      position: absolute;
+      width: min(680px, 66%);
+      min-height: 340px;
+      background: var(--paper-black-deep);
+      color: var(--ink-white);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-top: 4px solid var(--ghn-red);
+      padding: 36px 40px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+      will-change: transform, opacity;
+      transition:
+        transform 1.15s var(--ease-cushioned),
+        opacity 1.15s var(--ease-cushioned),
+        box-shadow 1.15s var(--ease-cushioned),
+        border-color 0.6s ease;
+    }
+
+    /* Matte paper grain inside the 3D dark card */
+    .ghn-3d-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.26;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paperNoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paperNoise)' opacity='0.28'/%3E%3C/svg%3E");
+      background-size: 220px 220px;
+    }
+
+    .ghn-3d-card > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Center Active Card: Floating forward in 3D space */
+    .ghn-3d-card.is-front {
+      transform: translate3d(0, -6px, 90px) rotateY(0deg) scale(1);
+      opacity: 1;
+      z-index: 5;
+      box-shadow:
+        0 34px 70px rgba(18, 19, 22, 0.36),
+        0 10px 24px rgba(224, 36, 36, 0.14);
+      cursor: default;
+    }
+
+    /* Right Next Card: Receding into right 3D depth */
+    .ghn-3d-card.is-right {
+      transform: translate3d(44%, 14px, -170px) rotateY(-28deg) scale(0.84);
+      opacity: 0.52;
+      z-index: 3;
+      border-top-color: rgba(255, 255, 255, 0.22);
+      box-shadow: 0 18px 38px rgba(18, 19, 22, 0.22);
+    }
+
+    .ghn-3d-card.is-right:hover {
+      opacity: 0.78;
+      transform: translate3d(42%, 8px, -140px) rotateY(-24deg) scale(0.86);
+    }
+
+    /* Left Previous Card: Receding into left 3D depth */
+    .ghn-3d-card.is-left {
+      transform: translate3d(-44%, 14px, -170px) rotateY(28deg) scale(0.84);
+      opacity: 0.52;
+      z-index: 2;
+      border-top-color: rgba(255, 255, 255, 0.22);
+      box-shadow: 0 18px 38px rgba(18, 19, 22, 0.22);
+    }
+
+    .ghn-3d-card.is-left:hover {
+      opacity: 0.78;
+      transform: translate3d(-42%, 8px, -140px) rotateY(24deg) scale(0.86);
+    }
+
+    .ghn-card-top {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .ghn-monolith-letter {
+      font-family: var(--font-display);
+      font-size: clamp(5.2rem, 8vw, 7.2rem);
+      font-weight: 900;
+      line-height: 0.85;
+      color: var(--ink-white);
+      text-shadow: 6px 8px 0 var(--ghn-red);
+      letter-spacing: -0.04em;
+      user-select: none;
+    }
+
+    .ghn-pillar-kicker {
+      font-family: var(--font-display);
+      font-size: 0.76rem;
+      font-weight: 700;
       color: var(--ghn-red);
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: block;
     }
 
     .ghn-pillar-title {
       font-family: var(--font-display);
-      font-size: 1.25rem;
+      font-size: clamp(1.45rem, 2.2vw, 1.95rem);
       font-weight: 800;
-      margin-bottom: 8px;
-      padding-bottom: 10px;
-      border-bottom: 2px solid var(--ghn-red);
-      display: inline-block;
+      color: var(--ink-white);
+      margin-bottom: 12px;
+      line-height: 1.2;
     }
 
     .ghn-pillar-desc {
-      font-size: 0.94rem;
-      color: var(--ink-muted-on-light);
-      line-height: 1.65;
+      font-size: 1.04rem;
+      color: #d5d8e0;
+      line-height: 1.75;
     }
 
-    /* 6 Services Swiss Editorial Grid */
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      border-top: 1px solid var(--hairline-light);
-      border-left: 1px solid var(--hairline-light);
+    .ghn-card-footer {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: var(--ink-muted-on-dark);
     }
 
-    .service-cell {
-      padding: 30px 26px;
-      border-right: 1px solid var(--hairline-light);
-      border-bottom: 1px solid var(--hairline-light);
-      background: rgba(255, 255, 255, 0.35);
-      transition: background-color 0.4s var(--ease-cushioned);
-    }
-
-    .service-cell:hover {
-      background: #ffffff;
-    }
-
-    .service-num {
-      font-family: var(--font-mono);
-      font-size: 0.74rem;
+    .ghn-reading-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       font-weight: 600;
-      color: var(--ghn-red);
-      letter-spacing: 0.12em;
-      margin-bottom: 12px;
-      display: block;
+      color: var(--ink-white);
     }
 
-    .service-name {
+    .ghn-status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--ghn-red);
+    }
+
+    /* ==========================================================================
+       01B // 6 CORE SERVICES — 3D ROTATING DECK + INTERACTIVE SELECTOR
+       ========================================================================== */
+    .services-subhead {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding-top: 28px;
+      margin-bottom: 32px;
+      border-top: 2px solid var(--ink-dark);
+    }
+
+    .services-subhead-title {
       font-family: var(--font-display);
-      font-size: 1.22rem;
+      font-size: clamp(1.55rem, 2.8vw, 2.35rem);
       font-weight: 800;
-      margin-bottom: 10px;
       color: var(--ink-dark);
+      line-height: 1.15;
     }
 
-    .service-detail {
-      font-size: 0.92rem;
+    .services-3d-shell {
+      display: grid;
+      grid-template-columns: 0.92fr 1.28fr;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .services-selector-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .service-tab-btn {
+      width: 100%;
+      text-align: left;
+      background: var(--paper-white-card);
+      border: 1px solid var(--hairline-light);
+      padding: 15px 20px;
+      display: grid;
+      grid-template-columns: 44px 1fr auto;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
       color: var(--ink-muted-on-light);
-      line-height: 1.65;
+      transition:
+        background-color 0.45s var(--ease-cushioned),
+        color 0.45s var(--ease-cushioned),
+        border-color 0.45s var(--ease-cushioned),
+        transform 0.35s var(--ease-cushioned);
+    }
+
+    .service-tab-btn:hover {
+      background: #ffffff;
+      color: var(--ink-dark);
+      transform: translateX(4px);
+    }
+
+    .service-tab-btn.active {
+      background: var(--ink-dark);
+      color: var(--ink-white);
+      border-color: var(--ink-dark);
+      border-left: 5px solid var(--ghn-red);
+      transform: translateX(8px);
+    }
+
+    .service-tab-num {
+      font-family: var(--font-display);
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--ghn-red);
+      letter-spacing: 0.08em;
+    }
+
+    .service-tab-name {
+      font-family: var(--font-display);
+      font-size: 1.02rem;
+      font-weight: 700;
+    }
+
+    .service-tab-arrow {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      opacity: 0.45;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .service-tab-btn.active .service-tab-arrow {
+      opacity: 1;
+      color: var(--ghn-red);
+      transform: translateX(3px);
+    }
+
+    /* Right 3D Floating Card Stack for the 6 Services */
+    .services-3d-viewport {
+      position: relative;
+      height: 390px;
+      perspective: 1400px;
+      transform-style: preserve-3d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .service-3d-card {
+      position: absolute;
+      inset: 0;
+      background: var(--paper-black-deep);
+      color: var(--ink-white);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-left: 6px solid var(--ghn-red);
+      padding: 38px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+      will-change: transform, opacity;
+      pointer-events: none;
+      opacity: 0;
+      transform: translate3d(0, -34px, -220px) rotateX(14deg) scale(0.86);
+      transition:
+        transform 1.05s var(--ease-cushioned),
+        opacity 1.05s var(--ease-cushioned),
+        box-shadow 1.05s var(--ease-cushioned);
+    }
+
+    .service-3d-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.26;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paperNoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paperNoise)' opacity='0.28'/%3E%3C/svg%3E");
+      background-size: 220px 220px;
+    }
+
+    .service-3d-card > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Active Service Card floating upfront */
+    .service-3d-card.is-active {
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 5;
+      transform: translate3d(0, 0, 50px) rotateX(0deg) rotateY(0deg) scale(1);
+      box-shadow: 0 32px 64px rgba(18, 19, 22, 0.34);
+    }
+
+    /* Next Service Card queued behind in 3D stack */
+    .service-3d-card.is-next-1 {
+      opacity: 0.62;
+      z-index: 4;
+      transform: translate3d(22px, 20px, -65px) rotateX(-5deg) rotateY(-6deg) scale(0.94);
+      border-left-color: rgba(255, 255, 255, 0.25);
+    }
+
+    /* Second Queued Service Card deeper in 3D stack */
+    .service-3d-card.is-next-2 {
+      opacity: 0.32;
+      z-index: 3;
+      transform: translate3d(44px, 38px, -135px) rotateX(-9deg) rotateY(-10deg) scale(0.88);
+      border-left-color: rgba(255, 255, 255, 0.14);
+    }
+
+    .service-3d-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .service-3d-badge {
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      color: var(--ghn-red);
+      text-transform: uppercase;
+      background: rgba(224, 36, 36, 0.14);
+      border: 1px solid rgba(224, 36, 36, 0.35);
+      padding: 6px 14px;
+      border-radius: 999px;
+    }
+
+    .service-3d-big-num {
+      font-family: var(--font-display);
+      font-size: 3.8rem;
+      font-weight: 900;
+      line-height: 0.85;
+      color: rgba(255, 255, 255, 0.12);
+      user-select: none;
+    }
+
+    .service-3d-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 2.3vw, 2.05rem);
+      font-weight: 800;
+      color: var(--ink-white);
+      margin: 14px 0 12px;
+      line-height: 1.22;
+    }
+
+    .service-3d-desc {
+      font-size: 1.04rem;
+      color: #d5d8e0;
+      line-height: 1.75;
+    }
+
+    .service-3d-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .service-tag-chip {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--ink-white);
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      padding: 5px 12px;
+      border-radius: 999px;
+    }
+
+    .service-3d-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      margin-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 0.8rem;
+      color: var(--ink-muted-on-dark);
+    }
+
+    .service-step-btns {
+      display: flex;
+      gap: 8px;
+    }
+
+    .service-step-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: var(--ink-white);
+      font-family: var(--font-display);
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .service-step-btn:hover {
+      background: var(--ghn-red);
+      border-color: var(--ghn-red);
     }
 
     /* ==========================================================================
@@ -1336,12 +1768,20 @@
         grid-template-columns: 1fr;
         gap: 28px;
       }
-      .ghn-pillars,
-      .services-grid,
+      .services-3d-shell,
       .founders-grid,
       .works-showcase,
       .contact-box {
         grid-template-columns: 1fr;
+      }
+      .ghn-3d-card {
+        width: min(640px, 84%);
+      }
+      .ghn-3d-card.is-right {
+        transform: translate3d(20%, 16px, -180px) rotateY(-22deg) scale(0.84);
+      }
+      .ghn-3d-card.is-left {
+        transform: translate3d(-20%, 16px, -180px) rotateY(22deg) scale(0.84);
       }
       .workflow-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1382,6 +1822,41 @@
       }
       .deck-stage {
         min-height: 268px;
+      }
+      .ghn-3d-viewport {
+        height: 450px;
+      }
+      .ghn-3d-card {
+        width: 94%;
+        min-height: 380px;
+        padding: 26px 22px;
+      }
+      .ghn-card-top {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .ghn-monolith-letter {
+        font-size: 4.4rem;
+      }
+      .ghn-3d-card.is-right {
+        transform: translate3d(9%, 18px, -160px) rotateY(-14deg) scale(0.88);
+        opacity: 0.35;
+      }
+      .ghn-3d-card.is-left {
+        transform: translate3d(-9%, 18px, -160px) rotateY(14deg) scale(0.88);
+        opacity: 0.35;
+      }
+      .services-3d-viewport {
+        height: 440px;
+      }
+      .service-3d-card {
+        padding: 26px 22px;
+      }
+      .service-3d-card.is-next-1 {
+        transform: translate3d(10px, 14px, -60px) scale(0.95);
+      }
+      .service-3d-card.is-next-2 {
+        transform: translate3d(20px, 26px, -120px) scale(0.9);
       }
       .workflow-grid,
       .corp-table {
@@ -1442,7 +1917,7 @@
   <section id="top" class="paper-section paper-dark hero-section">
     <div class="hero-corner-block-left"></div>
     <div class="hero-corner-block-right"></div>
-    <div class="gloss-watermark hero-watermark">GHN168<br/>STUDIO</div>
+    <div class="gloss-watermark hero-watermark">GHN168<br/>MEDIA</div>
 
     <div class="ink-layer hero-top-row">
       <div>
@@ -1651,135 +2126,400 @@
         </p>
       </div>
 
-      <!-- G - H - N Three Pillars -->
-      <div class="ghn-pillars">
-        <div class="ghn-pillar-card">
-          <div class="ghn-big-letter">G <span>01 // PILLAR</span></div>
-          <h3 class="ghn-pillar-title">
-            <span data-th>GROUNDBREAKING | ล้ำ ทันสมัย</span>
-            <span data-en>GROUNDBREAKING | Pioneering</span>
-          </h3>
-          <p class="ghn-pillar-desc" data-th>
-            ผลงานหรือแนวคิดที่เปล่งประกายด้วยความคิดสร้างสรรค์ และเปิดโลกทัศน์สู่แนวทางการนำเสนอใหม่ๆ ให้แบรนด์ของคุณโดดเด่นกว่าใคร
-          </p>
-          <p class="ghn-pillar-desc" data-en>
-            Innovative, pioneering visual ideas that introduce fresh perspectives and break new ground in commercial storytelling.
-          </p>
+      <!-- 01A // G · H · N 3D ORBITAL DEPTH STAGE (Rotates every 9.5s for comfortable slow reading) -->
+      <div class="ghn-orbit-shell" id="ghnOrbitShell">
+        <div class="orbit-toolbar">
+          <div class="orbit-pills" role="tablist" aria-label="G-H-N Pillars">
+            <button type="button" class="orbit-pill-btn active" data-ghn-idx="0">
+              <span>G · GROUNDBREAKING</span>
+            </button>
+            <button type="button" class="orbit-pill-btn" data-ghn-idx="1">
+              <span>H · HAPPINESS</span>
+            </button>
+            <button type="button" class="orbit-pill-btn" data-ghn-idx="2">
+              <span>N · NIRVANA</span>
+            </button>
+          </div>
+
+          <div class="orbit-nav-arrows">
+            <span class="orbit-hint">
+              <span data-th>หมุนเวียนอัตโนมัติทุก 9.5 วินาที (หรือคลิกการ์ดด้านหลังเพื่อดึงขึ้นมาอ่าน)</span>
+              <span data-en>Auto-rotates every 9.5s (or click any background card to bring forward)</span>
+            </span>
+            <button type="button" class="orbit-arrow-btn" id="ghnPrevBtn">
+              <span data-th>◂ ก่อนหน้า</span><span data-en>◂ PREV</span>
+            </button>
+            <button type="button" class="orbit-arrow-btn" id="ghnNextBtn">
+              <span data-th>ถัดไป ▸</span><span data-en>NEXT ▸</span>
+            </button>
+          </div>
         </div>
 
-        <div class="ghn-pillar-card">
-          <div class="ghn-big-letter">H <span>02 // PILLAR</span></div>
-          <h3 class="ghn-pillar-title">
-            <span data-th>HAPPINESS | ความสุข</span>
-            <span data-en>HAPPINESS | Contentment</span>
-          </h3>
-          <p class="ghn-pillar-desc" data-th>
-            ความสุขที่เปล่งประกายจากภายในยามได้บรรลุเป้าหมาย การทำงานที่ราบรื่น คุยง่าย และสร้างความประทับใจให้ทั้งทีมงานและลูกค้า
-          </p>
-          <p class="ghn-pillar-desc" data-en>
-            Positive collaboration and peace of mind that come from working with a responsive, direct, and reliable production team.
-          </p>
-        </div>
+        <div class="ghn-3d-viewport" id="ghn3dViewport">
+          <!-- Card 0: G -->
+          <article class="ghn-3d-card is-front" data-ghn-card="0">
+            <div class="ghn-card-top">
+              <div class="ghn-monolith-letter">G</div>
+              <div>
+                <span class="ghn-pillar-kicker">01 // CORE PILLAR — GROUNDBREAKING</span>
+                <h3 class="ghn-pillar-title">
+                  <span data-th>GROUNDBREAKING | ล้ำสมัย เปิดมุมมองใหม่</span>
+                  <span data-en>GROUNDBREAKING | Pioneering Visual Ideas</span>
+                </h3>
+                <p class="ghn-pillar-desc" data-th>
+                  ผลงานหรือแนวคิดที่เปล่งประกายด้วยความคิดสร้างสรรค์ และเปิดโลกทัศน์สู่แนวทางการนำเสนอใหม่ๆ ให้แบรนด์ของคุณโดดเด่นและแตกต่างกว่าใครในตลาด
+                </p>
+                <p class="ghn-pillar-desc" data-en>
+                  Innovative, pioneering visual ideas that introduce fresh perspectives and break new ground in commercial storytelling.
+                </p>
+              </div>
+            </div>
+            <div class="ghn-card-footer">
+              <div class="ghn-reading-status">
+                <span class="ghn-status-dot"></span>
+                <span data-th>1 / 3 — ถัดไป: H · HAPPINESS</span>
+                <span data-en>1 / 3 — NEXT UP: H · HAPPINESS</span>
+              </div>
+              <div>
+                <span data-th>เวลาอ่านต่อใบ ~9.5 วินาที (วางเมาส์เพื่อหยุดอ่านค้างไว้ได้)</span>
+                <span data-en>~9.5s reading pace per card (hover to pause)</span>
+              </div>
+            </div>
+          </article>
 
-        <div class="ghn-pillar-card">
-          <div class="ghn-big-letter">N <span>03 // PILLAR</span></div>
-          <h3 class="ghn-pillar-title">
-            <span data-th>NIRVANA | เป้าหมายสูงสุด</span>
-            <span data-en>NIRVANA | Ultimate Fulfillment</span>
-          </h3>
-          <p class="ghn-pillar-desc" data-th>
-            สร้างสรรค์ผลงานที่มีจิตวิญญาณและปรัชญา พาทุกโปรเจกต์ไปถึงเป้าหมายสูงสุดของลูกค้าอย่างสมบูรณ์แบบไร้ที่ติ
-          </p>
-          <p class="ghn-pillar-desc" data-en>
-            Crafting soulful, high-impact visual works that achieve the highest standard of quality and client satisfaction.
-          </p>
+          <!-- Card 1: H -->
+          <article class="ghn-3d-card is-right" data-ghn-card="1">
+            <div class="ghn-card-top">
+              <div class="ghn-monolith-letter">H</div>
+              <div>
+                <span class="ghn-pillar-kicker">02 // CORE PILLAR — HAPPINESS</span>
+                <h3 class="ghn-pillar-title">
+                  <span data-th>HAPPINESS | ความสุขจากการทำงานที่ราบรื่น</span>
+                  <span data-en>HAPPINESS | Seamless Collaboration</span>
+                </h3>
+                <p class="ghn-pillar-desc" data-th>
+                  ความสุขที่เปล่งประกายจากภายในยามได้บรรลุเป้าหมาย การทำงานที่ราบรื่น คุยตรงกับผู้กำกับและโปรดิวเซอร์โดยไม่ผ่านคนกลาง สร้างความประทับใจให้ทั้งทีมงานและลูกค้า
+                </p>
+                <p class="ghn-pillar-desc" data-en>
+                  Positive collaboration and peace of mind that come from working directly with a responsive, reliable production team.
+                </p>
+              </div>
+            </div>
+            <div class="ghn-card-footer">
+              <div class="ghn-reading-status">
+                <span class="ghn-status-dot"></span>
+                <span data-th>2 / 3 — ถัดไป: N · NIRVANA</span>
+                <span data-en>2 / 3 — NEXT UP: N · NIRVANA</span>
+              </div>
+              <div>
+                <span data-th>เวลาอ่านต่อใบ ~9.5 วินาที (วางเมาส์เพื่อหยุดอ่านค้างไว้ได้)</span>
+                <span data-en>~9.5s reading pace per card (hover to pause)</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2: N -->
+          <article class="ghn-3d-card is-left" data-ghn-card="2">
+            <div class="ghn-card-top">
+              <div class="ghn-monolith-letter">N</div>
+              <div>
+                <span class="ghn-pillar-kicker">03 // CORE PILLAR — NIRVANA</span>
+                <h3 class="ghn-pillar-title">
+                  <span data-th>NIRVANA | เป้าหมายสูงสุดของความสมบูรณ์แบบ</span>
+                  <span data-en>NIRVANA | Ultimate Creative Fulfillment</span>
+                </h3>
+                <p class="ghn-pillar-desc" data-th>
+                  สร้างสรรค์ผลงานที่มีจิตวิญญาณและปรัชญา พาทุกโปรเจกต์ไปถึงเป้าหมายสูงสุดของลูกค้าอย่างสมบูรณ์แบบไร้ที่ติ ทั้งคุณภาพของภาพ เสียง และความตรงต่อเวลา
+                </p>
+                <p class="ghn-pillar-desc" data-en>
+                  Crafting soulful, high-impact visual works that achieve the highest standard of quality and client satisfaction.
+                </p>
+              </div>
+            </div>
+            <div class="ghn-card-footer">
+              <div class="ghn-reading-status">
+                <span class="ghn-status-dot"></span>
+                <span data-th>3 / 3 — ถัดไป: วนกลับสู่ G · GROUNDBREAKING</span>
+                <span data-en>3 / 3 — NEXT UP: G · GROUNDBREAKING</span>
+              </div>
+              <div>
+                <span data-th>เวลาอ่านต่อใบ ~9.5 วินาที (วางเมาส์เพื่อหยุดอ่านค้างไว้ได้)</span>
+                <span data-en>~9.5s reading pace per card (hover to pause)</span>
+              </div>
+            </div>
+          </article>
         </div>
       </div>
 
-      <!-- 6 Core Services Grid -->
-      <div class="services-grid">
-        <div class="service-cell">
-          <span class="service-num">SERVICE // 01</span>
-          <h3 class="service-name">
-            <span data-th>บริการถ่ายภาพนิ่ง (Photography)</span>
-            <span data-en>Commercial Photography</span>
+      <!-- 01B // 6 CORE SERVICES — 3D ROTATING DECK + INTERACTIVE SELECTOR -->
+      <div class="services-subhead">
+        <div>
+          <div class="section-index">
+            <span class="brand-tri"></span>
+            <span>01B // 6 CORE PRODUCTION SERVICES</span>
+          </div>
+          <h3 class="services-subhead-title">
+            <span data-th>บริการโปรดักชันครบวงจรทั้ง 6 ด้าน</span>
+            <span data-en>6 Full-Scale Production Capabilities</span>
           </h3>
-          <p class="service-detail" data-th>
-            ถ่ายภาพบุคคลผู้บริหาร, ภาพงานอีเวนต์องค์กรและปาร์ตี้, ภาพสินค้าโฆษณา, ภาพโรงแรมและอสังหาริมทรัพย์ รวมถึงภาพทิวทัศน์และสถาปัตยกรรม
-          </p>
-          <p class="service-detail" data-en>
-            Executive portraits, corporate events, product advertising, hotel &amp; real estate architecture, and landscape photography.
-          </p>
+        </div>
+        <div class="orbit-hint">
+          <span data-th>คลิกเลือกหัวข้อด้านซ้าย หรือปล่อยให้การ์ด 3 มิติหมุนเวียนขึ้นมาแสดงทีละบริการ</span>
+          <span data-en>Select any service on the left or let the 3D deck cycle automatically</span>
+        </div>
+      </div>
+
+      <div class="services-3d-shell" id="services3dShell">
+        <!-- Left Interactive Service Selector (01 - 06) -->
+        <div class="services-selector-list" role="tablist" aria-label="6 Core Services">
+          <button type="button" class="service-tab-btn active" data-srv-idx="0">
+            <span class="service-tab-num">01</span>
+            <span class="service-tab-name">
+              <span data-th>บริการถ่ายภาพนิ่ง (Photography)</span>
+              <span data-en>Commercial Photography</span>
+            </span>
+            <span class="service-tab-arrow">▸</span>
+          </button>
+
+          <button type="button" class="service-tab-btn" data-srv-idx="1">
+            <span class="service-tab-num">02</span>
+            <span class="service-tab-name">
+              <span data-th>บริการถ่ายทำวิดีโอ (Videography)</span>
+              <span data-en>Cinema &amp; Event Videography</span>
+            </span>
+            <span class="service-tab-arrow">▸</span>
+          </button>
+
+          <button type="button" class="service-tab-btn" data-srv-idx="2">
+            <span class="service-tab-num">03</span>
+            <span class="service-tab-name">
+              <span data-th>การเล่าเรื่องด้วยภาพ (Visual Storytelling)</span>
+              <span data-en>Visual Storytelling &amp; Direction</span>
+            </span>
+            <span class="service-tab-arrow">▸</span>
+          </button>
+
+          <button type="button" class="service-tab-btn" data-srv-idx="3">
+            <span class="service-tab-num">04</span>
+            <span class="service-tab-name">
+              <span data-th>ตัดต่อและเกรดสี (Post-Production)</span>
+              <span data-en>Post-Production &amp; Color Grading</span>
+            </span>
+            <span class="service-tab-arrow">▸</span>
+          </button>
+
+          <button type="button" class="service-tab-btn" data-srv-idx="4">
+            <span class="service-tab-num">05</span>
+            <span class="service-tab-name">
+              <span data-th>ถ่ายทอดสดและโปรดักชันมืออาชีพ (Live &amp; Crew)</span>
+              <span data-en>Live Streaming &amp; Full Crew</span>
+            </span>
+            <span class="service-tab-arrow">▸</span>
+          </button>
+
+          <button type="button" class="service-tab-btn" data-srv-idx="5">
+            <span class="service-tab-num">06</span>
+            <span class="service-tab-name">
+              <span data-th>ดูแลตรงถึงมือลูกค้า (Client Commitment)</span>
+              <span data-en>Direct Client Satisfaction</span>
+            </span>
+            <span class="service-tab-arrow">▸</span>
+          </button>
         </div>
 
-        <div class="service-cell">
-          <span class="service-num">SERVICE // 02</span>
-          <h3 class="service-name">
-            <span data-th>บริการถ่ายทำวิดีโอ (Videography)</span>
-            <span data-en>Cinema &amp; Event Videography</span>
-          </h3>
-          <p class="service-detail" data-th>
-            วิดีโอโฆษณา (Commercial), วิดีโอไฮไลต์งานอีเวนต์และงานประชุมระดับนานาชาติ, วิดีโอพรีเซนเทชันองค์กร, สารคดี และภาพยนตร์สั้น
-          </p>
-          <p class="service-detail" data-en>
-            Commercial ads, concert &amp; conference event highlights, corporate video presentations, documentaries, and promotional films.
-          </p>
-        </div>
+        <!-- Right 3D Floating Card Stack -->
+        <div class="services-3d-viewport" id="services3dViewport">
+          <!-- Service 01 -->
+          <article class="service-3d-card is-active" data-srv-card="0">
+            <div>
+              <div class="service-3d-top">
+                <span class="service-3d-badge">SERVICE // 01 OF 06</span>
+                <span class="service-3d-big-num">01</span>
+              </div>
+              <h4 class="service-3d-title">
+                <span data-th>บริการถ่ายภาพนิ่ง (Commercial Photography)</span>
+                <span data-en>Commercial &amp; Executive Photography</span>
+              </h4>
+              <p class="service-3d-desc" data-th>
+                ถ่ายภาพบุคคลผู้บริหาร, ภาพงานอีเวนต์องค์กรและปาร์ตี้, ภาพสินค้าโฆษณา, ภาพโรงแรมและอสังหาริมทรัพย์ รวมถึงภาพทิวทัศน์และสถาปัตยกรรม ด้วยการจัดแสงและองค์ประกอบภาพระดับสตูดิโอ
+              </p>
+              <p class="service-3d-desc" data-en>
+                Executive portraits, corporate events, product advertising, hotel &amp; real estate architecture, and landscape photography with studio-grade lighting.
+              </p>
+              <div class="service-3d-tags">
+                <span class="service-tag-chip"><span data-th>ภาพผู้บริหาร</span><span data-en>Executive Portraits</span></span>
+                <span class="service-tag-chip"><span data-th>ภาพสินค้าโฆษณา</span><span data-en>Product &amp; Packshot</span></span>
+                <span class="service-tag-chip"><span data-th>ภาพโรงแรม/สถาปัตยกรรม</span><span data-en>Hotel &amp; Architecture</span></span>
+              </div>
+            </div>
+            <div class="service-3d-footer">
+              <span><span data-th>บริการที่ 1 จาก 6 (หมุนเวียนอัตโนมัติทุก 9 วินาที)</span><span data-en>Service 01 of 06 (Auto-cycles every 9s)</span></span>
+              <div class="service-step-btns">
+                <button type="button" class="service-step-btn" data-srv-step="-1">◂</button>
+                <button type="button" class="service-step-btn" data-srv-step="1">▸</button>
+              </div>
+            </div>
+          </article>
 
-        <div class="service-cell">
-          <span class="service-num">SERVICE // 03</span>
-          <h3 class="service-name">
-            <span data-th>การเล่าเรื่องด้วยภาพ (Visual Storytelling)</span>
-            <span data-en>Visual Storytelling &amp; Direction</span>
-          </h3>
-          <p class="service-detail" data-th>
-            ออกแบบโครงเรื่อง สตอรี่บอร์ด และเทคนิคการสื่อสารที่ทรงพลัง เพื่อถ่ายทอดข้อความสำคัญของแบรนด์ผ่านภาพเคลื่อนไหวและกราฟิก
-          </p>
-          <p class="service-detail" data-en>
-            Creative concept development, storyboarding, and narrative direction that turn brand messages into compelling visual stories.
-          </p>
-        </div>
+          <!-- Service 02 -->
+          <article class="service-3d-card is-next-1" data-srv-card="1">
+            <div>
+              <div class="service-3d-top">
+                <span class="service-3d-badge">SERVICE // 02 OF 06</span>
+                <span class="service-3d-big-num">02</span>
+              </div>
+              <h4 class="service-3d-title">
+                <span data-th>บริการถ่ายทำวิดีโอ (Cinema &amp; Event Videography)</span>
+                <span data-en>Cinema &amp; Event Videography</span>
+              </h4>
+              <p class="service-3d-desc" data-th>
+                รับผลิตวิดีโอโฆษณา (Commercial), วิดีโอไฮไลต์งานอีเวนต์และงานประชุมระดับนานาชาติ, วิดีโอพรีเซนเทชันองค์กร, สารคดี และภาพยนตร์สั้น ถ่ายทอดอารมณ์ภาพคมชัดระดับภาพยนตร์
+              </p>
+              <p class="service-3d-desc" data-en>
+                Commercial ads, concert &amp; conference event highlights, corporate video presentations, documentaries, and promotional films.
+              </p>
+              <div class="service-3d-tags">
+                <span class="service-tag-chip"><span data-th>วิดีโอโฆษณา</span><span data-en>Commercials</span></span>
+                <span class="service-tag-chip"><span data-th>ไฮไลต์อีเวนต์นานาชาติ</span><span data-en>Event Highlights</span></span>
+                <span class="service-tag-chip"><span data-th>วิดีโอองค์กร</span><span data-en>Corporate Films</span></span>
+              </div>
+            </div>
+            <div class="service-3d-footer">
+              <span><span data-th>บริการที่ 2 จาก 6 (หมุนเวียนอัตโนมัติทุก 9 วินาที)</span><span data-en>Service 02 of 06 (Auto-cycles every 9s)</span></span>
+              <div class="service-step-btns">
+                <button type="button" class="service-step-btn" data-srv-step="-1">◂</button>
+                <button type="button" class="service-step-btn" data-srv-step="1">▸</button>
+              </div>
+            </div>
+          </article>
 
-        <div class="service-cell">
-          <span class="service-num">SERVICE // 04</span>
-          <h3 class="service-name">
-            <span data-th>ตัดต่อและเกรดสี (Post-Production)</span>
-            <span data-en>Post-Production &amp; Color Grading</span>
-          </h3>
-          <p class="service-detail" data-th>
-            บริการหลังการถ่ายทำครบวงจร ตัดต่อลำดับภาพ เกรดสีภาพยนตร์ (Color Grading) มิกซ์เสียง และรีทัชตกแต่งภาพความละเอียดสูง
-          </p>
-          <p class="service-detail" data-en>
-            Full post-production pipeline including video editing, cinema color grading, sound design, and high-end photo retouching.
-          </p>
-        </div>
+          <!-- Service 03 -->
+          <article class="service-3d-card is-next-2" data-srv-card="2">
+            <div>
+              <div class="service-3d-top">
+                <span class="service-3d-badge">SERVICE // 03 OF 06</span>
+                <span class="service-3d-big-num">03</span>
+              </div>
+              <h4 class="service-3d-title">
+                <span data-th>การเล่าเรื่องด้วยภาพ (Visual Storytelling)</span>
+                <span data-en>Visual Storytelling &amp; Direction</span>
+              </h4>
+              <p class="service-3d-desc" data-th>
+                ออกแบบโครงเรื่อง สตอรี่บอร์ด และเทคนิคการสื่อสารที่ทรงพลัง เพื่อถ่ายทอดข้อความสำคัญของแบรนด์ผ่านภาพเคลื่อนไหวและมุมกล้องที่ดึงดูดสายตาผู้ชมตั้งแต่ต้นจนจบ
+              </p>
+              <p class="service-3d-desc" data-en>
+                Creative concept development, storyboarding, and narrative direction that turn brand messages into compelling visual stories.
+              </p>
+              <div class="service-3d-tags">
+                <span class="service-tag-chip"><span data-th>คิดคอนเซปต์ &amp; บท</span><span data-en>Concept &amp; Script</span></span>
+                <span class="service-tag-chip"><span data-th>สตอรี่บอร์ด</span><span data-en>Storyboarding</span></span>
+                <span class="service-tag-chip"><span data-th>กำกับภาพและอารมณ์</span><span data-en>Creative Direction</span></span>
+              </div>
+            </div>
+            <div class="service-3d-footer">
+              <span><span data-th>บริการที่ 3 จาก 6 (หมุนเวียนอัตโนมัติทุก 9 วินาที)</span><span data-en>Service 03 of 06 (Auto-cycles every 9s)</span></span>
+              <div class="service-step-btns">
+                <button type="button" class="service-step-btn" data-srv-step="-1">◂</button>
+                <button type="button" class="service-step-btn" data-srv-step="1">▸</button>
+              </div>
+            </div>
+          </article>
 
-        <div class="service-cell">
-          <span class="service-num">SERVICE // 05</span>
-          <h3 class="service-name">
-            <span data-th>ถ่ายทอดสดและโปรดักชันมืออาชีพ (Live &amp; Crew)</span>
-            <span data-en>Live Streaming &amp; Full Crew</span>
-          </h3>
-          <p class="service-detail" data-th>
-            ระบบถ่ายทอดสดงานประชุมวิชาการและอีเวนต์ออนไลน์ พร้อมทีมกล้อง ไฟ และเสียงระดับมืออาชีพที่พร้อมรับมือทุกสถานการณ์หน้างาน
-          </p>
-          <p class="service-detail" data-en>
-            Multi-camera live streaming for conferences and hybrid events, backed by a seasoned technical camera, lighting, and audio crew.
-          </p>
-        </div>
+          <!-- Service 04 -->
+          <article class="service-3d-card" data-srv-card="3">
+            <div>
+              <div class="service-3d-top">
+                <span class="service-3d-badge">SERVICE // 04 OF 06</span>
+                <span class="service-3d-big-num">04</span>
+              </div>
+              <h4 class="service-3d-title">
+                <span data-th>ตัดต่อและเกรดสี (Post-Production &amp; Grading)</span>
+                <span data-en>Post-Production &amp; Color Grading</span>
+              </h4>
+              <p class="service-3d-desc" data-th>
+                บริการหลังการถ่ายทำครบวงจร ตัดต่อลำดับภาพให้น่าติดตาม เกรดสีภาพยนตร์ (Color Grading) มิกซ์เสียง ดนตรีประกอบ และรีทัชตกแต่งภาพนิ่งความละเอียดสูง
+              </p>
+              <p class="service-3d-desc" data-en>
+                Full post-production pipeline including video editing, cinema color grading, sound design, and high-end photo retouching.
+              </p>
+              <div class="service-3d-tags">
+                <span class="service-tag-chip"><span data-th>ตัดต่อลำดับภาพ</span><span data-en>Cinema Editing</span></span>
+                <span class="service-tag-chip"><span data-th>เกรดสีภาพยนตร์</span><span data-en>Color Grading</span></span>
+                <span class="service-tag-chip"><span data-th>ซาวด์ดีไซน์ &amp; รีทัช</span><span data-en>Sound &amp; Retouching</span></span>
+              </div>
+            </div>
+            <div class="service-3d-footer">
+              <span><span data-th>บริการที่ 4 จาก 6 (หมุนเวียนอัตโนมัติทุก 9 วินาที)</span><span data-en>Service 04 of 06 (Auto-cycles every 9s)</span></span>
+              <div class="service-step-btns">
+                <button type="button" class="service-step-btn" data-srv-step="-1">◂</button>
+                <button type="button" class="service-step-btn" data-srv-step="1">▸</button>
+              </div>
+            </div>
+          </article>
 
-        <div class="service-cell">
-          <span class="service-num">SERVICE // 06</span>
-          <h3 class="service-name">
-            <span data-th>ดูแลตรงถึงมือลูกค้า (Client Commitment)</span>
-            <span data-en>Direct Client Satisfaction</span>
-          </h3>
-          <p class="service-detail" data-th>
-            ผู้ก่อตั้งลงควบคุมงานเองทุกโปรเจกต์ ปรับจูนดราฟต์งานรวดเร็วตามฟีดแบ็ก และส่งมอบไฟล์ตรงเวลาพร้อมเอกสารทางบัญชีนิติบุคคลครบถ้วน
-          </p>
-          <p class="service-detail" data-en>
-            Direct founder oversight on every shoot, fast turnaround revisions, and full corporate tax/VAT compliance for enterprise procurement.
-          </p>
+          <!-- Service 05 -->
+          <article class="service-3d-card" data-srv-card="4">
+            <div>
+              <div class="service-3d-top">
+                <span class="service-3d-badge">SERVICE // 05 OF 06</span>
+                <span class="service-3d-big-num">05</span>
+              </div>
+              <h4 class="service-3d-title">
+                <span data-th>ถ่ายทอดสดและโปรดักชันมืออาชีพ (Live &amp; Crew)</span>
+                <span data-en>Live Streaming &amp; Full Crew</span>
+              </h4>
+              <p class="service-3d-desc" data-th>
+                ระบบถ่ายทอดสดงานประชุมวิชาการและอีเวนต์ออนไลน์หลายมุมกล้อง พร้อมทีมกล้อง ไฟ และเสียงระดับมืออาชีพที่พร้อมรับมือทุกสถานการณ์หน้างานอย่างแม่นยำ
+              </p>
+              <p class="service-3d-desc" data-en>
+                Multi-camera live streaming for conferences and hybrid events, backed by a seasoned technical camera, lighting, and audio crew.
+              </p>
+              <div class="service-3d-tags">
+                <span class="service-tag-chip"><span data-th>สตรีมมิงหลายมุมกล้อง</span><span data-en>Multi-Cam Broadcast</span></span>
+                <span class="service-tag-chip"><span data-th>งานประชุมออนไลน์</span><span data-en>Hybrid Conferences</span></span>
+                <span class="service-tag-chip"><span data-th>ทีมไฟและเสียงครบชุด</span><span data-en>Full Technical Crew</span></span>
+              </div>
+            </div>
+            <div class="service-3d-footer">
+              <span><span data-th>บริการที่ 5 จาก 6 (หมุนเวียนอัตโนมัติทุก 9 วินาที)</span><span data-en>Service 05 of 06 (Auto-cycles every 9s)</span></span>
+              <div class="service-step-btns">
+                <button type="button" class="service-step-btn" data-srv-step="-1">◂</button>
+                <button type="button" class="service-step-btn" data-srv-step="1">▸</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Service 06 -->
+          <article class="service-3d-card" data-srv-card="5">
+            <div>
+              <div class="service-3d-top">
+                <span class="service-3d-badge">SERVICE // 06 OF 06</span>
+                <span class="service-3d-big-num">06</span>
+              </div>
+              <h4 class="service-3d-title">
+                <span data-th>ดูแลตรงถึงมือลูกค้า (Direct Client Commitment)</span>
+                <span data-en>Direct Client Satisfaction</span>
+              </h4>
+              <p class="service-3d-desc" data-th>
+                ผู้ก่อตั้งทั้ง 3 คนลงควบคุมงานเองทุกโปรเจกต์ ปรับจูนดราฟต์งานรวดเร็วตามฟีดแบ็ก และส่งมอบไฟล์ตรงเวลาพร้อมเอกสารทางบัญชีและภาษีนิติบุคคลครบถ้วน
+              </p>
+              <p class="service-3d-desc" data-en>
+                Direct founder oversight on every shoot, fast turnaround revisions, and full corporate tax/VAT compliance for enterprise procurement.
+              </p>
+              <div class="service-3d-tags">
+                <span class="service-tag-chip"><span data-th>ผู้ก่อตั้งคุมงานเอง</span><span data-en>Founder Oversight</span></span>
+                <span class="service-tag-chip"><span data-th>ปรับดราฟต์รวดเร็ว</span><span data-en>Fast Turnaround</span></span>
+                <span class="service-tag-chip"><span data-th>เอกสารภาษี VAT ครบ</span><span data-en>Full VAT Compliance</span></span>
+              </div>
+            </div>
+            <div class="service-3d-footer">
+              <span><span data-th>บริการที่ 6 จาก 6 (หมุนเวียนอัตโนมัติทุก 9 วินาที)</span><span data-en>Service 06 of 06 (Auto-cycles every 9s)</span></span>
+              <div class="service-step-btns">
+                <button type="button" class="service-step-btn" data-srv-step="-1">◂</button>
+                <button type="button" class="service-step-btn" data-srv-step="1">▸</button>
+              </div>
+            </div>
+          </article>
         </div>
       </div>
     </div>
@@ -2453,6 +3193,129 @@
 
     renderWorksList();
     updateWorkStage(0, false);
+
+    /* ==========================================================================
+       4. 01A // G · H · N 3D ORBITAL DEPTH STAGE (9.5s Reader-Paced Rotation)
+       ========================================================================== */
+    const ghnOrbitShell = document.getElementById('ghnOrbitShell');
+    const ghnCards = document.querySelectorAll('[data-ghn-card]');
+    const ghnPillBtns = document.querySelectorAll('[data-ghn-idx]');
+    const ghnPrevBtn = document.getElementById('ghnPrevBtn');
+    const ghnNextBtn = document.getElementById('ghnNextBtn');
+    let activeGhnIdx = 0;
+    let ghnPaused = false;
+
+    function setGhnOrbit(idx) {
+      activeGhnIdx = (idx + 3) % 3;
+      const rightIdx = (activeGhnIdx + 1) % 3;
+      const leftIdx = (activeGhnIdx + 2) % 3;
+
+      ghnPillBtns.forEach((btn, i) => {
+        btn.classList.toggle('active', i === activeGhnIdx);
+      });
+
+      ghnCards.forEach((card, i) => {
+        card.classList.remove('is-front', 'is-right', 'is-left');
+        if (i === activeGhnIdx) {
+          card.classList.add('is-front');
+        } else if (i === rightIdx) {
+          card.classList.add('is-right');
+        } else if (i === leftIdx) {
+          card.classList.add('is-left');
+        }
+      });
+    }
+
+    ghnPillBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        setGhnOrbit(parseInt(btn.getAttribute('data-ghn-idx'), 10));
+      });
+    });
+
+    ghnCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const idx = parseInt(card.getAttribute('data-ghn-card'), 10);
+        if (idx !== activeGhnIdx) {
+          setGhnOrbit(idx);
+        }
+      });
+    });
+
+    if (ghnPrevBtn) {
+      ghnPrevBtn.addEventListener('click', () => setGhnOrbit(activeGhnIdx - 1));
+    }
+    if (ghnNextBtn) {
+      ghnNextBtn.addEventListener('click', () => setGhnOrbit(activeGhnIdx + 1));
+    }
+
+    if (ghnOrbitShell) {
+      ghnOrbitShell.addEventListener('pointerenter', () => { ghnPaused = true; });
+      ghnOrbitShell.addEventListener('pointerleave', () => { ghnPaused = false; });
+      ghnOrbitShell.addEventListener('touchstart', () => { ghnPaused = true; }, { passive: true });
+    }
+
+    setInterval(() => {
+      if (!ghnPaused && !document.hidden) {
+        setGhnOrbit(activeGhnIdx + 1);
+      }
+    }, 9500);
+
+    /* ==========================================================================
+       5. 01B // 6 CORE SERVICES — 3D ROTATING DECK + INTERACTIVE SELECTOR (9s)
+       ========================================================================== */
+    const services3dShell = document.getElementById('services3dShell');
+    const srvTabBtns = document.querySelectorAll('[data-srv-idx]');
+    const srvCards = document.querySelectorAll('[data-srv-card]');
+    const srvStepBtns = document.querySelectorAll('[data-srv-step]');
+    let activeSrvIdx = 0;
+    let srvPaused = false;
+
+    function setServiceDeck(idx) {
+      activeSrvIdx = (idx + 6) % 6;
+      const next1 = (activeSrvIdx + 1) % 6;
+      const next2 = (activeSrvIdx + 2) % 6;
+
+      srvTabBtns.forEach((btn, i) => {
+        btn.classList.toggle('active', i === activeSrvIdx);
+      });
+
+      srvCards.forEach((card, i) => {
+        card.classList.remove('is-active', 'is-next-1', 'is-next-2');
+        if (i === activeSrvIdx) {
+          card.classList.add('is-active');
+        } else if (i === next1) {
+          card.classList.add('is-next-1');
+        } else if (i === next2) {
+          card.classList.add('is-next-2');
+        }
+      });
+    }
+
+    srvTabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        setServiceDeck(parseInt(btn.getAttribute('data-srv-idx'), 10));
+      });
+    });
+
+    srvStepBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const step = parseInt(btn.getAttribute('data-srv-step'), 10);
+        setServiceDeck(activeSrvIdx + step);
+      });
+    });
+
+    if (services3dShell) {
+      services3dShell.addEventListener('pointerenter', () => { srvPaused = true; });
+      services3dShell.addEventListener('pointerleave', () => { srvPaused = false; });
+      services3dShell.addEventListener('touchstart', () => { srvPaused = true; }, { passive: true });
+    }
+
+    setInterval(() => {
+      if (!srvPaused && !document.hidden) {
+        setServiceDeck(activeSrvIdx + 1);
+      }
+    }, 9000);
   </script>
 </body>
 </html>
