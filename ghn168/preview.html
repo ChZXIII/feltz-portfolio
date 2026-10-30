@@ -102,7 +102,7 @@
       pointer-events: none;
       opacity: 0;
       transform-origin: 50% 50%;
-      transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+      transform: translate(0px, 0px) rotate(0deg);
     }
 
     .global-red-conductor svg {
@@ -110,6 +110,7 @@
       height: 100%;
       display: block;
       overflow: visible;
+      shape-rendering: geometricPrecision;
     }
 
     .conductor-trail-flare {
@@ -2216,8 +2217,8 @@
   <div class="transition-stage-overlay" aria-hidden="true">
     <div class="transition-wipe-curtain" id="transitionCurtain"></div>
     <div class="global-red-conductor" id="globalRedConductor">
-      <svg viewBox="0 0 36 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="2,2 34,20 2,38" fill="#e02424" />
+      <svg viewBox="0 0 36 40" fill="none" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+        <polygon points="2,2 34,20 2,38" fill="#e02424" shape-rendering="geometricPrecision" />
       </svg>
     </div>
   </div>
@@ -3182,6 +3183,17 @@
 
     let bridgeRafId = null;
 
+    /* Native 1:1 Vector Sizing Helper:
+       Updates physical width & height on every frame and uses 2D translate(x,y) rotate(deg) with ZERO scale()
+       so the browser rasterizes the SVG polygon at 100% native Retina sharpness at every size! */
+    function setRedConductorPose(x, y, deg, widthPx, heightPx) {
+      globalRedConductor.style.width = `${widthPx.toFixed(2)}px`;
+      globalRedConductor.style.height = `${heightPx.toFixed(2)}px`;
+      globalRedConductor.style.marginLeft = `${(-widthPx * 0.5).toFixed(2)}px`;
+      globalRedConductor.style.marginTop = `${(-heightPx * 0.5).toFixed(2)}px`;
+      globalRedConductor.style.transform = `translate(${x.toFixed(2)}px, ${y.toFixed(2)}px) rotate(${deg.toFixed(2)}deg)`;
+    }
+
     function animateRedConductorBridge(fromIdx, toIdx, onMidpoint, onComplete) {
       if (!globalRedConductor || !transitionCurtain) {
         onMidpoint();
@@ -3236,16 +3248,11 @@
         const endY = targetRect.top + targetRect.height * 0.5;
         const endScale = Number((targetRect.width / startW).toFixed(3));
 
-        globalRedConductor.style.width = `${startW.toFixed(2)}px`;
-        globalRedConductor.style.height = `${startH.toFixed(2)}px`;
-        globalRedConductor.style.marginLeft = `${(-startW * 0.5).toFixed(2)}px`;
-        globalRedConductor.style.marginTop = `${(-startH * 0.5).toFixed(2)}px`;
-
         /* Hide dock triangles while the live conductor arrow physically travels between them */
         originTri.style.opacity = '0';
         targetTri.style.opacity = '0';
         globalRedConductor.style.opacity = '1';
-        globalRedConductor.style.transform = `translate3d(${startX.toFixed(2)}px, ${startY.toFixed(2)}px, 0) rotate(0deg) scale(1)`;
+        setRedConductorPose(startX, startY, 0, startW, startH);
 
         const vw = window.innerWidth;
         const vh = window.innerHeight;
@@ -3446,12 +3453,12 @@
           const elapsed = now - startT;
 
           if (elapsed <= beat1Dur) {
-            /* BEAT 1: Detach from top-left dock, grow larger, and roll down to bottom-center facing UP (270deg) */
+            /* BEAT 1: Detach from top-left dock, grow larger at native 1:1 vector size, and roll down to bottom-center facing UP (270deg) */
             const u1 = Math.min(1, elapsed / beat1Dur);
             const e1 = easeInOutSine(u1);
             const pt = sampleB1(e1 * b1TotalM);
             const sc = 1 + (pushScale - 1) * e1;
-            globalRedConductor.style.transform = `translate3d(${pt.x.toFixed(2)}px, ${pt.y.toFixed(2)}px, 0) rotate(${pt.deg.toFixed(2)}deg) scale(${sc.toFixed(3)})`;
+            setRedConductorPose(pt.x, pt.y, pt.deg, startW * sc, startH * sc);
             bridgeRafId = requestAnimationFrame(stepBridgeFlight);
             return;
           }
@@ -3485,7 +3492,7 @@
               toSceneEl.style.transform = `translate3d(0, ${(vh - pushPy).toFixed(2)}px, 0) scale(1)`;
             }
 
-            globalRedConductor.style.transform = `translate3d(${stageMidX.toFixed(2)}px, ${arrowY.toFixed(2)}px, 0) rotate(270deg) scale(${pushScale.toFixed(3)})`;
+            setRedConductorPose(stageMidX, arrowY, 270, startW * pushScale, startH * pushScale);
             bridgeRafId = requestAnimationFrame(stepBridgeFlight);
             return;
           }
@@ -3518,7 +3525,7 @@
           const pt3 = sampleB3(e3 * b3TotalM);
           const sc3 = pushScale + (endScale - pushScale) * e3;
 
-          globalRedConductor.style.transform = `translate3d(${pt3.x.toFixed(2)}px, ${pt3.y.toFixed(2)}px, 0) rotate(${pt3.deg.toFixed(2)}deg) scale(${sc3.toFixed(3)})`;
+          setRedConductorPose(pt3.x, pt3.y, pt3.deg, startW * sc3, startH * sc3);
 
           if (elapsed < totalDur) {
             bridgeRafId = requestAnimationFrame(stepBridgeFlight);
@@ -3556,14 +3563,9 @@
         const startX = startRect.left + startW * 0.5;
         const startY = startRect.top + startH * 0.5;
 
-        globalRedConductor.style.width = `${startW.toFixed(2)}px`;
-        globalRedConductor.style.height = `${startH.toFixed(2)}px`;
-        globalRedConductor.style.marginLeft = `${(-startW * 0.5).toFixed(2)}px`;
-        globalRedConductor.style.marginTop = `${(-startH * 0.5).toFixed(2)}px`;
-
         if (startTri) startTri.style.opacity = '0';
         globalRedConductor.style.opacity = '1';
-        globalRedConductor.style.transform = `translate3d(${startX.toFixed(2)}px, ${startY.toFixed(2)}px, 0) rotate(0deg) scale(1)`;
+        setRedConductorPose(startX, startY, 0, startW, startH);
 
         const stageLeftX = Math.round(Math.max(28, vw * (isMobile ? 0.08 : 0.048)));
         const stageMidY = Math.round(vh * 0.50);
@@ -3658,12 +3660,12 @@
           const elapsed = now - t0;
 
           if (elapsed <= beat1Dur) {
-            /* BEAT 1: Detach from Scene 02 header, grow larger, and fly to the left side */
+            /* BEAT 1: Detach from Scene 02 header, grow larger at native 1:1 vector size, and fly to the left side */
             const u1 = Math.min(1, elapsed / beat1Dur);
             const e1 = easeInOutSine(u1);
             const pt = sampleBeat1(e1 * b1TotalM);
             const sc = 1 + (pushScale - 1) * e1;
-            globalRedConductor.style.transform = `translate3d(${pt.x.toFixed(2)}px, ${pt.y.toFixed(2)}px, 0) rotate(${pt.deg.toFixed(2)}deg) scale(${sc.toFixed(3)})`;
+            setRedConductorPose(pt.x, pt.y, pt.deg, startW * sc, startH * sc);
             bridgeRafId = requestAnimationFrame(stepScene02To03);
             return;
           }
@@ -3698,7 +3700,7 @@
               toSceneEl.style.transform = `translate3d(${(pushPx - vw).toFixed(2)}px, 0, 0) scale(1)`;
             }
 
-            globalRedConductor.style.transform = `translate3d(${arrowX.toFixed(2)}px, ${stageMidY.toFixed(2)}px, 0) rotate(0deg) scale(${pushScale.toFixed(3)})`;
+            setRedConductorPose(arrowX, stageMidY, 0, startW * pushScale, startH * pushScale);
             bridgeRafId = requestAnimationFrame(stepScene02To03);
             return;
           }
@@ -3733,7 +3735,7 @@
           const curDeg = -90 * e3;
           const curSc = pushScale + (0.95 - pushScale) * e3;
 
-          globalRedConductor.style.transform = `translate3d(${curX.toFixed(2)}px, ${curY.toFixed(2)}px, 0) rotate(${curDeg.toFixed(2)}deg) scale(${curSc.toFixed(3)})`;
+          setRedConductorPose(curX, curY, curDeg, startW * curSc, startH * curSc);
           globalRedConductor.style.opacity = (1 - u3 * 0.85).toFixed(3);
 
           if (elapsed < totalDur) {
@@ -3751,26 +3753,29 @@
 
       } else if (fromIdx === 2) {
         /* Leaving Scene 03 (Light Stage -> Dark Stage): Red Arrow shoots UPWARD from bottom dial pulling Dark Curtain */
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        const bigW = 86, bigH = 96;
         transitionCurtain.classList.add('theme-dark');
         transitionCurtain.style.opacity = '1';
         transitionCurtain.style.transform = 'translate3d(0, 110%, 0)';
         globalRedConductor.style.opacity = '1';
-        globalRedConductor.style.transform = 'translate3d(50vw, 88vh, 0) rotate(-90deg) scale(1.6)';
+        setRedConductorPose(vw * 0.50, vh * 0.88, -90, bigW * 0.65, bigH * 0.65);
         void globalRedConductor.offsetWidth;
 
-        globalRedConductor.style.transition = 'transform 520ms cubic-bezier(0.22, 1, 0.36, 1), opacity 250ms ease';
+        globalRedConductor.style.transition = 'transform 520ms cubic-bezier(0.22, 1, 0.36, 1), width 520ms ease, height 520ms ease, margin 520ms ease, opacity 250ms ease';
         transitionCurtain.style.transition = 'transform 520ms cubic-bezier(0.22, 1, 0.36, 1), opacity 320ms ease';
-        globalRedConductor.style.transform = 'translate3d(50vw, 18vh, 0) rotate(-90deg) scale(2.4)';
+        setRedConductorPose(vw * 0.50, vh * 0.18, -90, bigW, bigH);
         transitionCurtain.style.transform = 'translate3d(0, 0%, 0)';
 
         setTimeout(() => {
           onMidpoint();
           /* Dock into target scene's focal anchor */
-          const dockX = toIdx === 3 ? '36vw' : '28vw';
-          const dockY = '50vh';
-          globalRedConductor.style.transition = 'transform 440ms cubic-bezier(0.19, 1, 0.22, 1), opacity 360ms ease';
+          const dockX = toIdx === 3 ? vw * 0.36 : vw * 0.28;
+          const dockY = vh * 0.50;
+          globalRedConductor.style.transition = 'transform 440ms cubic-bezier(0.19, 1, 0.22, 1), width 440ms ease, height 440ms ease, margin 440ms ease, opacity 360ms ease';
           transitionCurtain.style.opacity = '0';
-          globalRedConductor.style.transform = `translate3d(${dockX}, ${dockY}, 0) rotate(0deg) scale(0.95)`;
+          setRedConductorPose(dockX, dockY, 0, 34, 38);
         }, 420);
 
         setTimeout(() => {
@@ -3779,31 +3784,32 @@
         }, 880);
 
       } else {
-        /* Dark-to-Dark Scene Bridge (e.g., Scene 01 -> 02 or 03 -> 00):
-           Red Arrow launches from origin, dives into 3D center vortex, and locks into next scene's hub */
-        const startX = fromIdx === 0 ? '14vw' : '50vw';
-        const startY = fromIdx === 0 ? '12vh' : '50vh';
-        const endX = toIdx === 1 ? '31vw' : (toIdx === 0 ? '14vw' : '38vw');
-        const endY = toIdx === 0 ? '12vh' : '50vh';
+        /* Dark-to-Dark Scene Bridge */
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        const startX = fromIdx === 0 ? vw * 0.14 : vw * 0.50;
+        const startY = fromIdx === 0 ? vh * 0.12 : vh * 0.50;
+        const endX = toIdx === 1 ? vw * 0.31 : (toIdx === 0 ? vw * 0.14 : vw * 0.38);
+        const endY = toIdx === 0 ? vh * 0.12 : vh * 0.50;
 
         transitionCurtain.classList.add('theme-tunnel');
         transitionCurtain.style.opacity = '0';
         transitionCurtain.style.transform = 'scale(0.8)';
         globalRedConductor.style.opacity = '1';
-        globalRedConductor.style.transform = `translate3d(${startX}, ${startY}, 0) rotate(0deg) scale(1.1)`;
+        setRedConductorPose(startX, startY, 0, 40, 44);
         void globalRedConductor.offsetWidth;
 
-        globalRedConductor.style.transition = 'transform 460ms cubic-bezier(0.22, 1, 0.36, 1), opacity 220ms ease';
+        globalRedConductor.style.transition = 'transform 460ms cubic-bezier(0.22, 1, 0.36, 1), width 460ms ease, height 460ms ease, margin 460ms ease, opacity 220ms ease';
         transitionCurtain.style.transition = 'transform 480ms ease, opacity 320ms ease';
         transitionCurtain.style.opacity = '1';
         transitionCurtain.style.transform = 'scale(1.08)';
-        globalRedConductor.style.transform = 'translate3d(50vw, 50vh, 0) rotate(90deg) scale(2.5)';
+        setRedConductorPose(vw * 0.50, vh * 0.50, 90, 88, 98);
 
         setTimeout(() => {
           onMidpoint();
-          globalRedConductor.style.transition = 'transform 440ms cubic-bezier(0.19, 1, 0.22, 1), opacity 340ms ease';
+          globalRedConductor.style.transition = 'transform 440ms cubic-bezier(0.19, 1, 0.22, 1), width 440ms ease, height 440ms ease, margin 440ms ease, opacity 340ms ease';
           transitionCurtain.style.opacity = '0';
-          globalRedConductor.style.transform = `translate3d(${endX}, ${endY}, 0) rotate(0deg) scale(0.9)`;
+          setRedConductorPose(endX, endY, 0, 34, 38);
         }, 390);
 
         setTimeout(() => {
