@@ -601,19 +601,25 @@
     .word-media { display: inline-flex; letter-spacing: -0.02em; }
     .media-me, .media-dia {
       color: var(--ink-white);
-      transition: color 0.75s var(--ease-smooth-out);
+      transition: color 0.65s var(--ease-smooth-out);
     }
 
-    .brand-hero-lockup[data-media-step="0"] .media-me {
+    /* 01 // ABOUT -> MEDIA ขาวล้วน (ME ขาว + DIA ขาว) */
+    .brand-hero-lockup[data-media-step="0"] .media-me,
+    .brand-hero-lockup[data-media-step="0"] .media-dia {
+      color: var(--ink-white);
+    }
+    /* 02 // G·H·N -> ขึ้นสีแดงที่คำว่า ME (ME แดง + DIA ขาว) */
+    .brand-hero-lockup[data-media-step="1"] .media-me {
       color: var(--ghn-red);
     }
-    .brand-hero-lockup[data-media-step="1"] .media-me,
     .brand-hero-lockup[data-media-step="1"] .media-dia {
-      color: var(--ghn-red);
+      color: var(--ink-white);
     }
+    /* 03 // SCOPE -> ขึ้นสีแดงที่คำว่า DIA จนจบที่สีแดงล้วน (ME แดง + DIA แดง) */
     .brand-hero-lockup[data-media-step="2"] .media-me,
     .brand-hero-lockup[data-media-step="2"] .media-dia {
-      color: var(--ink-white);
+      color: var(--ghn-red);
     }
 
     .corp-reg-badge {
@@ -712,13 +718,20 @@
       z-index: 18;
     }
 
-    .manifesto-block { display: flex; flex-direction: column; gap: 8px; }
+    .manifesto-block {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+      padding-bottom: 8px;
+    }
     .section-cue-tag {
       display: inline-flex;
       align-items: center;
       gap: 8px;
       font-family: var(--font-mono);
-      font-size: 0.66rem;
+      font-size: 0.74rem;
       font-weight: 600;
       letter-spacing: 0.14em;
       color: var(--ghn-red);
@@ -727,27 +740,27 @@
 
     .manifesto-headline {
       font-family: var(--font-display);
-      font-size: clamp(1.32rem, 1.95vw, 1.88rem);
+      font-size: clamp(1.92rem, 2.58vw, 2.62rem);
       font-weight: 800;
-      line-height: 1.14;
+      line-height: 1.1;
       color: var(--ink-white);
       letter-spacing: -0.02em;
     }
     .manifesto-headline .red-word { color: var(--ghn-red); }
     .manifesto-copy {
-      font-size: 0.84rem;
-      color: var(--ink-secondary);
-      line-height: 1.55;
+      font-size: clamp(1.02rem, 1.18vw, 1.15rem);
+      color: #d8dce5;
+      line-height: 1.6;
     }
 
     .manifesto-bottom-tag {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-top: 10px;
+      padding-top: 12px;
       border-top: 1px solid var(--hairline);
       font-family: var(--font-mono);
-      font-size: 0.64rem;
+      font-size: 0.72rem;
       color: var(--ink-secondary);
       letter-spacing: 0.08em;
     }
@@ -760,7 +773,7 @@
       border: 1px solid var(--hairline);
       border-radius: 6px;
       padding: 3px;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .slate-tab-pill {
@@ -782,10 +795,10 @@
       border: none;
       color: var(--ink-secondary);
       font-family: var(--font-mono);
-      font-size: 0.64rem;
+      font-size: 0.72rem;
       font-weight: 600;
       letter-spacing: 0.08em;
-      padding: 6px 4px;
+      padding: 7px 6px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
@@ -794,13 +807,14 @@
     }
     .slate-tab-btn.active { color: var(--ink-white); }
 
-    .slate-cards-viewport { position: relative; flex: 1; min-height: 92px; }
+    .slate-cards-viewport { position: relative; flex: 1; min-height: 110px; display: flex; }
     .slate-card {
       position: absolute;
       inset: 0;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      gap: 10px;
       opacity: 0;
       pointer-events: none;
       transform: translateX(10px);
@@ -808,6 +822,7 @@
     }
     .slate-card.is-active {
       position: relative;
+      flex: 1;
       opacity: 1;
       pointer-events: auto;
       transform: translateX(0);
@@ -815,90 +830,103 @@
 
     .slate-card-title {
       font-family: var(--font-display);
-      font-size: 0.94rem;
-      font-weight: 700;
+      font-size: clamp(1.26rem, 1.56vw, 1.52rem);
+      font-weight: 800;
       color: var(--ink-white);
-      margin-bottom: 4px;
+      margin-bottom: 2px;
       display: flex;
       align-items: center;
-      gap: 7px;
+      gap: 8px;
+      line-height: 1.2;
     }
     .slate-card-desc {
-      font-size: 0.8rem;
-      color: var(--ink-secondary);
-      line-height: 1.5;
+      font-size: clamp(0.98rem, 1.12vw, 1.1rem);
+      color: #d8dce5;
+      line-height: 1.6;
     }
 
-    /* Card 3: G · H · N Mini Pillars Grid */
+    /* Card 3: G · H · N Mini Pillars Grid (Stretches full height of card!) */
     .bento-pillars-list {
+      flex: 1;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-top: 6px;
+      gap: 10px;
+      margin-top: 10px;
+      align-items: stretch;
     }
     .bento-pillar-chip {
-      background: rgba(12, 13, 16, 0.72);
-      border: 1px solid var(--hairline);
-      border-radius: 8px;
-      padding: 10px;
+      background: rgba(12, 13, 16, 0.78);
+      border: 1px solid var(--hairline-strong);
+      border-radius: 10px;
+      padding: 14px 14px;
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      justify-content: center;
+      gap: 10px;
     }
     .bento-pillar-letter {
       font-family: var(--font-display);
-      font-size: 1.35rem;
+      font-size: clamp(2.85rem, 3.65vw, 3.65rem);
       font-weight: 900;
       color: var(--ghn-red);
-      line-height: 1;
+      line-height: 0.92;
     }
     .bento-pillar-word {
       font-family: var(--font-display);
-      font-size: 0.74rem;
-      font-weight: 700;
+      font-size: clamp(1.0rem, 1.15vw, 1.12rem);
+      font-weight: 800;
       color: var(--ink-white);
+      margin-bottom: 4px;
     }
     .bento-pillar-sub {
-      font-size: 0.7rem;
-      color: var(--ink-secondary);
-      line-height: 1.35;
+      font-size: clamp(0.84rem, 0.96vw, 0.94rem);
+      color: #d4d8e1;
+      line-height: 1.45;
     }
 
-    /* Card 4: Key Metrics Grid */
+    /* Card 4: Key Metrics Grid (Stretches full height of card!) */
     .bento-metrics-grid {
+      flex: 1;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-      margin-top: 6px;
+      grid-template-rows: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      align-items: stretch;
     }
     .bento-stat-box {
-      background: rgba(12, 13, 16, 0.78);
-      border: 1px solid var(--hairline);
-      border-radius: 8px;
-      padding: 8px 10px;
+      background: rgba(12, 13, 16, 0.82);
+      border: 1px solid var(--hairline-strong);
+      border-radius: 10px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
     }
     .slate-metric-val {
       font-family: var(--font-display);
-      font-size: 1.18rem;
+      font-size: clamp(1.52rem, 2.0vw, 2.0rem);
       font-weight: 800;
       color: var(--ink-white);
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
+      line-height: 1.05;
     }
     .slate-metric-val::before {
       content: "";
       width: 0;
       height: 0;
-      border-top: 4px solid transparent;
-      border-bottom: 4px solid transparent;
-      border-left: 7px solid var(--ghn-red);
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      border-left: 8px solid var(--ghn-red);
     }
     .slate-metric-lbl {
       font-family: var(--font-mono);
-      font-size: 0.6rem;
-      color: var(--ink-secondary);
-      letter-spacing: 0.05em;
+      font-size: 0.68rem;
+      color: #cfd4de;
+      letter-spacing: 0.04em;
     }
 
     .monitor-top-bar {
@@ -2184,7 +2212,7 @@
               <span data-en>SCENE 01 / 04 // FULL-SCALE PRODUCTION HOUSE (CHIANG MAI – BANGKOK)</span>
             </div>
 
-            <h1 class="brand-hero-lockup" id="heroLockup" data-media-step="2">
+            <h1 class="brand-hero-lockup" id="heroLockup" data-media-step="0">
               <span class="hero-red-triangle" id="heroRedTri" aria-hidden="true">
                 <svg viewBox="0 0 36 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <polygon points="2,2 34,20 2,38" fill="#e02424" />
@@ -2342,18 +2370,24 @@
             <div class="bento-pillars-list">
               <div class="bento-pillar-chip">
                 <div class="bento-pillar-letter">G</div>
-                <div class="bento-pillar-word">Groundbreaking</div>
-                <div class="bento-pillar-sub"><span data-th>ไอเดียภาพล้ำสมัย</span><span data-en>Pioneering Vision</span></div>
+                <div>
+                  <div class="bento-pillar-word">Groundbreaking</div>
+                  <div class="bento-pillar-sub"><span data-th>มุมมองภาพล้ำสมัย เปิดโลกทัศน์ใหม่</span><span data-en>Pioneering visual storytelling</span></div>
+                </div>
               </div>
               <div class="bento-pillar-chip">
                 <div class="bento-pillar-letter">H</div>
-                <div class="bento-pillar-word">Happiness</div>
-                <div class="bento-pillar-sub"><span data-th>ทำงานราบรื่นตรงใจ</span><span data-en>Seamless Workflow</span></div>
+                <div>
+                  <div class="bento-pillar-word">Happiness</div>
+                  <div class="bento-pillar-sub"><span data-th>ทำงานราบรื่น คุยตรงทีมผู้กำกับ</span><span data-en>Seamless direct collaboration</span></div>
+                </div>
               </div>
               <div class="bento-pillar-chip">
                 <div class="bento-pillar-letter">N</div>
-                <div class="bento-pillar-word">Nirvana</div>
-                <div class="bento-pillar-sub"><span data-th>ผลงานสมบูรณ์แบบ</span><span data-en>Ultimate Craft</span></div>
+                <div>
+                  <div class="bento-pillar-word">Nirvana</div>
+                  <div class="bento-pillar-sub"><span data-th>ส่งมอบผลงานสมบูรณ์แบบไร้ที่ติ</span><span data-en>Ultimate production mastery</span></div>
+                </div>
               </div>
             </div>
           </div>
@@ -3391,14 +3425,20 @@
     }
 
     /* ==========================================================================
-       SCENE 01 REF 1 (`5AYZKIIC0`) — SINGLE STACKED CENTER BOX -> BENTO UNPACK
-       When Scene 01 enters while the arrow swoops down, all 5 Bento cards sit
-       gathered as 1 single box in the center of `#scene01BentoStage`.
-       Once the arrow docks at the top-left `GHN168 MEDIA`, the single box
-       smoothly unpacks/spreads out into the 5 Bento positions.
+       SCENE 01 REF 1 (`5AYZKIIC0`) — SINGLE STACKED CENTER BOX -> SEQUENTIAL CARD DEAL
+       ("มาถึงรวมเป็นก้อนเดียวเสร็จแล้วก็โยนออกไปทีละกล่อง โยนออกไปจนครบ เหมือนแจกไพ่")
        ========================================================================== */
     const scene01BentoStage = document.getElementById('scene01BentoStage');
     const unpackCards = document.querySelectorAll('[data-unpack-card]');
+
+    /* Card-dealing sequence:
+       1st throw: Box 1 (Top-Left Manifesto)
+       2nd throw: Box 2 (Bottom-Left Story 01..03)
+       3rd throw: Box 3 (Bottom-Center G·H·N)
+       4th throw: Box 4 (Bottom-Right Metrics)
+       5th throw: Box 0 (Center Cover Box -> Top-Right 16:9 Cinema Monitor) */
+    const CARD_DEAL_ORDER = [1, 2, 3, 4, 0];
+    const STACK_CARD_ANGLES = [0, -4.2, 3.6, -2.8, 4.0];
 
     function setScene01StackedState(isStacked, animate = false) {
       if (!scene01BentoStage || !unpackCards.length) return;
@@ -3406,12 +3446,16 @@
       if (!isStacked) {
         unpackCards.forEach((card, idx) => {
           if (animate) {
-            const delayMs = idx * 48;
-            card.style.transition = `transform 860ms cubic-bezier(0.19, 1, 0.22, 1) ${delayMs}ms, opacity 520ms ease ${delayMs}ms`;
+            const dealStep = CARD_DEAL_ORDER.indexOf(idx);
+            const stepIdx = dealStep >= 0 ? dealStep : idx;
+            /* 260ms interval between each card throw so each box visibly flings out one by one! */
+            const delayMs = 60 + stepIdx * 260;
+            const durMs = 520;
+            card.style.transition = `transform ${durMs}ms cubic-bezier(0.16, 1, 0.3, 1) ${delayMs}ms, opacity 320ms ease ${delayMs}ms`;
           } else {
             card.style.transition = 'none';
           }
-          card.style.transform = 'translate3d(0px, 0px, 0px) scale(1)';
+          card.style.transform = 'translate3d(0px, 0px, 0px) scale(1) rotate(0deg)';
           card.style.opacity = '1';
         });
         return;
@@ -3440,24 +3484,24 @@
         const cardCenterX = r.left + r.width * 0.5;
         const cardCenterY = r.top + r.height * 0.5;
 
-        /* Subtle vertical deck offset (0px for top cover, +4px..+14px for underlying cards) */
         const deckOffsetY = idx === 0 ? 0 : idx * 3.5;
         const dx = stageCenterX - cardCenterX;
         const dy = (stageCenterY + deckOffsetY) - cardCenterY;
+        const rotDeg = STACK_CARD_ANGLES[idx] || 0;
 
         let sc;
         if (idx === 0) {
           sc = coverScale;
         } else {
           const fitScale = Math.min(
-            (targetBoxW * (0.96 - idx * 0.02)) / Math.max(1, r.width),
-            (targetBoxH * (0.96 - idx * 0.02)) / Math.max(1, r.height)
+            (targetBoxW * (0.95 - idx * 0.018)) / Math.max(1, r.width),
+            (targetBoxH * (0.95 - idx * 0.018)) / Math.max(1, r.height)
           );
           sc = Math.min(0.92, Math.max(0.38, fitScale));
         }
 
-        card.style.transform = `translate3d(${dx.toFixed(1)}px, ${dy.toFixed(1)}px, 0) scale(${sc.toFixed(3)})`;
-        card.style.opacity = idx === 0 ? '1' : '0.88';
+        card.style.transform = `translate3d(${dx.toFixed(1)}px, ${dy.toFixed(1)}px, 0) scale(${sc.toFixed(3)}) rotate(${rotDeg}deg)`;
+        card.style.opacity = idx === 0 ? '1' : '0.92';
       });
     }
 
