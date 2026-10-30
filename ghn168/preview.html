@@ -3297,105 +3297,135 @@
 
       /* BEAT 3 (t = 1000ms -> 1720ms): Crisp 720ms hold so viewer reads "GHN168 MEDIA and Creation" without dragging */
 
-      /* BEAT 4 (t = 1720ms): Red Arrow sweeps ALL THE WAY back to the right end (fullSlideDist),
-         gathering 100% of the letters cleanly until the very last letter 'n' is collected! */
-      introTimers.push(setTimeout(() => {
-        const collectDur = '640ms';
-        const collectEase = 'cubic-bezier(0.42, 0, 0.2, 1)';
-        bumperRedArrow.style.transition = `transform ${collectDur} ${collectEase}`;
-        bumperTextMask.style.transition = `clip-path ${collectDur} ${collectEase}`;
-        bumperTextInner.style.transition = `transform ${collectDur} ${collectEase}`;
-
-        bumperRedArrow.style.transform = `translate3d(${fullSlideDist}px, 0, 0) rotate(0deg) scale(1)`;
-        bumperTextMask.style.clipPath = 'inset(0 0% 0 100%)';
-        bumperTextInner.style.transform = 'translate3d(14px, 0, 0)';
-      }, 1720));
-
-      /* BEAT 5 (t = 2360ms): Single uninterrupted 60fps Continuous Curved Flight (Duration: 1120ms)
-         - Starts at the right end (fullSlideDist, 0) where it just finished collecting the text.
-         - Smoothly curves DOWNWARD into the lower stage while gliding Scene 01 up into view,
-           then sweeps in one continuous silk arc straight into Scene 01's top-left dock (dockDeltaX, dockDeltaY)! */
+      /* BEAT 4 + BEAT 5 UNIFIED (t = 1660ms): ZERO-STOP CONTINUOUS COLLECT -> CURVE -> DOCK
+         ("ตอนมันรวบตัวอักษรครบแล้วก็มาเลย มาต่อเลย ไม่ต้องไปหยุดจบแป๊บนึงอะ ให้มันรวบ รวบเสร็จแล้วก็วิ่งต่อมา พามาหน้าถัดไปได้เลย")
+         Single 60fps loop with C1-continuous velocity at the handoff point:
+         - Phase A (0 .. splitU): Accelerates from 0 -> fullSlideDist, sweeping 100% of the text closed WITHOUT decelerating at the end!
+         - Phase B (splitU .. 1): Carries that exact forward velocity straight into the smooth downward Bezier curve and docks at Scene 01 top-left! */
       introTimers.push(setTimeout(() => {
         bumperRedArrow.style.transition = 'none';
+        bumperTextMask.style.transition = 'none';
+        bumperTextInner.style.transition = 'none';
 
-        /* Stage Scene 01 slightly below so the downward arrow motion physically pulls Scene 01 into place */
+        /* Re-measure exact geometry after webfont settle so handoff is 0.0px exact */
+        const liveTextRect = bumperTextInner.getBoundingClientRect();
+        const liveArrowRect = bumperRedArrow.getBoundingClientRect();
+        const liveTargetRect = heroRedTri ? heroRedTri.getBoundingClientRect() : liveArrowRect;
+        const liveRowRect = lockupRow ? lockupRow.getBoundingClientRect() : liveTextRect;
+        const liveGapPx = Math.max(10, liveRowRect.width - liveTextRect.width - liveArrowRect.width);
+        const liveFullSlideDist = Math.round(liveTextRect.width + liveGapPx);
+
+        const liveOriginCenterX = liveArrowRect.left + liveArrowRect.width / 2;
+        const liveOriginCenterY = liveArrowRect.top + liveArrowRect.height / 2;
+        const liveTargetCenterX = liveTargetRect.left + liveTargetRect.width / 2;
+        const liveTargetCenterY = liveTargetRect.top + liveTargetRect.height / 2;
+        const liveDockDeltaX = liveTargetCenterX - liveOriginCenterX;
+        const liveDockDeltaY = liveTargetCenterY - liveOriginCenterY;
+        const liveDockScale = Number((liveTargetRect.width / Math.max(liveArrowRect.width, 1)).toFixed(3));
+
+        /* Stage Scene 01 slightly below so the downward curve pulls Scene 01 into place */
         if (scene01El) {
           scene01El.style.transition = 'none';
-          scene01El.style.transform = 'translate3d(0, 68px, 0) scale(0.985)';
-          void scene01El.offsetWidth;
-          scene01El.style.transition = 'transform 980ms cubic-bezier(0.22, 1, 0.36, 1)';
-          scene01El.style.transform = 'translate3d(0, 0, 0) scale(1)';
+          scene01El.style.transform = 'translate3d(0, 64px, 0) scale(0.985)';
         }
 
-        if (bumperBackdrop) {
-          bumperBackdrop.style.transition = 'opacity 680ms cubic-bezier(0.22, 1, 0.36, 1) 120ms';
-          bumperBackdrop.style.opacity = '0';
-        }
-
-        const flightDuration = 1120;
+        const totalRunDuration = 1480;
+        const splitU = 0.36; /* First 36% (~530ms) collects text to the right edge at peak speed; remaining 64% (~950ms) curves down & docks */
         const startTime = performance.now();
 
-        /* Cubic Bezier Control Points relative to arrowOrigin:
-           P0: (fullSlideDist, 0) — right end of collected text
-           P1: (fullSlideDist * 0.85, +vh * 0.34) — smooth downward dive after collecting text
-           P2: (dockDeltaX * 0.65, +vh * 0.22) — sweeping across the lower-left arc
-           P3: (dockDeltaX, dockDeltaY) — exact top-left dock slot in Scene 01 */
         const vh = window.innerHeight;
-        const p0x = fullSlideDist;
+        const p0x = liveFullSlideDist;
         const p0y = 0;
-        const p1x = fullSlideDist * 0.82;
+        /* P1 extends slightly past liveFullSlideDist (+14%) while diving downward (+0.34vh) so the horizontal momentum from collecting text curves smoothly downward with zero corner pause! */
+        const p1x = liveFullSlideDist + Math.round(Math.max(28, liveFullSlideDist * 0.14));
         const p1y = Math.round(vh * 0.34);
-        const p2x = dockDeltaX + Math.round((fullSlideDist - dockDeltaX) * 0.14);
-        const p2y = Math.round(vh * 0.16);
-        const p3x = dockDeltaX;
-        const p3y = dockDeltaY;
+        const p2x = liveDockDeltaX + Math.round((liveFullSlideDist - liveDockDeltaX) * 0.12);
+        const p2y = Math.round(vh * 0.15);
+        const p3x = liveDockDeltaX;
+        const p3y = liveDockDeltaY;
 
+        let scenePullStarted = false;
+        let sceneDockedTriggered = false;
         let wordmarkUnfoldTriggered = false;
 
-        function stepContinuousFlight(now) {
-          const rawT = Math.min(1, (now - startTime) / flightDuration);
-          const t = easeInOutSine(rawT);
+        function stepZeroStopCollectAndDock(now) {
+          const u = Math.min(1, (now - startTime) / totalRunDuration);
 
-          const x = cubicBezierPoint(t, p0x, p1x, p2x, p3x);
-          const y = cubicBezierPoint(t, p0y, p1y, p2y, p3y);
+          if (u <= splitU) {
+            /* PHASE A: Collect text from 0 -> liveFullSlideDist.
+               Use power-1.35 acceleration so it starts smoothly and hits full stride right at u = splitU (ZERO brake/stop at the end!) */
+            const p = u / splitU;
+            const collectProg = Math.pow(p, 1.35);
 
-          /* Compute instantaneous tangent angle along the Bezier curve so the arrow naturally steers along its path,
-             and blends smoothly into 0deg (pointing right ▶) as it docks at the top-left corner */
-          const dt = 0.015;
-          const tNext = Math.min(1, t + dt);
-          const tPrev = Math.max(0, t - dt);
-          const dx = cubicBezierPoint(tNext, p0x, p1x, p2x, p3x) - cubicBezierPoint(tPrev, p0x, p1x, p2x, p3x);
-          const dy = cubicBezierPoint(tNext, p0y, p1y, p2y, p3y) - cubicBezierPoint(tPrev, p0y, p1y, p2y, p3y);
-          let tangentDeg = Math.atan2(dy, dx) * (180 / Math.PI);
-          /* Keep angle continuous on the positive clockwise side (0 -> +90 down -> +180 left -> +270 up -> +360 right) */
-          if (tangentDeg < -20) tangentDeg += 360;
+            const x = liveFullSlideDist * collectProg;
+            const clipLeft = Math.min(100, collectProg * 100);
+            const textShift = 14 * collectProg;
 
-          /* Smoothly lock angle to 360deg (0deg right-pointing ▶) in the final 25% of docking */
-          const dockLockBlend = rawT > 0.72 ? easeOutCubic((rawT - 0.72) / 0.28) : 0;
-          const finalDeg = tangentDeg * (1 - dockLockBlend) + 360 * dockLockBlend;
+            /* Begin banking slightly downward (up to 14deg) in the final 20% of collection so the turn into the downward curve is liquid-smooth */
+            const preBank = p > 0.8 ? Math.pow((p - 0.8) / 0.2, 2) * 14 : 0;
 
-          /* Smoothly interpolate scale from 1 to dockScale */
-          const sc = 1 + (dockScale - 1) * t;
+            bumperRedArrow.style.transform = `translate3d(${x.toFixed(2)}px, 0px, 0) rotate(${preBank.toFixed(2)}deg) scale(1)`;
+            bumperTextMask.style.clipPath = `inset(0 0% 0 ${clipLeft.toFixed(2)}%)`;
+            bumperTextInner.style.transform = `translate3d(${textShift.toFixed(2)}px, 0, 0)`;
 
-          bumperRedArrow.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0) rotate(${finalDeg.toFixed(2)}deg) scale(${sc.toFixed(3)})`;
+          } else {
+            /* Ensure text mask is 100% closed the instant Phase B begins */
+            bumperTextMask.style.clipPath = 'inset(0 0% 0 100%)';
 
-          if (rawT >= 0.35 && !bodyEl.classList.contains('scene-docked')) {
-            bodyEl.classList.add('scene-docked');
-            setSlateIndex(0);
-          }
+            if (!scenePullStarted) {
+              scenePullStarted = true;
+              if (scene01El) {
+                scene01El.style.transition = 'transform 880ms cubic-bezier(0.22, 1, 0.36, 1)';
+                scene01El.style.transform = 'translate3d(0, 0, 0) scale(1)';
+              }
+              if (bumperBackdrop) {
+                bumperBackdrop.style.transition = 'opacity 580ms cubic-bezier(0.22, 1, 0.36, 1)';
+                bumperBackdrop.style.opacity = '0';
+              }
+            }
 
-          if (rawT >= 0.78 && !wordmarkUnfoldTriggered) {
-            wordmarkUnfoldTriggered = true;
-            if (heroWordmarkMask && heroWordmarkInner) {
-              heroWordmarkMask.style.transition = 'clip-path 620ms cubic-bezier(0.22, 1, 0.36, 1)';
-              heroWordmarkInner.style.transition = 'transform 620ms cubic-bezier(0.22, 1, 0.36, 1)';
-              heroWordmarkMask.style.clipPath = 'inset(0 0% 0 0%)';
-              heroWordmarkInner.style.transform = 'translate3d(0px, 0, 0)';
+            /* PHASE B: Continuous Flight from (fullSlideDist, 0) -> Downward Arc -> Top-Left Dock.
+               Use sin((q * PI) / 2) easing so initial velocity at q=0 is at maximum (matching the end of Phase A with ZERO pause)
+               and gently cushions to 0 as it locks into the top-left corner at q=1! */
+            const q = (u - splitU) / (1 - splitU);
+            const t = Math.sin((q * Math.PI) / 2);
+
+            const x = cubicBezierPoint(t, p0x, p1x, p2x, p3x);
+            const y = cubicBezierPoint(t, p0y, p1y, p2y, p3y);
+
+            const dt = 0.015;
+            const tNext = Math.min(1, t + dt);
+            const tPrev = Math.max(0, t - dt);
+            const dx = cubicBezierPoint(tNext, p0x, p1x, p2x, p3x) - cubicBezierPoint(tPrev, p0x, p1x, p2x, p3x);
+            const dy = cubicBezierPoint(tNext, p0y, p1y, p2y, p3y) - cubicBezierPoint(tPrev, p0y, p1y, p2y, p3y);
+            let tangentDeg = Math.atan2(dy, dx) * (180 / Math.PI);
+            if (tangentDeg < -20) tangentDeg += 360;
+
+            const dockLockBlend = q > 0.7 ? easeOutCubic((q - 0.7) / 0.3) : 0;
+            const finalDeg = tangentDeg * (1 - dockLockBlend) + 360 * dockLockBlend;
+            const sc = 1 + (liveDockScale - 1) * t;
+
+            bumperRedArrow.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0) rotate(${finalDeg.toFixed(2)}deg) scale(${sc.toFixed(3)})`;
+
+            if (q >= 0.25 && !sceneDockedTriggered) {
+              sceneDockedTriggered = true;
+              bodyEl.classList.add('scene-docked');
+              setSlateIndex(0);
+            }
+
+            if (q >= 0.74 && !wordmarkUnfoldTriggered) {
+              wordmarkUnfoldTriggered = true;
+              if (heroWordmarkMask && heroWordmarkInner) {
+                heroWordmarkMask.style.transition = 'clip-path 560ms cubic-bezier(0.22, 1, 0.36, 1)';
+                heroWordmarkInner.style.transition = 'transform 560ms cubic-bezier(0.22, 1, 0.36, 1)';
+                heroWordmarkMask.style.clipPath = 'inset(0 0% 0 0%)';
+                heroWordmarkInner.style.transform = 'translate3d(0px, 0, 0)';
+              }
             }
           }
 
-          if (rawT < 1) {
-            introRafId = requestAnimationFrame(stepContinuousFlight);
+          if (u < 1) {
+            introRafId = requestAnimationFrame(stepZeroStopCollectAndDock);
           } else {
             introRafId = null;
             if (heroRedTri) heroRedTri.style.opacity = '1';
@@ -3404,8 +3434,8 @@
           }
         }
 
-        introRafId = requestAnimationFrame(stepContinuousFlight);
-      }, 2360));
+        introRafId = requestAnimationFrame(stepZeroStopCollectAndDock);
+      }, 1660));
     }
 
     /* Scene 01 Slate & 16:9 Monitor Sync */
