@@ -3132,15 +3132,17 @@
 
     /* ==========================================================================
        2. SCENE 00 (CINEMA STUDIO BUMPER) -> SCENE 01 CONTINUOUS ARROW CHOREOGRAPHY
-          1) หน้าเปิดมีแค่ลูกศรสีแดงพา GHN168 MEDIA and Creation (บรรทัดเดียว คมกริบ) เข้ามา
-          2) ค้างไว้สักแป๊บนึงเหมือนโลโก้ค่ายหนังก่อนเข้าเรื่อง
-          3) ลูกศรสีแดงวิ่งรวบคำเก็บ -> ม้วนตัวแล้วจิ้มหัวลงข้างล่าง -> พาเข้าหน้า 01
-          4) ลูกศรตัวเดิมไม่หายไปไหน! ไหลตัวมันเองต่อเนื่องไปเสียบมุมซ้ายบนของหน้า 01 แล้วกาง GHN168 MEDIA ออกมา
+          1) หน้าเปิดมีแค่ลูกศรสีแดงพา GHN168 MEDIA and Creation (บรรทัดเดียว คมกริบ) เข้ามาจนสุด
+          2) ค้างไว้กระชับพอดีสายตา (ไม่แช่นานเกิน)
+          3) ลูกศรสีแดงรวบตัวอักษรกลับไปจนสุดขอบขวา 100% (fullSlideDist)
+          4) ลูกศรวิ่งลงล่างพร้อมเลื่อนฉากหน้า 01 ขึ้นมา แล้วโค้งต่อเนื่อง (60fps Cubic Bezier Arc)
+             ไหลเนียนๆ ไปเสียบมุมซ้ายบนของหน้า 01 โดยไม่มีจังหวะกระตุกหรือตัดแปะ!
        ========================================================================== */
     const heroLockup = document.getElementById('heroLockup');
     const heroRedTri = document.getElementById('heroRedTri');
     const heroWordmarkMask = document.getElementById('heroWordmarkMask');
     const heroWordmarkInner = document.getElementById('heroWordmarkInner');
+    const scene01El = document.getElementById('scene01');
 
     const cinemaStudioBumper = document.getElementById('cinemaStudioBumper');
     const bumperBackdrop = document.getElementById('bumperBackdrop');
@@ -3149,11 +3151,33 @@
     const bumperTextInner = document.getElementById('bumperTextInner');
 
     let introTimers = [];
+    let introRafId = null;
     let introPlaying = false;
 
     function clearIntroTimers() {
       introTimers.forEach(t => clearTimeout(t));
       introTimers = [];
+      if (introRafId !== null) {
+        cancelAnimationFrame(introRafId);
+        introRafId = null;
+      }
+    }
+
+    function cubicBezierPoint(t, p0, p1, p2, p3) {
+      const u = 1 - t;
+      const tt = t * t;
+      const uu = u * u;
+      const uuu = uu * u;
+      const ttt = tt * t;
+      return uuu * p0 + 3 * uu * t * p1 + 3 * u * tt * p2 + ttt * p3;
+    }
+
+    function easeInOutSine(t) {
+      return -(Math.cos(Math.PI * t) - 1) / 2;
+    }
+
+    function easeOutCubic(t) {
+      return 1 - Math.pow(1 - t, 3);
     }
 
     function runScene01Intro() {
@@ -3170,7 +3194,12 @@
         bumperBackdrop.style.transform = 'translate3d(0, 0, 0)';
       }
 
-      /* Prepare Scene 01's top-left header: keep its red triangle hidden until the bumper's arrow lands on its exact pixel! */
+      /* Reset Scene 01 container at 0,0 first so we can measure the exact final pixel of #heroRedTri */
+      if (scene01El) {
+        scene01El.style.transition = 'none';
+        scene01El.style.transform = 'translate3d(0, 0, 0) scale(1)';
+      }
+
       if (heroLockup) {
         heroLockup.style.transition = 'none';
         heroLockup.style.transform = 'none';
@@ -3187,7 +3216,7 @@
       }
       if (heroWordmarkInner) {
         heroWordmarkInner.style.transition = 'none';
-        heroWordmarkInner.style.transform = 'translate3d(-16px, 0, 0)';
+        heroWordmarkInner.style.transform = 'translate3d(-14px, 0, 0)';
       }
 
       if (!bumperRedArrow || !bumperTextMask || !bumperTextInner) {
@@ -3215,41 +3244,47 @@
 
       const textRect = bumperTextInner.getBoundingClientRect();
       const arrowOriginRect = bumperRedArrow.getBoundingClientRect();
+      const targetRect = heroRedTri ? heroRedTri.getBoundingClientRect() : arrowOriginRect;
       const lockupRow = document.getElementById('bumperLockupRow');
       const rowRect = lockupRow ? lockupRow.getBoundingClientRect() : textRect;
 
       const gapPx = Math.max(10, rowRect.width - textRect.width - arrowOriginRect.width);
+      /* Exact full width of the text so both opening AND closing sweep all the way to the very end! */
       const fullSlideDist = Math.round(textRect.width + gapPx);
-      const centerShiftX = Math.round((rowRect.width - arrowOriginRect.width) / 2);
       const arrowMode = bodyEl.getAttribute('data-arrow-mode') || 'curtain';
+
+      const originCenterX = arrowOriginRect.left + arrowOriginRect.width / 2;
+      const originCenterY = arrowOriginRect.top + arrowOriginRect.height / 2;
+      const targetCenterX = targetRect.left + targetRect.width / 2;
+      const targetCenterY = targetRect.top + targetRect.height / 2;
+
+      const dockDeltaX = targetCenterX - originCenterX;
+      const dockDeltaY = targetCenterY - originCenterY;
+      const dockScale = Number((targetRect.width / Math.max(arrowOriginRect.width, 1)).toFixed(3));
 
       /* Initial hidden state before Beat 1 */
       if (arrowMode === 'curtain') {
-        /* Arrow starts on the right edge and pulls back left to reveal "GHN168 MEDIA and Creation" in 1 line */
         bumperRedArrow.style.transform = `translate3d(${fullSlideDist}px, 0, 0) rotate(0deg) scale(1)`;
         bumperTextMask.style.clipPath = 'inset(0 0 0 100%)';
-        bumperTextInner.style.transform = 'translate3d(18px, 0, 0)';
+        bumperTextInner.style.transform = 'translate3d(14px, 0, 0)';
       } else {
-        /* Arrow starts near center and pushes words out left->right */
         const startOffset = Math.round(fullSlideDist * 0.5);
         bumperRedArrow.style.transform = `translate3d(${startOffset}px, 0, 0) rotate(0deg) scale(1)`;
         bumperTextMask.style.clipPath = 'inset(0 100% 0 0)';
-        bumperTextInner.style.transform = 'translate3d(-24%, 0, 0)';
+        bumperTextInner.style.transform = 'translate3d(-20%, 0, 0)';
       }
 
       void cinemaStudioBumper.offsetWidth;
 
-      /* BEAT 1 (t = 80ms): Red Arrow materializes on pure black screen */
+      /* BEAT 1 (t = 50ms): Red Arrow appears cleanly on the right end */
       introTimers.push(setTimeout(() => {
-        bumperRedArrow.style.transition = 'opacity 220ms ease, transform 260ms cubic-bezier(0.16, 1, 0.3, 1)';
+        bumperRedArrow.style.transition = 'opacity 180ms ease';
         bumperRedArrow.style.opacity = '1';
-        const dist = arrowMode === 'curtain' ? fullSlideDist : Math.round(fullSlideDist * 0.5);
-        bumperRedArrow.style.transform = `translate3d(${dist}px, 0, 0) rotate(0deg) scale(1)`;
-      }, 80));
+      }, 50));
 
-      /* BEAT 2 (t = 360ms): Red Arrow brings in "GHN168 MEDIA and Creation" on a single crisp line */
+      /* BEAT 2 (t = 220ms): Red Arrow pulls back ALL THE WAY to the left, unveiling "GHN168 MEDIA and Creation" */
       introTimers.push(setTimeout(() => {
-        const revealDur = '1040ms';
+        const revealDur = '780ms';
         const revealEase = 'cubic-bezier(0.22, 1, 0.36, 1)';
         bumperRedArrow.style.transition = `transform ${revealDur} ${revealEase}`;
         bumperTextMask.style.transition = `clip-path ${revealDur} ${revealEase}`;
@@ -3258,76 +3293,119 @@
         bumperRedArrow.style.transform = 'translate3d(0px, 0, 0) rotate(0deg) scale(1)';
         bumperTextMask.style.clipPath = 'inset(0 0% 0 0%)';
         bumperTextInner.style.transform = 'translate3d(0px, 0, 0)';
-      }, 360));
+      }, 220));
 
-      /* BEAT 3 (t = 1400ms -> 2700ms): Hold studio logo cleanly on screen like a movie opening logo */
+      /* BEAT 3 (t = 1000ms -> 1720ms): Crisp 720ms hold so viewer reads "GHN168 MEDIA and Creation" without dragging */
 
-      /* BEAT 4 (t = 2720ms): Red Arrow sweeps right to gather/collect the words back in ("ให้ตัวลูกศรสีแดงรวบคำเก็บ") */
+      /* BEAT 4 (t = 1720ms): Red Arrow sweeps ALL THE WAY back to the right end (fullSlideDist),
+         gathering 100% of the letters cleanly until the very last letter 'n' is collected! */
       introTimers.push(setTimeout(() => {
-        const collectDur = '660ms';
-        const collectEase = 'cubic-bezier(0.4, 0, 0.2, 1)';
+        const collectDur = '640ms';
+        const collectEase = 'cubic-bezier(0.42, 0, 0.2, 1)';
         bumperRedArrow.style.transition = `transform ${collectDur} ${collectEase}`;
         bumperTextMask.style.transition = `clip-path ${collectDur} ${collectEase}`;
         bumperTextInner.style.transition = `transform ${collectDur} ${collectEase}`;
 
-        bumperRedArrow.style.transform = `translate3d(${centerShiftX}px, 0, 0) rotate(0deg) scale(1.06)`;
+        bumperRedArrow.style.transform = `translate3d(${fullSlideDist}px, 0, 0) rotate(0deg) scale(1)`;
         bumperTextMask.style.clipPath = 'inset(0 0% 0 100%)';
-        bumperTextInner.style.transform = 'translate3d(24px, 0, 0)';
-      }, 2720));
+        bumperTextInner.style.transform = 'translate3d(14px, 0, 0)';
+      }, 1720));
 
-      /* BEAT 5 (t = 3400ms): Arrow curls/rolls and points straight DOWNWARD ("แล้วก็ม้วนแล้วก็จิ้มพาลูกศรลงไปข้างล่าง") */
+      /* BEAT 5 (t = 2360ms): Single uninterrupted 60fps Continuous Curved Flight (Duration: 1120ms)
+         - Starts at the right end (fullSlideDist, 0) where it just finished collecting the text.
+         - Smoothly curves DOWNWARD into the lower stage while gliding Scene 01 up into view,
+           then sweeps in one continuous silk arc straight into Scene 01's top-left dock (dockDeltaX, dockDeltaY)! */
       introTimers.push(setTimeout(() => {
-        bumperRedArrow.style.transition = 'transform 460ms cubic-bezier(0.34, 1.42, 0.64, 1)';
-        bumperRedArrow.style.transform = `translate3d(${centerShiftX}px, -14px, 0) rotate(450deg) scale(1.16)`;
-      }, 3400));
+        bumperRedArrow.style.transition = 'none';
 
-      /* BEAT 6 (t = 3880ms): Arrow dips downward to pull Scene 01 into view (Arrow stays 100% visible, NEVER disappears!) */
-      introTimers.push(setTimeout(() => {
-        const dipDownY = Math.round(window.innerHeight * 0.22);
-        bumperRedArrow.style.transition = 'transform 460ms cubic-bezier(0.22, 1, 0.36, 1)';
-        bumperRedArrow.style.transform = `translate3d(${centerShiftX}px, ${dipDownY}px, 0) rotate(450deg) scale(1.12)`;
+        /* Stage Scene 01 slightly below so the downward arrow motion physically pulls Scene 01 into place */
+        if (scene01El) {
+          scene01El.style.transition = 'none';
+          scene01El.style.transform = 'translate3d(0, 68px, 0) scale(0.985)';
+          void scene01El.offsetWidth;
+          scene01El.style.transition = 'transform 980ms cubic-bezier(0.22, 1, 0.36, 1)';
+          scene01El.style.transform = 'translate3d(0, 0, 0) scale(1)';
+        }
 
-        /* Simultaneously slide/fade the black bumper curtain away so Scene 01 appears underneath */
         if (bumperBackdrop) {
-          bumperBackdrop.style.transition = 'opacity 520ms cubic-bezier(0.22, 1, 0.36, 1)';
+          bumperBackdrop.style.transition = 'opacity 680ms cubic-bezier(0.22, 1, 0.36, 1) 120ms';
           bumperBackdrop.style.opacity = '0';
         }
-        bodyEl.classList.add('scene-docked');
-        setSlateIndex(0);
-      }, 3880));
 
-      /* BEAT 7 (t = 4360ms): The SAME Red Arrow glides from the dip position straight into Scene 01's top-left dock slot
-         and turns right (▶ 360deg) to lock in place and unfold "GHN168 MEDIA"! */
-      introTimers.push(setTimeout(() => {
-        const targetRect = heroRedTri ? heroRedTri.getBoundingClientRect() : arrowOriginRect;
-        const originCenterX = arrowOriginRect.left + arrowOriginRect.width / 2;
-        const originCenterY = arrowOriginRect.top + arrowOriginRect.height / 2;
-        const targetCenterX = targetRect.left + targetRect.width / 2;
-        const targetCenterY = targetRect.top + targetRect.height / 2;
+        const flightDuration = 1120;
+        const startTime = performance.now();
 
-        const dockDeltaX = Math.round(targetCenterX - originCenterX);
-        const dockDeltaY = Math.round(targetCenterY - originCenterY);
-        const dockScale = Number((targetRect.width / Math.max(arrowOriginRect.width, 1)).toFixed(3));
+        /* Cubic Bezier Control Points relative to arrowOrigin:
+           P0: (fullSlideDist, 0) — right end of collected text
+           P1: (fullSlideDist * 0.85, +vh * 0.34) — smooth downward dive after collecting text
+           P2: (dockDeltaX * 0.65, +vh * 0.22) — sweeping across the lower-left arc
+           P3: (dockDeltaX, dockDeltaY) — exact top-left dock slot in Scene 01 */
+        const vh = window.innerHeight;
+        const p0x = fullSlideDist;
+        const p0y = 0;
+        const p1x = fullSlideDist * 0.82;
+        const p1y = Math.round(vh * 0.34);
+        const p2x = dockDeltaX + Math.round((fullSlideDist - dockDeltaX) * 0.14);
+        const p2y = Math.round(vh * 0.16);
+        const p3x = dockDeltaX;
+        const p3y = dockDeltaY;
 
-        bumperRedArrow.style.transition = 'transform 760ms cubic-bezier(0.19, 1, 0.22, 1)';
-        /* Rotate from 450deg (pointing down) back to 360deg (pointing right ▶) as it glides into the top-left corner */
-        bumperRedArrow.style.transform = `translate3d(${dockDeltaX}px, ${dockDeltaY}px, 0) rotate(360deg) scale(${dockScale})`;
+        let wordmarkUnfoldTriggered = false;
 
-        /* As the arrow arrives at the top-left corner, unfold Scene 01's "GHN168 MEDIA" header beside it */
-        if (heroWordmarkMask && heroWordmarkInner) {
-          heroWordmarkMask.style.transition = 'clip-path 680ms cubic-bezier(0.22, 1, 0.36, 1) 240ms';
-          heroWordmarkInner.style.transition = 'transform 680ms cubic-bezier(0.22, 1, 0.36, 1) 240ms';
-          heroWordmarkMask.style.clipPath = 'inset(0 0% 0 0%)';
-          heroWordmarkInner.style.transform = 'translate3d(0px, 0, 0)';
+        function stepContinuousFlight(now) {
+          const rawT = Math.min(1, (now - startTime) / flightDuration);
+          const t = easeInOutSine(rawT);
+
+          const x = cubicBezierPoint(t, p0x, p1x, p2x, p3x);
+          const y = cubicBezierPoint(t, p0y, p1y, p2y, p3y);
+
+          /* Compute instantaneous tangent angle along the Bezier curve so the arrow naturally steers along its path,
+             and blends smoothly into 0deg (pointing right ▶) as it docks at the top-left corner */
+          const dt = 0.015;
+          const tNext = Math.min(1, t + dt);
+          const tPrev = Math.max(0, t - dt);
+          const dx = cubicBezierPoint(tNext, p0x, p1x, p2x, p3x) - cubicBezierPoint(tPrev, p0x, p1x, p2x, p3x);
+          const dy = cubicBezierPoint(tNext, p0y, p1y, p2y, p3y) - cubicBezierPoint(tPrev, p0y, p1y, p2y, p3y);
+          let tangentDeg = Math.atan2(dy, dx) * (180 / Math.PI);
+          /* Keep angle continuous on the positive clockwise side (0 -> +90 down -> +180 left -> +270 up -> +360 right) */
+          if (tangentDeg < -20) tangentDeg += 360;
+
+          /* Smoothly lock angle to 360deg (0deg right-pointing ▶) in the final 25% of docking */
+          const dockLockBlend = rawT > 0.72 ? easeOutCubic((rawT - 0.72) / 0.28) : 0;
+          const finalDeg = tangentDeg * (1 - dockLockBlend) + 360 * dockLockBlend;
+
+          /* Smoothly interpolate scale from 1 to dockScale */
+          const sc = 1 + (dockScale - 1) * t;
+
+          bumperRedArrow.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0) rotate(${finalDeg.toFixed(2)}deg) scale(${sc.toFixed(3)})`;
+
+          if (rawT >= 0.35 && !bodyEl.classList.contains('scene-docked')) {
+            bodyEl.classList.add('scene-docked');
+            setSlateIndex(0);
+          }
+
+          if (rawT >= 0.78 && !wordmarkUnfoldTriggered) {
+            wordmarkUnfoldTriggered = true;
+            if (heroWordmarkMask && heroWordmarkInner) {
+              heroWordmarkMask.style.transition = 'clip-path 620ms cubic-bezier(0.22, 1, 0.36, 1)';
+              heroWordmarkInner.style.transition = 'transform 620ms cubic-bezier(0.22, 1, 0.36, 1)';
+              heroWordmarkMask.style.clipPath = 'inset(0 0% 0 0%)';
+              heroWordmarkInner.style.transform = 'translate3d(0px, 0, 0)';
+            }
+          }
+
+          if (rawT < 1) {
+            introRafId = requestAnimationFrame(stepContinuousFlight);
+          } else {
+            introRafId = null;
+            if (heroRedTri) heroRedTri.style.opacity = '1';
+            bodyEl.classList.remove('bumper-active');
+            introPlaying = false;
+          }
         }
-      }, 4360));
 
-      /* BEAT 8 (t = 5140ms): Seamless 0-pixel handoff to Scene 01's docked red triangle so the arrow never blinks or vanishes */
-      introTimers.push(setTimeout(() => {
-        if (heroRedTri) heroRedTri.style.opacity = '1';
-        bodyEl.classList.remove('bumper-active');
-        introPlaying = false;
-      }, 5140));
+        introRafId = requestAnimationFrame(stepContinuousFlight);
+      }, 2360));
     }
 
     /* Scene 01 Slate & 16:9 Monitor Sync */
