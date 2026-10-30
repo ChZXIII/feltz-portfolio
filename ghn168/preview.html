@@ -3297,11 +3297,16 @@
 
       /* BEAT 3 (t = 1000ms -> 1720ms): Crisp 720ms hold so viewer reads "GHN168 MEDIA and Creation" without dragging */
 
-      /* BEAT 4 + BEAT 5 UNIFIED (t = 1660ms): ZERO-STOP CONTINUOUS COLLECT -> CURVE -> DOCK
-         ("ตอนมันรวบตัวอักษรครบแล้วก็มาเลย มาต่อเลย ไม่ต้องไปหยุดจบแป๊บนึงอะ ให้มันรวบ รวบเสร็จแล้วก็วิ่งต่อมา พามาหน้าถัดไปได้เลย")
-         Single 60fps loop with C1-continuous velocity at the handoff point:
-         - Phase A (0 .. splitU): Accelerates from 0 -> fullSlideDist, sweeping 100% of the text closed WITHOUT decelerating at the end!
-         - Phase B (splitU .. 1): Carries that exact forward velocity straight into the smooth downward Bezier curve and docks at Scene 01 top-left! */
+      /* BEAT 4 + BEAT 5 UNIFIED (t = 1600ms): ARC-LENGTH PARAMETERIZED CONSTANT-SPEED COLLECT -> SWOOP -> DOCK
+         ("คือให้ตัวลูกศรมันรวบเสร็จแล้วมันไปเลย ไม่ต้องหยุดสักเฟรมเลย รวบเสร็จฟึบ พอรวบปั๊บเสร็จแล้วก็ม้วนลงมา แล้วก็พามาหน้าถัดไปเลยแบบไม่ต้องหยุดแม้แต่เฟรมเดียว")
+         Why previous version felt like it paused:
+         - At the end of collecting the text (x = liveFullSlideDist), the Bezier control point P1 was placed right below P0,
+           causing horizontal velocity dx/dt to drop from ~1800px/s to 0px/s at the corner (a sharp corner brake!).
+         How we fix it 100%:
+         - Build a dense 400-point Arc-Length Lookup Table (LUT) across the ENTIRE trajectory (from x=0 collecting the text,
+           sweeping out past the right end in a smooth circular turn, diving down, and curving up to the top-left dock).
+         - Sample by TRUE ARC-LENGTH DISTANCE (s) so the arrow travels at a rock-solid constant speed (px/ms) across the
+           end of the text and around the downward loop without losing a single frame of momentum! */
       introTimers.push(setTimeout(() => {
         bumperRedArrow.style.transition = 'none';
         bumperTextMask.style.transition = 'none';
@@ -3323,109 +3328,168 @@
         const liveDockDeltaY = liveTargetCenterY - liveOriginCenterY;
         const liveDockScale = Number((liveTargetRect.width / Math.max(liveArrowRect.width, 1)).toFixed(3));
 
-        /* Stage Scene 01 slightly below so the downward curve pulls Scene 01 into place */
+        /* Stage Scene 01 slightly below so the downward swoop pulls Scene 01 into place */
         if (scene01El) {
           scene01El.style.transition = 'none';
-          scene01El.style.transform = 'translate3d(0, 64px, 0) scale(0.985)';
+          scene01El.style.transform = 'translate3d(0, 68px, 0) scale(0.985)';
         }
 
-        const totalRunDuration = 1480;
-        const splitU = 0.36; /* First 36% (~530ms) collects text to the right edge at peak speed; remaining 64% (~950ms) curves down & docks */
-        const startTime = performance.now();
-
         const vh = window.innerHeight;
-        const p0x = liveFullSlideDist;
+        /* Start curving downward seamlessly during the last 12% of text collection so there is zero sharp corner! */
+        const straightEndDist = liveFullSlideDist * 0.88;
+        const p0x = straightEndDist;
         const p0y = 0;
-        /* P1 extends slightly past liveFullSlideDist (+14%) while diving downward (+0.34vh) so the horizontal momentum from collecting text curves smoothly downward with zero corner pause! */
-        const p1x = liveFullSlideDist + Math.round(Math.max(28, liveFullSlideDist * 0.14));
-        const p1y = Math.round(vh * 0.34);
-        const p2x = liveDockDeltaX + Math.round((liveFullSlideDist - liveDockDeltaX) * 0.12);
-        const p2y = Math.round(vh * 0.15);
+        /* P1 projects forward past liveFullSlideDist with a horizontal tangent (y=0 -> smooth dive) so there is ZERO corner stall */
+        const overshootX = Math.min(Math.round(liveFullSlideDist * 0.28), Math.round((window.innerWidth - liveRowRect.right) * 0.78 + 48));
+        const p1x = liveFullSlideDist + Math.max(36, overshootX);
+        const p1y = Math.round(vh * 0.04);
+        const p2x = liveDockDeltaX + Math.round((liveFullSlideDist - liveDockDeltaX) * 0.32);
+        const p2y = Math.round(vh * 0.42);
         const p3x = liveDockDeltaX;
         const p3y = liveDockDeltaY;
+
+        /* Build 400-sample Arc-Length Lookup Table (LUT) across Segment 1 (straight collect) + Segment 2 (Bezier swoop) */
+        const LUT_STEPS = 400;
+        const lutX = new Float64Array(LUT_STEPS + 1);
+        const lutY = new Float64Array(LUT_STEPS + 1);
+        const lutS = new Float64Array(LUT_STEPS + 1);
+        let accumS = 0;
+
+        for (let i = 0; i <= LUT_STEPS; i++) {
+          const uRaw = i / LUT_STEPS;
+          let px, py;
+          if (uRaw <= 0.35) {
+            const k = uRaw / 0.35;
+            px = straightEndDist * k;
+            py = 0;
+          } else {
+            const b = (uRaw - 0.35) / 0.65;
+            px = cubicBezierPoint(b, p0x, p1x, p2x, p3x);
+            py = cubicBezierPoint(b, p0y, p1y, p2y, p3y);
+          }
+          lutX[i] = px;
+          lutY[i] = py;
+          if (i > 0) {
+            const dx = px - lutX[i - 1];
+            const dy = py - lutY[i - 1];
+            accumS += Math.hypot(dx, dy);
+          }
+          lutS[i] = accumS;
+        }
+
+        const totalArcLen = accumS;
+        /* Distance at which x reaches liveFullSlideDist (100% text collected) */
+        let collectCompleteS = straightEndDist;
+        for (let i = 1; i <= LUT_STEPS; i++) {
+          if (lutX[i] >= liveFullSlideDist * 0.995) {
+            collectCompleteS = lutS[i];
+            break;
+          }
+        }
+
+        function sampleByArcDistance(targetS) {
+          if (targetS <= 0) return { x: lutX[0], y: lutY[0] };
+          if (targetS >= totalArcLen) return { x: lutX[LUT_STEPS], y: lutY[LUT_STEPS] };
+          let lo = 0, hi = LUT_STEPS;
+          while (lo < hi - 1) {
+            const mid = (lo + hi) >> 1;
+            if (lutS[mid] <= targetS) lo = mid;
+            else hi = mid;
+          }
+          const span = lutS[hi] - lutS[lo];
+          const frac = span > 1e-6 ? (targetS - lutS[lo]) / span : 0;
+          return {
+            x: lutX[lo] + (lutX[hi] - lutX[lo]) * frac,
+            y: lutY[lo] + (lutY[hi] - lutY[lo]) * frac
+          };
+        }
+
+        /* Fast, punchy total duration (~1180ms) with smooth start and smooth dock,
+           and 100% constant high speed across the text collection & downward swoop! */
+        const totalRunDuration = 1180;
+        const startTime = performance.now();
 
         let scenePullStarted = false;
         let sceneDockedTriggered = false;
         let wordmarkUnfoldTriggered = false;
 
-        function stepZeroStopCollectAndDock(now) {
+        function stepArcLengthContinuousFlight(now) {
           const u = Math.min(1, (now - startTime) / totalRunDuration);
 
-          if (u <= splitU) {
-            /* PHASE A: Collect text from 0 -> liveFullSlideDist.
-               Use power-1.35 acceleration so it starts smoothly and hits full stride right at u = splitU (ZERO brake/stop at the end!) */
-            const p = u / splitU;
-            const collectProg = Math.pow(p, 1.35);
+          /* C1-continuous velocity profile along arc-length s(u):
+             Quick 12% ramp-up -> pure constant speed across collection & downward turn -> gentle 18% cushion into top-left dock */
+          let sNorm;
+          if (u < 0.12) {
+            /* Quadratic ramp up: v(u) = (u/0.12)*vMax */
+            sNorm = 0.5 * 0.12 * Math.pow(u / 0.12, 2);
+          } else if (u < 0.82) {
+            /* Pure constant velocity across text collection AND the downward swoop (ZERO pause!) */
+            sNorm = 0.06 + (u - 0.12);
+          } else {
+            /* Smooth cushion into the dock */
+            const w = (u - 0.82) / 0.18;
+            sNorm = 0.76 + 0.18 * (w - 0.5 * w * w);
+          }
+          /* Normalize so sNorm(1) === 1.0 (total integral = 0.06 + 0.70 + 0.09 = 0.85) */
+          const distS = (sNorm / 0.85) * totalArcLen;
 
-            const x = liveFullSlideDist * collectProg;
-            const clipLeft = Math.min(100, collectProg * 100);
-            const textShift = 14 * collectProg;
+          const pos = sampleByArcDistance(distS);
+          const posAhead = sampleByArcDistance(Math.min(totalArcLen, distS + 14));
+          const posBehind = sampleByArcDistance(Math.max(0, distS - 14));
 
-            /* Begin banking slightly downward (up to 14deg) in the final 20% of collection so the turn into the downward curve is liquid-smooth */
-            const preBank = p > 0.8 ? Math.pow((p - 0.8) / 0.2, 2) * 14 : 0;
-
-            bumperRedArrow.style.transform = `translate3d(${x.toFixed(2)}px, 0px, 0) rotate(${preBank.toFixed(2)}deg) scale(1)`;
+          /* Text mask closes strictly in sync with the arrow's X coordinate as it sweeps across the words */
+          if (distS <= collectCompleteS) {
+            const clipLeft = Math.min(100, Math.max(0, (pos.x / Math.max(1, liveFullSlideDist)) * 100));
+            const textShift = 14 * (clipLeft / 100);
             bumperTextMask.style.clipPath = `inset(0 0% 0 ${clipLeft.toFixed(2)}%)`;
             bumperTextInner.style.transform = `translate3d(${textShift.toFixed(2)}px, 0, 0)`;
-
           } else {
-            /* Ensure text mask is 100% closed the instant Phase B begins */
             bumperTextMask.style.clipPath = 'inset(0 0% 0 100%)';
-
             if (!scenePullStarted) {
               scenePullStarted = true;
               if (scene01El) {
-                scene01El.style.transition = 'transform 880ms cubic-bezier(0.22, 1, 0.36, 1)';
+                scene01El.style.transition = 'transform 760ms cubic-bezier(0.22, 1, 0.36, 1)';
                 scene01El.style.transform = 'translate3d(0, 0, 0) scale(1)';
               }
               if (bumperBackdrop) {
-                bumperBackdrop.style.transition = 'opacity 580ms cubic-bezier(0.22, 1, 0.36, 1)';
+                bumperBackdrop.style.transition = 'opacity 480ms cubic-bezier(0.22, 1, 0.36, 1)';
                 bumperBackdrop.style.opacity = '0';
-              }
-            }
-
-            /* PHASE B: Continuous Flight from (fullSlideDist, 0) -> Downward Arc -> Top-Left Dock.
-               Use sin((q * PI) / 2) easing so initial velocity at q=0 is at maximum (matching the end of Phase A with ZERO pause)
-               and gently cushions to 0 as it locks into the top-left corner at q=1! */
-            const q = (u - splitU) / (1 - splitU);
-            const t = Math.sin((q * Math.PI) / 2);
-
-            const x = cubicBezierPoint(t, p0x, p1x, p2x, p3x);
-            const y = cubicBezierPoint(t, p0y, p1y, p2y, p3y);
-
-            const dt = 0.015;
-            const tNext = Math.min(1, t + dt);
-            const tPrev = Math.max(0, t - dt);
-            const dx = cubicBezierPoint(tNext, p0x, p1x, p2x, p3x) - cubicBezierPoint(tPrev, p0x, p1x, p2x, p3x);
-            const dy = cubicBezierPoint(tNext, p0y, p1y, p2y, p3y) - cubicBezierPoint(tPrev, p0y, p1y, p2y, p3y);
-            let tangentDeg = Math.atan2(dy, dx) * (180 / Math.PI);
-            if (tangentDeg < -20) tangentDeg += 360;
-
-            const dockLockBlend = q > 0.7 ? easeOutCubic((q - 0.7) / 0.3) : 0;
-            const finalDeg = tangentDeg * (1 - dockLockBlend) + 360 * dockLockBlend;
-            const sc = 1 + (liveDockScale - 1) * t;
-
-            bumperRedArrow.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0) rotate(${finalDeg.toFixed(2)}deg) scale(${sc.toFixed(3)})`;
-
-            if (q >= 0.25 && !sceneDockedTriggered) {
-              sceneDockedTriggered = true;
-              bodyEl.classList.add('scene-docked');
-              setSlateIndex(0);
-            }
-
-            if (q >= 0.74 && !wordmarkUnfoldTriggered) {
-              wordmarkUnfoldTriggered = true;
-              if (heroWordmarkMask && heroWordmarkInner) {
-                heroWordmarkMask.style.transition = 'clip-path 560ms cubic-bezier(0.22, 1, 0.36, 1)';
-                heroWordmarkInner.style.transition = 'transform 560ms cubic-bezier(0.22, 1, 0.36, 1)';
-                heroWordmarkMask.style.clipPath = 'inset(0 0% 0 0%)';
-                heroWordmarkInner.style.transform = 'translate3d(0px, 0, 0)';
               }
             }
           }
 
+          /* Tangent angle along true arc-length so rotation never jerks */
+          const dx = posAhead.x - posBehind.x;
+          const dy = posAhead.y - posBehind.y;
+          let tangentDeg = Math.atan2(dy, dx) * (180 / Math.PI);
+          if (tangentDeg < -20) tangentDeg += 360;
+
+          const dockLockBlend = u > 0.76 ? easeOutCubic((u - 0.76) / 0.24) : 0;
+          const finalDeg = tangentDeg * (1 - dockLockBlend) + 360 * dockLockBlend;
+
+          const flightProgress = distS > collectCompleteS ? (distS - collectCompleteS) / Math.max(1, totalArcLen - collectCompleteS) : 0;
+          const sc = 1 + (liveDockScale - 1) * flightProgress;
+
+          bumperRedArrow.style.transform = `translate3d(${pos.x.toFixed(2)}px, ${pos.y.toFixed(2)}px, 0) rotate(${finalDeg.toFixed(2)}deg) scale(${sc.toFixed(3)})`;
+
+          if (flightProgress >= 0.22 && !sceneDockedTriggered) {
+            sceneDockedTriggered = true;
+            bodyEl.classList.add('scene-docked');
+            setSlateIndex(0);
+          }
+
+          if (flightProgress >= 0.72 && !wordmarkUnfoldTriggered) {
+            wordmarkUnfoldTriggered = true;
+            if (heroWordmarkMask && heroWordmarkInner) {
+              heroWordmarkMask.style.transition = 'clip-path 520ms cubic-bezier(0.22, 1, 0.36, 1)';
+              heroWordmarkInner.style.transition = 'transform 520ms cubic-bezier(0.22, 1, 0.36, 1)';
+              heroWordmarkMask.style.clipPath = 'inset(0 0% 0 0%)';
+              heroWordmarkInner.style.transform = 'translate3d(0px, 0, 0)';
+            }
+          }
+
           if (u < 1) {
-            introRafId = requestAnimationFrame(stepZeroStopCollectAndDock);
+            introRafId = requestAnimationFrame(stepArcLengthContinuousFlight);
           } else {
             introRafId = null;
             if (heroRedTri) heroRedTri.style.opacity = '1';
@@ -3434,8 +3498,8 @@
           }
         }
 
-        introRafId = requestAnimationFrame(stepZeroStopCollectAndDock);
-      }, 1660));
+        introRafId = requestAnimationFrame(stepArcLengthContinuousFlight);
+      }, 1600));
     }
 
     /* Scene 01 Slate & 16:9 Monitor Sync */
