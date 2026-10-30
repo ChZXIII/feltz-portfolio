@@ -1109,23 +1109,6 @@
       justify-content: center;
     }
 
-    /* Bottom cut-off 168 signature mark inspired by 108.Supply bottom emblem */
-    .vortex-bottom-168-mark {
-      position: absolute;
-      bottom: -24px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-family: var(--font-display);
-      font-size: clamp(4.2rem, 7.5vw, 6.8rem);
-      font-weight: 900;
-      font-style: italic;
-      letter-spacing: -0.06em;
-      line-height: 0.8;
-      color: rgba(245, 244, 240, 0.2);
-      pointer-events: none;
-      z-index: 1;
-    }
-
     /* Central Red Triangle Vortex Pivot (แกนหมุนลูกศรสีแดงตรงกลาง) */
     .vortex-center-tri-hub {
       position: absolute;
@@ -1224,27 +1207,55 @@
     .quad-kinetic-words {
       display: flex;
       flex-direction: column;
-      gap: 0px;
+      gap: 2px;
       font-family: var(--font-display);
       font-weight: 900;
-      font-size: clamp(1.45rem, 2.05vw, 2.05rem);
       line-height: 0.9;
       letter-spacing: -0.03em;
       text-transform: uppercase;
     }
 
-    .quad-kinetic-words span:nth-child(odd) {
+    .quad-lead-letter {
+      display: block;
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(4.8rem, 6.6vw, 6.4rem);
+      line-height: 0.78;
+      letter-spacing: -0.06em;
+      color: var(--ghn-red);
+      text-shadow:
+        0 4px 24px rgba(224, 36, 36, 0.62),
+        0 1px 0 rgba(255, 255, 255, 0.22);
+      margin-bottom: 4px;
+    }
+
+    .quad-lead-word {
+      display: block;
+      font-size: clamp(1.02rem, 1.28vw, 1.24rem);
+      line-height: 0.96;
+      letter-spacing: -0.02em;
+      color: var(--ink-white);
+      margin-bottom: 2px;
+    }
+
+    .quad-sub-line {
+      display: block;
+      font-size: clamp(1.12rem, 1.48vw, 1.42rem);
+      line-height: 0.92;
+      letter-spacing: -0.03em;
+    }
+
+    .quad-sub-line.is-red {
       color: var(--ghn-red);
       text-shadow: 0 2px 16px rgba(224, 36, 36, 0.45);
     }
 
-    .quad-kinetic-words span:nth-child(even) {
+    .quad-sub-line.is-white {
       color: var(--ink-white);
     }
 
-    .quad-kinetic-words span:nth-child(2) { padding-left: 16%; }
-    .quad-kinetic-words span:nth-child(4) { padding-left: 10%; }
-    .quad-kinetic-words span:nth-child(5) { padding-left: 22%; }
+    .quad-sub-line.indent-1 { padding-left: 12%; }
+    .quad-sub-line.indent-2 { padding-left: 22%; }
 
     .quad-card-bottom-pill {
       display: inline-flex;
@@ -2110,7 +2121,12 @@
       .reel-chip-btn { font-size: 0.54rem; padding: 4px 6px; }
       .quadrant-vortex-stage { min-height: 182px; }
       .quad-ghn-card { width: 100px; border-radius: 12px; }
-      .quad-kinetic-words { font-size: 0.88rem; }
+      .quad-card-poster-stack { inset: 8px 7px; }
+      .quad-card-top-meta { font-size: 0.48rem; }
+      .quad-lead-letter { font-size: 2.45rem; margin-bottom: 2px; }
+      .quad-lead-word { font-size: 0.56rem; }
+      .quad-sub-line { font-size: 0.66rem; }
+      .quad-card-bottom-pill { padding: 4px 6px; font-size: 0.52rem; }
       .scene02-inspector-col { padding: 10px 12px; gap: 6px; }
       .ghn-detail-box { padding: 10px 12px; gap: 4px; }
       .ghn-detail-big-code { font-size: 1.45rem; }
@@ -2484,7 +2500,6 @@
         <div class="scene02-stage-layout">
           <!-- Left: 3-Card G·H·N 2-Beat Stage (Spread 3 Cards -> Focus 1 Card) -->
           <div class="quadrant-vortex-stage" id="quadrantVortexStage">
-            <div class="vortex-bottom-168-mark" aria-hidden="true">GHN</div>
 
             <!-- Card 0: G (GROUNDBREAKING) -->
             <article class="quad-ghn-card is-focused" data-quad-card="0">
@@ -2496,11 +2511,11 @@
                   <span>[ G ]</span>
                 </div>
                 <div class="quad-kinetic-words">
-                  <span>GROUND</span>
-                  <span>BREAK</span>
-                  <span>FRESH</span>
-                  <span>VISION</span>
-                  <span>IDEA</span>
+                  <span class="quad-lead-letter">G</span>
+                  <span class="quad-lead-word">GROUNDBREAKING</span>
+                  <span class="quad-sub-line is-red indent-1">FRESH</span>
+                  <span class="quad-sub-line is-white">VISION</span>
+                  <span class="quad-sub-line is-red indent-2">IDEA</span>
                 </div>
                 <div class="quad-card-bottom-pill">
                   <span data-th>G · ล้ำสมัย เปิดมุมมองใหม่</span>
@@ -2520,11 +2535,11 @@
                   <span>[ H ]</span>
                 </div>
                 <div class="quad-kinetic-words">
-                  <span>HAPPY</span>
-                  <span>FLOW</span>
-                  <span>DIRECT</span>
-                  <span>TRUST</span>
-                  <span>TEAM</span>
+                  <span class="quad-lead-letter">H</span>
+                  <span class="quad-lead-word">HAPPINESS</span>
+                  <span class="quad-sub-line is-red indent-1">FLOW</span>
+                  <span class="quad-sub-line is-white">DIRECT</span>
+                  <span class="quad-sub-line is-red indent-2">TRUST</span>
                 </div>
                 <div class="quad-card-bottom-pill">
                   <span data-th>H · ราบรื่น มีความสุขทุกกองถ่าย</span>
@@ -2544,11 +2559,11 @@
                   <span>[ N ]</span>
                 </div>
                 <div class="quad-kinetic-words">
-                  <span>NIRVANA</span>
-                  <span>PEAK</span>
-                  <span>CRAFT</span>
-                  <span>SOUL</span>
-                  <span>PURE</span>
+                  <span class="quad-lead-letter">N</span>
+                  <span class="quad-lead-word">NIRVANA</span>
+                  <span class="quad-sub-line is-red indent-1">PEAK</span>
+                  <span class="quad-sub-line is-white">CRAFT</span>
+                  <span class="quad-sub-line is-red indent-2">SOUL</span>
                 </div>
                 <div class="quad-card-bottom-pill">
                   <span data-th>N · สมบูรณ์แบบไร้ที่ติ</span>
