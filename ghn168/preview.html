@@ -357,28 +357,37 @@
 
     /* ==========================================================================
        SCENE 00 // CINEMA STUDIO BUMPER (หน้าเปิดโลโก้หนังล้วน 100%)
-       1) ลูกศรสีแดงพา GHN168 MEDIA เข้ามา + ข้างล่างเป็นชื่อเต็ม GHN168 MEDIA and Creation
-       2) ค้างโชว์ไว้สักแป๊บเหมือนโลโก้ค่ายหนัง
-       3) ลูกศรสีแดงรวบคำเก็บ -> ม้วนตัวจิ้มหัวลงข้างล่าง -> พุ่งดิ่งลงพาเข้าหน้า 01
+       1) ลูกศรสีแดงพา GHN168 MEDIA and Creation บรรทัดเดียวเข้ามา
+       2) ค้างโชว์ไว้สักแป๊บเหมือนโลโก้ค่ายหนัง (เวกเตอร์คมกริบ 100% ไร้เงาเบลอ/ไร้ raster scale)
+       3) ลูกศรสีแดงรวบคำเก็บ -> ม้วนตัวจิ้มหัวลงข้างล่าง -> พาเลื่อนลงเข้าหน้า 01
+          แล้วไหลตัวมันเองต่อเนื่องไปเสียบมุมซ้ายบนของหน้า 01 โดยไม่หายไปไหน!
        ========================================================================== */
     .cinema-studio-bumper {
       position: fixed;
       inset: 0;
       z-index: 800;
-      background-color: var(--matte-black);
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
+      overflow: visible;
       opacity: 1;
       visibility: visible;
-      transition: opacity 0.65s var(--ease-cushioned), visibility 0.65s;
+      pointer-events: auto;
     }
 
     body:not(.bumper-active) .cinema-studio-bumper {
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
+    }
+
+    .bumper-backdrop {
+      position: fixed;
+      inset: 0;
+      background-color: var(--matte-black);
+      z-index: 1;
+      opacity: 1;
+      transition: opacity 0.68s var(--ease-cushioned);
     }
 
     /* Hide all HUD and page controls while Cinema Bumper is playing */
@@ -396,38 +405,40 @@
 
     .bumper-center-stage {
       position: relative;
+      z-index: 5;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 24px;
+      padding: 16px;
+      width: 100%;
     }
 
     .bumper-lockup-row {
       position: relative;
       display: inline-flex;
       align-items: center;
-      gap: 0.26em;
+      gap: 0.28em;
       font-family: var(--font-display);
-      font-size: clamp(2.35rem, 6.2vw, 5.4rem);
-      font-weight: 900;
+      font-size: clamp(1.16rem, 3.95vw, 3.75rem);
+      font-weight: 800;
       letter-spacing: -0.02em;
-      line-height: 1;
+      line-height: 1.08;
       color: var(--ink-white);
+      text-rendering: geometricPrecision;
+      -webkit-font-smoothing: antialiased;
     }
 
     .bumper-red-arrow {
       position: relative;
-      z-index: 10;
-      width: 0.64em;
-      height: 0.7em;
+      z-index: 20;
+      width: 0.66em;
+      height: 0.72em;
       flex-shrink: 0;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       transform-origin: 50% 50%;
-      will-change: transform, opacity;
-      filter: drop-shadow(0 0 28px rgba(224, 36, 36, 0.65));
     }
 
     .bumper-red-arrow svg {
@@ -440,20 +451,18 @@
     .bumper-text-mask {
       position: relative;
       display: inline-flex;
-      flex-direction: column;
-      align-items: flex-start;
+      align-items: baseline;
       overflow: hidden;
-      padding: 0.06em 0.08em 0.12em 0.02em;
-      will-change: clip-path, transform, opacity;
+      padding: 0.04em 0.06em 0.08em 0.02em;
     }
 
     .bumper-text-inner {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.16em;
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.22em;
       white-space: nowrap;
-      will-change: transform, opacity;
+      text-rendering: geometricPrecision;
+      -webkit-font-smoothing: antialiased;
     }
 
     .bumper-main-title {
@@ -465,33 +474,13 @@
 
     .bumper-main-title .media-accent {
       color: var(--ghn-red);
-      transition: color 0.65s var(--ease-smooth-out), text-shadow 0.65s var(--ease-smooth-out);
-      text-shadow: 0 0 28px rgba(224, 36, 36, 0.35);
+      transition: color 0.65s var(--ease-smooth-out);
     }
 
-    .bumper-sub-fullname {
-      font-family: var(--font-display);
-      font-size: clamp(0.76rem, 1.55vw, 1.24rem);
+    .bumper-main-title .and-creation-word {
       font-weight: 600;
-      letter-spacing: 0.22em;
-      color: var(--ink-secondary);
-      padding-left: 0.08em;
-      will-change: opacity, transform;
-    }
-
-    /* Vertical red laser trail when arrow dives downward */
-    .bumper-dive-trail {
-      position: absolute;
-      left: 50%;
-      bottom: 50%;
-      width: 4px;
-      height: 0px;
-      margin-left: -2px;
-      background: linear-gradient(180deg, transparent 0%, rgba(224, 36, 36, 0.92) 100%);
-      border-radius: 999px;
-      opacity: 0;
-      pointer-events: none;
-      will-change: height, opacity, transform;
+      color: var(--ink-white);
+      letter-spacing: -0.01em;
     }
 
     /* ==========================================================================
@@ -566,9 +555,10 @@
       line-height: 0.96;
       color: var(--ink-white);
       transform-origin: center center;
-      will-change: transform;
       position: relative;
       z-index: 260;
+      text-rendering: geometricPrecision;
+      -webkit-font-smoothing: antialiased;
     }
 
     .hero-red-triangle {
@@ -580,8 +570,6 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      will-change: transform, opacity;
-      filter: drop-shadow(0 0 22px rgba(224, 36, 36, 0.45));
     }
 
     .hero-red-triangle svg {
@@ -598,7 +586,6 @@
       gap: 0.2em;
       overflow: hidden;
       padding: 0.04em 0.04em 0.06em 0;
-      will-change: clip-path;
     }
 
     .hero-wordmark-inner {
@@ -606,29 +593,27 @@
       align-items: baseline;
       gap: 0.2em;
       white-space: nowrap;
-      will-change: transform, opacity;
+      text-rendering: geometricPrecision;
+      -webkit-font-smoothing: antialiased;
     }
 
     .word-ghn { color: var(--ink-white); }
     .word-media { display: inline-flex; letter-spacing: -0.02em; }
     .media-me, .media-dia {
       color: var(--ink-white);
-      transition: color 0.75s var(--ease-smooth-out), text-shadow 0.75s var(--ease-smooth-out);
+      transition: color 0.75s var(--ease-smooth-out);
     }
 
     .brand-hero-lockup[data-media-step="0"] .media-me {
       color: var(--ghn-red);
-      text-shadow: 0 0 26px rgba(224, 36, 36, 0.32);
     }
     .brand-hero-lockup[data-media-step="1"] .media-me,
     .brand-hero-lockup[data-media-step="1"] .media-dia {
       color: var(--ghn-red);
-      text-shadow: 0 0 26px rgba(224, 36, 36, 0.32);
     }
     .brand-hero-lockup[data-media-step="2"] .media-me,
     .brand-hero-lockup[data-media-step="2"] .media-dia {
       color: var(--ink-white);
-      text-shadow: none;
     }
 
     .corp-reg-badge {
@@ -1950,13 +1935,14 @@
 
   <!-- ==========================================================================
        SCENE 00 // CINEMA STUDIO BUMPER (หน้าเปิดโลโก้หนังล้วน 100%)
-       1) ลูกศรสีแดงพา GHN168 MEDIA เข้ามา + ข้างล่างเป็นชื่อเต็ม GHN168 MEDIA and Creation
-       2) ค้างโชว์ไว้สักแป๊บเหมือนโลโก้ค่ายหนัง
-       3) ลูกศรสีแดงรวบคำเก็บ -> ม้วนตัวจิ้มหัวลงข้างล่าง -> พุ่งดิ่งลงพาเข้าหน้า 01
+       1) ลูกศรสีแดงพา GHN168 MEDIA and Creation บรรทัดเดียวเข้ามา
+       2) ค้างโชว์ไว้สักแป๊บเหมือนโลโก้ค่ายหนัง (เวกเตอร์คมกริบ 100%)
+       3) ลูกศรสีแดงรวบคำเก็บ -> ม้วนตัวจิ้มหัวลงข้างล่าง -> พาเลื่อนลงเข้าหน้า 01
+          แล้วไหลตัวมันเองต่อเนื่องไปเสียบมุมซ้ายบนของหน้า 01 โดยไม่หายไปไหน!
        ========================================================================== -->
   <div class="cinema-studio-bumper" id="cinemaStudioBumper" aria-label="GHN168 Media and Creation Studio Opening Bumper">
+    <div class="bumper-backdrop" id="bumperBackdrop" aria-hidden="true"></div>
     <div class="bumper-center-stage">
-      <div class="bumper-dive-trail" id="bumperDiveTrail" aria-hidden="true"></div>
       <div class="bumper-lockup-row" id="bumperLockupRow">
         <span class="bumper-red-arrow" id="bumperRedArrow" aria-hidden="true">
           <svg viewBox="0 0 36 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1968,8 +1954,8 @@
             <span class="bumper-main-title">
               <span>GHN168</span>
               <span class="media-accent" id="bumperMediaWord">MEDIA</span>
+              <span class="and-creation-word">and Creation</span>
             </span>
-            <span class="bumper-sub-fullname" id="bumperSubFullname">GHN168 MEDIA and Creation</span>
           </span>
         </span>
       </div>
@@ -3145,10 +3131,11 @@
     }
 
     /* ==========================================================================
-       2. SCENE 00 (CINEMA STUDIO BUMPER) -> SCENE 01 CHOREOGRAPHY
-          1) หน้าเปิดมีแค่ลูกศรสีแดงพา GHN168 MEDIA เข้ามา + ข้างล่างเป็นชื่อเต็ม GHN168 MEDIA and Creation
+       2. SCENE 00 (CINEMA STUDIO BUMPER) -> SCENE 01 CONTINUOUS ARROW CHOREOGRAPHY
+          1) หน้าเปิดมีแค่ลูกศรสีแดงพา GHN168 MEDIA and Creation (บรรทัดเดียว คมกริบ) เข้ามา
           2) ค้างไว้สักแป๊บนึงเหมือนโลโก้ค่ายหนังก่อนเข้าเรื่อง
-          3) ลูกศรสีแดงวิ่งรวบคำเก็บ -> ม้วนตัวแล้วจิ้มหัวลงข้างล่าง -> พุ่งดิ่งลงพาเข้าหน้า 01
+          3) ลูกศรสีแดงวิ่งรวบคำเก็บ -> ม้วนตัวแล้วจิ้มหัวลงข้างล่าง -> พาเข้าหน้า 01
+          4) ลูกศรตัวเดิมไม่หายไปไหน! ไหลตัวมันเองต่อเนื่องไปเสียบมุมซ้ายบนของหน้า 01 แล้วกาง GHN168 MEDIA ออกมา
        ========================================================================== */
     const heroLockup = document.getElementById('heroLockup');
     const heroRedTri = document.getElementById('heroRedTri');
@@ -3156,11 +3143,10 @@
     const heroWordmarkInner = document.getElementById('heroWordmarkInner');
 
     const cinemaStudioBumper = document.getElementById('cinemaStudioBumper');
+    const bumperBackdrop = document.getElementById('bumperBackdrop');
     const bumperRedArrow = document.getElementById('bumperRedArrow');
     const bumperTextMask = document.getElementById('bumperTextMask');
     const bumperTextInner = document.getElementById('bumperTextInner');
-    const bumperSubFullname = document.getElementById('bumperSubFullname');
-    const bumperDiveTrail = document.getElementById('bumperDiveTrail');
 
     let introTimers = [];
     let introPlaying = false;
@@ -3174,11 +3160,17 @@
       clearIntroTimers();
       introPlaying = true;
 
-      /* Activate pure black Cinema Bumper overlay & hide Scene 01 panels until bumper dives down */
+      /* Activate pure black Cinema Bumper overlay & keep Scene 01 ready underneath */
       bodyEl.classList.add('bumper-active');
       bodyEl.classList.remove('scene-docked');
 
-      /* Keep Scene 01's top-left header lockup ready in its docked home position */
+      if (bumperBackdrop) {
+        bumperBackdrop.style.transition = 'none';
+        bumperBackdrop.style.opacity = '1';
+        bumperBackdrop.style.transform = 'translate3d(0, 0, 0)';
+      }
+
+      /* Prepare Scene 01's top-left header: keep its red triangle hidden until the bumper's arrow lands on its exact pixel! */
       if (heroLockup) {
         heroLockup.style.transition = 'none';
         heroLockup.style.transform = 'none';
@@ -3187,85 +3179,77 @@
       if (heroRedTri) {
         heroRedTri.style.transition = 'none';
         heroRedTri.style.transform = 'none';
-        heroRedTri.style.opacity = '1';
+        heroRedTri.style.opacity = '0';
       }
       if (heroWordmarkMask) {
         heroWordmarkMask.style.transition = 'none';
-        heroWordmarkMask.style.clipPath = 'inset(0 0% 0 0%)';
+        heroWordmarkMask.style.clipPath = 'inset(0 100% 0 0%)';
       }
       if (heroWordmarkInner) {
         heroWordmarkInner.style.transition = 'none';
-        heroWordmarkInner.style.transform = 'none';
+        heroWordmarkInner.style.transform = 'translate3d(-16px, 0, 0)';
       }
 
       if (!bumperRedArrow || !bumperTextMask || !bumperTextInner) {
         bodyEl.classList.remove('bumper-active');
         bodyEl.classList.add('scene-docked');
+        if (heroRedTri) heroRedTri.style.opacity = '1';
+        if (heroWordmarkMask) heroWordmarkMask.style.clipPath = 'inset(0 0% 0 0%)';
+        if (heroWordmarkInner) heroWordmarkInner.style.transform = 'none';
         introPlaying = false;
         return;
       }
 
-      /* Reset Bumper elements to measure exact geometry */
+      /* Reset Bumper elements to measure exact geometry at natural 1:1 vector scale */
       bumperRedArrow.style.transition = 'none';
       bumperTextMask.style.transition = 'none';
       bumperTextInner.style.transition = 'none';
-      if (bumperSubFullname) bumperSubFullname.style.transition = 'none';
-      if (bumperDiveTrail) {
-        bumperDiveTrail.style.transition = 'none';
-        bumperDiveTrail.style.opacity = '0';
-        bumperDiveTrail.style.height = '0px';
-        bumperDiveTrail.style.transform = 'translate3d(0, 0, 0)';
-      }
 
       bumperRedArrow.style.opacity = '0';
       bumperRedArrow.style.transform = 'none';
       bumperTextMask.style.clipPath = 'inset(0 0% 0 0%)';
       bumperTextInner.style.transform = 'none';
       bumperTextInner.style.opacity = '1';
-      if (bumperSubFullname) {
-        bumperSubFullname.style.opacity = '0';
-        bumperSubFullname.style.transform = 'translate3d(0, 10px, 0)';
-      }
 
       void cinemaStudioBumper.offsetWidth;
 
       const textRect = bumperTextInner.getBoundingClientRect();
-      const arrowRect = bumperRedArrow.getBoundingClientRect();
+      const arrowOriginRect = bumperRedArrow.getBoundingClientRect();
       const lockupRow = document.getElementById('bumperLockupRow');
       const rowRect = lockupRow ? lockupRow.getBoundingClientRect() : textRect;
 
-      const gapPx = Math.max(12, rowRect.width - textRect.width - arrowRect.width);
+      const gapPx = Math.max(10, rowRect.width - textRect.width - arrowOriginRect.width);
       const fullSlideDist = Math.round(textRect.width + gapPx);
-      const centerShiftX = Math.round((rowRect.width - arrowRect.width) / 2);
+      const centerShiftX = Math.round((rowRect.width - arrowOriginRect.width) / 2);
       const arrowMode = bodyEl.getAttribute('data-arrow-mode') || 'curtain';
 
       /* Initial hidden state before Beat 1 */
       if (arrowMode === 'curtain') {
-        /* Arrow starts on the right edge and pulls back left to reveal GHN168 MEDIA */
-        bumperRedArrow.style.transform = `translate3d(${fullSlideDist}px, 0, 0) rotate(0deg) scale(0.78)`;
+        /* Arrow starts on the right edge and pulls back left to reveal "GHN168 MEDIA and Creation" in 1 line */
+        bumperRedArrow.style.transform = `translate3d(${fullSlideDist}px, 0, 0) rotate(0deg) scale(1)`;
         bumperTextMask.style.clipPath = 'inset(0 0 0 100%)';
-        bumperTextInner.style.transform = 'translate3d(20px, 0, 0)';
+        bumperTextInner.style.transform = 'translate3d(18px, 0, 0)';
       } else {
         /* Arrow starts near center and pushes words out left->right */
         const startOffset = Math.round(fullSlideDist * 0.5);
-        bumperRedArrow.style.transform = `translate3d(${startOffset}px, 0, 0) rotate(0deg) scale(0.78)`;
+        bumperRedArrow.style.transform = `translate3d(${startOffset}px, 0, 0) rotate(0deg) scale(1)`;
         bumperTextMask.style.clipPath = 'inset(0 100% 0 0)';
-        bumperTextInner.style.transform = 'translate3d(-28%, 0, 0)';
+        bumperTextInner.style.transform = 'translate3d(-24%, 0, 0)';
       }
 
       void cinemaStudioBumper.offsetWidth;
 
       /* BEAT 1 (t = 80ms): Red Arrow materializes on pure black screen */
       introTimers.push(setTimeout(() => {
-        bumperRedArrow.style.transition = 'opacity 240ms ease, transform 280ms cubic-bezier(0.16, 1, 0.3, 1)';
+        bumperRedArrow.style.transition = 'opacity 220ms ease, transform 260ms cubic-bezier(0.16, 1, 0.3, 1)';
         bumperRedArrow.style.opacity = '1';
         const dist = arrowMode === 'curtain' ? fullSlideDist : Math.round(fullSlideDist * 0.5);
-        bumperRedArrow.style.transform = `translate3d(${dist}px, 0, 0) rotate(0deg) scale(1.08)`;
+        bumperRedArrow.style.transform = `translate3d(${dist}px, 0, 0) rotate(0deg) scale(1)`;
       }, 80));
 
-      /* BEAT 2 (t = 380ms): Red Arrow brings in "GHN168 MEDIA" + "GHN168 MEDIA and Creation" underneath */
+      /* BEAT 2 (t = 360ms): Red Arrow brings in "GHN168 MEDIA and Creation" on a single crisp line */
       introTimers.push(setTimeout(() => {
-        const revealDur = '1060ms';
+        const revealDur = '1040ms';
         const revealEase = 'cubic-bezier(0.22, 1, 0.36, 1)';
         bumperRedArrow.style.transition = `transform ${revealDur} ${revealEase}`;
         bumperTextMask.style.transition = `clip-path ${revealDur} ${revealEase}`;
@@ -3274,59 +3258,76 @@
         bumperRedArrow.style.transform = 'translate3d(0px, 0, 0) rotate(0deg) scale(1)';
         bumperTextMask.style.clipPath = 'inset(0 0% 0 0%)';
         bumperTextInner.style.transform = 'translate3d(0px, 0, 0)';
+      }, 360));
 
-        if (bumperSubFullname) {
-          bumperSubFullname.style.transition = 'opacity 680ms ease 260ms, transform 680ms cubic-bezier(0.16, 1, 0.3, 1) 260ms';
-          bumperSubFullname.style.opacity = '1';
-          bumperSubFullname.style.transform = 'translate3d(0, 0, 0)';
-        }
-      }, 380));
+      /* BEAT 3 (t = 1400ms -> 2700ms): Hold studio logo cleanly on screen like a movie opening logo */
 
-      /* BEAT 3 (t = 1450ms -> 2750ms): Hold studio logo cleanly on screen like a movie opening logo */
-
-      /* BEAT 4 (t = 2780ms): Red Arrow sweeps right to gather/collect all the words back in ("ให้ตัวลูกศรสีแดงรวบคำเก็บ") */
+      /* BEAT 4 (t = 2720ms): Red Arrow sweeps right to gather/collect the words back in ("ให้ตัวลูกศรสีแดงรวบคำเก็บ") */
       introTimers.push(setTimeout(() => {
-        const collectDur = '680ms';
+        const collectDur = '660ms';
         const collectEase = 'cubic-bezier(0.4, 0, 0.2, 1)';
         bumperRedArrow.style.transition = `transform ${collectDur} ${collectEase}`;
         bumperTextMask.style.transition = `clip-path ${collectDur} ${collectEase}`;
-        bumperTextInner.style.transition = `transform ${collectDur} ${collectEase}, opacity 520ms ease`;
+        bumperTextInner.style.transition = `transform ${collectDur} ${collectEase}`;
 
-        /* Arrow sweeps across the words to the center-right while clipping the words closed from left to right */
-        bumperRedArrow.style.transform = `translate3d(${centerShiftX}px, 0, 0) rotate(0deg) scale(1.12)`;
+        bumperRedArrow.style.transform = `translate3d(${centerShiftX}px, 0, 0) rotate(0deg) scale(1.06)`;
         bumperTextMask.style.clipPath = 'inset(0 0% 0 100%)';
-        bumperTextInner.style.transform = 'translate3d(28px, 0, 0)';
-      }, 2780));
+        bumperTextInner.style.transform = 'translate3d(24px, 0, 0)';
+      }, 2720));
 
-      /* BEAT 5 (t = 3480ms): Arrow curls/rolls and points straight DOWNWARD ("แล้วก็ม้วนแล้วก็จิ้มพาลูกศรลงไปข้างล่าง") */
+      /* BEAT 5 (t = 3400ms): Arrow curls/rolls and points straight DOWNWARD ("แล้วก็ม้วนแล้วก็จิ้มพาลูกศรลงไปข้างล่าง") */
       introTimers.push(setTimeout(() => {
-        bumperRedArrow.style.transition = 'transform 460ms cubic-bezier(0.34, 1.45, 0.64, 1)';
-        /* Slight upward anticipation + full 360+90=450deg roll so it visibly curls and locks pointing straight down (▼) */
-        bumperRedArrow.style.transform = `translate3d(${centerShiftX}px, -18px, 0) rotate(450deg) scale(1.28)`;
-      }, 3480));
+        bumperRedArrow.style.transition = 'transform 460ms cubic-bezier(0.34, 1.42, 0.64, 1)';
+        bumperRedArrow.style.transform = `translate3d(${centerShiftX}px, -14px, 0) rotate(450deg) scale(1.16)`;
+      }, 3400));
 
-      /* BEAT 6 (t = 3960ms): Arrow plunges straight DOWN to the bottom of the screen to carry viewer into Scene 01 */
+      /* BEAT 6 (t = 3880ms): Arrow dips downward to pull Scene 01 into view (Arrow stays 100% visible, NEVER disappears!) */
       introTimers.push(setTimeout(() => {
-        const diveDist = Math.round(window.innerHeight * 0.68);
-        bumperRedArrow.style.transition = 'transform 540ms cubic-bezier(0.55, 0.05, 0.68, 0.19), opacity 420ms ease 140ms';
-        bumperRedArrow.style.transform = `translate3d(${centerShiftX}px, ${diveDist}px, 0) rotate(450deg) scale(1.42)`;
-        bumperRedArrow.style.opacity = '0';
+        const dipDownY = Math.round(window.innerHeight * 0.22);
+        bumperRedArrow.style.transition = 'transform 460ms cubic-bezier(0.22, 1, 0.36, 1)';
+        bumperRedArrow.style.transform = `translate3d(${centerShiftX}px, ${dipDownY}px, 0) rotate(450deg) scale(1.12)`;
 
-        if (bumperDiveTrail) {
-          bumperDiveTrail.style.transition = 'height 460ms cubic-bezier(0.22, 1, 0.36, 1), opacity 380ms ease, transform 520ms ease';
-          bumperDiveTrail.style.opacity = '0.9';
-          bumperDiveTrail.style.height = '240px';
-          bumperDiveTrail.style.transform = `translate3d(0, ${Math.round(diveDist * 0.65)}px, 0)`;
+        /* Simultaneously slide/fade the black bumper curtain away so Scene 01 appears underneath */
+        if (bumperBackdrop) {
+          bumperBackdrop.style.transition = 'opacity 520ms cubic-bezier(0.22, 1, 0.36, 1)';
+          bumperBackdrop.style.opacity = '0';
         }
-      }, 3960));
-
-      /* BEAT 7 (t = 4340ms): Reveal Scene 01 (Opening Stage) as the bumper curtain opens */
-      introTimers.push(setTimeout(() => {
-        bodyEl.classList.remove('bumper-active');
         bodyEl.classList.add('scene-docked');
         setSlateIndex(0);
+      }, 3880));
+
+      /* BEAT 7 (t = 4360ms): The SAME Red Arrow glides from the dip position straight into Scene 01's top-left dock slot
+         and turns right (▶ 360deg) to lock in place and unfold "GHN168 MEDIA"! */
+      introTimers.push(setTimeout(() => {
+        const targetRect = heroRedTri ? heroRedTri.getBoundingClientRect() : arrowOriginRect;
+        const originCenterX = arrowOriginRect.left + arrowOriginRect.width / 2;
+        const originCenterY = arrowOriginRect.top + arrowOriginRect.height / 2;
+        const targetCenterX = targetRect.left + targetRect.width / 2;
+        const targetCenterY = targetRect.top + targetRect.height / 2;
+
+        const dockDeltaX = Math.round(targetCenterX - originCenterX);
+        const dockDeltaY = Math.round(targetCenterY - originCenterY);
+        const dockScale = Number((targetRect.width / Math.max(arrowOriginRect.width, 1)).toFixed(3));
+
+        bumperRedArrow.style.transition = 'transform 760ms cubic-bezier(0.19, 1, 0.22, 1)';
+        /* Rotate from 450deg (pointing down) back to 360deg (pointing right ▶) as it glides into the top-left corner */
+        bumperRedArrow.style.transform = `translate3d(${dockDeltaX}px, ${dockDeltaY}px, 0) rotate(360deg) scale(${dockScale})`;
+
+        /* As the arrow arrives at the top-left corner, unfold Scene 01's "GHN168 MEDIA" header beside it */
+        if (heroWordmarkMask && heroWordmarkInner) {
+          heroWordmarkMask.style.transition = 'clip-path 680ms cubic-bezier(0.22, 1, 0.36, 1) 240ms';
+          heroWordmarkInner.style.transition = 'transform 680ms cubic-bezier(0.22, 1, 0.36, 1) 240ms';
+          heroWordmarkMask.style.clipPath = 'inset(0 0% 0 0%)';
+          heroWordmarkInner.style.transform = 'translate3d(0px, 0, 0)';
+        }
+      }, 4360));
+
+      /* BEAT 8 (t = 5140ms): Seamless 0-pixel handoff to Scene 01's docked red triangle so the arrow never blinks or vanishes */
+      introTimers.push(setTimeout(() => {
+        if (heroRedTri) heroRedTri.style.opacity = '1';
+        bodyEl.classList.remove('bumper-active');
         introPlaying = false;
-      }, 4340));
+      }, 5140));
     }
 
     /* Scene 01 Slate & 16:9 Monitor Sync */
