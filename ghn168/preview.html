@@ -96,13 +96,16 @@
       position: fixed;
       left: 0;
       top: 0;
-      width: 36px;
-      height: 40px;
+      width: 112px;
+      height: 124px;
+      margin-left: -56px;
+      margin-top: -62px;
       z-index: 700;
       pointer-events: none;
       opacity: 0;
       transform-origin: 50% 50%;
-      transform: translate(0px, 0px) rotate(0deg);
+      transform: translate3d(0px, 0px, 0px) rotate(0deg) scale(1);
+      backface-visibility: hidden;
     }
 
     .global-red-conductor svg {
@@ -3182,16 +3185,19 @@
     }
 
     let bridgeRafId = null;
+    const CONDUCTOR_BASE_W = 112;
 
-    /* Native 1:1 Vector Sizing Helper:
-       Updates physical width & height on every frame and uses 2D translate(x,y) rotate(deg) with ZERO scale()
-       so the browser rasterizes the SVG polygon at 100% native Retina sharpness at every size! */
-    function setRedConductorPose(x, y, deg, widthPx, heightPx) {
-      globalRedConductor.style.width = `${widthPx.toFixed(2)}px`;
-      globalRedConductor.style.height = `${heightPx.toFixed(2)}px`;
-      globalRedConductor.style.marginLeft = `${(-widthPx * 0.5).toFixed(2)}px`;
-      globalRedConductor.style.marginTop = `${(-heightPx * 0.5).toFixed(2)}px`;
-      globalRedConductor.style.transform = `translate(${x.toFixed(2)}px, ${y.toFixed(2)}px) rotate(${deg.toFixed(2)}deg)`;
+    /* Max-First Downscale Helper (Zero Layout Reflow + Zero Upscaling):
+       .global-red-conductor is permanently 112x124px (scale = 1 at full push size).
+       Smaller states (like docked headers) simply scale DOWN (< 1.0) via GPU transform! */
+    function setRedConductorPose(x, y, deg, targetWidthPx) {
+      const sc = Math.min(1, Math.max(0.12, targetWidthPx / CONDUCTOR_BASE_W));
+      globalRedConductor.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0) rotate(${deg.toFixed(2)}deg) scale(${sc.toFixed(4)})`;
+    }
+
+    function hideAndResetRedConductor() {
+      globalRedConductor.style.opacity = '0';
+      globalRedConductor.style.transform = 'translate3d(0px, 0px, 0) rotate(0deg) scale(1)';
     }
 
     function animateRedConductorBridge(fromIdx, toIdx, onMidpoint, onComplete) {
@@ -3261,7 +3267,8 @@
         const stageMidX = Math.round(vw * 0.50);
         const stageBottomY = Math.round(vh - (isMobile ? 56 : 72));
         const stageTopY = Math.round(endY + (isMobile ? 42 : 56));
-        const pushScale = isMobile ? 2.15 : 2.75;
+        const maxPushW = isMobile ? 56 : CONDUCTOR_BASE_W;
+        const pushScale = maxPushW / startW;
 
         /* BEAT 1 LUT (0deg at top-left -> roll down to bottom-center -> 270deg pointing straight UP) */
         const loopRightX = Math.round(vw * (isMobile ? 0.68 : 0.62));
@@ -3533,7 +3540,7 @@
             bridgeRafId = null;
             targetTri.style.opacity = '1';
             originTri.style.opacity = '1';
-            globalRedConductor.style.opacity = '0';
+            hideAndResetRedConductor();
             onComplete();
           }
         }
@@ -3569,7 +3576,8 @@
 
         const stageLeftX = Math.round(Math.max(28, vw * (isMobile ? 0.08 : 0.048)));
         const stageMidY = Math.round(vh * 0.50);
-        const pushScale = isMobile ? 2.15 : 2.75;
+        const maxPushW = isMobile ? 56 : CONDUCTOR_BASE_W;
+        const pushScale = maxPushW / startW;
         const endPushX = Math.round(vw - (isMobile ? 18 : 28));
 
         /* Cubic Bezier from (startX, startY) [0deg] -> swooping out to left margin -> (stageLeftX, stageMidY) [0deg] */
@@ -3743,7 +3751,7 @@
           } else {
             bridgeRafId = null;
             if (startTri) startTri.style.opacity = '1';
-            globalRedConductor.style.opacity = '0';
+            hideAndResetRedConductor();
             onComplete();
           }
         }
@@ -3763,7 +3771,7 @@
         setRedConductorPose(vw * 0.50, vh * 0.88, -90, bigW * 0.65, bigH * 0.65);
         void globalRedConductor.offsetWidth;
 
-        globalRedConductor.style.transition = 'transform 520ms cubic-bezier(0.22, 1, 0.36, 1), width 520ms ease, height 520ms ease, margin 520ms ease, opacity 250ms ease';
+        globalRedConductor.style.transition = 'transform 520ms cubic-bezier(0.22, 1, 0.36, 1), opacity 250ms ease';
         transitionCurtain.style.transition = 'transform 520ms cubic-bezier(0.22, 1, 0.36, 1), opacity 320ms ease';
         setRedConductorPose(vw * 0.50, vh * 0.18, -90, bigW, bigH);
         transitionCurtain.style.transform = 'translate3d(0, 0%, 0)';
@@ -3773,13 +3781,13 @@
           /* Dock into target scene's focal anchor */
           const dockX = toIdx === 3 ? vw * 0.36 : vw * 0.28;
           const dockY = vh * 0.50;
-          globalRedConductor.style.transition = 'transform 440ms cubic-bezier(0.19, 1, 0.22, 1), width 440ms ease, height 440ms ease, margin 440ms ease, opacity 360ms ease';
+          globalRedConductor.style.transition = 'transform 440ms cubic-bezier(0.19, 1, 0.22, 1), opacity 360ms ease';
           transitionCurtain.style.opacity = '0';
           setRedConductorPose(dockX, dockY, 0, 34, 38);
         }, 420);
 
         setTimeout(() => {
-          globalRedConductor.style.opacity = '0';
+          hideAndResetRedConductor();
           onComplete();
         }, 880);
 
@@ -3799,7 +3807,7 @@
         setRedConductorPose(startX, startY, 0, 40, 44);
         void globalRedConductor.offsetWidth;
 
-        globalRedConductor.style.transition = 'transform 460ms cubic-bezier(0.22, 1, 0.36, 1), width 460ms ease, height 460ms ease, margin 460ms ease, opacity 220ms ease';
+        globalRedConductor.style.transition = 'transform 460ms cubic-bezier(0.22, 1, 0.36, 1), opacity 220ms ease';
         transitionCurtain.style.transition = 'transform 480ms ease, opacity 320ms ease';
         transitionCurtain.style.opacity = '1';
         transitionCurtain.style.transform = 'scale(1.08)';
@@ -3807,13 +3815,13 @@
 
         setTimeout(() => {
           onMidpoint();
-          globalRedConductor.style.transition = 'transform 440ms cubic-bezier(0.19, 1, 0.22, 1), width 440ms ease, height 440ms ease, margin 440ms ease, opacity 340ms ease';
+          globalRedConductor.style.transition = 'transform 440ms cubic-bezier(0.19, 1, 0.22, 1), opacity 340ms ease';
           transitionCurtain.style.opacity = '0';
           setRedConductorPose(endX, endY, 0, 34, 38);
         }, 390);
 
         setTimeout(() => {
-          globalRedConductor.style.opacity = '0';
+          hideAndResetRedConductor();
           onComplete();
         }, 840);
       }
