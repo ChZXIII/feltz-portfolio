@@ -935,7 +935,11 @@
       .cutout-portrait-img,
       .ribbon-snap-item,
       .helix-ribbon-glow,
-      .skill-app-item {
+      .skill-app-item,
+      .cat-frag-token,
+      .open-archive-btn.cat-frag-btn,
+      .contact-z-hero,
+      .contact-z-layer {
         animation: none !important;
         transition: none !important;
         opacity: 1 !important;
@@ -1657,6 +1661,70 @@
       align-items: flex-end;
       padding-bottom: 14px;
       border-bottom: 1px solid rgba(201, 59, 43, 0.22);
+      perspective: 1000px;
+      transform-style: preserve-3d;
+    }
+
+    /* 3D Scatter-to-Assemble Motion for Category Top Header (Synced with Giant Bottom Text) */
+    .cat-frag-token {
+      display: inline-block;
+      will-change: transform, opacity;
+      transform-origin: center center;
+      opacity: 0;
+      transform: translate3d(var(--in-x, -44px), var(--in-y, -30px), var(--in-z, 78px))
+                 rotateX(var(--in-rx, 38deg)) rotateY(var(--in-ry, -32deg)) rotateZ(var(--in-rz, -15deg))
+                 scale(0.42);
+      transition: none;
+    }
+
+    .cat-frag-token.cat-en-word {
+      margin-right: 0.26em;
+    }
+
+    .cat-frag-token.cat-en-word:last-child {
+      margin-right: 0;
+    }
+
+    .cat-frag-token.cat-thai-chunk {
+      margin-right: 0;
+      letter-spacing: 0 !important;
+      white-space: pre;
+    }
+
+    .kinetic-section.is-in-view .cat-frag-token {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
+      transition:
+        transform 0.92s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.72s cubic-bezier(0.16, 1, 0.3, 1);
+      transition-delay: var(--frag-delay, 0ms);
+    }
+
+    .open-archive-btn.cat-frag-btn {
+      opacity: 0;
+      transform: translate3d(28px, -18px, 64px) rotateX(24deg) rotateY(-18deg) scale(0.76);
+      transition: none;
+    }
+
+    .kinetic-section.is-in-view .open-archive-btn.cat-frag-btn {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) scale(1);
+      transition:
+        transform 0.88s cubic-bezier(0.16, 1, 0.3, 1) var(--btn-delay, 260ms),
+        opacity 0.68s cubic-bezier(0.16, 1, 0.3, 1) var(--btn-delay, 260ms),
+        background 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .kinetic-section.is-in-view .open-archive-btn.cat-frag-btn:hover {
+      transform: translateY(-2px) scale(1.02);
+      transition-delay: 0ms;
+    }
+
+    .kinetic-section.is-in-view .open-archive-btn.cat-frag-btn:active {
+      transform: scale(0.97);
+      transition-delay: 0ms;
     }
 
     .kinetic-section[data-theme="light"] .category-meta {
@@ -2141,6 +2209,8 @@
       justify-content: space-between;
       align-items: center;
       position: relative;
+      perspective: 1100px;
+      perspective-origin: 50% 46%;
     }
 
     .back-cover-shell {
@@ -2151,6 +2221,7 @@
       flex-direction: column;
       justify-content: space-between;
       z-index: 10;
+      transform-style: preserve-3d;
     }
 
     /* Top Giant Editorial Header for Back Cover */
@@ -2158,14 +2229,19 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
+      border: 1px solid transparent;
       border-bottom: 1px solid rgba(201, 59, 43, 0.32);
-      padding-bottom: 10px;
+      border-radius: 8px;
+      padding: 6px 10px 10px 10px;
       position: relative;
+      transform-style: preserve-3d;
+      --hero-stage-y: 22vh;
+      --hero-stage-scale: 1.12;
     }
 
     .back-giant-title {
       font-family: var(--font-display);
-      font-size: clamp(3.1rem, 8.2vw, 7.2rem);
+      font-size: clamp(2.8rem, 7.2vw, 6.4rem);
       font-weight: 400;
       color: var(--editorial-cream);
       letter-spacing: 0.015em;
@@ -2195,17 +2271,22 @@
       line-height: 1.45;
     }
 
-    /* Middle Process Strip: MY PROCESS 01 - 04 (From Reference Image 1) */
+    /* Middle Process Strip: Separated 3D Card Layers for 01 - 04 */
     .process-editorial-strip {
       display: grid;
       grid-template-columns: 145px repeat(4, 1fr);
-      border-bottom: 1px solid rgba(201, 59, 43, 0.32);
-      background: rgba(16, 9, 9, 0.72);
+      gap: 10px;
+      background: transparent;
+      border: none;
+      transform-style: preserve-3d;
     }
 
     .process-strip-head {
       padding: 12px 14px;
-      border-right: 1px solid rgba(201, 59, 43, 0.25);
+      background: rgba(20, 11, 11, 0.86);
+      border: 1px solid rgba(201, 59, 43, 0.30);
+      border-radius: 6px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.42);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -2231,14 +2312,14 @@
 
     .process-step-card {
       padding: 12px 14px;
-      border-right: 1px solid rgba(201, 59, 43, 0.20);
+      background: rgba(20, 11, 11, 0.86);
+      border: 1px solid rgba(201, 59, 43, 0.30);
+      border-radius: 6px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.42);
       display: flex;
       align-items: flex-start;
       gap: 10px;
-    }
-
-    .process-step-card:last-child {
-      border-right: none;
+      transform-style: preserve-3d;
     }
 
     .process-num {
@@ -2278,6 +2359,7 @@
       gap: 24px;
       align-items: start;
       padding: 12px 0;
+      transform-style: preserve-3d;
     }
 
     .contact-info-panel {
@@ -2285,6 +2367,7 @@
       flex-direction: column;
       justify-content: flex-start;
       gap: 10px;
+      transform-style: preserve-3d;
     }
 
     .studio-cred-card {
@@ -2343,6 +2426,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
+      transform-style: preserve-3d;
     }
 
     .contact-card-item {
@@ -2350,9 +2434,10 @@
       align-items: center;
       gap: 11px;
       padding: 11px 13px;
-      background: rgba(20, 11, 11, 0.82);
-      border: 1px solid rgba(201, 59, 43, 0.25);
+      background: rgba(20, 11, 11, 0.86);
+      border: 1px solid rgba(201, 59, 43, 0.28);
       border-radius: 6px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.42);
       text-decoration: none;
       color: inherit;
       transition: all 0.2s ease;
@@ -2414,6 +2499,7 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 8px;
+      transform-style: preserve-3d;
     }
 
     .social-pill {
@@ -2448,15 +2534,17 @@
       color: #ffffff;
     }
 
-    /* Right Form Panel */
+    /* Right Form Panel (Master Commission Brief Card) */
     .contact-form-panel {
-      background: rgba(18, 10, 10, 0.88);
-      border: 1px solid rgba(201, 59, 43, 0.32);
+      background: rgba(18, 10, 10, 0.90);
+      border: 1px solid rgba(201, 59, 43, 0.34);
       border-radius: 8px;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.48);
       padding: 18px 22px;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      transform-style: preserve-3d;
     }
 
     .mockup-form {
@@ -2559,26 +2647,123 @@
       color: var(--accent-vermilion);
     }
 
+    /* ==========================================================================
+       3D Z-AXIS DEPTH CHOREOGRAPHY FOR SECTION 09 (FRONT SHOWCASE -> RECEDE TO BG)
+       ========================================================================== */
+    .contact-z-hero {
+      opacity: 0;
+      will-change: transform, opacity;
+      transform-origin: center center;
+      transform: perspective(950px) translate3d(0, var(--hero-stage-y, 22vh), 0px) rotateX(12deg) scale(var(--hero-stage-scale, 1.14));
+      z-index: 40;
+    }
+
+    .contact-section.is-in-view .contact-z-hero {
+      animation: contactHeroZShowcase 1.88s cubic-bezier(0.22, 1, 0.36, 1) 0.06s forwards;
+    }
+
+    @keyframes contactHeroZShowcase {
+      0% {
+        opacity: 0;
+        transform: perspective(950px) translate3d(0, calc(var(--hero-stage-y, 22vh) + 24px), 0px) rotateX(16deg) scale(calc(var(--hero-stage-scale, 1.14) * 0.90));
+        background: rgba(18, 9, 9, 0.96);
+        border-color: rgba(224, 79, 62, 0.85);
+        box-shadow: 0 38px 86px rgba(0, 0, 0, 0.96), 0 0 44px rgba(201, 59, 43, 0.38);
+      }
+      28% {
+        opacity: 1;
+        transform: perspective(950px) translate3d(0, var(--hero-stage-y, 22vh), 0px) rotateX(5deg) scale(var(--hero-stage-scale, 1.14));
+        background: rgba(18, 9, 9, 0.96);
+        border-color: rgba(224, 79, 62, 0.85);
+        box-shadow: 0 38px 86px rgba(0, 0, 0, 0.96), 0 0 44px rgba(201, 59, 43, 0.36);
+      }
+      54% {
+        opacity: 1;
+        transform: perspective(950px) translate3d(0, var(--hero-stage-y, 22vh), 0px) rotateX(2deg) scale(var(--hero-stage-scale, 1.14));
+        background: rgba(18, 9, 9, 0.94);
+        border-color: rgba(224, 79, 62, 0.74);
+        box-shadow: 0 32px 72px rgba(0, 0, 0, 0.92), 0 0 36px rgba(201, 59, 43, 0.28);
+      }
+      100% {
+        opacity: 1;
+        transform: perspective(950px) translate3d(0, 0, 0px) rotateX(0deg) scale(1);
+        background: transparent;
+        border-color: transparent;
+        border-bottom-color: rgba(201, 59, 43, 0.32);
+        box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+      }
+    }
+
+    .contact-z-layer {
+      opacity: 0;
+      will-change: transform, opacity;
+      transform-origin: center center;
+      --peak-scale: 1.075;
+      transform: perspective(950px) translate3d(0, 22px, 0px) rotateX(14deg) scale(calc(var(--peak-scale, 1.075) * 1.02));
+      position: relative;
+      z-index: 25;
+    }
+
+    .contact-card-item.full-span.contact-z-layer,
+    .contact-social-grid.contact-z-layer,
+    .studio-cred-card.contact-z-layer,
+    .contact-form-panel.contact-z-layer,
+    .back-cover-footer.contact-z-layer {
+      --peak-scale: 1.035;
+    }
+
+    .contact-section.is-in-view .contact-z-layer {
+      animation: contactLayerZPlace 1.06s cubic-bezier(0.22, 1, 0.36, 1) var(--z-delay, 1.5s) forwards;
+    }
+
+    @keyframes contactLayerZPlace {
+      0% {
+        opacity: 0;
+        transform: perspective(950px) translate3d(0, 22px, 0px) rotateX(15deg) scale(calc(var(--peak-scale, 1.075) * 1.03));
+        z-index: 30;
+      }
+      38% {
+        opacity: 1;
+        transform: perspective(950px) translate3d(0, -10px, 0px) rotateX(5deg) scale(var(--peak-scale, 1.075));
+        box-shadow: 0 30px 64px rgba(0, 0, 0, 0.95), 0 0 30px rgba(201, 59, 43, 0.38);
+        border-color: rgba(224, 79, 62, 0.88);
+        z-index: 30;
+      }
+      100% {
+        opacity: 1;
+        transform: perspective(950px) translate3d(0, 0, 0px) rotateX(0deg) scale(1);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.42);
+        z-index: 1;
+      }
+    }
+
     /* Mobile Responsive Editorial Back Cover (Fits 100dvh on 430x932 cleanly!) */
     @media (max-width: 768px) {
       .contact-section {
-        padding: 42px 14px 12px 14px;
+        padding: 40px 14px 10px 14px;
+        perspective: 900px;
       }
 
       .back-cover-top {
         flex-direction: column;
-        align-items: flex-start;
-        gap: 2px;
-        padding-bottom: 6px;
+        align-items: center;
+        text-align: center;
+        width: 86%;
+        margin: 0 auto;
+        gap: 3px;
+        padding: 8px 12px;
+        --hero-stage-y: 23vh;
+        --hero-stage-scale: 1.15;
       }
 
       .back-giant-title {
-        font-size: clamp(2.6rem, 13.5vw, 3.8rem);
+        font-size: clamp(1.9rem, 9.6vw, 2.55rem);
         line-height: 0.88;
+        white-space: nowrap;
       }
 
       .back-cover-subbox {
-        text-align: left;
+        text-align: center;
         max-width: 100%;
       }
 
@@ -2588,14 +2773,15 @@
 
       .back-cover-lead {
         font-size: 11px;
-        line-height: 1.3;
+        line-height: 1.28;
       }
 
       .process-editorial-strip {
         grid-template-columns: repeat(2, 1fr);
-        border: 1px solid rgba(201, 59, 43, 0.28);
-        border-radius: 6px;
-        overflow: hidden;
+        gap: 6px;
+        border: none;
+        background: transparent;
+        overflow: visible;
       }
 
       .process-strip-head {
@@ -2605,15 +2791,9 @@
       .process-step-card {
         padding: 6px 8px;
         gap: 6px;
-        border-bottom: 1px solid rgba(201, 59, 43, 0.18);
-      }
-
-      .process-step-card:nth-child(2n+1) {
-        border-right: none;
-      }
-
-      .process-step-card:nth-last-child(-n+2) {
-        border-bottom: none;
+        border: 1px solid rgba(201, 59, 43, 0.30);
+        border-radius: 6px;
+        background: rgba(20, 11, 11, 0.86);
       }
 
       .process-num {
@@ -2631,8 +2811,8 @@
 
       .contact-body-grid {
         grid-template-columns: 1fr;
-        gap: 8px;
-        padding: 6px 0;
+        gap: 6px;
+        padding: 4px 0;
       }
 
       .contact-info-panel {
@@ -2645,7 +2825,7 @@
       }
 
       .contact-card-item {
-        padding: 7px 9px;
+        padding: 6px 9px;
         gap: 7px;
       }
 
@@ -2694,11 +2874,11 @@
       }
 
       .contact-form-panel {
-        padding: 10px 12px;
+        padding: 9px 12px;
       }
 
       .mockup-form {
-        gap: 7px;
+        gap: 6px;
       }
 
       .form-row-2 {
@@ -2721,7 +2901,7 @@
       }
 
       .back-cover-footer {
-        padding-top: 6px;
+        padding-top: 5px;
         font-size: 8.5px;
       }
     }
@@ -5008,6 +5188,30 @@
     const sideNav = document.getElementById("side-indicator");
     const topNav = document.getElementById("top-nav");
 
+    const CATEGORY_SUB_CHUNKS = {
+      concert: ["บันทึกพลังแสงสี", "และอารมณ์สด", "บนเวทีคอนเสิร์ต", "ระดับเทศกาล"],
+      hospitality: ["ถ่ายทอดมิติ", "แสงธรรมชาติ", "และบรรยากาศพักผ่อน", "ระดับลักชัวรี"],
+      sport: ["จับเสี้ยววินาที", "ความเร็วสูง", "และพลังการแข่งขัน", "อย่างแม่นยำ"],
+      architecture: ["ถ่ายทอดสเปซบ้าน ", "วิลล่า คอนโด ", "และโครงการอสังหาริมทรัพย์", "เพื่อการขายและเช่า"],
+      gastronomy: ["ขับเน้นความพิถีพิถัน", "ของรสชาติ", "และเท็กซ์เจอร์", "อาหารจานพิเศษ"],
+      commercial: ["ยกระดับมูลค่าสินค้า", "และภาพลักษณ์แบรนด์", "เพื่อการโฆษณา"],
+      portrait: ["ดึงคาแรกเตอร์", "และเสน่ห์เฉพาะตัว", "ด้วยการจัดแสง", "ระดับสตูดิโอ"],
+      live_event: ["บันทึกจังหวะสำคัญ", "ของงานประชุมนานาชาติ", "และอีเวนต์องค์กร"]
+    };
+
+    function buildCatFragStyle(idx) {
+      const angle = (idx * 137.5) * (Math.PI / 180);
+      const dist = 46 + (idx % 4) * 18;
+      const inX = Math.round(Math.cos(angle) * dist);
+      const inY = Math.round(Math.sin(angle) * dist);
+      const inZ = ((idx % 3) - 1) * 64;
+      const inRx = ((idx % 2 === 0 ? 1 : -1) * (28 + (idx % 3) * 12));
+      const inRy = ((idx % 2 === 1 ? 1 : -1) * (30 + (idx % 4) * 10));
+      const inRz = ((idx % 2 === 0 ? -1 : 1) * (12 + (idx % 3) * 6));
+      const delayMs = 70 + idx * 32;
+      return `--in-x:${inX}px;--in-y:${inY}px;--in-z:${inZ}px;--in-rx:${inRx}deg;--in-ry:${inRy}deg;--in-rz:${inRz}deg;--frag-delay:${delayMs}ms;`;
+    }
+
     function initDOM() {
       // 1. Build Side Nav: Dot 00 INTRO
       const introDot = document.createElement("button");
@@ -5041,7 +5245,7 @@
         glow.style.setProperty("--glow-color", cat.glow);
         sec.appendChild(glow);
 
-        // Editorial Category Header with Frame Spec
+        // Editorial Category Header with 3D Scatter-to-Assemble Motion (Synced with Bottom Giant Text)
         const meta = document.createElement("div");
         meta.className = "category-meta";
         const frameCountStr = String(cat.photos.length).padStart(2, "0");
@@ -5053,17 +5257,34 @@
           : `ดูแกลเลอรีพอร์ตเต็ม`;
         const btnPill = `${totalArchivePhotos} ภาพ`;
 
+        let fragCounter = 0;
+        const numFragStyle = buildCatFragStyle(fragCounter++);
+        const labelTokens = ["//", ...cat.label.split(" ")];
+        const labelFragHtml = labelTokens
+          .map((tok) => `<span class="cat-frag-token cat-en-word" style="${buildCatFragStyle(fragCounter++)}">${tok}</span>`)
+          .join("");
+
+        const thChunks = CATEGORY_SUB_CHUNKS[cat.id] || [cat.sub];
+        const subFragHtml = thChunks
+          .map((ch) => `<span class="cat-frag-token cat-thai-chunk" style="${buildCatFragStyle(fragCounter++)}">${ch}</span>`)
+          .join("");
+
+        const specTokens = ["360&deg;", "RING", "//", frameCountStr, "SELECTED", "HIGHLIGHTS"];
+        const specFragHtml = specTokens
+          .map((tok) => `<span class="cat-frag-token cat-en-word" style="${buildCatFragStyle(fragCounter++)}">${tok}</span>`)
+          .join("");
+
         meta.innerHTML = `
           <div class="meta-left-group">
             <div class="meta-badge">
-              <span class="badge-num">${cat.num}</span>
-              <span>// ${cat.label}</span>
+              <span class="badge-num cat-frag-token" style="${numFragStyle}">${cat.num}</span>
+              <span>${labelFragHtml}</span>
             </div>
-            <div class="meta-sub">${cat.sub}</div>
+            <div class="meta-sub">${subFragHtml}</div>
           </div>
           <div class="meta-right-group">
-            <div class="meta-right-spec">360&deg; RING // ${frameCountStr} SELECTED HIGHLIGHTS</div>
-            <button type="button" class="open-archive-btn" onclick="openCategoryFullPortfolio('${cat.id}')">
+            <div class="meta-right-spec">${specFragHtml}</div>
+            <button type="button" class="open-archive-btn cat-frag-btn" style="--btn-delay:${110 + fragCounter * 24}ms;" onclick="openCategoryFullPortfolio('${cat.id}')">
               <span>${btnLabel}</span>
               <span class="btn-count-pill">${btnPill}</span>
               <svg class="arrow-ic" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
@@ -5158,8 +5379,8 @@
         <div class="ambient-glow" style="--glow-color: rgba(201, 59, 43, 0.28);"></div>
         <div class="back-cover-shell">
 
-          <!-- 1. Editorial Back Cover Giant Header -->
-          <div class="back-cover-top">
+          <!-- 1. Editorial Back Cover Giant Header (Beat 1: Foreground Z-Showcase -> Recede to Top Background) -->
+          <div class="back-cover-top contact-z-hero">
             <h2 class="back-giant-title">FELTZ COMMISSION</h2>
             <div class="back-cover-subbox">
               <div class="back-cover-kicker">09 // BOOKING &amp; PRODUCTION INQUIRY</div>
@@ -5167,14 +5388,14 @@
             </div>
           </div>
 
-          <!-- 2. MY PROCESS // 01-04 (Matching Editorial Poster Reference) -->
+          <!-- 2. MY PROCESS // 01-04 (Beat 2: Separated 3D Card Layers Float Forward & Settle onto Background) -->
           <div class="process-editorial-strip">
-            <div class="process-strip-head">
+            <div class="process-strip-head contact-z-layer" style="--z-delay: 1.48s;">
               <div class="process-strip-title">MY PROCESS</div>
               <div class="process-strip-tag">04 WORKFLOW STEPS</div>
             </div>
 
-            <div class="process-step-card">
+            <div class="process-step-card contact-z-layer" style="--z-delay: 1.54s;">
               <span class="process-num">01</span>
               <div class="process-info">
                 <div class="process-name">BRIEF &amp; DIRECTION</div>
@@ -5182,7 +5403,7 @@
               </div>
             </div>
 
-            <div class="process-step-card">
+            <div class="process-step-card contact-z-layer" style="--z-delay: 1.62s;">
               <span class="process-num">02</span>
               <div class="process-info">
                 <div class="process-name">PRODUCTION &amp; RIG</div>
@@ -5191,7 +5412,7 @@
             </div>
 
             <!-- 03: COLOR LAB GRADING -->
-            <div class="process-step-card">
+            <div class="process-step-card contact-z-layer" style="--z-delay: 1.70s;">
               <span class="process-num">03</span>
               <div class="process-info">
                 <div class="process-name">COLOR LAB GRADING</div>
@@ -5199,7 +5420,7 @@
               </div>
             </div>
 
-            <div class="process-step-card">
+            <div class="process-step-card contact-z-layer" style="--z-delay: 1.78s;">
               <span class="process-num">04</span>
               <div class="process-info">
                 <div class="process-name">FAST DELIVERY</div>
@@ -5208,11 +5429,11 @@
             </div>
           </div>
 
-          <!-- 3. Direct Contact Channels & Editorial Inquiry Form -->
+          <!-- 3. Direct Contact Channels (Beat 3: Sequential Z-Layer Placement) & Editorial Inquiry Form (Beat 4) -->
           <div class="contact-body-grid">
             <div class="contact-info-panel">
               <div class="contact-channel-cards">
-                <a href="tel:0895544355" class="contact-card-item">
+                <a href="tel:0895544355" class="contact-card-item contact-z-layer" style="--z-delay: 2.38s;">
                   <div class="contact-card-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                   </div>
@@ -5222,7 +5443,7 @@
                   </div>
                 </a>
 
-                <a href="https://line.me/ti/p/~0895544355" target="_blank" rel="noopener noreferrer" class="contact-card-item">
+                <a href="https://line.me/ti/p/~0895544355" target="_blank" rel="noopener noreferrer" class="contact-card-item contact-z-layer" style="--z-delay: 2.76s;">
                   <div class="contact-card-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
                   </div>
@@ -5232,7 +5453,7 @@
                   </div>
                 </a>
 
-                <a href="mailto:silver_nsx@hotmail.com" class="contact-card-item full-span">
+                <a href="mailto:silver_nsx@hotmail.com" class="contact-card-item full-span contact-z-layer" style="--z-delay: 3.14s;">
                   <div class="contact-card-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                   </div>
@@ -5242,7 +5463,7 @@
                   </div>
                 </a>
 
-                <div class="contact-card-item full-span">
+                <div class="contact-card-item full-span contact-z-layer" style="--z-delay: 3.52s;">
                   <div class="contact-card-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                   </div>
@@ -5253,12 +5474,12 @@
                 </div>
               </div>
 
-              <div class="studio-cred-card">
+              <div class="studio-cred-card contact-z-layer" style="--z-delay: 3.84s;">
                 <div class="studio-cred-title">OPTICAL RIG &amp; ENTERPRISE CLIENTS</div>
                 <div class="studio-cred-text">Dual Sony A7 IV · FE 70-200mm GM II · Sigma Art · Capture One, Photoshop, Lightroom &amp; Affinity Design<br/>Singha · KBank · Thai AirAsia · True · AIA · Yamaha · TCEB · GISTDA</div>
               </div>
 
-              <div class="contact-social-grid">
+              <div class="contact-social-grid contact-z-layer" style="--z-delay: 3.92s;">
                 <a href="https://line.me/ti/p/~0895544355" target="_blank" rel="noopener noreferrer" class="social-pill">
                   <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M12 2C6.48 2 2 5.92 2 10.75c0 2.92 1.63 5.5 4.14 7.05-.18.66-.66 2.4-1 3.65 0 0-.08.31.17.43.25.11.53-.02.53-.02 2.87-1.92 3.86-2.58 4.25-2.85.94.22 1.91.34 2.91.34 5.52 0 10-3.92 10-8.75S17.52 2 12 2z"/></svg>
                   <span>LINE</span>
@@ -5278,8 +5499,8 @@
               </div>
             </div>
 
-            <!-- Right: Editorial Commission Form -->
-            <div class="contact-form-panel">
+            <!-- Right: Editorial Commission Form (Beat 4: Master Brief Box Floats Forward & Settles Last) -->
+            <div class="contact-form-panel contact-z-layer" style="--z-delay: 4.28s;">
               <div class="form-panel-head">
                 <span class="form-panel-title">COMMISSION BRIEF // ใบแจ้งรายละเอียดงาน</span>
                 <span class="form-panel-sub">DIRECT STUDIO RESPONSE</span>
@@ -5328,7 +5549,7 @@
           </div>
 
           <!-- 4. Editorial Back Cover Footer -->
-          <div class="back-cover-footer">
+          <div class="back-cover-footer contact-z-layer" style="--z-delay: 4.92s;">
             <span>&copy; FELTZ STUDIO // MONGKOL WONGSAKULYANON — ALL RIGHTS RESERVED</span>
             <button type="button" class="back-top-btn" onclick="scrollToCategory(0)">BACK TO COVER &uarr;</button>
           </div>
