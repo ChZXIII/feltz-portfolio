@@ -3,40 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>GHN168 Media & Creation — Scene 01 Preview</title>
+  <title>GHN168 Media &amp; Creation — Interactive 3D Scene Experience (Preview)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     :root {
       /* Pure Matte Black Stage Palette (Zero Background Watermark, Zero Fake Noise) */
-      --matte-black: #0e0f12;
-      --matte-surface: #15171c;
+      --matte-black: #0c0d10;
+      --matte-surface: #14161b;
       --matte-elevated: #1c1f26;
       --ink-white: #f5f4f0;
+      --ink-cream: #ede9da;
       --ink-secondary: #a5a9b4;
-      --ink-muted: #686d7a;
+      --ink-muted: #6c7180;
       --ghn-red: #e02424;
-      --ghn-red-bright: #ff2e2e;
+      --ghn-red-pillar: #d83b2b;
+      --light-stage-bg: #d9d9d9;
+      --light-stage-card: #111215;
       --hairline: rgba(245, 244, 240, 0.11);
-      --hairline-strong: rgba(245, 244, 240, 0.22);
+      --hairline-strong: rgba(245, 244, 240, 0.24);
+      --hairline-dark: rgba(14, 15, 18, 0.16);
 
       /* Composite Font Stacks */
       --font-display: 'Outfit', 'Anuphan', 'IBM Plex Sans Thai', sans-serif;
       --font-body: 'Anuphan', 'IBM Plex Sans Thai', sans-serif;
       --font-mono: 'JetBrains Mono', 'Anuphan', monospace;
 
-      /* Transitions.dev Motion Tokens */
-      --duration-stagger: 40ms;
-      --duration-micro: 80ms;
-      --duration-quick: 150ms;
-      --duration-fast: 250ms;
-      --duration-medium: 350ms;
-      --duration-slow: 400ms;
-      --duration-very-slow: 500ms;
+      /* Motion Tokens */
       --ease-smooth-out: cubic-bezier(0.16, 1, 0.3, 1);
       --ease-cushioned: cubic-bezier(0.22, 1, 0.36, 1);
       --ease-stage-dock: cubic-bezier(0.19, 1, 0.22, 1);
+      --ease-spring-dial: cubic-bezier(0.34, 1.38, 0.64, 1);
     }
 
     * {
@@ -47,25 +45,15 @@
 
     html, body {
       width: 100%;
-      min-height: 100%;
+      height: 100%;
       background-color: var(--matte-black);
       color: var(--ink-white);
       font-family: var(--font-body);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      overflow-x: hidden;
-    }
-
-    /* Subtle tactile matte finish — completely smooth dark obsidian without blotches */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      background:
-        radial-gradient(circle at 50% 38%, rgba(255, 255, 255, 0.022) 0%, transparent 62%),
-        linear-gradient(180deg, #101115 0%, #0d0e11 100%);
+      overflow: hidden;
+      overscroll-behavior: none;
+      user-select: none;
     }
 
     /* Language visibility helper */
@@ -73,51 +61,97 @@
     html[data-lang="en"] [data-th] { display: none !important; }
 
     /* ==========================================================================
-       FLOATING PREVIEW & LANGUAGE CONTROLS (Top-Right Corner)
+       GLOBAL RED TRIANGLE CONDUCTOR & TRANSITION SHUTTER OVERLAY
+       ("ทุกครั้งที่มีการเปลี่ยนหน้า ตัวลูกศรสีแดงจะต้องเป็นตัวพามันไป")
+       ========================================================================== */
+    .transition-stage-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 650;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .transition-wipe-curtain {
+      position: absolute;
+      inset: -10%;
+      opacity: 0;
+      transform: translate3d(-120%, 0, 0);
+      will-change: transform, opacity;
+    }
+
+    .transition-wipe-curtain.theme-light {
+      background: linear-gradient(90deg, #e02424 0%, #d9d9d9 14%, #d9d9d9 100%);
+    }
+
+    .transition-wipe-curtain.theme-dark {
+      background: linear-gradient(180deg, #e02424 0%, #0c0d10 16%, #0c0d10 100%);
+    }
+
+    .transition-wipe-curtain.theme-tunnel {
+      background: radial-gradient(circle at 50% 50%, rgba(224, 36, 36, 0.34) 0%, rgba(12, 13, 16, 0.94) 68%);
+    }
+
+    .global-red-conductor {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 56px;
+      height: 62px;
+      margin-left: -28px;
+      margin-top: -31px;
+      z-index: 700;
+      pointer-events: none;
+      opacity: 0;
+      transform: translate3d(50vw, 50vh, 0) scale(0.5);
+      filter: drop-shadow(0 0 28px rgba(224, 36, 36, 0.72));
+      will-change: transform, opacity;
+    }
+
+    .global-red-conductor svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      overflow: visible;
+    }
+
+    .conductor-trail-flare {
+      position: absolute;
+      right: 65%;
+      top: 50%;
+      width: 180px;
+      height: 6px;
+      margin-top: -3px;
+      background: linear-gradient(90deg, transparent 0%, rgba(224, 36, 36, 0.85) 100%);
+      border-radius: 999px;
+      transform-origin: right center;
+    }
+
+    /* ==========================================================================
+       TOP-RIGHT HUD CONTROLS & RIGHT-EDGE SCENE RAIL (01 - 04)
        ========================================================================== */
     .stage-hud-controls {
       position: fixed;
-      top: 22px;
-      right: 36px;
-      z-index: 300;
+      top: 18px;
+      right: 28px;
+      z-index: 500;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
       justify-content: flex-end;
     }
 
-    .mode-switch,
-    .lang-switch {
+    .hud-pill-group {
       position: relative;
-      display: inline-grid;
-      grid-template-columns: 1fr 1fr;
-      background: var(--matte-surface);
+      display: inline-flex;
+      align-items: center;
+      background: rgba(20, 22, 27, 0.92);
       border: 1px solid var(--hairline-strong);
       border-radius: 999px;
       padding: 3px;
-      user-select: none;
-    }
-
-    .mode-pill,
-    .lang-pill {
-      position: absolute;
-      top: 3px;
-      left: 3px;
-      width: calc(50% - 3px);
-      height: calc(100% - 6px);
-      background: var(--ghn-red);
-      border-radius: 999px;
-      transition: transform var(--duration-slow) var(--ease-smooth-out);
-      z-index: 1;
-    }
-
-    html[data-lang="en"] .lang-pill {
-      transform: translateX(100%);
-    }
-
-    body[data-arrow-mode="emerge"] .mode-pill {
-      transform: translateX(100%);
+      gap: 2px;
+      backdrop-filter: blur(10px);
     }
 
     .hud-seg-btn {
@@ -125,40 +159,43 @@
       z-index: 2;
       background: transparent;
       border: none;
-      color: var(--ink-white);
+      color: var(--ink-secondary);
       font-family: var(--font-mono);
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       font-weight: 600;
       letter-spacing: 0.06em;
       padding: 5px 11px;
+      border-radius: 999px;
       cursor: pointer;
       white-space: nowrap;
-      transition: opacity var(--duration-fast) ease;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .hud-seg-btn.is-active {
+      background: var(--ghn-red);
+      color: var(--ink-white);
     }
 
     .hud-action-btn {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
-      background: var(--matte-surface);
+      gap: 6px;
+      background: rgba(20, 22, 27, 0.92);
       border: 1px solid var(--hairline-strong);
       color: var(--ink-white);
       font-family: var(--font-mono);
-      font-size: 0.71rem;
+      font-size: 0.68rem;
       font-weight: 600;
-      letter-spacing: 0.08em;
-      padding: 7px 14px;
+      letter-spacing: 0.07em;
+      padding: 6px 13px;
       border-radius: 999px;
       cursor: pointer;
-      transition:
-        border-color var(--duration-fast) var(--ease-smooth-out),
-        background-color var(--duration-fast) var(--ease-smooth-out),
-        transform var(--duration-quick) var(--ease-smooth-out);
+      transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.15s ease;
     }
 
     .hud-action-btn:hover {
       border-color: var(--ghn-red);
-      background: rgba(224, 36, 36, 0.16);
+      background: rgba(224, 36, 36, 0.18);
     }
 
     .hud-action-btn:active {
@@ -175,36 +212,168 @@
       flex-shrink: 0;
     }
 
-    /* ==========================================================================
-       SCENE 01 // FULL-VIEWPORT PRODUCTION HOUSE STAGE
-       ========================================================================== */
-    .scene-01-stage {
-      position: relative;
-      z-index: 2;
-      min-height: 100vh;
-      width: 100%;
-      max-width: 1640px;
-      margin: 0 auto;
-      padding: 28px 44px 24px;
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-      gap: 22px;
+    /* Scene Navigation Rail (Bottom-Center / Right Floating Indicator) */
+    .scene-nav-rail {
+      position: fixed;
+      right: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 490;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: rgba(20, 22, 27, 0.88);
+      border: 1px solid var(--hairline-strong);
+      padding: 10px 7px;
+      border-radius: 999px;
+      backdrop-filter: blur(8px);
     }
 
-    /* --------------------------------------------------------------------------
-       1. TOP DOCKING HEADER ("ที่วาง" ของ ▶ GHN168 MEDIA หลังเปิดกลางจอเสร็จ)
-       -------------------------------------------------------------------------- */
+    .rail-scene-btn {
+      position: relative;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--ink-secondary);
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s var(--ease-smooth-out);
+    }
+
+    .rail-scene-btn:hover {
+      color: var(--ink-white);
+      border-color: rgba(224, 36, 36, 0.5);
+    }
+
+    .rail-scene-btn.is-active {
+      background: var(--ghn-red);
+      color: var(--ink-white);
+      box-shadow: 0 0 14px rgba(224, 36, 36, 0.55);
+    }
+
+    /* ==========================================================================
+       DISCRETE SCENE VIEWPORT DECK (1 Gesture = 1 Full Page Transition)
+       ========================================================================== */
+    .scenes-viewport {
+      position: relative;
+      width: 100vw;
+      height: 100dvh;
+      overflow: hidden;
+      perspective: 1600px;
+    }
+
+    .scene-page {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translate3d(0, 40px, -120px) scale(0.96);
+      transition:
+        opacity 0.72s var(--ease-cushioned),
+        transform 0.82s var(--ease-cushioned),
+        visibility 0.72s;
+      will-change: transform, opacity;
+      overflow: hidden;
+    }
+
+    .scene-page.is-active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translate3d(0, 0, 0) scale(1);
+      z-index: 10;
+    }
+
+    .scene-page.is-prev {
+      opacity: 0;
+      visibility: hidden;
+      transform: translate3d(0, -48px, -140px) scale(0.95);
+      z-index: 4;
+    }
+
+    .scene-page.is-next {
+      opacity: 0;
+      visibility: hidden;
+      transform: translate3d(0, 56px, -140px) scale(0.95);
+      z-index: 4;
+    }
+
+    /* Shared Scene Shell Grid */
+    .scene-inner-shell {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      max-width: 1620px;
+      margin: 0 auto;
+      padding: 22px 68px 18px 40px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 14px;
+    }
+
+    .scene-footer-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 10px;
+      border-top: 1px solid var(--hairline);
+      font-family: var(--font-mono);
+      font-size: 0.69rem;
+      color: var(--ink-secondary);
+      letter-spacing: 0.08em;
+    }
+
+    .scene-step-nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(224, 36, 36, 0.14);
+      border: 1px solid rgba(224, 36, 36, 0.48);
+      color: var(--ink-white);
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      padding: 6px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background-color 0.25s ease, transform 0.2s ease;
+    }
+
+    .scene-step-nav-btn:hover {
+      background: var(--ghn-red);
+    }
+
+    /* ==========================================================================
+       SCENE 01 // OPENING STAGE (▶ GHN168 MEDIA Center Reveal -> Top-Left Dock)
+       ========================================================================== */
+    #scene01 {
+      background:
+        radial-gradient(circle at 50% 38%, rgba(255, 255, 255, 0.024) 0%, transparent 62%),
+        linear-gradient(180deg, #101115 0%, #0b0c0f 100%);
+    }
+
     .scene-top-dock {
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
-      padding-bottom: 16px;
-      padding-right: 340px; /* Clear of top-right HUD buttons */
+      padding-bottom: 12px;
+      padding-right: 360px;
       border-bottom: 1px solid var(--hairline);
       position: relative;
     }
 
-    /* Red Triangle Horizon Line that draws across under the header when docked */
     .dock-horizon-line {
       position: absolute;
       left: 0;
@@ -224,14 +393,14 @@
     .brand-dock-slot {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 4px;
     }
 
     .brand-kicker {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       font-weight: 600;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.15em;
       color: var(--ink-secondary);
       text-transform: uppercase;
       display: flex;
@@ -239,9 +408,7 @@
       gap: 8px;
       opacity: 0;
       transform: translateX(-12px);
-      transition:
-        opacity 0.65s var(--ease-smooth-out),
-        transform 0.65s var(--ease-smooth-out);
+      transition: opacity 0.65s var(--ease-smooth-out), transform 0.65s var(--ease-smooth-out);
     }
 
     body.scene-docked .brand-kicker {
@@ -249,15 +416,12 @@
       transform: translateX(0);
     }
 
-    /* THE HERO ACTOR: ▶ GHN168 MEDIA
-       Starts dead-center in the viewport, reveals via the Red Right-Pointing Triangle,
-       and then retreats smoothly back to this exact resting dock! */
     .brand-hero-lockup {
       display: inline-flex;
       align-items: center;
       gap: 0.24em;
       font-family: var(--font-display);
-      font-size: clamp(2.5rem, 4.8vw, 4.5rem);
+      font-size: clamp(2.2rem, 4.3vw, 4.1rem);
       font-weight: 900;
       letter-spacing: -0.02em;
       line-height: 0.96;
@@ -266,10 +430,8 @@
       will-change: transform;
       position: relative;
       z-index: 260;
-      user-select: none;
     }
 
-    /* The Red Right-Pointing Triangle (ตัวสามเหลี่ยมลูกศรสีแดงชี้ไปทางขวา ▶) */
     .hero-red-triangle {
       position: relative;
       z-index: 5;
@@ -290,7 +452,6 @@
       overflow: visible;
     }
 
-    /* Wordmark Mask Container for GHN168 MEDIA */
     .hero-wordmark-mask {
       position: relative;
       display: inline-flex;
@@ -309,41 +470,22 @@
       will-change: transform, opacity;
     }
 
-    .word-ghn {
+    .word-ghn { color: var(--ink-white); }
+    .word-media { display: inline-flex; letter-spacing: -0.02em; }
+    .media-me, .media-dia {
       color: var(--ink-white);
+      transition: color 0.75s var(--ease-smooth-out), text-shadow 0.75s var(--ease-smooth-out);
     }
 
-    /* Progressive ME -> DIA -> White Color Sync (Locked Rule: Zero vertical bobbing) */
-    .word-media {
-      display: inline-flex;
-      letter-spacing: -0.02em;
-    }
-
-    .media-me,
-    .media-dia {
-      color: var(--ink-white);
-      transition:
-        color 0.75s var(--ease-smooth-out),
-        text-shadow 0.75s var(--ease-smooth-out);
-    }
-
-    /* Step 0 (01 // ABOUT): "ME" turns red */
     .brand-hero-lockup[data-media-step="0"] .media-me {
       color: var(--ghn-red);
       text-shadow: 0 0 26px rgba(224, 36, 36, 0.32);
     }
-    .brand-hero-lockup[data-media-step="0"] .media-dia {
-      color: var(--ink-white);
-    }
-
-    /* Step 1 (02 // G·H·N): "MEDIA" (ME + DIA) full red */
     .brand-hero-lockup[data-media-step="1"] .media-me,
     .brand-hero-lockup[data-media-step="1"] .media-dia {
       color: var(--ghn-red);
       text-shadow: 0 0 26px rgba(224, 36, 36, 0.32);
     }
-
-    /* Step 2 (03 // SCOPE): Back to pure white */
     .brand-hero-lockup[data-media-step="2"] .media-me,
     .brand-hero-lockup[data-media-step="2"] .media-dia {
       color: var(--ink-white);
@@ -352,16 +494,14 @@
 
     .corp-reg-badge {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       color: var(--ink-secondary);
       text-align: right;
       letter-spacing: 0.08em;
-      line-height: 1.55;
+      line-height: 1.5;
       opacity: 0;
       transform: translateY(8px);
-      transition:
-        opacity 0.65s var(--ease-smooth-out) 0.12s,
-        transform 0.65s var(--ease-smooth-out) 0.12s;
+      transition: opacity 0.65s var(--ease-smooth-out) 0.12s, transform 0.65s var(--ease-smooth-out) 0.12s;
     }
 
     body.scene-docked .corp-reg-badge {
@@ -369,43 +509,20 @@
       transform: translateY(0);
     }
 
-    /* --------------------------------------------------------------------------
-       2. MAIN WIDESCREEN PRODUCTION STAGE (Redesigned 2-Zone Cinema Layout)
-       -------------------------------------------------------------------------- */
     .scene-main-grid {
       display: grid;
-      grid-template-columns: 0.92fr 1.28fr;
-      gap: 36px;
+      grid-template-columns: 0.94fr 1.26fr;
+      gap: 28px;
       align-items: stretch;
       min-height: 0;
     }
 
-    /* Red Triangle Leader Wipe Effect ("ใช้ลูกศรสีแดงเป็นตัวพาทุกที่") */
     .tri-guided-panel {
       position: relative;
       opacity: 0;
       clip-path: inset(0 100% 0 0);
       transform: translateX(-14px);
-      transition:
-        opacity 0.55s var(--ease-smooth-out),
-        clip-path 0.88s var(--ease-cushioned),
-        transform 0.88s var(--ease-cushioned);
-    }
-
-    .tri-guided-panel::after {
-      content: "";
-      position: absolute;
-      top: 50%;
-      right: 0;
-      width: 0;
-      height: 0;
-      border-top: 12px solid transparent;
-      border-bottom: 12px solid transparent;
-      border-left: 20px solid var(--ghn-red);
-      transform: translate(100%, -50%);
-      opacity: 0;
-      pointer-events: none;
-      z-index: 20;
+      transition: opacity 0.55s var(--ease-smooth-out), clip-path 0.88s var(--ease-cushioned), transform 0.88s var(--ease-cushioned);
     }
 
     body.scene-docked .tri-guided-panel {
@@ -414,74 +531,56 @@
       transform: translateX(0);
     }
 
-    body.scene-docked .tri-guided-panel.delay-1 {
-      transition-delay: 0.08s;
-    }
+    body.scene-docked .tri-guided-panel.delay-1 { transition-delay: 0.08s; }
+    body.scene-docked .tri-guided-panel.delay-2 { transition-delay: 0.22s; }
 
-    body.scene-docked .tri-guided-panel.delay-2 {
-      transition-delay: 0.22s;
-    }
-
-    /* Left Column: Narrative Manifesto + Integrated 3-Pillar Slate */
     .narrative-slate-col {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 20px;
+      gap: 14px;
       background: var(--matte-surface);
       border: 1px solid var(--hairline);
       border-left: 3px solid var(--ghn-red);
-      padding: 28px 30px;
-      position: relative;
+      padding: 22px 24px;
+      min-height: 0;
     }
 
-    .manifesto-block {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
+    .manifesto-block { display: flex; flex-direction: column; gap: 8px; }
     .section-cue-tag {
       display: inline-flex;
       align-items: center;
-      gap: 9px;
+      gap: 8px;
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       font-weight: 600;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.14em;
       color: var(--ghn-red);
       text-transform: uppercase;
     }
 
     .manifesto-headline {
       font-family: var(--font-display);
-      font-size: clamp(1.65rem, 2.35vw, 2.35rem);
+      font-size: clamp(1.35rem, 2vw, 1.95rem);
       font-weight: 800;
-      line-height: 1.14;
+      line-height: 1.15;
       color: var(--ink-white);
-      letter-spacing: -0.01em;
     }
-
-    .manifesto-headline .red-word {
-      color: var(--ghn-red);
-    }
-
+    .manifesto-headline .red-word { color: var(--ghn-red); }
     .manifesto-copy {
-      font-size: 0.95rem;
+      font-size: 0.88rem;
       color: var(--ink-secondary);
-      line-height: 1.68;
+      line-height: 1.58;
     }
 
-    /* Integrated 3-Step Interactive Slate (01 ABOUT / 02 G·H·N / 03 SCOPE) */
     .slate-switcher-box {
       border-top: 1px solid var(--hairline);
-      padding-top: 18px;
+      padding-top: 14px;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
     }
 
-    /* Sliding Tabs (Transitions.dev #16) with Red Triangle Pointer */
     .slate-tabs {
       position: relative;
       display: grid;
@@ -489,18 +588,18 @@
       background: var(--matte-black);
       border: 1px solid var(--hairline);
       border-radius: 4px;
-      padding: 4px;
+      padding: 3px;
     }
 
     .slate-tab-pill {
       position: absolute;
-      top: 4px;
-      left: 4px;
-      width: calc((100% - 8px) / 3);
-      height: calc(100% - 8px);
+      top: 3px;
+      left: 3px;
+      width: calc((100% - 6px) / 3);
+      height: calc(100% - 6px);
       background: var(--ghn-red);
       border-radius: 2px;
-      transition: transform 0.75s var(--ease-smooth-out);
+      transition: transform 0.65s var(--ease-smooth-out);
       z-index: 1;
     }
 
@@ -511,41 +610,19 @@
       border: none;
       color: var(--ink-secondary);
       font-family: var(--font-mono);
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       font-weight: 600;
       letter-spacing: 0.08em;
-      padding: 9px 6px;
+      padding: 7px 6px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      transition: color var(--duration-fast) ease;
+      gap: 5px;
     }
+    .slate-tab-btn.active { color: var(--ink-white); }
 
-    .slate-tab-btn.active {
-      color: var(--ink-white);
-    }
-
-    .slate-tab-tri {
-      display: inline-block;
-      width: 0;
-      height: 0;
-      border-top: 4px solid transparent;
-      border-bottom: 4px solid transparent;
-      border-left: 6px solid currentColor;
-      transition: transform var(--duration-fast) var(--ease-smooth-out);
-    }
-
-    .slate-tab-btn.active .slate-tab-tri {
-      transform: translateX(2px);
-    }
-
-    .slate-cards-viewport {
-      position: relative;
-      min-height: 176px;
-    }
-
+    .slate-cards-viewport { position: relative; min-height: 148px; }
     .slate-card {
       position: absolute;
       inset: 0;
@@ -554,12 +631,9 @@
       justify-content: space-between;
       opacity: 0;
       pointer-events: none;
-      transform: translateX(14px);
-      transition:
-        opacity 0.65s var(--ease-smooth-out),
-        transform 0.65s var(--ease-smooth-out);
+      transform: translateX(12px);
+      transition: opacity 0.55s var(--ease-smooth-out), transform 0.55s var(--ease-smooth-out);
     }
-
     .slate-card.is-active {
       position: relative;
       opacity: 1;
@@ -569,40 +643,36 @@
 
     .slate-card-title {
       font-family: var(--font-display);
-      font-size: 1.08rem;
+      font-size: 0.98rem;
       font-weight: 700;
       color: var(--ink-white);
-      margin-bottom: 6px;
+      margin-bottom: 4px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
     }
-
     .slate-card-desc {
-      font-size: 0.89rem;
+      font-size: 0.84rem;
       color: var(--ink-secondary);
-      line-height: 1.62;
+      line-height: 1.55;
     }
-
     .slate-metrics-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      padding-top: 12px;
-      margin-top: 12px;
+      gap: 8px;
+      padding-top: 10px;
+      margin-top: 8px;
       border-top: 1px solid var(--hairline);
     }
-
     .slate-metric-val {
       font-family: var(--font-display);
-      font-size: 1.25rem;
+      font-size: 1.12rem;
       font-weight: 800;
       color: var(--ink-white);
       display: flex;
       align-items: center;
       gap: 5px;
     }
-
     .slate-metric-val::before {
       content: "";
       width: 0;
@@ -611,54 +681,48 @@
       border-bottom: 4px solid transparent;
       border-left: 7px solid var(--ghn-red);
     }
-
     .slate-metric-lbl {
       font-family: var(--font-mono);
-      font-size: 0.66rem;
+      font-size: 0.62rem;
       color: var(--ink-secondary);
       letter-spacing: 0.06em;
-      text-transform: uppercase;
     }
 
-    /* Right Column: Dominant 16:9 Cinema Production Monitor (Full Frame Hero) */
     .cinema-monitor-col {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       background: var(--matte-surface);
       border: 1px solid var(--hairline);
-      padding: 16px;
-      gap: 14px;
+      padding: 14px;
+      gap: 10px;
+      min-height: 0;
     }
-
     .monitor-top-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
       font-family: var(--font-mono);
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
       color: var(--ink-secondary);
-      padding: 2px 4px;
     }
-
     .monitor-rec-tag {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
       color: var(--ink-white);
       font-weight: 600;
     }
-
     .monitor-frame-16x9 {
       position: relative;
       width: 100%;
-      aspect-ratio: 16 / 9;
+      flex: 1;
+      min-height: 220px;
       background: #08090b;
       border: 1px solid var(--hairline-strong);
       overflow: hidden;
     }
-
     .monitor-slide-img {
       position: absolute;
       inset: 0;
@@ -667,87 +731,59 @@
       object-fit: cover;
       opacity: 0;
       transform: scale(1.04);
-      transition:
-        opacity 0.85s var(--ease-smooth-out),
-        transform 1.2s var(--ease-smooth-out);
+      transition: opacity 0.8s var(--ease-smooth-out), transform 1.1s var(--ease-smooth-out);
     }
-
-    .monitor-slide-img.is-active {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    /* Red Triangle Wipe Shutter across Monitor when switching frames */
+    .monitor-slide-img.is-active { opacity: 1; transform: scale(1); }
     .monitor-tri-shutter {
       position: absolute;
       inset: 0;
       pointer-events: none;
       z-index: 4;
-      background: linear-gradient(90deg, rgba(224, 36, 36, 0.28) 0%, transparent 100%);
+      background: linear-gradient(90deg, rgba(224, 36, 36, 0.3) 0%, transparent 100%);
       transform: translateX(-102%);
     }
-
     .monitor-frame-16x9.is-wiping .monitor-tri-shutter {
       animation: triShutterSweep 0.65s var(--ease-smooth-out) forwards;
     }
-
     @keyframes triShutterSweep {
       0% { transform: translateX(-102%); opacity: 1; }
       50% { transform: translateX(0%); opacity: 1; }
       100% { transform: translateX(102%); opacity: 0; }
     }
-
-    /* Lower-Third Caption Inside 16:9 Frame */
     .monitor-lower-third {
       position: absolute;
-      left: 16px;
-      bottom: 16px;
-      right: 16px;
+      left: 14px;
+      bottom: 14px;
+      right: 14px;
       z-index: 3;
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 12px;
       pointer-events: none;
     }
-
     .lower-third-box {
-      background: rgba(14, 15, 18, 0.9);
+      display: inline-block;
+      background: rgba(12, 13, 16, 0.9);
       border-left: 3px solid var(--ghn-red);
-      padding: 8px 14px;
+      padding: 7px 12px;
     }
-
     .lower-third-kicker {
       font-family: var(--font-mono);
-      font-size: 0.66rem;
+      font-size: 0.62rem;
       color: var(--ghn-red);
       letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 2px;
     }
-
     .lower-third-title {
       font-family: var(--font-display);
-      font-size: 0.96rem;
+      font-size: 0.9rem;
       font-weight: 700;
       color: var(--ink-white);
     }
-
     .monitor-bottom-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      padding: 2px 4px;
-    }
-
-    .reel-selector-group {
-      display: flex;
-      align-items: center;
       gap: 8px;
       flex-wrap: wrap;
     }
-
+    .reel-selector-group { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
     .reel-chip-btn {
       display: inline-flex;
       align-items: center;
@@ -756,104 +792,1010 @@
       border: 1px solid var(--hairline);
       color: var(--ink-secondary);
       font-family: var(--font-mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.08em;
-      padding: 6px 11px;
+      font-size: 0.65rem;
+      padding: 5px 10px;
       border-radius: 2px;
       cursor: pointer;
-      transition:
-        border-color var(--duration-fast) ease,
-        color var(--duration-fast) ease,
-        background-color var(--duration-fast) ease;
     }
-
-    .reel-chip-btn.active,
-    .reel-chip-btn:hover {
+    .reel-chip-btn.active, .reel-chip-btn:hover {
       border-color: var(--ghn-red);
       color: var(--ink-white);
-      background: rgba(224, 36, 36, 0.12);
-    }
-
-    /* --------------------------------------------------------------------------
-       3. BOTTOM STAGE STATUS & RED TRIANGLE SCENE CUE
-       -------------------------------------------------------------------------- */
-    .scene-bottom-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-top: 12px;
-      border-top: 1px solid var(--hairline);
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--ink-secondary);
-      letter-spacing: 0.1em;
-      opacity: 0;
-      transform: translateY(10px);
-      transition:
-        opacity 0.65s var(--ease-smooth-out) 0.3s,
-        transform 0.65s var(--ease-smooth-out) 0.3s;
-    }
-
-    body.scene-docked .scene-bottom-bar {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .scene-status-left,
-    .scene-next-cue {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
+      background: rgba(224, 36, 36, 0.14);
     }
 
     /* ==========================================================================
-       RESPONSIVE MOBILE LAYOUT (<= 1024px & <= 768px — 60 FPS Zero Overlap)
+       SCENE 02 // MISSION & PHILOSOPHY (G · H · N · 168)
+       Ref: 108.Supply Split Quadrant (https://pin.it/qZDNspvfD) + RICO. Showcase
+       "มีเวียน มีเข้า มีออก ซ้อนเหลื่อมมิติหน้า-หลัง"
+       ========================================================================== */
+    #scene02 {
+      background: #07080a;
+    }
+
+    .scene02-top-bar {
+      position: relative;
+      z-index: 40;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 10px;
+      padding-right: 340px;
+      border-bottom: 1px solid var(--hairline);
+    }
+
+    .scene-header-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.65rem, 2.8vw, 2.55rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      color: var(--ink-white);
+    }
+
+    .scene02-stage-layout {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px;
+      align-items: center;
+      min-height: 0;
+    }
+
+    /* Left: 108.Supply Split-Quadrant 3D Overlapping Card Vortex */
+    .quadrant-vortex-stage {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 450px;
+      perspective: 1500px;
+      transform-style: preserve-3d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Bottom cut-off 168 signature mark inspired by 108.Supply bottom emblem */
+    .vortex-bottom-168-mark {
+      position: absolute;
+      bottom: -24px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-display);
+      font-size: clamp(4.2rem, 7.5vw, 6.8rem);
+      font-weight: 900;
+      font-style: italic;
+      letter-spacing: -0.06em;
+      line-height: 0.8;
+      color: rgba(245, 244, 240, 0.2);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Central Red Triangle Vortex Pivot (แกนหมุนลูกศรสีแดงตรงกลาง) */
+    .vortex-center-tri-hub {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 44px;
+      height: 44px;
+      margin-left: -22px;
+      margin-top: -22px;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      transition: transform 0.85s var(--ease-cushioned);
+      filter: drop-shadow(0 0 18px rgba(224, 36, 36, 0.75));
+    }
+
+    .vortex-center-tri-hub svg {
+      width: 30px;
+      height: 34px;
+    }
+
+    /* The 4 Vertical Rounded Media Cards (G, H, N, 168) */
+    .quad-ghn-card {
+      position: absolute;
+      width: clamp(178px, 17vw, 232px);
+      aspect-ratio: 9 / 15.5;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #101115;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: 0 26px 60px rgba(0, 0, 0, 0.78);
+      cursor: pointer;
+      transform-style: preserve-3d;
+      will-change: transform, opacity, filter;
+      transition:
+        transform 0.92s var(--ease-cushioned),
+        opacity 0.75s var(--ease-smooth-out),
+        border-color 0.45s ease,
+        box-shadow 0.65s ease;
+    }
+
+    .quad-ghn-card.is-focused {
+      border-color: var(--ghn-red);
+      box-shadow:
+        0 32px 75px rgba(0, 0, 0, 0.9),
+        0 0 32px rgba(224, 36, 36, 0.32);
+    }
+
+    .quad-card-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(1.22) brightness(0.62);
+      transition: transform 0.9s var(--ease-smooth-out), filter 0.6s ease;
+    }
+
+    .quad-ghn-card.is-focused .quad-card-photo {
+      filter: grayscale(35%) contrast(1.15) brightness(0.76);
+      transform: scale(1.06);
+    }
+
+    .quad-card-shade {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 50% 48%, rgba(224, 36, 36, 0.22) 0%, transparent 65%),
+        linear-gradient(180deg, rgba(8, 9, 12, 0.25) 0%, rgba(8, 9, 12, 0.88) 100%);
+    }
+
+    /* Stacked Kinetic Poster Typography Inside Each Card (108.Supply SHINE/HAIR/FLOW style in GHN Red) */
+    .quad-card-poster-stack {
+      position: absolute;
+      inset: 14px 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .quad-card-top-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--ink-white);
+    }
+
+    .quad-kinetic-words {
+      display: flex;
+      flex-direction: column;
+      gap: 0px;
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(1.45rem, 2.05vw, 2.05rem);
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+    }
+
+    .quad-kinetic-words span:nth-child(odd) {
+      color: var(--ghn-red);
+      text-shadow: 0 2px 16px rgba(224, 36, 36, 0.45);
+    }
+
+    .quad-kinetic-words span:nth-child(even) {
+      color: var(--ink-white);
+    }
+
+    .quad-kinetic-words span:nth-child(2) { padding-left: 16%; }
+    .quad-kinetic-words span:nth-child(4) { padding-left: 10%; }
+    .quad-kinetic-words span:nth-child(5) { padding-left: 22%; }
+
+    .quad-card-bottom-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(12, 13, 16, 0.86);
+      border-left: 3px solid var(--ghn-red);
+      padding: 6px 9px;
+      font-family: var(--font-body);
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--ink-white);
+    }
+
+    /* Right Panel: Mission Detail Inspector + Choreography Phase Controls */
+    .scene02-inspector-col {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+      background: var(--matte-surface);
+      border: 1px solid var(--hairline);
+      border-top: 3px solid var(--ghn-red);
+      padding: 24px 26px;
+    }
+
+    .vortex-phase-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .vortex-phase-btn {
+      background: var(--matte-black);
+      border: 1px solid var(--hairline-strong);
+      color: var(--ink-secondary);
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 6px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.25s ease;
+    }
+
+    .vortex-phase-btn.is-active,
+    .vortex-phase-btn:hover {
+      background: var(--ghn-red);
+      border-color: var(--ghn-red);
+      color: var(--ink-white);
+    }
+
+    .ghn-pillar-selector {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    .ghn-pillar-tab {
+      background: var(--matte-black);
+      border: 1px solid var(--hairline);
+      color: var(--ink-secondary);
+      font-family: var(--font-display);
+      font-size: 0.92rem;
+      font-weight: 800;
+      padding: 9px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .ghn-pillar-tab.is-active {
+      border-color: var(--ghn-red);
+      background: rgba(224, 36, 36, 0.16);
+      color: var(--ink-white);
+    }
+
+    .ghn-detail-box {
+      background: rgba(12, 13, 16, 0.65);
+      border: 1px solid var(--hairline);
+      border-left: 3px solid var(--ghn-red);
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .ghn-detail-letter-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .ghn-detail-big-code {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 900;
+      line-height: 0.9;
+      color: var(--ghn-red);
+    }
+
+    .ghn-detail-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--ink-white);
+    }
+
+    .ghn-detail-desc {
+      font-size: 0.9rem;
+      color: var(--ink-secondary);
+      line-height: 1.65;
+    }
+
+    /* ==========================================================================
+       SCENE 03 // 6 CORE PRODUCTION SERVICES (VERTICAL CARDS FAN WHEEL)
+       Ref: https://pin.it/2UXc6pUSA ("WELCOME TO MY PORTFOLIO" Light Stage +
+            Red Vertical Pillar + 3D Wave Title + 6 Vertical Cards on Rotating Arc)
+       ========================================================================== */
+    #scene03 {
+      background: var(--light-stage-bg);
+      color: #0b0c0e;
+    }
+
+    #scene03 .scene-footer-bar {
+      border-top-color: var(--hairline-dark);
+      color: #3a3d45;
+    }
+
+    .scene03-stage {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Top Kicker Bar on Light Stage */
+    .scene03-top-meta {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-right: 340px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      color: #16181d;
+      z-index: 20;
+    }
+
+    /* Upper Center Stage: Bold Vertical Red Pillar + 3D Kinetic Wave Title + ▸ ◂ Arrows */
+    .scene03-red-pillar-zone {
+      position: relative;
+      width: 100%;
+      height: 175px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      margin-top: 2px;
+    }
+
+    .red-vertical-pillar {
+      position: absolute;
+      top: -10px;
+      width: clamp(136px, 13.5vw, 186px);
+      height: 195px;
+      background: var(--ghn-red-pillar);
+      box-shadow: 0 20px 48px rgba(216, 59, 43, 0.32);
+      z-index: 1;
+    }
+
+    .pillar-kinetic-banner {
+      position: relative;
+      z-index: 3;
+      display: inline-flex;
+      align-items: center;
+      gap: clamp(14px, 2.4vw, 34px);
+    }
+
+    .pillar-side-tri-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 2px solid #0b0c0e;
+      background: transparent;
+      color: #0b0c0e;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .pillar-side-tri-btn:hover {
+      background: #0b0c0e;
+      color: #f5f4f0;
+      transform: scale(1.08);
+    }
+
+    /* Double-Layered Solid/Outline 3D Wave Typography ("SERVICES") */
+    .kinetic-wave-stack {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      line-height: 0.78;
+      perspective: 800px;
+    }
+
+    .wave-word-row {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5.4vw, 4.9rem);
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      display: inline-flex;
+      will-change: transform;
+    }
+
+    .wave-word-row.row-solid {
+      color: #08090b;
+      animation: waveRollSolid 3.8s ease-in-out infinite alternate;
+    }
+
+    .wave-word-row.row-outline {
+      color: transparent;
+      -webkit-text-stroke: 2px #08090b;
+      animation: waveRollOutline 3.8s ease-in-out infinite alternate;
+      margin-top: -0.08em;
+    }
+
+    @keyframes waveRollSolid {
+      0% { transform: rotateX(14deg) translateY(-2px) skewX(-3deg); }
+      100% { transform: rotateX(-14deg) translateY(3px) skewX(3deg); }
+    }
+
+    @keyframes waveRollOutline {
+      0% { transform: rotateX(-16deg) translateY(3px) skewX(4deg); }
+      100% { transform: rotateX(16deg) translateY(-2px) skewX(-4deg); }
+    }
+
+    /* Lower Stage: 6 Vertical Cards Fanned Out in a Semi-Circular Rotating Wheel */
+    .services-fan-wheel-stage {
+      position: relative;
+      width: 100%;
+      flex: 1;
+      min-height: 360px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      z-index: 15;
+    }
+
+    .fan-wheel-anchor {
+      position: relative;
+      width: 100%;
+      height: 350px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    /* Each of the 6 GHN168 Services as a Vertical Portrait Card (การ์ดแนวตั้ง) */
+    .srv-vertical-card {
+      position: absolute;
+      top: 4px;
+      width: clamp(220px, 19.5vw, 266px);
+      height: clamp(305px, 41vh, 344px);
+      border-radius: 18px;
+      background: #101115;
+      color: var(--ink-white);
+      border: 2px solid rgba(16, 17, 21, 0.9);
+      box-shadow: 0 22px 48px rgba(10, 11, 14, 0.28);
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      /* Pivot around a point well below the card to form the semi-circular fan arc */
+      transform-origin: 50% 620px;
+      will-change: transform, opacity;
+      transition:
+        transform 0.85s var(--ease-spring-dial),
+        opacity 0.65s var(--ease-smooth-out),
+        box-shadow 0.5s ease,
+        border-color 0.4s ease;
+    }
+
+    .srv-vertical-card.is-center {
+      border-color: var(--ghn-red);
+      box-shadow:
+        0 28px 60px rgba(10, 11, 14, 0.44),
+        0 0 0 3px rgba(224, 36, 36, 0.28);
+      z-index: 20;
+    }
+
+    .srv-vcard-media {
+      position: relative;
+      width: 100%;
+      height: 46%;
+      overflow: hidden;
+      background: #181a20;
+    }
+
+    .srv-vcard-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s var(--ease-smooth-out);
+    }
+
+    .srv-vertical-card.is-center .srv-vcard-media img {
+      transform: scale(1.06);
+    }
+
+    .srv-vcard-num-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: var(--ghn-red);
+      color: var(--ink-white);
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .srv-vcard-body {
+      flex: 1;
+      padding: 13px 15px 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(180deg, #14161c 0%, #0d0e12 100%);
+    }
+
+    .srv-vcard-kicker {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--ghn-red);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+
+    .srv-vcard-title {
+      font-family: var(--font-display);
+      font-size: 1.02rem;
+      font-weight: 800;
+      line-height: 1.2;
+      color: var(--ink-white);
+      margin-bottom: 5px;
+    }
+
+    .srv-vcard-desc {
+      font-size: 0.76rem;
+      color: var(--ink-secondary);
+      line-height: 1.48;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .srv-vcard-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 6px;
+    }
+
+    .srv-vcard-tag {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--ink-cream);
+      padding: 3px 7px;
+      border-radius: 3px;
+    }
+
+    /* Bottom-Center Compass Dial Indicator (▲ 01 / 06 + Quick Pills) */
+    .fan-wheel-dial-bar {
+      position: relative;
+      z-index: 30;
+      margin-top: auto;
+      padding-top: 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dial-red-up-pointer {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #0d0e12;
+      color: var(--ink-white);
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+    }
+
+    .tri-up-red {
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-bottom: 10px solid var(--ghn-red);
+    }
+
+    .srv-quick-pills {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .srv-pill-btn {
+      background: rgba(14, 15, 18, 0.1);
+      border: 1px solid rgba(14, 15, 18, 0.24);
+      color: #121317;
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      font-weight: 700;
+      padding: 5px 11px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .srv-pill-btn.is-active,
+    .srv-pill-btn:hover {
+      background: var(--ghn-red);
+      border-color: var(--ghn-red);
+      color: var(--ink-white);
+    }
+
+    /* ==========================================================================
+       SCENE 04 // THE 3 CO-FOUNDERS (เก่ง · หอม · นิค)
+       Ref: https://pin.it/12s7g8wOu ("11.11 BUINOV / QDREAM / BURLYAEV"
+            Central Portrait + Opposing Vertical Slot-Machine Typography Lanes)
+       ========================================================================== */
+    #scene04 {
+      background: #090a0d;
+      color: var(--ink-cream);
+    }
+
+    .scene04-top-bar {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding-bottom: 10px;
+      padding-right: 340px;
+      border-bottom: 1px solid var(--hairline);
+    }
+
+    .founders-slot-stage {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: 1fr minmax(270px, 350px) 1.15fr;
+      gap: 22px;
+      align-items: center;
+    }
+
+    /* Left Vertical Slot Lane (Moves DOWNWARD when switching founder) */
+    .slot-lane-left {
+      position: relative;
+      height: 390px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 12;
+      padding-right: 10px;
+    }
+
+    .slot-reel-track {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      will-change: transform;
+      transition: transform 0.88s var(--ease-cushioned);
+    }
+
+    .slot-reel-item {
+      height: 390px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .founder-giant-num {
+      font-family: var(--font-display);
+      font-size: clamp(4.2rem, 8.2vw, 7.6rem);
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      line-height: 0.86;
+      color: var(--ink-cream);
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+
+    .founder-giant-num .red-dot {
+      color: var(--ghn-red);
+    }
+
+    .founder-slot-surname {
+      font-family: var(--font-display);
+      font-size: clamp(1.35rem, 2.2vw, 2.1rem);
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      color: var(--ink-white);
+      margin-top: 8px;
+      text-transform: uppercase;
+    }
+
+    .founder-slot-legal {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--ghn-red);
+      letter-spacing: 0.1em;
+      margin-top: 8px;
+    }
+
+    /* Center Portrait Monolith Frame (Uses Keng's new PNG cutout + Hom + Nick) */
+    .founder-center-monolith {
+      position: relative;
+      width: 100%;
+      height: clamp(340px, 54vh, 430px);
+      background:
+        radial-gradient(circle at 50% 34%, rgba(224, 36, 36, 0.24) 0%, rgba(20, 22, 28, 0.95) 68%),
+        linear-gradient(180deg, #171920 0%, #0d0e12 100%);
+      border: 1px solid rgba(237, 233, 218, 0.22);
+      overflow: hidden;
+      z-index: 8;
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.85);
+    }
+
+    /* Red Triangle Slot Trigger attached to the left border of the portrait frame */
+    .monolith-red-trigger {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 15;
+      filter: drop-shadow(0 0 14px rgba(224, 36, 36, 0.8));
+      transition: transform 0.45s var(--ease-spring-dial);
+    }
+
+    .monolith-red-trigger.is-kicking {
+      transform: translateY(-50%) translateX(10px) scale(1.25);
+    }
+
+    .founder-portrait-slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transform: translateY(28px) scale(1.05);
+      transition:
+        opacity 0.75s var(--ease-smooth-out),
+        transform 0.88s var(--ease-cushioned);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .founder-portrait-slide.is-active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      z-index: 2;
+    }
+
+    .founder-portrait-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    /* Special studio cutout presentation for Keng's transparent PNG */
+    .founder-portrait-slide.is-cutout img {
+      object-fit: contain;
+      object-position: center bottom;
+      padding-top: 12px;
+      filter: drop-shadow(0 18px 36px rgba(0, 0, 0, 0.85));
+    }
+
+    .monolith-frame-tag {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 10;
+      background: rgba(9, 10, 13, 0.85);
+      border: 1px solid rgba(237, 233, 218, 0.24);
+      padding: 4px 10px;
+      font-family: var(--font-mono);
+      font-size: 0.64rem;
+      letter-spacing: 0.12em;
+      color: var(--ink-cream);
+    }
+
+    /* Right Vertical Slot Lane (Moves UPWARD in opposition to Left Lane) */
+    .slot-lane-right {
+      position: relative;
+      height: 390px;
+      overflow: hidden;
+      z-index: 12;
+      padding-left: 10px;
+    }
+
+    .founder-giant-firstname {
+      font-family: var(--font-display);
+      font-size: clamp(2.1rem, 3.8vw, 3.5rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 0.96;
+      color: var(--ink-cream);
+      text-transform: uppercase;
+    }
+
+    .founder-role-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 10px;
+      background: rgba(224, 36, 36, 0.16);
+      border-left: 3px solid var(--ghn-red);
+      padding: 6px 12px;
+      font-family: var(--font-body);
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--ink-white);
+    }
+
+    .founder-bio-copy {
+      margin-top: 12px;
+      font-size: 0.9rem;
+      color: var(--ink-secondary);
+      line-height: 1.64;
+    }
+
+    .founder-direct-contact {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--hairline);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--ink-cream);
+    }
+
+    .founder-direct-contact a {
+      color: var(--ink-white);
+      text-decoration: none;
+      border-bottom: 1px solid var(--ghn-red);
+    }
+
+    .founders-switcher-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .founder-select-btn {
+      background: var(--matte-surface);
+      border: 1px solid var(--hairline-strong);
+      color: var(--ink-secondary);
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.25s ease;
+    }
+
+    .founder-select-btn.is-active,
+    .founder-select-btn:hover {
+      background: var(--ghn-red);
+      border-color: var(--ghn-red);
+      color: var(--ink-white);
+    }
+
+    /* ==========================================================================
+       RESPONSIVE MOBILE & TABLET ADAPTATION (Zero Overlap, Full 1-Swipe Support)
        ========================================================================== */
     @media (max-width: 1120px) {
-      .scene-top-dock {
+      .scene-inner-shell {
+        padding: 58px 54px 16px 20px;
+      }
+      .scene-top-dock,
+      .scene02-top-bar,
+      .scene03-top-meta,
+      .scene04-top-bar {
         padding-right: 0;
-        padding-top: 44px;
         flex-direction: column;
         align-items: flex-start;
-        gap: 10px;
+        gap: 6px;
       }
-      .corp-reg-badge {
-        text-align: left;
-      }
-      .scene-main-grid {
+      .corp-reg-badge { text-align: left; }
+      .scene-main-grid,
+      .scene02-stage-layout {
         grid-template-columns: 1fr;
+        gap: 14px;
+      }
+      .quadrant-vortex-stage {
+        min-height: 270px;
+      }
+      .founders-slot-stage {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+      .slot-lane-left,
+      .slot-lane-left .slot-reel-item {
+        height: 104px;
+      }
+      .slot-lane-right,
+      .slot-lane-right .slot-reel-item {
+        height: 184px;
+      }
+      .founder-center-monolith {
+        height: 188px;
       }
     }
 
     @media (max-width: 768px) {
       .stage-hud-controls {
-        top: 12px;
-        right: 16px;
-        left: 16px;
+        top: 10px;
+        left: 12px;
+        right: 12px;
         justify-content: space-between;
       }
-      .scene-01-stage {
-        padding: 62px 16px 24px;
-        gap: 16px;
+      .scene-nav-rail {
+        right: 8px;
+        padding: 6px 4px;
       }
-      .brand-hero-lockup {
-        font-size: clamp(2.05rem, 8.6vw, 2.8rem);
+      .rail-scene-btn {
+        width: 26px;
+        height: 26px;
+        font-size: 0.6rem;
       }
-      .narrative-slate-col {
-        padding: 20px 18px;
-      }
-      .slate-cards-viewport {
-        min-height: 205px;
-      }
-      .monitor-bottom-bar {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .scene-bottom-bar {
-        flex-direction: column;
-        align-items: flex-start;
+      .scene-inner-shell {
+        padding: 54px 42px 12px 14px;
         gap: 8px;
       }
+      .brand-hero-lockup {
+        font-size: clamp(1.85rem, 7.8vw, 2.5rem);
+      }
+      .narrative-slate-col { padding: 14px 16px; gap: 10px; }
+      .manifesto-headline { font-size: 1.2rem; }
+      .manifesto-copy { font-size: 0.78rem; display: none; }
+      .slate-cards-viewport { min-height: 135px; }
+      .monitor-frame-16x9 { min-height: 150px; }
+      .quadrant-vortex-stage { min-height: 210px; }
+      .quad-ghn-card { width: 106px; border-radius: 12px; }
+      .quad-kinetic-words { font-size: 0.94rem; }
+      .scene02-inspector-col { padding: 12px 14px; gap: 8px; }
+      .ghn-detail-big-code { font-size: 1.65rem; }
+      .ghn-detail-title { font-size: 0.95rem; }
+      .ghn-detail-desc { font-size: 0.76rem; line-height: 1.42; }
+      .scene03-red-pillar-zone { height: 110px; }
+      .red-vertical-pillar { height: 120px; width: 110px; }
+      .wave-word-row { font-size: 2.1rem; }
+      .fan-wheel-anchor { height: 270px; }
+      .srv-vertical-card { width: 196px; height: 264px; }
+      .founder-giant-num { font-size: 2.35rem; }
+      .founder-slot-surname { font-size: 1.12rem; margin-top: 3px; }
+      .founder-slot-legal { font-size: 0.62rem; margin-top: 3px; }
+      .founder-giant-firstname { font-size: 1.35rem; }
+      .founder-role-pill { margin-top: 4px; padding: 4px 8px; font-size: 0.72rem; }
+      .founder-bio-copy { font-size: 0.72rem; margin-top: 4px; line-height: 1.4; }
+      .founder-direct-contact { margin-top: 6px; padding-top: 6px; font-size: 0.64rem; gap: 8px; }
+      .scene-footer-bar { font-size: 0.6rem; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -864,297 +1806,915 @@
     }
   </style>
 </head>
-<body data-arrow-mode="curtain">
+<body data-arrow-mode="curtain" data-active-scene="0">
 
-  <!-- TOP-RIGHT FLOATING PREVIEW CONTROLS -->
-  <nav class="stage-hud-controls" aria-label="Scene Preview Controls">
-    <div class="mode-switch" role="group" aria-label="Arrow Reveal Style">
-      <div class="mode-pill"></div>
-      <button type="button" class="hud-seg-btn" data-set-mode="curtain">
-        <span data-th>ท่าลูกศร A: ถอยเปิดม่าน</span>
-        <span data-en>ARROW A: PULL-BACK WIPE</span>
+  <!-- ==========================================================================
+       GLOBAL RED TRIANGLE CONDUCTOR & TRANSITION SHUTTER OVERLAY
+       ("ทุกครั้งที่มีการเปลี่ยนหน้า ตัวลูกศรสีแดงจะต้องเป็นตัวพามันไป")
+       ========================================================================== -->
+  <div class="transition-stage-overlay" aria-hidden="true">
+    <div class="transition-wipe-curtain" id="transitionCurtain"></div>
+    <div class="global-red-conductor" id="globalRedConductor">
+      <div class="conductor-trail-flare"></div>
+      <svg viewBox="0 0 40 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="3,2 38,22 3,42" fill="#e02424" />
+      </svg>
+    </div>
+  </div>
+
+  <!-- TOP-RIGHT FLOATING HUD CONTROLS -->
+  <nav class="stage-hud-controls" aria-label="Scene & Language Controls">
+    <div class="hud-pill-group" role="group" aria-label="Scene 01 Arrow Mode">
+      <button type="button" class="hud-seg-btn is-active" data-set-mode="curtain">
+        <span data-th>ท่าลูกศร A</span><span data-en>ARROW A</span>
       </button>
       <button type="button" class="hud-seg-btn" data-set-mode="emerge">
-        <span data-th>ท่าลูกศร B: ถอยดึงตัวหนังสือ</span>
-        <span data-en>ARROW B: TIP EMERGE</span>
+        <span data-th>ท่าลูกศร B</span><span data-en>ARROW B</span>
       </button>
     </div>
 
     <button type="button" class="hud-action-btn" id="replaySceneBtn">
       <span class="tri-icon-sm"></span>
-      <span data-th>เล่นซีนแรกซ้ำ</span>
-      <span data-en>REPLAY SCENE 01</span>
+      <span data-th>เล่นซีนนี้ซ้ำ</span>
+      <span data-en>REPLAY SCENE</span>
     </button>
 
-    <div class="lang-switch" role="group" aria-label="Language Switcher">
-      <div class="lang-pill"></div>
-      <button type="button" class="hud-seg-btn" data-set-lang="th">TH</button>
+    <div class="hud-pill-group" role="group" aria-label="Language Switcher">
+      <button type="button" class="hud-seg-btn is-active" data-set-lang="th">TH</button>
       <button type="button" class="hud-seg-btn" data-set-lang="en">EN</button>
     </div>
   </nav>
 
+  <!-- RIGHT-EDGE SCENE RAIL (01 - 04) -->
+  <aside class="scene-nav-rail" aria-label="Scene Page Navigation">
+    <button type="button" class="rail-scene-btn is-active" data-goto-scene="0" title="Scene 01: Opening">01</button>
+    <button type="button" class="rail-scene-btn" data-goto-scene="1" title="Scene 02: Mission G·H·N">02</button>
+    <button type="button" class="rail-scene-btn" data-goto-scene="2" title="Scene 03: 6 Services">03</button>
+    <button type="button" class="rail-scene-btn" data-goto-scene="3" title="Scene 04: 3 Co-Founders">04</button>
+  </aside>
+
   <!-- ==========================================================================
-       SCENE 01 // OPENING PRODUCTION HOUSE STAGE (Pure Matte Black, Zero Watermark)
+       DISCRETE 4-SCENE VIEWPORT (1 Mouse Wheel or 1 Swipe = 1 Full Page)
        ========================================================================== -->
-  <main class="scene-01-stage" id="scene01">
+  <div class="scenes-viewport" id="scenesViewport">
 
-    <!-- 1. RESTING DOCK ("ที่วาง" ของ ▶ GHN168 MEDIA หลังเปิดตัวกลางจอเสร็จ) -->
-    <header class="scene-top-dock">
-      <div class="brand-dock-slot">
-        <div class="brand-kicker">
-          <span class="tri-icon-sm"></span>
-          <span data-th>SCENE 01 // FULL-SCALE PRODUCTION HOUSE (เชียงใหม่ – กรุงเทพฯ)</span>
-          <span data-en>SCENE 01 // FULL-SCALE PRODUCTION HOUSE (CHIANG MAI – BANGKOK)</span>
-        </div>
+    <!-- ========================================================================
+         SCENE 01 // OPENING PRODUCTION HOUSE STAGE
+         ======================================================================== -->
+    <section class="scene-page is-active" id="scene01" data-scene-idx="0" aria-label="Scene 01 Opening">
+      <div class="scene-inner-shell">
+        <header class="scene-top-dock">
+          <div class="brand-dock-slot">
+            <div class="brand-kicker">
+              <span class="tri-icon-sm"></span>
+              <span data-th>SCENE 01 / 04 // FULL-SCALE PRODUCTION HOUSE (เชียงใหม่ – กรุงเทพฯ)</span>
+              <span data-en>SCENE 01 / 04 // FULL-SCALE PRODUCTION HOUSE (CHIANG MAI – BANGKOK)</span>
+            </div>
 
-        <!-- HERO ACTOR: ▶ GHN168 MEDIA -->
-        <h1 class="brand-hero-lockup" id="heroLockup" data-media-step="2">
-          <span class="hero-red-triangle" id="heroRedTri" aria-hidden="true">
-            <!-- Sharp Right-Pointing Red Triangle (▶) -->
-            <svg viewBox="0 0 36 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <polygon points="2,2 34,20 2,38" fill="#e02424" />
-            </svg>
-          </span>
-          <span class="hero-wordmark-mask" id="heroWordmarkMask">
-            <span class="hero-wordmark-inner" id="heroWordmarkInner">
-              <span class="word-ghn">GHN168</span>
-              <span class="word-media">
-                <span class="media-me">ME</span><span class="media-dia">DIA</span>
+            <h1 class="brand-hero-lockup" id="heroLockup" data-media-step="2">
+              <span class="hero-red-triangle" id="heroRedTri" aria-hidden="true">
+                <svg viewBox="0 0 36 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <polygon points="2,2 34,20 2,38" fill="#e02424" />
+                </svg>
               </span>
-            </span>
-          </span>
-        </h1>
-      </div>
-
-      <div class="corp-reg-badge">
-        <div data-th>บริษัท จีเอชเอ็น 168 มีเดีย แอนด์ ครีเอชั่น จำกัด</div>
-        <div data-en>GHN168 MEDIA &amp; CREATION CO., LTD.</div>
-        <div>TAX ID: 0505566010089 (HEAD OFFICE)</div>
-      </div>
-
-      <div class="dock-horizon-line"></div>
-    </header>
-
-    <!-- 2. REDESIGNED WIDESCREEN STAGE (Left Narrative Slate + Right 16:9 Cinema Frame) -->
-    <section class="scene-main-grid" aria-label="Opening Production Showcase">
-
-      <!-- Left Panel: Guided in by Red Triangle -->
-      <div class="narrative-slate-col tri-guided-panel delay-1">
-        <div class="manifesto-block">
-          <div class="section-cue-tag">
-            <span class="tri-icon-sm"></span>
-            <span data-th>00 // ข้อความถึงลูกค้าของเรา</span>
-            <span data-en>00 // DIRECTOR'S MANIFESTO</span>
+              <span class="hero-wordmark-mask" id="heroWordmarkMask">
+                <span class="hero-wordmark-inner" id="heroWordmarkInner">
+                  <span class="word-ghn">GHN168</span>
+                  <span class="word-media">
+                    <span class="media-me">ME</span><span class="media-dia">DIA</span>
+                  </span>
+                </span>
+              </span>
+            </h1>
           </div>
 
-          <h2 class="manifesto-headline">
-            “Through the Lens: Capturing <span class="red-word">Moments</span>, Creating <span class="red-word">Memories</span>.”
-          </h2>
-
-          <p class="manifesto-copy" data-th>
-            ทีมโปรดักชันเฮาส์ที่ผู้ร่วมก่อตั้งทั้ง 3 คนลงกำกับ ถ่ายทำ และตัดต่อด้วยตัวเอง คุยตรงกับลูกค้าตั้งแต่ต้นจนจบโดยไม่ผ่านคนกลาง แม่นยำ รวดเร็ว และพิถีพิถันในทุกรายละเอียด
-          </p>
-          <p class="manifesto-copy" data-en>
-            A direct-to-client production house where all three co-founders personally lead direction, cinematography, and post-production—delivering commercial films and live broadcasts with zero agency bottlenecks.
-          </p>
-        </div>
-
-        <!-- Integrated 3-Step Slate (Synced with ME -> DIA -> WHITE on GHN168 MEDIA) -->
-        <div class="slate-switcher-box" id="slateBox">
-          <div class="slate-tabs" role="tablist" aria-label="Company Overview Slate">
-            <div class="slate-tab-pill" id="slateTabPill"></div>
-            <button type="button" class="slate-tab-btn active" data-slate-idx="0">
-              <span class="slate-tab-tri"></span>
-              <span>01 // ABOUT</span>
-            </button>
-            <button type="button" class="slate-tab-btn" data-slate-idx="1">
-              <span class="slate-tab-tri"></span>
-              <span>02 // G·H·N</span>
-            </button>
-            <button type="button" class="slate-tab-btn" data-slate-idx="2">
-              <span class="slate-tab-tri"></span>
-              <span>03 // SCOPE</span>
-            </button>
+          <div class="corp-reg-badge">
+            <div data-th>บริษัท จีเอชเอ็น 168 มีเดีย แอนด์ ครีเอชั่น จำกัด</div>
+            <div data-en>GHN168 MEDIA &amp; CREATION CO., LTD.</div>
+            <div>TAX ID: 0505566010089 (HEAD OFFICE)</div>
           </div>
 
-          <div class="slate-cards-viewport">
-            <!-- Slate 01: ABOUT (Lights up "ME" in red) -->
-            <article class="slate-card is-active" data-slate-card="0">
-              <div>
-                <h3 class="slate-card-title">
-                  <span class="tri-icon-sm"></span>
-                  <span data-th>ทำไมต้องทำงานตรงกับ GHN168?</span>
-                  <span data-en>Why Commission GHN168 Directly?</span>
-                </h3>
-                <p class="slate-card-desc" data-th>
-                  หลังสั่งสมประสบการณ์ผลิตงานเบื้องหลังให้เอเจนซี่มานานหลายปี พวกเรารวมตัวกันเพื่อให้ลูกค้าได้บรีฟและทำงานร่วมกับผู้กำกับ ช่างภาพ และโปรดิวเซอร์ตัวจริงโดยตรง ตัดขั้นตอนที่ล่าช้าและคุมคุณภาพได้เต็ม 100%
-                </p>
-                <p class="slate-card-desc" data-en>
-                  Built by seasoned agency production leads so enterprise clients communicate directly with the director, DoP, and executive producer on set.
-                </p>
-              </div>
-              <div class="slate-metrics-row">
-                <div>
-                  <div class="slate-metric-val">3</div>
-                  <div class="slate-metric-lbl"><span data-th>ผู้ก่อตั้งคุมงานเอง</span><span data-en>CO-FOUNDERS</span></div>
-                </div>
-                <div>
-                  <div class="slate-metric-val">15+</div>
-                  <div class="slate-metric-lbl"><span data-th>แคมเปญใหญ่</span><span data-en>KEY CAMPAIGNS</span></div>
-                </div>
-                <div>
-                  <div class="slate-metric-val">100%</div>
-                  <div class="slate-metric-lbl"><span data-th>ทีมโปรดักชันตรง</span><span data-en>IN-HOUSE CREW</span></div>
-                </div>
-              </div>
-            </article>
+          <div class="dock-horizon-line"></div>
+        </header>
 
-            <!-- Slate 02: G·H·N (Lights up full "MEDIA" in red) -->
-            <article class="slate-card" data-slate-card="1">
-              <div>
-                <h3 class="slate-card-title">
-                  <span class="tri-icon-sm"></span>
-                  <span>Groundbreaking · Happiness · Nirvana</span>
-                </h3>
-                <p class="slate-card-desc" data-th>
-                  • <strong>G (Groundbreaking):</strong> มุมมองและไอเดียภาพที่ล้ำสมัย เปิดโลกทัศน์ใหม่<br/>
-                  • <strong>H (Happiness):</strong> ความสุขจากการทำงานที่ราบรื่นและได้ผลลัพธ์ตรงใจ<br/>
-                  • <strong>N (Nirvana):</strong> เป้าหมายสูงสุดในการส่งมอบผลงานที่สมบูรณ์แบบไร้ที่ติ
-                </p>
-                <p class="slate-card-desc" data-en>
-                  • <strong>G (Groundbreaking):</strong> Pioneering visual ideas that break new ground.<br/>
-                  • <strong>H (Happiness):</strong> Peace of mind from seamless collaboration.<br/>
-                  • <strong>N (Nirvana):</strong> Ultimate fulfillment in delivering flagship work.
-                </p>
+        <div class="scene-main-grid">
+          <div class="narrative-slate-col tri-guided-panel delay-1">
+            <div class="manifesto-block">
+              <div class="section-cue-tag">
+                <span class="tri-icon-sm"></span>
+                <span data-th>00 // ข้อความถึงลูกค้าของเรา</span>
+                <span data-en>00 // DIRECTOR'S MANIFESTO</span>
               </div>
-              <div class="slate-metrics-row">
-                <div>
-                  <div class="slate-metric-val">G</div>
-                  <div class="slate-metric-lbl"><span data-th>ล้ำสมัย</span><span data-en>PIONEERING</span></div>
-                </div>
-                <div>
-                  <div class="slate-metric-val">H</div>
-                  <div class="slate-metric-lbl"><span data-th>ราบรื่น</span><span data-en>HAPPINESS</span></div>
-                </div>
-                <div>
-                  <div class="slate-metric-val">N</div>
-                  <div class="slate-metric-lbl"><span data-th>สมบูรณ์แบบ</span><span data-en>NIRVANA</span></div>
-                </div>
-              </div>
-            </article>
 
-            <!-- Slate 03: SCOPE (Fades "MEDIA" back to pure white) -->
-            <article class="slate-card" data-slate-card="2">
-              <div>
-                <h3 class="slate-card-title">
-                  <span class="tri-icon-sm"></span>
-                  <span data-th>โปรดักชันครบวงจร พร้อมเอกสารนิติบุคคล VAT 7%</span>
-                  <span data-en>End-to-End Cinema &amp; Corporate VAT Ready</span>
-                </h3>
-                <p class="slate-card-desc" data-th>
-                  ผลิตวิดีโอโฆษณา (Commercial), ไฮไลต์อีเวนต์ระดับนานาชาติ, วิดีโอพรีเซนเทชันองค์กร, ระบบถ่ายทอดสดหลายมุมกล้อง และภาพนิ่งโฆษณา พร้อมรองรับระบบจัดซื้อองค์กรครบถ้วน
-                </p>
-                <p class="slate-card-desc" data-en>
-                  Commercial films, international event highlights, corporate presentations, multi-cam live broadcasts, and commercial photography with full VAT compliance.
-                </p>
+              <h2 class="manifesto-headline">
+                “Through the Lens: Capturing <span class="red-word">Moments</span>, Creating <span class="red-word">Memories</span>.”
+              </h2>
+
+              <p class="manifesto-copy" data-th>
+                ทีมโปรดักชันเฮาส์ที่ผู้ร่วมก่อตั้งทั้ง 3 คนลงกำกับ ถ่ายทำ และตัดต่อด้วยตัวเอง คุยตรงกับลูกค้าตั้งแต่ต้นจนจบโดยไม่ผ่านคนกลาง แม่นยำ รวดเร็ว และพิถีพิถันในทุกรายละเอียด
+              </p>
+              <p class="manifesto-copy" data-en>
+                A direct-to-client production house where all three co-founders personally lead direction, cinematography, and post-production—delivering commercial films and live broadcasts with zero agency bottlenecks.
+              </p>
+            </div>
+
+            <div class="slate-switcher-box" id="slateBox">
+              <div class="slate-tabs" role="tablist" aria-label="Company Overview Slate">
+                <div class="slate-tab-pill" id="slateTabPill"></div>
+                <button type="button" class="slate-tab-btn active" data-slate-idx="0"><span>01 // ABOUT</span></button>
+                <button type="button" class="slate-tab-btn" data-slate-idx="1"><span>02 // G·H·N</span></button>
+                <button type="button" class="slate-tab-btn" data-slate-idx="2"><span>03 // SCOPE</span></button>
               </div>
-              <div class="slate-metrics-row">
-                <div>
-                  <div class="slate-metric-val">4K+</div>
-                  <div class="slate-metric-lbl"><span data-th>ซีนีม่าเกรด</span><span data-en>CINEMA RAW</span></div>
-                </div>
-                <div>
-                  <div class="slate-metric-val">LIVE</div>
-                  <div class="slate-metric-lbl"><span data-th>สตรีมมิงสด</span><span data-en>MULTI-CAM</span></div>
-                </div>
-                <div>
-                  <div class="slate-metric-val">VAT</div>
-                  <div class="slate-metric-lbl"><span data-th>นิติบุคคล 100%</span><span data-en>CORP READY</span></div>
-                </div>
+
+              <div class="slate-cards-viewport">
+                <article class="slate-card is-active" data-slate-card="0">
+                  <div>
+                    <h3 class="slate-card-title">
+                      <span class="tri-icon-sm"></span>
+                      <span data-th>ทำไมต้องทำงานตรงกับ GHN168?</span>
+                      <span data-en>Why Commission GHN168 Directly?</span>
+                    </h3>
+                    <p class="slate-card-desc" data-th>
+                      หลังสั่งสมประสบการณ์ผลิตงานเบื้องหลังให้เอเจนซี่มานานหลายปี พวกเรารวมตัวกันเพื่อให้ลูกค้าได้บรีฟและทำงานร่วมกับผู้กำกับ ช่างภาพ และโปรดิวเซอร์ตัวจริงโดยตรง ตัดขั้นตอนที่ล่าช้าและคุมคุณภาพได้เต็ม 100%
+                    </p>
+                    <p class="slate-card-desc" data-en>
+                      Built by seasoned agency production leads so enterprise clients communicate directly with the director, DoP, and executive producer on set.
+                    </p>
+                  </div>
+                  <div class="slate-metrics-row">
+                    <div><div class="slate-metric-val">3</div><div class="slate-metric-lbl"><span data-th>ผู้ก่อตั้งคุมงานเอง</span><span data-en>CO-FOUNDERS</span></div></div>
+                    <div><div class="slate-metric-val">15+</div><div class="slate-metric-lbl"><span data-th>แคมเปญใหญ่</span><span data-en>KEY CAMPAIGNS</span></div></div>
+                    <div><div class="slate-metric-val">100%</div><div class="slate-metric-lbl"><span data-th>ทีมโปรดักชันตรง</span><span data-en>IN-HOUSE CREW</span></div></div>
+                  </div>
+                </article>
+
+                <article class="slate-card" data-slate-card="1">
+                  <div>
+                    <h3 class="slate-card-title">
+                      <span class="tri-icon-sm"></span>
+                      <span>Groundbreaking · Happiness · Nirvana</span>
+                    </h3>
+                    <p class="slate-card-desc" data-th>
+                      • <strong>G (Groundbreaking):</strong> มุมมองและไอเดียภาพที่ล้ำสมัย เปิดโลกทัศน์ใหม่<br/>
+                      • <strong>H (Happiness):</strong> ความสุขจากการทำงานที่ราบรื่นและได้ผลลัพธ์ตรงใจ<br/>
+                      • <strong>N (Nirvana):</strong> เป้าหมายสูงสุดในการส่งมอบผลงานที่สมบูรณ์แบบไร้ที่ติ
+                    </p>
+                    <p class="slate-card-desc" data-en>
+                      • <strong>G (Groundbreaking):</strong> Pioneering visual ideas that break new ground.<br/>
+                      • <strong>H (Happiness):</strong> Peace of mind from seamless collaboration.<br/>
+                      • <strong>N (Nirvana):</strong> Ultimate fulfillment in delivering flagship work.
+                    </p>
+                  </div>
+                  <div class="slate-metrics-row">
+                    <div><div class="slate-metric-val">G</div><div class="slate-metric-lbl"><span data-th>ล้ำสมัย</span><span data-en>PIONEERING</span></div></div>
+                    <div><div class="slate-metric-val">H</div><div class="slate-metric-lbl"><span data-th>ราบรื่น</span><span data-en>HAPPINESS</span></div></div>
+                    <div><div class="slate-metric-val">N</div><div class="slate-metric-lbl"><span data-th>สมบูรณ์แบบ</span><span data-en>NIRVANA</span></div></div>
+                  </div>
+                </article>
+
+                <article class="slate-card" data-slate-card="2">
+                  <div>
+                    <h3 class="slate-card-title">
+                      <span class="tri-icon-sm"></span>
+                      <span data-th>โปรดักชันครบวงจร พร้อมเอกสารนิติบุคคล VAT 7%</span>
+                      <span data-en>End-to-End Cinema &amp; Corporate VAT Ready</span>
+                    </h3>
+                    <p class="slate-card-desc" data-th>
+                      ผลิตวิดีโอโฆษณา (Commercial), ไฮไลต์อีเวนต์ระดับนานาชาติ, วิดีโอพรีเซนเทชันองค์กร, ระบบถ่ายทอดสดหลายมุมกล้อง และภาพนิ่งโฆษณา พร้อมรองรับระบบจัดซื้อองค์กรครบถ้วน
+                    </p>
+                    <p class="slate-card-desc" data-en>
+                      Commercial films, international event highlights, corporate presentations, multi-cam live broadcasts, and commercial photography with full VAT compliance.
+                    </p>
+                  </div>
+                  <div class="slate-metrics-row">
+                    <div><div class="slate-metric-val">4K+</div><div class="slate-metric-lbl"><span data-th>ซีนีม่าเกรด</span><span data-en>CINEMA RAW</span></div></div>
+                    <div><div class="slate-metric-val">LIVE</div><div class="slate-metric-lbl"><span data-th>สตรีมมิงสด</span><span data-en>MULTI-CAM</span></div></div>
+                    <div><div class="slate-metric-val">VAT</div><div class="slate-metric-lbl"><span data-th>นิติบุคคล 100%</span><span data-en>CORP READY</span></div></div>
+                  </div>
+                </article>
               </div>
-            </article>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <!-- Right Panel: Widescreen 16:9 Cinema Monitor Guided in by Red Triangle -->
-      <div class="cinema-monitor-col tri-guided-panel delay-2">
-        <div class="monitor-top-bar">
-          <div class="monitor-rec-tag">
-            <span class="tri-icon-sm"></span>
-            <span id="monitorCamCode">CAM A // 01 — ON SET CREW</span>
-          </div>
-          <div>16:9 WIDESCREEN // 2400×1350 RAW</div>
-        </div>
+          <div class="cinema-monitor-col tri-guided-panel delay-2">
+            <div class="monitor-top-bar">
+              <div class="monitor-rec-tag">
+                <span class="tri-icon-sm"></span>
+                <span id="monitorCamCode">CAM A // 01 — ON SET CREW</span>
+              </div>
+              <div>16:9 WIDESCREEN // RAW</div>
+            </div>
 
-        <div class="monitor-frame-16x9" id="monitorFrame">
-          <div class="monitor-tri-shutter"></div>
-          <img class="monitor-slide-img is-active" data-reel-img="0" src="assets/profile_media/bts_about.jpg" alt="GHN168 Production Crew on Set" />
-          <img class="monitor-slide-img" data-reel-img="1" src="assets/profile_media/work_01_main.jpg" alt="GUN INFINITY — Commercial Advertising" />
-          <img class="monitor-slide-img" data-reel-img="2" src="assets/profile_media/work_07_main.jpg" alt="ADIDAS GOLF APAC INVITATION — Event Highlight" />
+            <div class="monitor-frame-16x9" id="monitorFrame">
+              <div class="monitor-tri-shutter"></div>
+              <img class="monitor-slide-img is-active" data-reel-img="0" src="assets/profile_media/bts_about.jpg" alt="GHN168 Production Crew on Set" />
+              <img class="monitor-slide-img" data-reel-img="1" src="assets/profile_media/work_01_main.jpg" alt="GUN INFINITY — Commercial Advertising" />
+              <img class="monitor-slide-img" data-reel-img="2" src="assets/profile_media/work_07_main.jpg" alt="ADIDAS GOLF APAC INVITATION — Event Highlight" />
 
-          <div class="monitor-lower-third">
-            <div class="lower-third-box">
-              <div class="lower-third-kicker" id="monitorKicker">DIRECT PRODUCTION // ทีมกองถ่ายจริง</div>
-              <div class="lower-third-title" id="monitorTitle">GHN168 ON SET — CHIANG MAI &amp; BANGKOK</div>
+              <div class="monitor-lower-third">
+                <div class="lower-third-box">
+                  <div class="lower-third-kicker" id="monitorKicker">DIRECT PRODUCTION // ทีมกองถ่ายจริง</div>
+                  <div class="lower-third-title" id="monitorTitle">GHN168 ON SET — CHIANG MAI &amp; BANGKOK</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="monitor-bottom-bar">
+              <div class="reel-selector-group">
+                <button type="button" class="reel-chip-btn active" data-reel-btn="0"><span class="tri-icon-sm"></span><span data-th>01 ทีมกองถ่าย</span><span data-en>01 CREW</span></button>
+                <button type="button" class="reel-chip-btn" data-reel-btn="1"><span class="tri-icon-sm"></span><span data-th>02 งานโฆษณา</span><span data-en>02 COMMERCIAL</span></button>
+                <button type="button" class="reel-chip-btn" data-reel-btn="2"><span class="tri-icon-sm"></span><span data-th>03 งานอีเวนต์</span><span data-en>03 GLOBAL EVENT</span></button>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="monitor-bottom-bar">
-          <div class="reel-selector-group" role="group" aria-label="Scene 01 Showreel Frames">
-            <button type="button" class="reel-chip-btn active" data-reel-btn="0">
+        <footer class="scene-footer-bar">
+          <div><span class="tri-icon-sm"></span> [ SCENE 01 / 04 // OPENING STAGE ]</div>
+          <div>
+            <button type="button" class="scene-step-nav-btn" data-goto-scene="1">
+              <span data-th>ปัดขึ้น / เลื่อนเมาส์ไปหน้า 02 (พันธกิจ G·H·N)</span>
+              <span data-en>SCROLL / SWIPE TO SCENE 02 (MISSION G·H·N)</span>
               <span class="tri-icon-sm"></span>
-              <span data-th>01 ทีมกองถ่าย GHN168</span>
-              <span data-en>01 ON-SET CREW</span>
-            </button>
-            <button type="button" class="reel-chip-btn" data-reel-btn="1">
-              <span class="tri-icon-sm"></span>
-              <span data-th>02 งานโฆษณา GUN INFINITY</span>
-              <span data-en>02 COMMERCIAL AD</span>
-            </button>
-            <button type="button" class="reel-chip-btn" data-reel-btn="2">
-              <span class="tri-icon-sm"></span>
-              <span data-th>03 งานอีเวนต์ ADIDAS GOLF APAC</span>
-              <span data-en>03 GLOBAL EVENT</span>
             </button>
           </div>
-          <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--ink-muted);">
-            <span data-th>เปลี่ยนตามจังหวะแท็บ 01–03 อัตโนมัติ</span>
-            <span data-en>SYNCED WITH SLATE 01–03</span>
-          </div>
-        </div>
+        </footer>
       </div>
-
     </section>
 
-    <!-- 3. BOTTOM STAGE STATUS BAR -->
-    <footer class="scene-bottom-bar">
-      <div class="scene-status-left">
-        <span class="tri-icon-sm"></span>
-        <span>[ SCENE 01 // MATTE BLACK COMMERCIAL STAGE ]</span>
-      </div>
-      <div class="scene-next-cue">
-        <span data-th>ลูกศรสีแดงพาเปิดคำว่า GHN168 MEDIA กลางจอ ➔ ถอยกลับเข้าที่วางด้านบนซ้าย</span>
-        <span data-en>RED ARROW REVEALS GHN168 MEDIA CENTER STAGE ➔ DOCKS TOP-LEFT</span>
-      </div>
-    </footer>
+    <!-- ========================================================================
+         SCENE 02 // PHILOSOPHY & MISSION (G · H · N · 168)
+         Ref: 108.Supply Split Quadrant (https://pin.it/qZDNspvfD) + RICO. Showcase
+         "มีเข้า มีออก มีเวียนสลับที่ ซ้อนเหลื่อมมิติหน้า-หลัง"
+         ======================================================================== -->
+    <section class="scene-page is-next" id="scene02" data-scene-idx="1" aria-label="Scene 02 Mission and Philosophy">
+      <div class="scene-inner-shell">
+        <header class="scene02-top-bar">
+          <div>
+            <div class="section-cue-tag">
+              <span class="tri-icon-sm"></span>
+              <span>SCENE 02 / 04 // PHILOSOPHY &amp; CORE PILLARS (G · H · N · 168)</span>
+            </div>
+            <h2 class="scene-header-title">
+              <span data-th>พันธกิจและปรัชญาการทำงาน G · H · N</span>
+              <span data-en>Our Philosophy: Groundbreaking · Happiness · Nirvana</span>
+            </h2>
+          </div>
 
-  </main>
+          <div class="vortex-phase-toolbar" role="group" aria-label="Vortex Motion Phase">
+            <button type="button" class="vortex-phase-btn is-active" data-vortex-phase="vortex">
+              <span class="tri-icon-sm"></span>
+              <span data-th>01 บีบซ้อนเวียนสลับที่</span><span data-en>01 VORTEX OVERLAP</span>
+            </button>
+            <button type="button" class="vortex-phase-btn" data-vortex-phase="split">
+              <span data-th>02 แยกตัวเข้า-ออก</span><span data-en>02 VERTICAL SPLIT</span>
+            </button>
+            <button type="button" class="vortex-phase-btn" data-vortex-phase="quad">
+              <span data-th>03 กางเต็ม 4 มุม</span><span data-en>03 SPLIT QUADRANT</span>
+            </button>
+            <button type="button" class="vortex-phase-btn" data-vortex-phase="hero">
+              <span data-th>04 ซูมโฟกัสใบหลัก</span><span data-en>04 HERO FOCUS</span>
+            </button>
+          </div>
+        </header>
 
+        <div class="scene02-stage-layout">
+          <!-- Left: 108.Supply Split-Quadrant 4-Card 3D Vortex Stage -->
+          <div class="quadrant-vortex-stage" id="quadrantVortexStage">
+            <div class="vortex-bottom-168-mark" aria-hidden="true">168</div>
+
+            <!-- Central Red Triangle Hub that conducts the card rotation -->
+            <div class="vortex-center-tri-hub" id="vortexCenterTri" aria-hidden="true">
+              <svg viewBox="0 0 36 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="2,2 34,20 2,38" fill="#e02424" />
+              </svg>
+            </div>
+
+            <!-- Card 0: G (GROUNDBREAKING) -->
+            <article class="quad-ghn-card is-focused" data-quad-card="0">
+              <img class="quad-card-photo" src="assets/profile_media/work_01_main.jpg" alt="G — Groundbreaking" />
+              <div class="quad-card-shade"></div>
+              <div class="quad-card-poster-stack">
+                <div class="quad-card-top-meta">
+                  <span>PILLAR // 01</span>
+                  <span>[ G ]</span>
+                </div>
+                <div class="quad-kinetic-words">
+                  <span>GROUND</span>
+                  <span>BREAK</span>
+                  <span>FRESH</span>
+                  <span>VISION</span>
+                  <span>IDEA</span>
+                </div>
+                <div class="quad-card-bottom-pill">
+                  <span data-th>G · ล้ำสมัย เปิดมุมมองใหม่</span>
+                  <span data-en>G · GROUNDBREAKING</span>
+                  <span class="tri-icon-sm"></span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 1: H (HAPPINESS) -->
+            <article class="quad-ghn-card" data-quad-card="1">
+              <img class="quad-card-photo" src="assets/profile_media/bts_about.jpg" alt="H — Happiness" />
+              <div class="quad-card-shade"></div>
+              <div class="quad-card-poster-stack">
+                <div class="quad-card-top-meta">
+                  <span>PILLAR // 02</span>
+                  <span>[ H ]</span>
+                </div>
+                <div class="quad-kinetic-words">
+                  <span>HAPPY</span>
+                  <span>FLOW</span>
+                  <span>DIRECT</span>
+                  <span>TRUST</span>
+                  <span>TEAM</span>
+                </div>
+                <div class="quad-card-bottom-pill">
+                  <span data-th>H · ราบรื่น มีความสุขทุกกองถ่าย</span>
+                  <span data-en>H · HAPPINESS</span>
+                  <span class="tri-icon-sm"></span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 2: N (NIRVANA) -->
+            <article class="quad-ghn-card" data-quad-card="2">
+              <img class="quad-card-photo" src="assets/profile_media/work_07_main.jpg" alt="N — Nirvana" />
+              <div class="quad-card-shade"></div>
+              <div class="quad-card-poster-stack">
+                <div class="quad-card-top-meta">
+                  <span>PILLAR // 03</span>
+                  <span>[ N ]</span>
+                </div>
+                <div class="quad-kinetic-words">
+                  <span>NIRVANA</span>
+                  <span>PEAK</span>
+                  <span>CRAFT</span>
+                  <span>SOUL</span>
+                  <span>PURE</span>
+                </div>
+                <div class="quad-card-bottom-pill">
+                  <span data-th>N · สมบูรณ์แบบไร้ที่ติ</span>
+                  <span data-en>N · NIRVANA</span>
+                  <span class="tri-icon-sm"></span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 3: 168 (DIRECT PRODUCTION COMMITMENT) -->
+            <article class="quad-ghn-card" data-quad-card="3">
+              <img class="quad-card-photo" src="assets/profile_media/work_04_main.jpg" alt="168 — Full Production" />
+              <div class="quad-card-shade"></div>
+              <div class="quad-card-poster-stack">
+                <div class="quad-card-top-meta">
+                  <span>PILLAR // 04</span>
+                  <span>[ 168 ]</span>
+                </div>
+                <div class="quad-kinetic-words">
+                  <span>GHN168</span>
+                  <span>CINEMA</span>
+                  <span>LIVE</span>
+                  <span>SOUND</span>
+                  <span>CORP</span>
+                </div>
+                <div class="quad-card-bottom-pill">
+                  <span data-th>168 · โปรดักชันครบวงจร</span>
+                  <span data-en>168 · FULL PRODUCTION</span>
+                  <span class="tri-icon-sm"></span>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Right: Active G·H·N Pillar Detail & Selector -->
+          <div class="scene02-inspector-col">
+            <div>
+              <div class="section-cue-tag" style="margin-bottom: 8px;">
+                <span class="tri-icon-sm"></span>
+                <span data-th>คลิกเลือกการ์ด G · H · N · 168 หรือปล่อยให้เวียนสลับที่อัตโนมัติ</span>
+                <span data-en>CLICK ANY CARD OR LET THE VORTEX CYCLE AUTOMATICALLY</span>
+              </div>
+
+              <div class="ghn-pillar-selector" role="tablist">
+                <button type="button" class="ghn-pillar-tab is-active" data-ghn-select="0">G</button>
+                <button type="button" class="ghn-pillar-tab" data-ghn-select="1">H</button>
+                <button type="button" class="ghn-pillar-tab" data-ghn-select="2">N</button>
+                <button type="button" class="ghn-pillar-tab" data-ghn-select="3">168</button>
+              </div>
+            </div>
+
+            <div class="ghn-detail-box" id="ghnDetailBox">
+              <div class="ghn-detail-letter-row">
+                <div class="ghn-detail-big-code" id="ghnDetailCode">G // 01</div>
+                <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--ink-secondary);" id="ghnDetailStep">STEP 01 OF 04</div>
+              </div>
+              <h3 class="ghn-detail-title" id="ghnDetailTitle">GROUNDBREAKING — ล้ำสมัย เปิดมุมมองใหม่</h3>
+              <p class="ghn-detail-desc" id="ghnDetailDesc">
+                ผลงานและแนวคิดที่เปล่งประกายด้วยความคิดสร้างสรรค์ เปิดโลกทัศน์สู่การนำเสนอภาพและวิดีโอรูปแบบใหม่ เพื่อให้แบรนด์ของลูกค้าโดดเด่นและแตกต่างกว่าใครในตลาด
+              </p>
+            </div>
+
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+              <button type="button" class="hud-action-btn" id="ghnCycleOnceBtn">
+                <span class="tri-icon-sm"></span>
+                <span data-th>หมุนเวียนสลับการ์ด 1 รอบ</span>
+                <span data-en>ROTATE CARDS ONCE</span>
+              </button>
+              <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--ink-muted);">
+                <span data-th>เรฟ: 108.Supply Split Quadrant + RICO</span>
+                <span data-en>REF: 108.SUPPLY + RICO</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <footer class="scene-footer-bar">
+          <div>
+            <button type="button" class="scene-step-nav-btn" data-goto-scene="0">
+              <span data-th>▴ กลับหน้า 01</span><span data-en>▴ PREV SCENE 01</span>
+            </button>
+          </div>
+          <div>
+            <button type="button" class="scene-step-nav-btn" data-goto-scene="2">
+              <span data-th>ปัดขึ้น / เลื่อนเมาส์ไปหน้า 03 (บริการ 6 ด้าน การ์ดแนวตั้ง)</span>
+              <span data-en>NEXT: SCENE 03 (6 VERTICAL SERVICES)</span>
+              <span class="tri-icon-sm"></span>
+            </button>
+          </div>
+        </footer>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SCENE 03 // 6 CORE PRODUCTION SERVICES (VERTICAL CARDS FAN WHEEL)
+         Ref: https://pin.it/2UXc6pUSA ("WELCOME TO MY PORTFOLIO" Light Stage +
+              Red Pillar + 3D Wave Title + 6 Vertical Cards on Rotating Arc)
+         ======================================================================== -->
+    <section class="scene-page is-next" id="scene03" data-scene-idx="2" aria-label="Scene 03 Six Production Services">
+      <div class="scene-inner-shell">
+        <header class="scene03-top-meta">
+          <div style="display: inline-flex; align-items: center; gap: 8px;">
+            <span class="tri-icon-sm"></span>
+            <span>SCENE 03 / 04 // 6 CORE PRODUCTION CAPABILITIES</span>
+          </div>
+          <div>
+            <span data-th>คลิกการ์ดแนวตั้งแต่ละใบ หรือกดลูกศรซ้าย-ขวาเพื่อหมุนพัด</span>
+            <span data-en>CLICK ANY VERTICAL CARD OR USE ARROWS TO DIAL THE WHEEL</span>
+          </div>
+        </header>
+
+        <div class="scene03-stage">
+          <!-- Upper Stage: Vertical Red Pillar + 3D Kinetic Wave Title + Side Triangle Arrows -->
+          <div class="scene03-red-pillar-zone">
+            <div class="red-vertical-pillar" aria-hidden="true"></div>
+
+            <div class="pillar-kinetic-banner">
+              <button type="button" class="pillar-side-tri-btn" id="srvWheelPrevBtn" aria-label="Previous Service">
+                <svg width="16" height="18" viewBox="0 0 16 18" fill="none">
+                  <polygon points="14,2 2,9 14,16" fill="currentColor" />
+                </svg>
+              </button>
+
+              <div class="kinetic-wave-stack" aria-label="Services">
+                <div class="wave-word-row row-solid">SERVICES</div>
+                <div class="wave-word-row row-outline" aria-hidden="true">SERVICES</div>
+              </div>
+
+              <button type="button" class="pillar-side-tri-btn" id="srvWheelNextBtn" aria-label="Next Service">
+                <svg width="16" height="18" viewBox="0 0 16 18" fill="none">
+                  <polygon points="2,2 14,9 2,16" fill="currentColor" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Lower Stage: 6 Vertical Service Cards Mounted on Rotating Semi-Circular Arc -->
+          <div class="services-fan-wheel-stage" id="srvFanWheelStage">
+            <div class="fan-wheel-anchor" id="srvFanAnchor">
+
+              <!-- Vertical Card 01: Commercial Photography -->
+              <article class="srv-vertical-card is-center" data-srv-vcard="0">
+                <div class="srv-vcard-media">
+                  <img src="assets/profile_media/work_12_main.jpg" alt="01 Commercial Photography" />
+                  <span class="srv-vcard-num-badge">01 / 06</span>
+                </div>
+                <div class="srv-vcard-body">
+                  <div>
+                    <div class="srv-vcard-kicker">STILL &amp; STUDIO</div>
+                    <h3 class="srv-vcard-title">
+                      <span data-th>บริการถ่ายภาพนิ่งโฆษณา</span>
+                      <span data-en>Commercial Photography</span>
+                    </h3>
+                    <p class="srv-vcard-desc" data-th>
+                      ถ่ายภาพผู้บริหาร อีเวนต์องค์กร ภาพสินค้า โรงแรม และสถาปัตยกรรม ด้วยการจัดแสงระดับสตูดิโอ
+                    </p>
+                    <p class="srv-vcard-desc" data-en>
+                      Executive portraits, corporate events, product advertising, and hotel architecture photography.
+                    </p>
+                  </div>
+                  <div class="srv-vcard-tags">
+                    <span class="srv-vcard-tag"><span data-th>ภาพผู้บริหาร</span><span data-en>Portraits</span></span>
+                    <span class="srv-vcard-tag"><span data-th>ภาพสินค้า/โรงแรม</span><span data-en>Product &amp; Hotel</span></span>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Vertical Card 02: Cinema & Event Videography -->
+              <article class="srv-vertical-card" data-srv-vcard="1">
+                <div class="srv-vcard-media">
+                  <img src="assets/profile_media/work_01_main.jpg" alt="02 Cinema & Event Videography" />
+                  <span class="srv-vcard-num-badge">02 / 06</span>
+                </div>
+                <div class="srv-vcard-body">
+                  <div>
+                    <div class="srv-vcard-kicker">CINEMA PRODUCTION</div>
+                    <h3 class="srv-vcard-title">
+                      <span data-th>บริการถ่ายทำวิดีโอครบวงจร</span>
+                      <span data-en>Cinema &amp; Event Videography</span>
+                    </h3>
+                    <p class="srv-vcard-desc" data-th>
+                      ผลิตวิดีโอโฆษณา ไฮไลต์งานอีเวนต์นานาชาติ วิดีโอพรีเซนเทชันองค์กร และสารคดีคุณภาพระดับภาพยนตร์
+                    </p>
+                    <p class="srv-vcard-desc" data-en>
+                      Commercial ads, international event highlights, corporate video presentations, and documentaries.
+                    </p>
+                  </div>
+                  <div class="srv-vcard-tags">
+                    <span class="srv-vcard-tag"><span data-th>วิดีโอโฆษณา</span><span data-en>Commercials</span></span>
+                    <span class="srv-vcard-tag"><span data-th>ไฮไลต์อีเวนต์</span><span data-en>Event Reels</span></span>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Vertical Card 03: Visual Storytelling -->
+              <article class="srv-vertical-card" data-srv-vcard="2">
+                <div class="srv-vcard-media">
+                  <img src="assets/profile_media/work_03_main.jpg" alt="03 Visual Storytelling" />
+                  <span class="srv-vcard-num-badge">03 / 06</span>
+                </div>
+                <div class="srv-vcard-body">
+                  <div>
+                    <div class="srv-vcard-kicker">CREATIVE DIRECTION</div>
+                    <h3 class="srv-vcard-title">
+                      <span data-th>การเล่าเรื่องด้วยภาพ</span>
+                      <span data-en>Visual Storytelling</span>
+                    </h3>
+                    <p class="srv-vcard-desc" data-th>
+                      ออกแบบคอนเซปต์ โครงเรื่อง สตอรี่บอร์ด และมุมกล้องที่ถ่ายทอดสารสำคัญของแบรนด์ให้ตรึงสายตา
+                    </p>
+                    <p class="srv-vcard-desc" data-en>
+                      Concept development, storyboarding, and narrative direction that turn brand messages into impact.
+                    </p>
+                  </div>
+                  <div class="srv-vcard-tags">
+                    <span class="srv-vcard-tag"><span data-th>คิดคอนเซปต์/บท</span><span data-en>Script</span></span>
+                    <span class="srv-vcard-tag"><span data-th>สตอรี่บอร์ด</span><span data-en>Storyboard</span></span>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Vertical Card 04: Post-Production & Grading -->
+              <article class="srv-vertical-card" data-srv-vcard="3">
+                <div class="srv-vcard-media">
+                  <img src="assets/profile_media/work_05_main.jpg" alt="04 Post-Production & Grading" />
+                  <span class="srv-vcard-num-badge">04 / 06</span>
+                </div>
+                <div class="srv-vcard-body">
+                  <div>
+                    <div class="srv-vcard-kicker">POST &amp; FINISHING</div>
+                    <h3 class="srv-vcard-title">
+                      <span data-th>ตัดต่อและเกรดสีภาพยนตร์</span>
+                      <span data-en>Post-Production &amp; Grading</span>
+                    </h3>
+                    <p class="srv-vcard-desc" data-th>
+                      ตัดต่อลำดับภาพให้น่าติดตาม เกรดสีภาพยนตร์ มิกซ์เสียง ดนตรีประกอบ และรีทัชภาพนิ่งความละเอียดสูง
+                    </p>
+                    <p class="srv-vcard-desc" data-en>
+                      Full editing pipeline, cinema color grading, sound design, and high-end photo retouching.
+                    </p>
+                  </div>
+                  <div class="srv-vcard-tags">
+                    <span class="srv-vcard-tag"><span data-th>เกรดสีภาพยนตร์</span><span data-en>Color Grade</span></span>
+                    <span class="srv-vcard-tag"><span data-th>ซาวด์ดีไซน์</span><span data-en>Sound Mix</span></span>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Vertical Card 05: Live Streaming & Crew -->
+              <article class="srv-vertical-card" data-srv-vcard="4">
+                <div class="srv-vcard-media">
+                  <img src="assets/profile_media/work_10_main.jpg" alt="05 Live Streaming & Crew" />
+                  <span class="srv-vcard-num-badge">05 / 06</span>
+                </div>
+                <div class="srv-vcard-body">
+                  <div>
+                    <div class="srv-vcard-kicker">MULTI-CAM BROADCAST</div>
+                    <h3 class="srv-vcard-title">
+                      <span data-th>ถ่ายทอดสดและทีมกองถ่าย</span>
+                      <span data-en>Live Streaming &amp; Crew</span>
+                    </h3>
+                    <p class="srv-vcard-desc" data-th>
+                      ระบบสตรีมมิงงานประชุมและอีเวนต์หลายมุมกล้อง พร้อมทีมกล้อง ไฟ และเสียงมืออาชีพครบชุด
+                    </p>
+                    <p class="srv-vcard-desc" data-en>
+                      Multi-camera live broadcast for conferences and hybrid events with full lighting and audio crew.
+                    </p>
+                  </div>
+                  <div class="srv-vcard-tags">
+                    <span class="srv-vcard-tag"><span data-th>สตรีมมิงหลายกล้อง</span><span data-en>Multi-Cam</span></span>
+                    <span class="srv-vcard-tag"><span data-th>ทีมไฟและเสียง</span><span data-en>Full Crew</span></span>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Vertical Card 06: Direct Client Commitment -->
+              <article class="srv-vertical-card" data-srv-vcard="5">
+                <div class="srv-vcard-media">
+                  <img src="assets/profile_media/bts_about.jpg" alt="06 Direct Client Commitment" />
+                  <span class="srv-vcard-num-badge">06 / 06</span>
+                </div>
+                <div class="srv-vcard-body">
+                  <div>
+                    <div class="srv-vcard-kicker">DIRECT TO FOUNDERS</div>
+                    <h3 class="srv-vcard-title">
+                      <span data-th>ดูแลตรงถึงมือลูกค้า 100%</span>
+                      <span data-en>Direct Client Commitment</span>
+                    </h3>
+                    <p class="srv-vcard-desc" data-th>
+                      ผู้ก่อตั้งทั้ง 3 คนลงคุมงานเอง ปรับดราฟต์รวดเร็ว ส่งมอบตรงเวลา พร้อมเอกสารภาษีนิติบุคคล VAT 7%
+                    </p>
+                    <p class="srv-vcard-desc" data-en>
+                      Direct founder oversight, fast turnaround revisions, and full corporate VAT 7% documentation.
+                    </p>
+                  </div>
+                  <div class="srv-vcard-tags">
+                    <span class="srv-vcard-tag"><span data-th>คุยตรงผู้กำกับ</span><span data-en>Direct Brief</span></span>
+                    <span class="srv-vcard-tag"><span data-th>นิติบุคคล VAT 7%</span><span data-en>VAT 7% Ready</span></span>
+                  </div>
+                </div>
+              </article>
+
+            </div>
+
+            <!-- Bottom Dial Indicator (▲) & Quick Service Pills -->
+            <div class="fan-wheel-dial-bar">
+              <div class="dial-red-up-pointer">
+                <span class="tri-up-red"></span>
+                <span id="srvDialLabel">ACTIVE SERVICE // 01 OF 06</span>
+              </div>
+              <div class="srv-quick-pills" role="tablist">
+                <button type="button" class="srv-pill-btn is-active" data-srv-pill="0">01 PHOTO</button>
+                <button type="button" class="srv-pill-btn" data-srv-pill="1">02 VIDEO</button>
+                <button type="button" class="srv-pill-btn" data-srv-pill="2">03 STORY</button>
+                <button type="button" class="srv-pill-btn" data-srv-pill="3">04 POST</button>
+                <button type="button" class="srv-pill-btn" data-srv-pill="4">05 LIVE</button>
+                <button type="button" class="srv-pill-btn" data-srv-pill="5">06 DIRECT</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="scene-footer-bar">
+          <div>
+            <button type="button" class="scene-step-nav-btn" data-goto-scene="1" style="background:#111215; color:#f5f4f0;">
+              <span data-th>▴ กลับหน้า 02 (พันธกิจ)</span><span data-en>▴ PREV SCENE 02</span>
+            </button>
+          </div>
+          <div>
+            <button type="button" class="scene-step-nav-btn" data-goto-scene="3" style="background:#e02424; color:#f5f4f0;">
+              <span data-th>ปัดขึ้น / เลื่อนเมาส์ไปหน้า 04 (ผู้ร่วมก่อตั้ง 3 คน)</span>
+              <span data-en>NEXT: SCENE 04 (3 CO-FOUNDERS)</span>
+              <span class="tri-icon-sm" style="border-left-color:#fff;"></span>
+            </button>
+          </div>
+        </footer>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SCENE 04 // THE 3 CO-FOUNDERS (เก่ง · หอม · นิค)
+         Ref: https://pin.it/12s7g8wOu ("11.11 BUINOV / QDREAM / BURLYAEV"
+              Central Cutout/Portrait Frame + Opposing Vertical Slot Lanes)
+         ======================================================================== -->
+    <section class="scene-page is-next" id="scene04" data-scene-idx="3" aria-label="Scene 04 Three Co-Founders">
+      <div class="scene-inner-shell">
+        <header class="scene04-top-bar">
+          <div>
+            <div class="section-cue-tag">
+              <span class="tri-icon-sm"></span>
+              <span>SCENE 04 / 04 // LEADERSHIP &amp; 3 CO-FOUNDERS</span>
+            </div>
+            <h2 class="scene-header-title">
+              <span data-th>ทีมผู้ร่วมก่อตั้งของเรา (3 Co-Founders)</span>
+              <span data-en>Meet the 3 Co-Founders</span>
+            </h2>
+          </div>
+
+          <div class="founders-switcher-bar" role="tablist">
+            <button type="button" class="founder-select-btn is-active" data-founder-btn="0">
+              <span class="tri-icon-sm"></span>
+              <span data-th>01 เก่ง มงคล</span><span data-en>01 KENG MONGKOL</span>
+            </button>
+            <button type="button" class="founder-select-btn" data-founder-btn="1">
+              <span class="tri-icon-sm"></span>
+              <span data-th>02 หอม ณัฐวัฒน์</span><span data-en>02 HOM NUTTAWAT</span>
+            </button>
+            <button type="button" class="founder-select-btn" data-founder-btn="2">
+              <span class="tri-icon-sm"></span>
+              <span data-th>03 นิค อนุชิต</span><span data-en>03 NICK ANUCHIT</span>
+            </button>
+          </div>
+        </header>
+
+        <div class="founders-slot-stage" id="foundersSlotStage">
+          <!-- Left Opposing Vertical Reel (Slides vertically DOWN/UP) -->
+          <div class="slot-lane-left">
+            <div class="slot-reel-track" id="founderLeftReel">
+              <!-- Item 0: Keng -->
+              <div class="slot-reel-item">
+                <div class="founder-giant-num">01<span class="red-dot">.</span>03</div>
+                <div class="founder-slot-surname">
+                  <span data-th>วงศ์สกุลยานนท์</span>
+                  <span data-en>WONGSAKULYANON</span>
+                </div>
+                <div class="founder-slot-legal">
+                  <span data-th>▶ กรรมการผู้มีอำนาจลงนาม &amp; หุ้นส่วนหลัก</span>
+                  <span data-en>▶ AUTHORIZED DIRECTOR &amp; CO-FOUNDER</span>
+                </div>
+              </div>
+              <!-- Item 1: Hom -->
+              <div class="slot-reel-item">
+                <div class="founder-giant-num">02<span class="red-dot">.</span>03</div>
+                <div class="founder-slot-surname">
+                  <span data-th>ปวงจันทร์หอม</span>
+                  <span data-en>PUANGJUNHOM</span>
+                </div>
+                <div class="founder-slot-legal">
+                  <span data-th>▶ กรรมการผู้มีอำนาจลงนาม &amp; หุ้นส่วนหลัก</span>
+                  <span data-en>▶ AUTHORIZED DIRECTOR &amp; CO-FOUNDER</span>
+                </div>
+              </div>
+              <!-- Item 2: Nick -->
+              <div class="slot-reel-item">
+                <div class="founder-giant-num">03<span class="red-dot">.</span>03</div>
+                <div class="founder-slot-surname">
+                  <span data-th>อภิชัย</span>
+                  <span data-en>APICHAI</span>
+                </div>
+                <div class="founder-slot-legal">
+                  <span data-th>▶ ผู้ร่วมก่อตั้ง &amp; หุ้นส่วนหลัก</span>
+                  <span data-en>▶ CO-FOUNDER &amp; PRINCIPAL PARTNER</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Center Portrait Monolith Frame (Uses Keng's new PNG cutout!) -->
+          <div class="founder-center-monolith" id="founderMonolith">
+            <div class="monolith-red-trigger" id="monolithRedTrigger" aria-hidden="true">
+              <svg width="26" height="30" viewBox="0 0 36 40" fill="none">
+                <polygon points="2,2 34,20 2,38" fill="#e02424" />
+              </svg>
+            </div>
+            <div class="monolith-frame-tag" id="monolithFrameTag">CO-FOUNDER // 01</div>
+
+            <!-- Slide 0: Keng (New Cutout PNG uploaded by Keng) -->
+            <div class="founder-portrait-slide is-cutout is-active" data-founder-slide="0">
+              <img src="assets/profile_media/founder_keng_new.png" alt="Mongkol Wongsakulyanon — Co-Founder & Managing Director" />
+            </div>
+
+            <!-- Slide 1: Hom -->
+            <div class="founder-portrait-slide" data-founder-slide="1">
+              <img src="assets/profile_media/founder_hom.jpg" alt="Nuttawat Puangjunhom — Co-Founder & Executive Producer" />
+            </div>
+
+            <!-- Slide 2: Nick -->
+            <div class="founder-portrait-slide" data-founder-slide="2">
+              <img src="assets/profile_media/founder_nick.jpg" alt="Anuchit Apichai — Co-Founder & Director of Photography" />
+            </div>
+          </div>
+
+          <!-- Right Opposing Vertical Reel (Moves in opposite vertical direction to Left Reel) -->
+          <div class="slot-lane-right">
+            <div class="slot-reel-track" id="founderRightReel">
+              <!-- Note: Ordered [2, 1, 0] so when Left Reel translates UP/DOWN, Right Reel translates in the OPPOSING vertical direction and locks on the matching founder! -->
+              <!-- Index 0 in DOM (matches Founder 2: Nick) -->
+              <div class="slot-reel-item">
+                <div class="founder-giant-firstname">
+                  <span data-th>อนุชิต (นิค)</span>
+                  <span data-en>ANUCHIT (NICK)</span>
+                </div>
+                <div class="founder-role-pill">
+                  <span class="tri-icon-sm"></span>
+                  <span data-th>ผู้ร่วมก่อตั้ง, ผู้กำกับภาพ (DoP) &amp; ครีเอทีฟ</span>
+                  <span data-en>Co-Founder, Director of Photography &amp; Creative Lead</span>
+                </div>
+                <p class="founder-bio-copy" data-th>
+                  ดูแลการออกแบบมุมกล้อง กำกับภาพเคลื่อนไหว (Cinematography) จัดแสง กำกับศิลป์ และควบคุมอุปกรณ์เทคนิคหน้ากองถ่ายทั้งหมด
+                </p>
+                <p class="founder-bio-copy" data-en>
+                  Directs cinematography, camera movement, lighting design, and technical camera/grip operations on set.
+                </p>
+                <div class="founder-direct-contact">
+                  <span>TEL: <a href="tel:0898505708">089-850-5708</a></span>
+                  <span>EMAIL: <a href="mailto:ghn168media@gmail.com">ghn168media@gmail.com</a></span>
+                </div>
+              </div>
+
+              <!-- Index 1 in DOM (matches Founder 1: Hom) -->
+              <div class="slot-reel-item">
+                <div class="founder-giant-firstname">
+                  <span data-th>ณัฐวัฒน์ (หอม)</span>
+                  <span data-en>NUTTAWAT (HOM)</span>
+                </div>
+                <div class="founder-role-pill">
+                  <span class="tri-icon-sm"></span>
+                  <span data-th>ผู้ร่วมก่อตั้ง, เอ็กเซ็กคิวทีฟโปรดิวเซอร์ &amp; หัวหน้าฝ่ายตัดต่อ</span>
+                  <span data-en>Co-Founder, Executive Producer &amp; Lead Editor</span>
+                </div>
+                <p class="founder-bio-copy" data-th>
+                  ควบคุมการผลิตงานโปรดักชัน ประสานงานกองถ่าย ถ่ายทำวิดีโอ และกำกับงานตัดต่อลำดับภาพหลังการผลิตให้แม่นยำตรงเวลา
+                </p>
+                <p class="founder-bio-copy" data-en>
+                  Oversees production execution, on-set crew coordination, cinema videography, and post-production editing.
+                </p>
+                <div class="founder-direct-contact">
+                  <span>TEL: <a href="tel:0861989590">086-198-9590</a></span>
+                  <span>EMAIL: <a href="mailto:ghn168media@gmail.com">ghn168media@gmail.com</a></span>
+                </div>
+              </div>
+
+              <!-- Index 2 in DOM (matches Founder 0: Keng) -->
+              <div class="slot-reel-item">
+                <div class="founder-giant-firstname">
+                  <span data-th>มงคล (เก่ง)</span>
+                  <span data-en>MONGKOL (KENG)</span>
+                </div>
+                <div class="founder-role-pill">
+                  <span class="tri-icon-sm"></span>
+                  <span data-th>ผู้ร่วมก่อตั้ง, กรรมการผู้จัดการ &amp; ผู้กำกับ/ช่างภาพ</span>
+                  <span data-en>Co-Founder, Managing Director, Director &amp; Photographer</span>
+                </div>
+                <p class="founder-bio-copy" data-th>
+                  กำกับทิศทางภาพรวมของโปรเจกต์ ดูแลงานถ่ายภาพนิ่งโฆษณา กำกับแสง (Gaffer) และบริหารกลยุทธ์องค์กร คุยตรงกับลูกค้าทุกแคมเปญ
+                </p>
+                <p class="founder-bio-copy" data-en>
+                  Leads overall creative direction, commercial photography, studio lighting design (Gaffer), and corporate strategy.
+                </p>
+                <div class="founder-direct-contact">
+                  <span>TEL: <a href="tel:0895544355">089-554-4355</a></span>
+                  <span>EMAIL: <a href="mailto:ghn168media@gmail.com">ghn168media@gmail.com</a></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="scene-footer-bar">
+          <div>
+            <button type="button" class="scene-step-nav-btn" data-goto-scene="2">
+              <span data-th>▴ กลับหน้า 03 (บริการ 6 ด้าน)</span><span data-en>▴ PREV SCENE 03</span>
+            </button>
+          </div>
+          <div>
+            <button type="button" class="scene-step-nav-btn" data-goto-scene="0">
+              <span class="tri-icon-sm"></span>
+              <span data-th>วนกลับไปหน้าแรก (SCENE 01)</span>
+              <span data-en>RETURN TO SCENE 01</span>
+            </button>
+          </div>
+        </footer>
+      </div>
+    </section>
+
+  </div>
   <script>
     /* ==========================================================================
-       1. LANGUAGE SWITCHER (TH / EN) & ARROW REVEAL MODE SWITCHER (A / B)
+       0. GLOBAL STATE, LANGUAGE SWITCHER & ARROW REVEAL MODE
        ========================================================================== */
     const htmlEl = document.documentElement;
     const bodyEl = document.body;
+    const TOTAL_SCENES = 4;
+    let currentSceneIdx = 0;
+    let isPageTransitioning = false;
+    let wheelCooldownTimer = null;
+
+    const scenePages = Array.from(document.querySelectorAll('.scene-page'));
+    const railBtns = Array.from(document.querySelectorAll('.rail-scene-btn'));
+    const globalRedConductor = document.getElementById('globalRedConductor');
+    const transitionCurtain = document.getElementById('transitionCurtain');
 
     document.querySelectorAll('[data-set-lang]').forEach(btn => {
       btn.addEventListener('click', () => {
         const lang = btn.getAttribute('data-set-lang');
         htmlEl.setAttribute('data-lang', lang);
         htmlEl.setAttribute('lang', lang);
+        document.querySelectorAll('[data-set-lang]').forEach(b => {
+          b.classList.toggle('is-active', b.getAttribute('data-set-lang') === lang);
+        });
         updateMonitorCaption(activeSlateIdx);
+        updateGhnInspector(activeGhnIdx);
       });
     });
 
@@ -1162,21 +2722,267 @@
       btn.addEventListener('click', () => {
         const mode = btn.getAttribute('data-set-mode');
         bodyEl.setAttribute('data-arrow-mode', mode);
-        runScene01Intro();
+        document.querySelectorAll('[data-set-mode]').forEach(b => {
+          b.classList.toggle('is-active', b.getAttribute('data-set-mode') === mode);
+        });
+        if (currentSceneIdx === 0) {
+          runScene01Intro();
+        } else {
+          transitionToScene(0);
+        }
       });
     });
 
     /* ==========================================================================
-       2. SCENE 01 OPENING CHOREOGRAPHY:
-          Red Right-Pointing Triangle (▶) slides backward (right -> left) to reveal
-          "GHN168 MEDIA" in the center of the screen, then "▶ GHN168 MEDIA"
-          retreats back along the Z-axis to its resting dock!
+       1. RED TRIANGLE PAGE-TO-PAGE TRANSITION ENGINE
+          ("ทุกครั้งที่มีการเปลี่ยนหน้า ตัวลูกศรสีแดงจะต้องเป็นตัวพามันไป")
+       ========================================================================== */
+    function updateSceneClasses(activeIdx) {
+      bodyEl.setAttribute('data-active-scene', String(activeIdx));
+      scenePages.forEach((page, idx) => {
+        page.classList.remove('is-active', 'is-prev', 'is-next');
+        if (idx === activeIdx) {
+          page.classList.add('is-active');
+        } else if (idx < activeIdx) {
+          page.classList.add('is-prev');
+        } else {
+          page.classList.add('is-next');
+        }
+      });
+      railBtns.forEach((btn, idx) => {
+        btn.classList.toggle('is-active', idx === activeIdx);
+      });
+    }
+
+    function animateRedConductorBridge(fromIdx, toIdx, onMidpoint, onComplete) {
+      if (!globalRedConductor || !transitionCurtain) {
+        onMidpoint();
+        onComplete();
+        return;
+      }
+
+      /* Reset transitions before starting bridge choreography */
+      globalRedConductor.style.transition = 'none';
+      transitionCurtain.style.transition = 'none';
+      transitionCurtain.className = 'transition-wipe-curtain';
+
+      if (toIdx === 2) {
+        /* Entering Scene 03 (Light Matte Stage): Red Arrow slices LEFT -> RIGHT pulling Light Curtain */
+        transitionCurtain.classList.add('theme-light');
+        transitionCurtain.style.opacity = '1';
+        transitionCurtain.style.transform = 'translate3d(-115%, 0, 0)';
+        globalRedConductor.style.opacity = '1';
+        globalRedConductor.style.transform = 'translate3d(6vw, 50vh, 0) rotate(0deg) scale(2.3)';
+        void globalRedConductor.offsetWidth;
+
+        /* Beat 1: Slice across viewport left -> right */
+        globalRedConductor.style.transition = 'transform 520ms cubic-bezier(0.22, 1, 0.36, 1), opacity 250ms ease';
+        transitionCurtain.style.transition = 'transform 540ms cubic-bezier(0.22, 1, 0.36, 1), opacity 320ms ease';
+        globalRedConductor.style.transform = 'translate3d(92vw, 50vh, 0) rotate(0deg) scale(2.6)';
+        transitionCurtain.style.transform = 'translate3d(0%, 0, 0)';
+
+        setTimeout(() => {
+          onMidpoint();
+          /* Beat 2: Flip arrow upright (▲) and drop into bottom-center dial of the 6 Vertical Cards */
+          globalRedConductor.style.transition = 'transform 460ms cubic-bezier(0.19, 1, 0.22, 1), opacity 380ms ease';
+          transitionCurtain.style.opacity = '0';
+          globalRedConductor.style.transform = 'translate3d(50vw, 86vh, 0) rotate(-90deg) scale(0.9)';
+        }, 420);
+
+        setTimeout(() => {
+          globalRedConductor.style.opacity = '0';
+          onComplete();
+        }, 900);
+
+      } else if (fromIdx === 2) {
+        /* Leaving Scene 03 (Light Stage -> Dark Stage): Red Arrow shoots UPWARD from bottom dial pulling Dark Curtain */
+        transitionCurtain.classList.add('theme-dark');
+        transitionCurtain.style.opacity = '1';
+        transitionCurtain.style.transform = 'translate3d(0, 110%, 0)';
+        globalRedConductor.style.opacity = '1';
+        globalRedConductor.style.transform = 'translate3d(50vw, 88vh, 0) rotate(-90deg) scale(1.6)';
+        void globalRedConductor.offsetWidth;
+
+        globalRedConductor.style.transition = 'transform 520ms cubic-bezier(0.22, 1, 0.36, 1), opacity 250ms ease';
+        transitionCurtain.style.transition = 'transform 520ms cubic-bezier(0.22, 1, 0.36, 1), opacity 320ms ease';
+        globalRedConductor.style.transform = 'translate3d(50vw, 18vh, 0) rotate(-90deg) scale(2.4)';
+        transitionCurtain.style.transform = 'translate3d(0, 0%, 0)';
+
+        setTimeout(() => {
+          onMidpoint();
+          /* Dock into target scene's focal anchor */
+          const dockX = toIdx === 3 ? '36vw' : '28vw';
+          const dockY = '50vh';
+          globalRedConductor.style.transition = 'transform 440ms cubic-bezier(0.19, 1, 0.22, 1), opacity 360ms ease';
+          transitionCurtain.style.opacity = '0';
+          globalRedConductor.style.transform = `translate3d(${dockX}, ${dockY}, 0) rotate(0deg) scale(0.95)`;
+        }, 420);
+
+        setTimeout(() => {
+          globalRedConductor.style.opacity = '0';
+          onComplete();
+        }, 880);
+
+      } else {
+        /* Dark-to-Dark Scene Bridge (e.g., Scene 01 -> 02 or 03 -> 00):
+           Red Arrow launches from origin, dives into 3D center vortex, and locks into next scene's hub */
+        const startX = fromIdx === 0 ? '14vw' : '50vw';
+        const startY = fromIdx === 0 ? '12vh' : '50vh';
+        const endX = toIdx === 1 ? '31vw' : (toIdx === 0 ? '14vw' : '38vw');
+        const endY = toIdx === 0 ? '12vh' : '50vh';
+
+        transitionCurtain.classList.add('theme-tunnel');
+        transitionCurtain.style.opacity = '0';
+        transitionCurtain.style.transform = 'scale(0.8)';
+        globalRedConductor.style.opacity = '1';
+        globalRedConductor.style.transform = `translate3d(${startX}, ${startY}, 0) rotate(0deg) scale(1.1)`;
+        void globalRedConductor.offsetWidth;
+
+        globalRedConductor.style.transition = 'transform 460ms cubic-bezier(0.22, 1, 0.36, 1), opacity 220ms ease';
+        transitionCurtain.style.transition = 'transform 480ms ease, opacity 320ms ease';
+        transitionCurtain.style.opacity = '1';
+        transitionCurtain.style.transform = 'scale(1.08)';
+        globalRedConductor.style.transform = 'translate3d(50vw, 50vh, 0) rotate(90deg) scale(2.5)';
+
+        setTimeout(() => {
+          onMidpoint();
+          globalRedConductor.style.transition = 'transform 440ms cubic-bezier(0.19, 1, 0.22, 1), opacity 340ms ease';
+          transitionCurtain.style.opacity = '0';
+          globalRedConductor.style.transform = `translate3d(${endX}, ${endY}, 0) rotate(0deg) scale(0.9)`;
+        }, 390);
+
+        setTimeout(() => {
+          globalRedConductor.style.opacity = '0';
+          onComplete();
+        }, 840);
+      }
+    }
+
+    function transitionToScene(targetIdx) {
+      const clampedIdx = ((targetIdx % TOTAL_SCENES) + TOTAL_SCENES) % TOTAL_SCENES;
+      if (isPageTransitioning || clampedIdx === currentSceneIdx) return;
+
+      isPageTransitioning = true;
+      const prevIdx = currentSceneIdx;
+      currentSceneIdx = clampedIdx;
+
+      animateRedConductorBridge(
+        prevIdx,
+        currentSceneIdx,
+        () => {
+          updateSceneClasses(currentSceneIdx);
+          onSceneActivated(currentSceneIdx);
+        },
+        () => {
+          isPageTransitioning = false;
+        }
+      );
+    }
+
+    function onSceneActivated(sceneIdx) {
+      if (sceneIdx === 0) {
+        bodyEl.classList.add('scene-docked');
+      } else if (sceneIdx === 1) {
+        /* Trigger an immediate entrance vortex pulse when landing on Scene 02 */
+        setVortexPhase('split', false);
+        setTimeout(() => {
+          if (currentSceneIdx === 1) setVortexPhase('vortex', false);
+        }, 620);
+      } else if (sceneIdx === 2) {
+        renderServiceWheel(activeServiceIdx);
+      } else if (sceneIdx === 3) {
+        setActiveFounder(activeFounderIdx, true);
+      }
+    }
+
+    /* Discrete 1-Gesture Mouse Wheel Navigation */
+    window.addEventListener('wheel', (e) => {
+      if (isPageTransitioning || wheelCooldownTimer) return;
+      if (Math.abs(e.deltaY) < 26) return;
+
+      const dir = e.deltaY > 0 ? 1 : -1;
+      if (dir > 0 && currentSceneIdx < TOTAL_SCENES - 1) {
+        transitionToScene(currentSceneIdx + 1);
+      } else if (dir < 0 && currentSceneIdx > 0) {
+        transitionToScene(currentSceneIdx - 1);
+      } else {
+        return;
+      }
+
+      wheelCooldownTimer = setTimeout(() => {
+        wheelCooldownTimer = null;
+      }, 1150);
+    }, { passive: true });
+
+    /* Discrete 1-Swipe Touch Navigation for Mobile */
+    let touchStartY = 0;
+    let touchStartX = 0;
+    window.addEventListener('touchstart', (e) => {
+      if (!e.touches || !e.touches.length) return;
+      touchStartY = e.touches[0].clientY;
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+
+    window.addEventListener('touchend', (e) => {
+      if (isPageTransitioning || !e.changedTouches || !e.changedTouches.length) return;
+      const dy = touchStartY - e.changedTouches[0].clientY;
+      const dx = touchStartX - e.changedTouches[0].clientX;
+
+      /* Vertical swipe (> 48px and more vertical than horizontal) changes page */
+      if (Math.abs(dy) > 48 && Math.abs(dy) > Math.abs(dx) * 1.2) {
+        if (dy > 0 && currentSceneIdx < TOTAL_SCENES - 1) {
+          transitionToScene(currentSceneIdx + 1);
+        } else if (dy < 0 && currentSceneIdx > 0) {
+          transitionToScene(currentSceneIdx - 1);
+        }
+      }
+    }, { passive: true });
+
+    /* Keyboard ArrowUp / ArrowDown / PageUp / PageDown Support */
+    window.addEventListener('keydown', (e) => {
+      if (isPageTransitioning) return;
+      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+        if (currentSceneIdx < TOTAL_SCENES - 1) transitionToScene(currentSceneIdx + 1);
+      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+        if (currentSceneIdx > 0) transitionToScene(currentSceneIdx - 1);
+      } else if (currentSceneIdx === 2 && e.key === 'ArrowRight') {
+        setActiveService(activeServiceIdx + 1);
+      } else if (currentSceneIdx === 2 && e.key === 'ArrowLeft') {
+        setActiveService(activeServiceIdx - 1);
+      }
+    });
+
+    /* Clickable Scene Rail & Footer Buttons */
+    document.querySelectorAll('[data-goto-scene]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = parseInt(btn.getAttribute('data-goto-scene'), 10);
+        transitionToScene(target);
+      });
+    });
+
+    /* Replay Current Scene Button */
+    const replaySceneBtn = document.getElementById('replaySceneBtn');
+    if (replaySceneBtn) {
+      replaySceneBtn.addEventListener('click', () => {
+        if (currentSceneIdx === 0) {
+          runScene01Intro();
+        } else if (currentSceneIdx === 1) {
+          triggerVortexSequence();
+        } else if (currentSceneIdx === 2) {
+          setActiveService(activeServiceIdx + 1);
+        } else if (currentSceneIdx === 3) {
+          setActiveFounder((activeFounderIdx + 1) % 3, true);
+        }
+      });
+    }
+
+    /* ==========================================================================
+       2. SCENE 01 // OPENING CHOREOGRAPHY (▶ GHN168 MEDIA Reveal -> Top-Left Dock)
        ========================================================================== */
     const heroLockup = document.getElementById('heroLockup');
     const heroRedTri = document.getElementById('heroRedTri');
     const heroWordmarkMask = document.getElementById('heroWordmarkMask');
     const heroWordmarkInner = document.getElementById('heroWordmarkInner');
-    const replaySceneBtn = document.getElementById('replaySceneBtn');
 
     let introTimers = [];
     let introPlaying = false;
@@ -1190,11 +2996,8 @@
       clearIntroTimers();
       introPlaying = true;
       bodyEl.classList.remove('scene-docked');
-
-      /* Reset MEDIA color to pure white during the opening reveal */
       heroLockup.setAttribute('data-media-step', '2');
 
-      /* 1. Reset transforms temporarily to measure exact docked coordinates & text width */
       heroLockup.style.transition = 'none';
       heroRedTri.style.transition = 'none';
       heroWordmarkMask.style.transition = 'none';
@@ -1214,34 +3017,26 @@
       const vw = window.innerWidth;
       const vh = window.innerHeight;
 
-      /* Calculate vector from resting dock to exact center of viewport */
       const dockCenterX = lockupRect.left + lockupRect.width / 2;
       const dockCenterY = lockupRect.top + lockupRect.height / 2;
       const deltaX = Math.round(vw / 2 - dockCenterX);
       const deltaY = Math.round(vh / 2 - dockCenterY);
 
-      /* Scale up in center stage without overflowing screen width */
-      const maxAllowedScale = (vw * 0.86) / Math.max(lockupRect.width, 1);
-      const targetCenterScale = Math.min(vw <= 768 ? 1.16 : 1.58, maxAllowedScale);
+      const maxAllowedScale = (vw * 0.84) / Math.max(lockupRect.width, 1);
+      const targetCenterScale = Math.min(vw <= 768 ? 1.15 : 1.56, maxAllowedScale);
 
-      /* Distance the Red Triangle (▶) slides backward from right to left */
       const gapPx = lockupRect.width - wordRect.width - triRect.width;
       const fullSlideDist = Math.round(wordRect.width + gapPx);
       const arrowMode = bodyEl.getAttribute('data-arrow-mode') || 'curtain';
 
-      /* 2. Place lockup at Center Stage and set starting state for the Red Triangle */
       heroLockup.style.transform = `translate3d(${deltaX}px, ${deltaY}px, 0) scale(${targetCenterScale})`;
 
       if (arrowMode === 'curtain') {
-        /* Mode A: Triangle (pointing right ▶) starts at the right end of GHN168 MEDIA,
-           slides backward (to the left ←) and wipes open GHN168 MEDIA behind it */
         heroRedTri.style.transform = `translate3d(${fullSlideDist}px, 0, 0) scale(0.75)`;
         heroRedTri.style.opacity = '0';
         heroWordmarkMask.style.clipPath = 'inset(0 0 0 100%)';
         heroWordmarkInner.style.transform = 'translate3d(22px, 0, 0)';
       } else {
-        /* Mode B: Triangle (pointing right ▶) starts near the center,
-           slides backward (to the left ←) while pulling GHN168 MEDIA out from its right-pointing tip */
         const startOffset = Math.round(fullSlideDist * 0.52);
         heroRedTri.style.transform = `translate3d(${startOffset}px, 0, 0) scale(0.75)`;
         heroRedTri.style.opacity = '0';
@@ -1251,23 +3046,16 @@
 
       void heroLockup.offsetWidth;
 
-      /* Beat 1 (60ms): Red Right-Pointing Triangle (▶) locks onto center stage */
       introTimers.push(setTimeout(() => {
-        heroRedTri.style.transition = 'opacity 260ms ease, transform 320ms cubic-bezier(0.16, 1, 0.3, 1)';
+        heroRedTri.style.transition = 'opacity 250ms ease, transform 300ms cubic-bezier(0.16, 1, 0.3, 1)';
         heroRedTri.style.opacity = '1';
-        if (arrowMode === 'curtain') {
-          heroRedTri.style.transform = `translate3d(${fullSlideDist}px, 0, 0) scale(1.08)`;
-        } else {
-          const startOffset = Math.round(fullSlideDist * 0.52);
-          heroRedTri.style.transform = `translate3d(${startOffset}px, 0, 0) scale(1.08)`;
-        }
+        const dist = arrowMode === 'curtain' ? fullSlideDist : Math.round(fullSlideDist * 0.52);
+        heroRedTri.style.transform = `translate3d(${dist}px, 0, 0) scale(1.08)`;
       }, 60));
 
-      /* Beat 2 (420ms -> 1620ms): Red Triangle slides backward (←) and opens "GHN168 MEDIA" */
       introTimers.push(setTimeout(() => {
-        const slideDur = '1180ms';
+        const slideDur = '1120ms';
         const slideEase = 'cubic-bezier(0.22, 1, 0.36, 1)';
-
         heroRedTri.style.transition = `transform ${slideDur} ${slideEase}`;
         heroWordmarkMask.style.transition = `clip-path ${slideDur} ${slideEase}`;
         heroWordmarkInner.style.transition = `transform ${slideDur} ${slideEase}`;
@@ -1275,36 +3063,24 @@
         heroRedTri.style.transform = 'translate3d(0px, 0, 0) scale(1)';
         heroWordmarkMask.style.clipPath = 'inset(0 0% 0 0%)';
         heroWordmarkInner.style.transform = 'translate3d(0px, 0, 0)';
-      }, 420));
+      }, 390));
 
-      /* Beat 3 (1920ms -> 3020ms): เปิดเสร็จปุ๊บ! "▶ GHN168 MEDIA" retreats back to its resting dock! */
       introTimers.push(setTimeout(() => {
-        heroLockup.style.transition = 'transform 1100ms cubic-bezier(0.19, 1, 0.22, 1)';
+        heroLockup.style.transition = 'transform 1050ms cubic-bezier(0.19, 1, 0.22, 1)';
         heroLockup.style.transform = 'translate3d(0px, 0px, 0) scale(1)';
-      }, 1920));
+      }, 1820));
 
-      /* Beat 4 (2580ms): Red Triangle guides in the Scene 01 Stage Panels + activates "ME" red sync */
       introTimers.push(setTimeout(() => {
         bodyEl.classList.add('scene-docked');
         setSlateIndex(0);
         introPlaying = false;
-      }, 2580));
+      }, 2420));
     }
 
-    if (replaySceneBtn) {
-      replaySceneBtn.addEventListener('click', () => {
-        runScene01Intro();
-      });
-    }
-
-    /* ==========================================================================
-       3. SYNCED 3-STEP SLATE (01 ABOUT / 02 G·H·N / 03 SCOPE) + 16:9 MONITOR
-       ========================================================================== */
+    /* Scene 01 Slate & 16:9 Monitor Sync */
     const slateTabPill = document.getElementById('slateTabPill');
     const slateTabBtns = document.querySelectorAll('[data-slate-idx]');
     const slateCards = document.querySelectorAll('[data-slate-card]');
-    const slateBox = document.getElementById('slateBox');
-
     const monitorFrame = document.getElementById('monitorFrame');
     const reelImgs = document.querySelectorAll('[data-reel-img]');
     const reelBtns = document.querySelectorAll('[data-reel-btn]');
@@ -1337,7 +3113,6 @@
     ];
 
     let activeSlateIdx = 0;
-    let slatePaused = false;
 
     function updateMonitorCaption(idx) {
       const lang = htmlEl.getAttribute('data-lang') || 'th';
@@ -1347,14 +3122,16 @@
       if (monitorTitle) monitorTitle.textContent = lang === 'th' ? meta.titleTH : meta.titleEN;
     }
 
-    function setMonitorReel(idx, triggerShutter = true) {
-      reelImgs.forEach((img, i) => {
-        img.classList.toggle('is-active', i === idx);
-      });
-      reelBtns.forEach((btn, i) => {
-        btn.classList.toggle('active', i === idx);
-      });
-      updateMonitorCaption(idx);
+    function setSlateIndex(idx, triggerShutter = false) {
+      activeSlateIdx = (idx + 3) % 3;
+      if (slateTabPill) slateTabPill.style.transform = `translateX(${activeSlateIdx * 100}%)`;
+      slateTabBtns.forEach((btn, i) => btn.classList.toggle('active', i === activeSlateIdx));
+      slateCards.forEach((card, i) => card.classList.toggle('is-active', i === activeSlateIdx));
+      if (heroLockup) heroLockup.setAttribute('data-media-step', String(activeSlateIdx));
+
+      reelImgs.forEach((img, i) => img.classList.toggle('is-active', i === activeSlateIdx));
+      reelBtns.forEach((btn, i) => btn.classList.toggle('active', i === activeSlateIdx));
+      updateMonitorCaption(activeSlateIdx);
 
       if (triggerShutter && monitorFrame) {
         monitorFrame.classList.remove('is-wiping');
@@ -1363,57 +3140,400 @@
       }
     }
 
-    function setSlateIndex(idx, triggerShutter = false) {
-      activeSlateIdx = (idx + 3) % 3;
-      if (slateTabPill) {
-        slateTabPill.style.transform = `translateX(${activeSlateIdx * 100}%)`;
-      }
-
-      slateTabBtns.forEach((btn, i) => {
-        btn.classList.toggle('active', i === activeSlateIdx);
-      });
-
-      slateCards.forEach((card, i) => {
-        card.classList.toggle('is-active', i === activeSlateIdx);
-      });
-
-      /* Sync GHN168 MEDIA progressive red color:
-         0 -> "ME" red | 1 -> "MEDIA" red | 2 -> pure white */
-      if (heroLockup) {
-        heroLockup.setAttribute('data-media-step', String(activeSlateIdx));
-      }
-
-      setMonitorReel(activeSlateIdx, triggerShutter);
-    }
-
     slateTabBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        if (introPlaying) return;
-        setSlateIndex(parseInt(btn.getAttribute('data-slate-idx'), 10), true);
-      });
+      btn.addEventListener('click', () => setSlateIndex(parseInt(btn.getAttribute('data-slate-idx'), 10), true));
     });
-
     reelBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        if (introPlaying) return;
-        setSlateIndex(parseInt(btn.getAttribute('data-reel-btn'), 10), true);
-      });
+      btn.addEventListener('click', () => setSlateIndex(parseInt(btn.getAttribute('data-reel-btn'), 10), true));
     });
 
-    if (slateBox) {
-      slateBox.addEventListener('pointerenter', () => { slatePaused = true; });
-      slateBox.addEventListener('pointerleave', () => { slatePaused = false; });
-      slateBox.addEventListener('touchstart', () => { slatePaused = true; }, { passive: true });
+    /* ==========================================================================
+       3. SCENE 02 // G · H · N · 168 SPLIT-QUADRANT VORTEX ENGINE
+          Ref: 108.Supply Split Quadrant (https://pin.it/qZDNspvfD) + RICO. Showcase
+          "มีเวียน มีเข้า มีออก ซ้อนเหลื่อมมิติหน้า-หลัง"
+       ========================================================================== */
+    const quadCards = Array.from(document.querySelectorAll('[data-quad-card]'));
+    const vortexPhaseBtns = Array.from(document.querySelectorAll('[data-vortex-phase]'));
+    const ghnSelectBtns = Array.from(document.querySelectorAll('[data-ghn-select]'));
+    const vortexCenterTri = document.getElementById('vortexCenterTri');
+    const ghnDetailCode = document.getElementById('ghnDetailCode');
+    const ghnDetailStep = document.getElementById('ghnDetailStep');
+    const ghnDetailTitle = document.getElementById('ghnDetailTitle');
+    const ghnDetailDesc = document.getElementById('ghnDetailDesc');
+    const ghnCycleOnceBtn = document.getElementById('ghnCycleOnceBtn');
+
+    const GHN_PILLARS = [
+      {
+        code: 'G // 01',
+        step: 'PILLAR 01 OF 04',
+        titleTH: 'GROUNDBREAKING — ล้ำสมัย เปิดมุมมองใหม่',
+        titleEN: 'GROUNDBREAKING — Pioneering Visual Ideas',
+        descTH: 'ผลงานและแนวคิดที่เปล่งประกายด้วยความคิดสร้างสรรค์ เปิดโลกทัศน์สู่การนำเสนอภาพและวิดีโอรูปแบบใหม่ เพื่อให้แบรนด์ของลูกค้าโดดเด่นและแตกต่างกว่าใครในตลาด',
+        descEN: 'Innovative visual direction and fresh creative concepts that break new ground in commercial storytelling.'
+      },
+      {
+        code: 'H // 02',
+        step: 'PILLAR 02 OF 04',
+        titleTH: 'HAPPINESS — ความสุขจากการทำงานที่ราบรื่น',
+        titleEN: 'HAPPINESS — Seamless Direct Collaboration',
+        descTH: 'ความสุขที่เกิดจากการทำงานร่วมกันอย่างราบรื่น คุยตรงกับผู้กำกับและโปรดิวเซอร์ตัวจริงโดยไม่ผ่านคนกลาง แก้โจทย์หน้างานไวและได้ผลลัพธ์ตรงใจ',
+        descEN: 'Peace of mind and positive energy from working directly with the founders on set without agency bottlenecks.'
+      },
+      {
+        code: 'N // 03',
+        step: 'PILLAR 03 OF 04',
+        titleTH: 'NIRVANA — เป้าหมายสูงสุดของความสมบูรณ์แบบ',
+        titleEN: 'NIRVANA — Ultimate Creative Fulfillment',
+        descTH: 'สร้างสรรค์ผลงานที่มีจิตวิญญาณและรายละเอียดครบถ้วน พาทุกโปรเจกต์ไปถึงเป้าหมายสูงสุดของลูกค้าอย่างสมบูรณ์แบบไร้ที่ติ ทั้งภาพ เสียง และเวลาส่งมอบ',
+        descEN: 'Crafting soulful, flagship-grade visual works that achieve the highest standard of quality and precision.'
+      },
+      {
+        code: '168 // 04',
+        step: 'PILLAR 04 OF 04',
+        titleTH: 'GHN168 — โปรดักชันครบวงจรพร้อมมาตรฐานนิติบุคคล',
+        titleEN: 'GHN168 — End-to-End Cinema & Corporate Ready',
+        descTH: 'ผสานพลังของผู้ร่วมก่อตั้งทั้ง 3 คน เข้ากับทีมโปรดักชันครบวงจร รองรับทั้งงานโฆษณา อีเวนต์ ถ่ายทอดสด และระบบเอกสารภาษีนิติบุคคล VAT 7% เต็มรูปแบบ',
+        descEN: 'Combining our three co-founders with full cinema gear, multi-cam broadcast, and corporate VAT 7% compliance.'
+      }
+    ];
+
+    let activeGhnIdx = 0;
+    let activeVortexPhase = 'vortex';
+    let vortexRotationCount = 0;
+
+    function updateGhnInspector(idx) {
+      const lang = htmlEl.getAttribute('data-lang') || 'th';
+      const item = GHN_PILLARS[idx] || GHN_PILLARS[0];
+      if (ghnDetailCode) ghnDetailCode.textContent = item.code;
+      if (ghnDetailStep) ghnDetailStep.textContent = item.step;
+      if (ghnDetailTitle) ghnDetailTitle.textContent = lang === 'th' ? item.titleTH : item.titleEN;
+      if (ghnDetailDesc) ghnDetailDesc.textContent = lang === 'th' ? item.descTH : item.descEN;
+
+      ghnSelectBtns.forEach((btn, i) => btn.classList.toggle('is-active', i === idx));
     }
 
-    /* Reader-friendly 9.0s rotation cycle */
-    setInterval(() => {
-      if (!slatePaused && !introPlaying && !document.hidden) {
-        setSlateIndex(activeSlateIdx + 1, true);
+    function applyVortexCardTransforms() {
+      const isMobile = window.innerWidth <= 768;
+      const spreadX = isMobile ? 56 : 112;
+      const spreadY = isMobile ? 28 : 86;
+
+      /* Rotate central Red Triangle hub on each change */
+      if (vortexCenterTri) {
+        const deg = vortexRotationCount * 90;
+        vortexCenterTri.style.transform = `rotate(${deg}deg) scale(${activeVortexPhase === 'vortex' ? 1.18 : 0.95})`;
       }
-    }, 9000);
+
+      quadCards.forEach((card, cardIdx) => {
+        /* Relative slot (0 = active focal card, 1 = next, 2 = opposite, 3 = previous) */
+        const slot = ((cardIdx - activeGhnIdx) % 4 + 4) % 4;
+        card.classList.toggle('is-focused', slot === 0);
+
+        let tx = 0, ty = 0, tz = 0, rx = 0, ry = 0, sc = 1, zIndex = 10, op = 1;
+
+        if (activeVortexPhase === 'vortex') {
+          /* 108.Supply t=2.75s: Overlapping Staggered Diamond Vortex (ซ้อนเหลื่อมมิติหน้า-หลัง) */
+          if (slot === 0) {
+            /* Front-Right Overlapping Hero Card */
+            tx = spreadX * 0.56;
+            ty = spreadY * 0.14;
+            tz = 115;
+            ry = -12;
+            sc = 1.05;
+            zIndex = 24;
+          } else if (slot === 1) {
+            /* Front-Left Overlapping Card */
+            tx = -spreadX * 0.58;
+            ty = -spreadY * 0.08;
+            tz = 65;
+            ry = 12;
+            sc = 0.96;
+            zIndex = 20;
+          } else if (slot === 2) {
+            /* Top Receding Card (peeking above like the hair bun card in 108.Supply!) */
+            tx = spreadX * 0.06;
+            ty = -spreadY * 0.98;
+            tz = -35;
+            sc = 0.9;
+            zIndex = 14;
+            op = 0.92;
+          } else {
+            /* Bottom Receding Card (peeking below in deep Z space!) */
+            tx = -spreadX * 0.06;
+            ty = spreadY * 1.02;
+            tz = -95;
+            sc = 0.86;
+            zIndex = 10;
+            op = 0.78;
+          }
+        } else if (activeVortexPhase === 'split') {
+          /* 108.Supply t=0.75s - 1.50s: Vertical Top-Bottom Split + Left-Right Wing Entry (มีเข้า-มีออก) */
+          if (slot === 0) {
+            tx = 0; ty = -spreadY * 0.68; tz = 95; sc = 1.02; zIndex = 24;
+          } else if (slot === 1) {
+            tx = 0; ty = spreadY * 0.76; tz = 40; sc = 0.94; zIndex = 18;
+          } else if (slot === 2) {
+            tx = -spreadX * 1.48; ty = -spreadY * 0.35; tz = -70; ry = 22; sc = 0.82; zIndex = 12; op = 0.72;
+          } else {
+            tx = spreadX * 1.48; ty = spreadY * 0.45; tz = -70; ry = -22; sc = 0.82; zIndex = 12; op = 0.72;
+          }
+        } else if (activeVortexPhase === 'quad') {
+          /* 108.Supply t=2.25s: Asymmetric 2x2 Split Quadrant Grid */
+          if (slot === 0) {
+            tx = spreadX * 0.96; ty = -spreadY * 0.76; tz = 55; sc = 0.94; zIndex = 22;
+          } else if (slot === 1) {
+            tx = -spreadX * 0.96; ty = -spreadY * 0.84; tz = 20; sc = 0.9; zIndex = 18;
+          } else if (slot === 2) {
+            tx = -spreadX * 0.96; ty = spreadY * 0.84; tz = 20; sc = 0.9; zIndex = 16;
+          } else {
+            tx = spreadX * 0.96; ty = spreadY * 0.92; tz = 10; sc = 0.9; zIndex = 14;
+          }
+        } else {
+          /* RICO. Showcase: 3D Camera Dolly-In Hero Focus on Active Card */
+          if (slot === 0) {
+            tx = 0; ty = 0; tz = 150; sc = 1.12; zIndex = 26;
+          } else if (slot === 1) {
+            tx = spreadX * 1.32; ty = -spreadY * 0.45; tz = -120; ry = -26; sc = 0.76; zIndex = 12; op = 0.55;
+          } else if (slot === 2) {
+            tx = -spreadX * 1.32; ty = -spreadY * 0.35; tz = -140; ry = 26; sc = 0.74; zIndex = 10; op = 0.5;
+          } else {
+            tx = 0; ty = spreadY * 1.15; tz = -180; rx = 18; sc = 0.7; zIndex = 8; op = 0.42;
+          }
+        }
+
+        card.style.zIndex = String(zIndex);
+        card.style.opacity = String(op);
+        card.style.transform = `translate3d(${Math.round(tx)}px, ${Math.round(ty)}px, ${Math.round(tz)}px) rotateX(${rx}deg) rotateY(${ry}deg) scale(${sc})`;
+      });
+    }
+
+    function setVortexPhase(phase, incrementSpin = true) {
+      activeVortexPhase = phase;
+      if (incrementSpin) vortexRotationCount++;
+      vortexPhaseBtns.forEach(btn => {
+        btn.classList.toggle('is-active', btn.getAttribute('data-vortex-phase') === phase);
+      });
+      applyVortexCardTransforms();
+    }
+
+    function setActiveGhnPillar(idx, spinVortex = true) {
+      activeGhnIdx = ((idx % 4) + 4) % 4;
+      if (spinVortex) vortexRotationCount++;
+      updateGhnInspector(activeGhnIdx);
+      applyVortexCardTransforms();
+    }
+
+    /* Full 108.Supply Choreography Sequence (Split -> Quad -> Vortex Overlap -> Rotate Next) */
+    function triggerVortexSequence() {
+      setVortexPhase('split', true);
+      setTimeout(() => {
+        if (currentSceneIdx === 1) setVortexPhase('quad', true);
+      }, 650);
+      setTimeout(() => {
+        if (currentSceneIdx === 1) {
+          activeGhnIdx = (activeGhnIdx + 1) % 4;
+          updateGhnInspector(activeGhnIdx);
+          setVortexPhase('vortex', true);
+        }
+      }, 1350);
+    }
+
+    quadCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const idx = parseInt(card.getAttribute('data-quad-card'), 10);
+        if (idx === activeGhnIdx) {
+          /* Clicking the already-focused card toggles between Vortex Overlap and Hero Zoom */
+          setVortexPhase(activeVortexPhase === 'hero' ? 'vortex' : 'hero', true);
+        } else {
+          setActiveGhnPillar(idx, true);
+        }
+      });
+    });
+
+    ghnSelectBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        setActiveGhnPillar(parseInt(btn.getAttribute('data-ghn-select'), 10), true);
+      });
+    });
+
+    vortexPhaseBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        setVortexPhase(btn.getAttribute('data-vortex-phase'), true);
+      });
+    });
+
+    if (ghnCycleOnceBtn) {
+      ghnCycleOnceBtn.addEventListener('click', () => triggerVortexSequence());
+    }
+
+    /* ==========================================================================
+       4. SCENE 03 // 6 VERTICAL PRODUCTION SERVICES FAN WHEEL ENGINE
+          Ref: https://pin.it/2UXc6pUSA (Light Stage + Red Pillar + 6 Vertical Cards on Arc)
+       ========================================================================== */
+    const srvVerticalCards = Array.from(document.querySelectorAll('[data-srv-vcard]'));
+    const srvPillBtns = Array.from(document.querySelectorAll('[data-srv-pill]'));
+    const srvDialLabel = document.getElementById('srvDialLabel');
+    const srvWheelPrevBtn = document.getElementById('srvWheelPrevBtn');
+    const srvWheelNextBtn = document.getElementById('srvWheelNextBtn');
+
+    let activeServiceIdx = 0;
+
+    function renderServiceWheel(centerIdx) {
+      activeServiceIdx = ((centerIdx % 6) + 6) % 6;
+      const isMobile = window.innerWidth <= 768;
+      const angleStep = isMobile ? 21 : 23;
+
+      srvVerticalCards.forEach((card, i) => {
+        /* Shortest circular signed offset in [-2, -1, 0, 1, 2, 3] */
+        let offset = (i - activeServiceIdx) % 6;
+        if (offset > 3) offset -= 6;
+        if (offset < -2) offset += 6;
+
+        card.classList.toggle('is-center', offset === 0);
+
+        const deg = offset * angleStep;
+        const absOff = Math.abs(offset);
+        const scale = offset === 0 ? 1.04 : (absOff === 1 ? 0.92 : (absOff === 2 ? 0.84 : 0.72));
+        const yLift = offset === 0 ? -6 : (absOff === 1 ? 6 : 18);
+        const opacity = absOff >= 3 ? 0 : (absOff === 2 ? 0.78 : 1);
+        const zIdx = 20 - absOff * 3;
+
+        card.style.zIndex = String(zIdx);
+        card.style.opacity = String(opacity);
+        card.style.pointerEvents = absOff >= 3 ? 'none' : 'auto';
+        card.style.transform = `rotate(${deg}deg) translateY(${yLift}px) scale(${scale})`;
+      });
+
+      srvPillBtns.forEach((btn, i) => {
+        btn.classList.toggle('is-active', i === activeServiceIdx);
+      });
+
+      if (srvDialLabel) {
+        const numStr = String(activeServiceIdx + 1).padStart(2, '0');
+        srvDialLabel.textContent = `ACTIVE SERVICE // ${numStr} OF 06`;
+      }
+    }
+
+    function setActiveService(idx) {
+      renderServiceWheel(idx);
+    }
+
+    srvVerticalCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const idx = parseInt(card.getAttribute('data-srv-vcard'), 10);
+        if (idx === activeServiceIdx) {
+          setActiveService(activeServiceIdx + 1);
+        } else {
+          setActiveService(idx);
+        }
+      });
+    });
+
+    srvPillBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        setActiveService(parseInt(btn.getAttribute('data-srv-pill'), 10));
+      });
+    });
+
+    if (srvWheelPrevBtn) {
+      srvWheelPrevBtn.addEventListener('click', () => setActiveService(activeServiceIdx - 1));
+    }
+    if (srvWheelNextBtn) {
+      srvWheelNextBtn.addEventListener('click', () => setActiveService(activeServiceIdx + 1));
+    }
+
+    /* ==========================================================================
+       5. SCENE 04 // THE 3 CO-FOUNDERS OPPOSING SLOT-MACHINE ENGINE
+          Ref: https://pin.it/12s7g8wOu ("11.11 BUINOV / QDREAM / BURLYAEV")
+       ========================================================================== */
+    const founderLeftReel = document.getElementById('founderLeftReel');
+    const founderRightReel = document.getElementById('founderRightReel');
+    const founderSlides = Array.from(document.querySelectorAll('[data-founder-slide]'));
+    const founderSelectBtns = Array.from(document.querySelectorAll('[data-founder-btn]'));
+    const monolithFrameTag = document.getElementById('monolithFrameTag');
+    const monolithRedTrigger = document.getElementById('monolithRedTrigger');
+    const founderMonolith = document.getElementById('founderMonolith');
+
+    let activeFounderIdx = 0;
+
+    function setActiveFounder(idx, kickTrigger = true) {
+      activeFounderIdx = ((idx % 3) + 3) % 3;
+
+      /* Measure actual slot item heights independently for left & right reels */
+      const leftSample = founderLeftReel ? founderLeftReel.querySelector('.slot-reel-item') : null;
+      const rightSample = founderRightReel ? founderRightReel.querySelector('.slot-reel-item') : null;
+      const leftItemH = leftSample ? leftSample.offsetHeight : 390;
+      const rightItemH = rightSample ? rightSample.offsetHeight : 390;
+
+      /* Left reel moves to -activeFounderIdx * leftItemH;
+         Right reel is ordered [2, 1, 0] so it moves to -(2 - activeFounderIdx) * rightItemH
+         creating the exact opposing vertical slot-machine motion from the 11.11 reference! */
+      if (founderLeftReel) {
+        founderLeftReel.style.transform = `translate3d(0, ${-activeFounderIdx * leftItemH}px, 0)`;
+      }
+      if (founderRightReel) {
+        const rightDomIdx = 2 - activeFounderIdx;
+        founderRightReel.style.transform = `translate3d(0, ${-rightDomIdx * rightItemH}px, 0)`;
+      }
+
+      founderSlides.forEach((slide, i) => {
+        slide.classList.toggle('is-active', i === activeFounderIdx);
+      });
+
+      founderSelectBtns.forEach((btn, i) => {
+        btn.classList.toggle('is-active', i === activeFounderIdx);
+      });
+
+      if (monolithFrameTag) {
+        monolithFrameTag.textContent = `CO-FOUNDER // 0${activeFounderIdx + 1}`;
+      }
+
+      if (kickTrigger && monolithRedTrigger) {
+        monolithRedTrigger.classList.add('is-kicking');
+        setTimeout(() => monolithRedTrigger.classList.remove('is-kicking'), 420);
+      }
+    }
+
+    founderSelectBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        setActiveFounder(parseInt(btn.getAttribute('data-founder-btn'), 10), true);
+      });
+    });
+
+    if (founderMonolith) {
+      founderMonolith.addEventListener('click', () => {
+        setActiveFounder(activeFounderIdx + 1, true);
+      });
+    }
+
+    /* ==========================================================================
+       6. INITIALIZATION & READER-PACED AMBIENT SCENE MOTION
+       ========================================================================== */
+    window.addEventListener('resize', () => {
+      applyVortexCardTransforms();
+      renderServiceWheel(activeServiceIdx);
+      setActiveFounder(activeFounderIdx, false);
+    });
+
+    /* Gentle ambient rotation for whichever scene is currently active */
+    setInterval(() => {
+      if (document.hidden || isPageTransitioning || introPlaying) return;
+      if (currentSceneIdx === 0) {
+        setSlateIndex(activeSlateIdx + 1, true);
+      } else if (currentSceneIdx === 1) {
+        /* Cycle through Split -> Vortex -> Next Pillar so Scene 02 visibly breathes & orbits */
+        triggerVortexSequence();
+      } else if (currentSceneIdx === 2) {
+        setActiveService(activeServiceIdx + 1);
+      } else if (currentSceneIdx === 3) {
+        setActiveFounder(activeFounderIdx + 1, true);
+      }
+    }, 8500);
 
     window.addEventListener('DOMContentLoaded', () => {
+      updateGhnInspector(0);
+      applyVortexCardTransforms();
+      renderServiceWheel(0);
+      setActiveFounder(0, false);
       setTimeout(runScene01Intro, 120);
     });
   </script>
