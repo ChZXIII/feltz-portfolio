@@ -96,16 +96,13 @@
       position: fixed;
       left: 0;
       top: 0;
-      width: 56px;
-      height: 62px;
-      margin-left: -28px;
-      margin-top: -31px;
+      width: 36px;
+      height: 40px;
       z-index: 700;
       pointer-events: none;
       opacity: 0;
-      transform: translate3d(50vw, 50vh, 0) scale(0.5);
-      filter: drop-shadow(0 0 28px rgba(224, 36, 36, 0.72));
-      will-change: transform, opacity;
+      transform-origin: 50% 50%;
+      transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
     }
 
     .global-red-conductor svg {
@@ -116,15 +113,7 @@
     }
 
     .conductor-trail-flare {
-      position: absolute;
-      right: 65%;
-      top: 50%;
-      width: 180px;
-      height: 6px;
-      margin-top: -3px;
-      background: linear-gradient(90deg, transparent 0%, rgba(224, 36, 36, 0.85) 100%);
-      border-radius: 999px;
-      transform-origin: right center;
+      display: none;
     }
 
     /* ==========================================================================
@@ -1049,21 +1038,53 @@
       position: relative;
       z-index: 40;
       display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 16px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
       padding-bottom: 10px;
-      padding-right: 340px;
+      padding-right: 0;
       border-bottom: 1px solid var(--hairline);
+    }
+
+    .scene02-top-bar > div {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
     }
 
     .scene-header-title {
       font-family: var(--font-display);
-      font-size: clamp(1.65rem, 2.8vw, 2.55rem);
+      font-size: clamp(1.35rem, 2.45vw, 2.35rem);
       font-weight: 900;
       letter-spacing: -0.02em;
-      line-height: 1.05;
+      line-height: 1.08;
       color: var(--ink-white);
+      white-space: nowrap;
+    }
+
+    .scene02-lockup-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.28em;
+      white-space: nowrap;
+    }
+
+    .scene-dock-tri {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 0.66em;
+      height: 0.72em;
+      flex-shrink: 0;
+    }
+
+    .scene-dock-tri svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      overflow: visible;
     }
 
     .scene02-stage-layout {
@@ -1281,7 +1302,7 @@
 
     .ghn-pillar-selector {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 8px;
     }
 
@@ -2107,6 +2128,7 @@
       .founder-role-pill { margin-top: 4px; padding: 4px 8px; font-size: 0.72rem; }
       .founder-bio-copy { font-size: 0.72rem; margin-top: 4px; line-height: 1.4; }
       .founder-direct-contact { margin-top: 6px; padding-top: 6px; font-size: 0.64rem; gap: 8px; }
+      .scene-header-title { font-size: clamp(0.94rem, 4.25vw, 1.22rem); }
       .scene-footer-bar { font-size: 0.6rem; }
     }
 
@@ -2156,9 +2178,8 @@
   <div class="transition-stage-overlay" aria-hidden="true">
     <div class="transition-wipe-curtain" id="transitionCurtain"></div>
     <div class="global-red-conductor" id="globalRedConductor">
-      <div class="conductor-trail-flare"></div>
-      <svg viewBox="0 0 40 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="3,2 38,22 3,42" fill="#e02424" />
+      <svg viewBox="0 0 36 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="2,2 34,20 2,38" fill="#e02424" />
       </svg>
     </div>
   </div>
@@ -2436,52 +2457,34 @@
     </section>
 
     <!-- ========================================================================
-         SCENE 02 // PHILOSOPHY & MISSION (G · H · N · 168)
-         Ref: 108.Supply Split Quadrant (https://pin.it/qZDNspvfD) + RICO. Showcase
-         "มีเข้า มีออก มีเวียนสลับที่ ซ้อนเหลื่อมมิติหน้า-หลัง"
+         SCENE 02 // PHILOSOPHY & MISSION (G · H · N) — 3 CARDS & 2-BEAT MOTION
+         1) การ์ด 3 ใบ (G, H, N) เท่านั้น
+         2) 2 จังหวะ: จังหวะที่ 1 แตกออก 3 ใบ -> จังหวะที่ 2 กลับเข้ามาโชว์ใบเดียว
+         3) ลูกศรสีแดงอันใหญ่วนลงมาจากซีน 01 แล้วขึ้นไปวางหน้าคำว่า "พันธกิจและปรัชญาการทำงาน G · H · N" (บรรทัดเดียว ไม่ตกขอบ)
          ======================================================================== -->
     <section class="scene-page is-next" id="scene02" data-scene-idx="1" aria-label="Scene 02 Mission and Philosophy">
       <div class="scene-inner-shell">
         <header class="scene02-top-bar">
           <div>
             <div class="section-cue-tag">
-              <span class="tri-icon-sm"></span>
-              <span>SCENE 02 / 04 // PHILOSOPHY &amp; CORE PILLARS (G · H · N · 168)</span>
+              <span>SCENE 02 / 04 // PHILOSOPHY &amp; CORE PILLARS (G · H · N)</span>
             </div>
-            <h2 class="scene-header-title">
+            <h2 class="scene-header-title scene02-lockup-row">
+              <span class="scene-dock-tri" id="scene02RedTri" aria-hidden="true">
+                <svg viewBox="0 0 36 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <polygon points="2,2 34,20 2,38" fill="#e02424" />
+                </svg>
+              </span>
               <span data-th>พันธกิจและปรัชญาการทำงาน G · H · N</span>
               <span data-en>Our Philosophy: Groundbreaking · Happiness · Nirvana</span>
             </h2>
           </div>
-
-          <div class="vortex-phase-toolbar" role="group" aria-label="Vortex Motion Phase">
-            <button type="button" class="vortex-phase-btn is-active" data-vortex-phase="vortex">
-              <span class="tri-icon-sm"></span>
-              <span data-th>01 บีบซ้อนเวียนสลับที่</span><span data-en>01 VORTEX OVERLAP</span>
-            </button>
-            <button type="button" class="vortex-phase-btn" data-vortex-phase="split">
-              <span data-th>02 แยกตัวเข้า-ออก</span><span data-en>02 VERTICAL SPLIT</span>
-            </button>
-            <button type="button" class="vortex-phase-btn" data-vortex-phase="quad">
-              <span data-th>03 กางเต็ม 4 มุม</span><span data-en>03 SPLIT QUADRANT</span>
-            </button>
-            <button type="button" class="vortex-phase-btn" data-vortex-phase="hero">
-              <span data-th>04 ซูมโฟกัสใบหลัก</span><span data-en>04 HERO FOCUS</span>
-            </button>
-          </div>
         </header>
 
         <div class="scene02-stage-layout">
-          <!-- Left: 108.Supply Split-Quadrant 4-Card 3D Vortex Stage -->
+          <!-- Left: 3-Card G·H·N 2-Beat Stage (Spread 3 Cards -> Focus 1 Card) -->
           <div class="quadrant-vortex-stage" id="quadrantVortexStage">
-            <div class="vortex-bottom-168-mark" aria-hidden="true">168</div>
-
-            <!-- Central Red Triangle Hub that conducts the card rotation -->
-            <div class="vortex-center-tri-hub" id="vortexCenterTri" aria-hidden="true">
-              <svg viewBox="0 0 36 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <polygon points="2,2 34,20 2,38" fill="#e02424" />
-              </svg>
-            </div>
+            <div class="vortex-bottom-168-mark" aria-hidden="true">GHN</div>
 
             <!-- Card 0: G (GROUNDBREAKING) -->
             <article class="quad-ghn-card is-focused" data-quad-card="0">
@@ -2554,53 +2557,38 @@
                 </div>
               </div>
             </article>
-
-            <!-- Card 3: 168 (DIRECT PRODUCTION COMMITMENT) -->
-            <article class="quad-ghn-card" data-quad-card="3">
-              <img class="quad-card-photo" src="assets/profile_media/work_04_main.jpg" alt="168 — Full Production" />
-              <div class="quad-card-shade"></div>
-              <div class="quad-card-poster-stack">
-                <div class="quad-card-top-meta">
-                  <span>PILLAR // 04</span>
-                  <span>[ 168 ]</span>
-                </div>
-                <div class="quad-kinetic-words">
-                  <span>GHN168</span>
-                  <span>CINEMA</span>
-                  <span>LIVE</span>
-                  <span>SOUND</span>
-                  <span>CORP</span>
-                </div>
-                <div class="quad-card-bottom-pill">
-                  <span data-th>168 · โปรดักชันครบวงจร</span>
-                  <span data-en>168 · FULL PRODUCTION</span>
-                  <span class="tri-icon-sm"></span>
-                </div>
-              </div>
-            </article>
           </div>
 
-          <!-- Right: Active G·H·N Pillar Detail & Selector -->
+          <!-- Right: Active G·H·N Pillar Detail & 2-Beat Controls -->
           <div class="scene02-inspector-col">
-            <div>
-              <div class="section-cue-tag" style="margin-bottom: 8px;">
-                <span class="tri-icon-sm"></span>
-                <span data-th>คลิกเลือกการ์ด G · H · N · 168 หรือปล่อยให้เวียนสลับที่อัตโนมัติ</span>
-                <span data-en>CLICK ANY CARD OR LET THE VORTEX CYCLE AUTOMATICALLY</span>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap;">
+                <div class="section-cue-tag">
+                  <span data-th>เลือกการ์ด G · H · N (2 จังหวะ: แตกออก ➔ โชว์ใบเดียว)</span>
+                  <span data-en>SELECT G · H · N CARD (2-BEAT SPREAD &amp; SHOWCASE)</span>
+                </div>
+
+                <div class="vortex-phase-toolbar" role="group" aria-label="2-Beat Motion Phase">
+                  <button type="button" class="vortex-phase-btn" data-vortex-phase="spread">
+                    <span data-th>01 แตกออก 3 ใบ</span><span data-en>01 SPREAD 3</span>
+                  </button>
+                  <button type="button" class="vortex-phase-btn is-active" data-vortex-phase="focus">
+                    <span data-th>02 โชว์ใบเดียว</span><span data-en>02 SHOWCASE 1</span>
+                  </button>
+                </div>
               </div>
 
               <div class="ghn-pillar-selector" role="tablist">
                 <button type="button" class="ghn-pillar-tab is-active" data-ghn-select="0">G</button>
                 <button type="button" class="ghn-pillar-tab" data-ghn-select="1">H</button>
                 <button type="button" class="ghn-pillar-tab" data-ghn-select="2">N</button>
-                <button type="button" class="ghn-pillar-tab" data-ghn-select="3">168</button>
               </div>
             </div>
 
             <div class="ghn-detail-box" id="ghnDetailBox">
               <div class="ghn-detail-letter-row">
                 <div class="ghn-detail-big-code" id="ghnDetailCode">G // 01</div>
-                <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--ink-secondary);" id="ghnDetailStep">STEP 01 OF 04</div>
+                <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--ink-secondary);" id="ghnDetailStep">PILLAR 01 OF 03</div>
               </div>
               <h3 class="ghn-detail-title" id="ghnDetailTitle">GROUNDBREAKING — ล้ำสมัย เปิดมุมมองใหม่</h3>
               <p class="ghn-detail-desc" id="ghnDetailDesc">
@@ -2611,12 +2599,11 @@
             <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
               <button type="button" class="hud-action-btn" id="ghnCycleOnceBtn">
                 <span class="tri-icon-sm"></span>
-                <span data-th>หมุนเวียนสลับการ์ด 1 รอบ</span>
-                <span data-en>ROTATE CARDS ONCE</span>
+                <span data-th>เล่น 2 จังหวะ (แตกออก ➔ โชว์ใบถัดไป)</span>
+                <span data-en>PLAY 2-BEAT CYCLE</span>
               </button>
               <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--ink-muted);">
-                <span data-th>เรฟ: 108.Supply Split Quadrant + RICO</span>
-                <span data-en>REF: 108.SUPPLY + RICO</span>
+                <span>G · H · N CORE PILLARS</span>
               </span>
             </div>
           </div>
@@ -3147,6 +3134,14 @@
       });
     }
 
+    function getSceneDockTri(sceneIdx) {
+      if (sceneIdx === 0) return document.getElementById('heroRedTri');
+      if (sceneIdx === 1) return document.getElementById('scene02RedTri');
+      return null;
+    }
+
+    let bridgeRafId = null;
+
     function animateRedConductorBridge(fromIdx, toIdx, onMidpoint, onComplete) {
       if (!globalRedConductor || !transitionCurtain) {
         onMidpoint();
@@ -3154,10 +3149,188 @@
         return;
       }
 
-      /* Reset transitions before starting bridge choreography */
+      if (bridgeRafId !== null) {
+        cancelAnimationFrame(bridgeRafId);
+        bridgeRafId = null;
+      }
+
       globalRedConductor.style.transition = 'none';
       transitionCurtain.style.transition = 'none';
       transitionCurtain.className = 'transition-wipe-curtain';
+      transitionCurtain.style.opacity = '0';
+
+      const originTri = getSceneDockTri(fromIdx);
+      const targetTri = getSceneDockTri(toIdx);
+
+      /* Continuous C2 Ribbon Swoop whenever lifting from or docking into Scene 01 / Scene 02 */
+      if (originTri && targetTri) {
+        const originRect = originTri.getBoundingClientRect();
+
+        /* Measure targetTri at its final resting position (translate3d(0,0,0) scale(1)) */
+        const toSceneEl = scenePages[toIdx];
+        let targetRect = originRect;
+        if (toSceneEl) {
+          const prevTrans = toSceneEl.style.transition;
+          const prevTf = toSceneEl.style.transform;
+          toSceneEl.style.transition = 'none';
+          toSceneEl.style.transform = 'translate3d(0, 0, 0) scale(1)';
+          void toSceneEl.offsetWidth;
+          targetRect = targetTri.getBoundingClientRect();
+          toSceneEl.style.transform = prevTf;
+          void toSceneEl.offsetWidth;
+          toSceneEl.style.transition = prevTrans;
+        }
+
+        const startW = Math.max(16, originRect.width);
+        const startH = Math.max(18, originRect.height);
+        const startX = originRect.left + startW * 0.5;
+        const startY = originRect.top + startH * 0.5;
+        const endX = targetRect.left + targetRect.width * 0.5;
+        const endY = targetRect.top + targetRect.height * 0.5;
+        const endScale = Number((targetRect.width / startW).toFixed(3));
+
+        globalRedConductor.style.width = `${startW.toFixed(2)}px`;
+        globalRedConductor.style.height = `${startH.toFixed(2)}px`;
+        globalRedConductor.style.marginLeft = `${(-startW * 0.5).toFixed(2)}px`;
+        globalRedConductor.style.marginTop = `${(-startH * 0.5).toFixed(2)}px`;
+
+        /* Hide dock triangles while the live conductor arrow physically travels between them */
+        originTri.style.opacity = '0';
+        targetTri.style.opacity = '0';
+        globalRedConductor.style.opacity = '1';
+        globalRedConductor.style.transform = `translate3d(${startX.toFixed(2)}px, ${startY.toFixed(2)}px, 0) rotate(0deg) scale(1)`;
+
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        const isMobile = vw <= 768;
+
+        /* 2-Stage Wide C2 Loop:
+           - Stage 1 (a0..a3): Lift out of top-left dock moving right (0deg), curl smoothly downward to bottom-center (180deg)
+           - Stage 2 (b0..b3): Sweep left across bottom-center (180deg) and curl smoothly upward to dock in front of the next scene's title (360deg) */
+        const rollRightPx = isMobile ? 120 : 280;
+        const turnBulgePx = isMobile ? 70 : 160;
+        const xSweepRight = Math.max(startX, endX) + rollRightPx;
+        const ySwoopBottom = Math.round(vh * 0.62);
+        const xSwoopBottom = Math.round(endX + (xSweepRight - endX) * 0.52);
+        const leftCurlPx = Math.min(36, Math.max(12, Math.round(endX - 8)));
+
+        const a0x = startX, a0y = startY;
+        const a1x = xSweepRight, a1y = startY;
+        const a2x = xSweepRight + turnBulgePx, a2y = ySwoopBottom;
+        const a3x = xSwoopBottom, a3y = ySwoopBottom;
+
+        const b0x = xSwoopBottom, b0y = ySwoopBottom;
+        const b1x = Math.round(endX + (xSwoopBottom - endX) * 0.42), b1y = ySwoopBottom;
+        const b2x = endX - leftCurlPx, b2y = endY;
+        const b3x = endX, b3y = endY;
+
+        const LUT_STEPS = 600;
+        const ARC1_STEPS = 300;
+        const ARC2_STEPS = LUT_STEPS - ARC1_STEPS;
+
+        const lutX = new Float64Array(LUT_STEPS + 1);
+        const lutY = new Float64Array(LUT_STEPS + 1);
+        const rawDeg = new Float64Array(LUT_STEPS + 1);
+        const lutDeg = new Float64Array(LUT_STEPS + 1);
+        const lutS = new Float64Array(LUT_STEPS + 1);
+
+        let prevD = 0;
+        for (let i = 0; i <= LUT_STEPS; i++) {
+          let px, py, dx, dy;
+          if (i <= ARC1_STEPS) {
+            const t = i / ARC1_STEPS;
+            px = cubicBezierPoint(t, a0x, a1x, a2x, a3x);
+            py = cubicBezierPoint(t, a0y, a1y, a2y, a3y);
+            dx = cubicBezierDeriv(t, a0x, a1x, a2x, a3x);
+            dy = cubicBezierDeriv(t, a0y, a1y, a2y, a3y);
+          } else {
+            const t = (i - ARC1_STEPS) / ARC2_STEPS;
+            px = cubicBezierPoint(t, b0x, b1x, b2x, b3x);
+            py = cubicBezierPoint(t, b0y, b1y, b2y, b3y);
+            dx = cubicBezierDeriv(t, b0x, b1x, b2x, b3x);
+            dy = cubicBezierDeriv(t, b0y, b1y, b2y, b3y);
+          }
+          let d = Math.atan2(dy, dx) * (180 / Math.PI);
+          while (d - prevD > 180) d -= 360;
+          while (d - prevD < -180) d += 360;
+          prevD = d;
+          lutX[i] = px;
+          lutY[i] = py;
+          rawDeg[i] = d;
+        }
+
+        const SMOOTH_R = 26;
+        for (let i = 0; i <= LUT_STEPS; i++) {
+          if (i === 0) lutDeg[i] = 0;
+          else if (i === LUT_STEPS) lutDeg[i] = 360;
+          else {
+            const r = Math.min(SMOOTH_R, i, LUT_STEPS - i);
+            let s = 0;
+            for (let k = -r; k <= r; k++) s += rawDeg[i + k];
+            lutDeg[i] = s / (2 * r + 1);
+          }
+        }
+
+        let accumM = 0;
+        for (let i = 0; i <= LUT_STEPS; i++) {
+          if (i > 0) {
+            const ds = Math.hypot(lutX[i] - lutX[i - 1], lutY[i] - lutY[i - 1]);
+            const dd = Math.abs(lutDeg[i] - lutDeg[i - 1]);
+            accumM += ds + 5.2 * dd;
+          }
+          lutS[i] = accumM;
+        }
+        const totalM = accumM;
+
+        function sampleBridge(targetM) {
+          if (targetM <= 0) return { x: lutX[0], y: lutY[0], deg: lutDeg[0] };
+          if (targetM >= totalM) return { x: lutX[LUT_STEPS], y: lutY[LUT_STEPS], deg: lutDeg[LUT_STEPS] };
+          let lo = 0, hi = LUT_STEPS;
+          while (lo < hi - 1) {
+            const mid = (lo + hi) >> 1;
+            if (lutS[mid] <= targetM) lo = mid;
+            else hi = mid;
+          }
+          const span = lutS[hi] - lutS[lo];
+          const f = span > 1e-6 ? (targetM - lutS[lo]) / span : 0;
+          return {
+            x: lutX[lo] + (lutX[hi] - lutX[lo]) * f,
+            y: lutY[lo] + (lutY[hi] - lutY[lo]) * f,
+            deg: lutDeg[lo] + (lutDeg[hi] - lutDeg[lo]) * f
+          };
+        }
+
+        const bridgeDuration = 980;
+        const startT = performance.now();
+        let midpointFired = false;
+
+        function stepBridgeFlight(now) {
+          const u = Math.min(1, (now - startT) / bridgeDuration);
+          const easedU = u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;
+          const pt = sampleBridge(easedU * totalM);
+          const sc = 1 + (endScale - 1) * easedU;
+
+          globalRedConductor.style.transform = `translate3d(${pt.x.toFixed(2)}px, ${pt.y.toFixed(2)}px, 0) rotate(${pt.deg.toFixed(2)}deg) scale(${sc.toFixed(3)})`;
+
+          if (u >= 0.24 && !midpointFired) {
+            midpointFired = true;
+            onMidpoint();
+          }
+
+          if (u < 1) {
+            bridgeRafId = requestAnimationFrame(stepBridgeFlight);
+          } else {
+            bridgeRafId = null;
+            targetTri.style.opacity = '1';
+            originTri.style.opacity = '1';
+            globalRedConductor.style.opacity = '0';
+            onComplete();
+          }
+        }
+
+        bridgeRafId = requestAnimationFrame(stepBridgeFlight);
+        return;
+      }
 
       if (toIdx === 2) {
         /* Entering Scene 03 (Light Matte Stage): Red Arrow slices LEFT -> RIGHT pulling Light Curtain */
@@ -3276,11 +3449,11 @@
       if (sceneIdx === 0) {
         bodyEl.classList.add('scene-docked');
       } else if (sceneIdx === 1) {
-        /* Trigger an immediate entrance vortex pulse when landing on Scene 02 */
-        setVortexPhase('split', false);
+        /* 2-Beat Entrance on Scene 02: Beat 1 (Spread 3 cards G·H·N) -> Beat 2 (Return & Showcase 1 card) */
+        setVortexPhase('spread', false);
         setTimeout(() => {
-          if (currentSceneIdx === 1) setVortexPhase('vortex', false);
-        }, 620);
+          if (currentSceneIdx === 1) setVortexPhase('focus', false);
+        }, 760);
       } else if (sceneIdx === 2) {
         renderServiceWheel(activeServiceIdx);
       } else if (sceneIdx === 3) {
@@ -3924,14 +4097,13 @@
     });
 
     /* ==========================================================================
-       3. SCENE 02 // G · H · N · 168 SPLIT-QUADRANT VORTEX ENGINE
-          Ref: 108.Supply Split Quadrant (https://pin.it/qZDNspvfD) + RICO. Showcase
-          "มีเวียน มีเข้า มีออก ซ้อนเหลื่อมมิติหน้า-หลัง"
+       3. SCENE 02 // G · H · N 3-CARD 2-BEAT ENGINE
+          ("เอามาแค่ 3 พอ G, H กับ N ... ปรับเหลือแค่ 2 จังหวะ คือให้การ์ด 3 ใบแตกออก
+           แล้วจังหวะที่ 2 ก็กลับเข้ามาแล้วก็เอามาโชว์อันเดียวพอ")
        ========================================================================== */
     const quadCards = Array.from(document.querySelectorAll('[data-quad-card]'));
     const vortexPhaseBtns = Array.from(document.querySelectorAll('[data-vortex-phase]'));
     const ghnSelectBtns = Array.from(document.querySelectorAll('[data-ghn-select]'));
-    const vortexCenterTri = document.getElementById('vortexCenterTri');
     const ghnDetailCode = document.getElementById('ghnDetailCode');
     const ghnDetailStep = document.getElementById('ghnDetailStep');
     const ghnDetailTitle = document.getElementById('ghnDetailTitle');
@@ -3941,7 +4113,7 @@
     const GHN_PILLARS = [
       {
         code: 'G // 01',
-        step: 'PILLAR 01 OF 04',
+        step: 'PILLAR 01 OF 03',
         titleTH: 'GROUNDBREAKING — ล้ำสมัย เปิดมุมมองใหม่',
         titleEN: 'GROUNDBREAKING — Pioneering Visual Ideas',
         descTH: 'ผลงานและแนวคิดที่เปล่งประกายด้วยความคิดสร้างสรรค์ เปิดโลกทัศน์สู่การนำเสนอภาพและวิดีโอรูปแบบใหม่ เพื่อให้แบรนด์ของลูกค้าโดดเด่นและแตกต่างกว่าใครในตลาด',
@@ -3949,7 +4121,7 @@
       },
       {
         code: 'H // 02',
-        step: 'PILLAR 02 OF 04',
+        step: 'PILLAR 02 OF 03',
         titleTH: 'HAPPINESS — ความสุขจากการทำงานที่ราบรื่น',
         titleEN: 'HAPPINESS — Seamless Direct Collaboration',
         descTH: 'ความสุขที่เกิดจากการทำงานร่วมกันอย่างราบรื่น คุยตรงกับผู้กำกับและโปรดิวเซอร์ตัวจริงโดยไม่ผ่านคนกลาง แก้โจทย์หน้างานไวและได้ผลลัพธ์ตรงใจ',
@@ -3957,25 +4129,17 @@
       },
       {
         code: 'N // 03',
-        step: 'PILLAR 03 OF 04',
+        step: 'PILLAR 03 OF 03',
         titleTH: 'NIRVANA — เป้าหมายสูงสุดของความสมบูรณ์แบบ',
         titleEN: 'NIRVANA — Ultimate Creative Fulfillment',
         descTH: 'สร้างสรรค์ผลงานที่มีจิตวิญญาณและรายละเอียดครบถ้วน พาทุกโปรเจกต์ไปถึงเป้าหมายสูงสุดของลูกค้าอย่างสมบูรณ์แบบไร้ที่ติ ทั้งภาพ เสียง และเวลาส่งมอบ',
         descEN: 'Crafting soulful, flagship-grade visual works that achieve the highest standard of quality and precision.'
-      },
-      {
-        code: '168 // 04',
-        step: 'PILLAR 04 OF 04',
-        titleTH: 'GHN168 — โปรดักชันครบวงจรพร้อมมาตรฐานนิติบุคคล',
-        titleEN: 'GHN168 — End-to-End Cinema & Corporate Ready',
-        descTH: 'ผสานพลังของผู้ร่วมก่อตั้งทั้ง 3 คน เข้ากับทีมโปรดักชันครบวงจร รองรับทั้งงานโฆษณา อีเวนต์ ถ่ายทอดสด และระบบเอกสารภาษีนิติบุคคล VAT 7% เต็มรูปแบบ',
-        descEN: 'Combining our three co-founders with full cinema gear, multi-cam broadcast, and corporate VAT 7% compliance.'
       }
     ];
 
     let activeGhnIdx = 0;
-    let activeVortexPhase = 'vortex';
-    let vortexRotationCount = 0;
+    let activeVortexPhase = 'focus';
+    let scene02BeatTimer = null;
 
     function updateGhnInspector(idx) {
       const lang = htmlEl.getAttribute('data-lang') || 'th';
@@ -3990,150 +4154,137 @@
 
     function applyVortexCardTransforms() {
       const isMobile = window.innerWidth <= 768;
-      const spreadX = isMobile ? 56 : 112;
-      const spreadY = isMobile ? 28 : 86;
-
-      /* Rotate central Red Triangle hub on each change */
-      if (vortexCenterTri) {
-        const deg = vortexRotationCount * 90;
-        vortexCenterTri.style.transform = `rotate(${deg}deg) scale(${activeVortexPhase === 'vortex' ? 1.18 : 0.95})`;
-      }
+      const spreadX = isMobile ? 64 : 132;
+      const spreadY = isMobile ? 24 : 58;
 
       quadCards.forEach((card, cardIdx) => {
-        /* Relative slot (0 = active focal card, 1 = next, 2 = opposite, 3 = previous) */
-        const slot = ((cardIdx - activeGhnIdx) % 4 + 4) % 4;
+        /* 3 cards only: 0 = active focal card, 1 = left wing, 2 = right wing */
+        const slot = ((cardIdx - activeGhnIdx) % 3 + 3) % 3;
         card.classList.toggle('is-focused', slot === 0);
 
-        let tx = 0, ty = 0, tz = 0, rx = 0, ry = 0, sc = 1, zIndex = 10, op = 1;
+        let tx = 0, ty = 0, tz = 0, rx = 0, ry = 0, rz = 0, sc = 1, zIndex = 10, op = 1;
 
-        if (activeVortexPhase === 'vortex') {
-          /* 108.Supply t=2.75s: Overlapping Staggered Diamond Vortex (ซ้อนเหลื่อมมิติหน้า-หลัง) */
+        if (activeVortexPhase === 'spread') {
+          /* จังหวะที่ 1: การ์ด 3 ใบ (G · H · N) แตกออกให้เห็นครบทั้ง 3 ใบ */
           if (slot === 0) {
-            /* Front-Right Overlapping Hero Card */
-            tx = spreadX * 0.56;
-            ty = spreadY * 0.14;
-            tz = 115;
-            ry = -12;
-            sc = 1.05;
+            tx = 0;
+            ty = -spreadY * 0.36;
+            tz = 70;
+            sc = 1.0;
             zIndex = 24;
+            op = 1;
           } else if (slot === 1) {
-            /* Front-Left Overlapping Card */
-            tx = -spreadX * 0.58;
-            ty = -spreadY * 0.08;
-            tz = 65;
-            ry = 12;
-            sc = 0.96;
+            tx = -spreadX * 1.18;
+            ty = spreadY * 0.34;
+            tz = 25;
+            ry = 14;
+            rz = -7;
+            sc = 0.94;
             zIndex = 20;
-          } else if (slot === 2) {
-            /* Top Receding Card (peeking above like the hair bun card in 108.Supply!) */
-            tx = spreadX * 0.06;
-            ty = -spreadY * 0.98;
-            tz = -35;
-            sc = 0.9;
-            zIndex = 14;
-            op = 0.92;
+            op = 0.96;
           } else {
-            /* Bottom Receding Card (peeking below in deep Z space!) */
-            tx = -spreadX * 0.06;
-            ty = spreadY * 1.02;
-            tz = -95;
-            sc = 0.86;
-            zIndex = 10;
-            op = 0.78;
-          }
-        } else if (activeVortexPhase === 'split') {
-          /* 108.Supply t=0.75s - 1.50s: Vertical Top-Bottom Split + Left-Right Wing Entry (มีเข้า-มีออก) */
-          if (slot === 0) {
-            tx = 0; ty = -spreadY * 0.68; tz = 95; sc = 1.02; zIndex = 24;
-          } else if (slot === 1) {
-            tx = 0; ty = spreadY * 0.76; tz = 40; sc = 0.94; zIndex = 18;
-          } else if (slot === 2) {
-            tx = -spreadX * 1.48; ty = -spreadY * 0.35; tz = -70; ry = 22; sc = 0.82; zIndex = 12; op = 0.72;
-          } else {
-            tx = spreadX * 1.48; ty = spreadY * 0.45; tz = -70; ry = -22; sc = 0.82; zIndex = 12; op = 0.72;
-          }
-        } else if (activeVortexPhase === 'quad') {
-          /* 108.Supply t=2.25s: Asymmetric 2x2 Split Quadrant Grid */
-          if (slot === 0) {
-            tx = spreadX * 0.96; ty = -spreadY * 0.76; tz = 55; sc = 0.94; zIndex = 22;
-          } else if (slot === 1) {
-            tx = -spreadX * 0.96; ty = -spreadY * 0.84; tz = 20; sc = 0.9; zIndex = 18;
-          } else if (slot === 2) {
-            tx = -spreadX * 0.96; ty = spreadY * 0.84; tz = 20; sc = 0.9; zIndex = 16;
-          } else {
-            tx = spreadX * 0.96; ty = spreadY * 0.92; tz = 10; sc = 0.9; zIndex = 14;
+            tx = spreadX * 1.18;
+            ty = spreadY * 0.34;
+            tz = 25;
+            ry = -14;
+            rz = 7;
+            sc = 0.94;
+            zIndex = 18;
+            op = 0.96;
           }
         } else {
-          /* RICO. Showcase: 3D Camera Dolly-In Hero Focus on Active Card */
+          /* จังหวะที่ 2: กลับเข้ามาแล้วเอามาโชว์อันเดียวตรงกลางเด่นๆ */
           if (slot === 0) {
-            tx = 0; ty = 0; tz = 150; sc = 1.12; zIndex = 26;
+            tx = 0;
+            ty = 0;
+            tz = 155;
+            sc = 1.14;
+            zIndex = 30;
+            op = 1;
           } else if (slot === 1) {
-            tx = spreadX * 1.32; ty = -spreadY * 0.45; tz = -120; ry = -26; sc = 0.76; zIndex = 12; op = 0.55;
-          } else if (slot === 2) {
-            tx = -spreadX * 1.32; ty = -spreadY * 0.35; tz = -140; ry = 26; sc = 0.74; zIndex = 10; op = 0.5;
+            tx = -20;
+            ty = 8;
+            tz = -140;
+            rz = -4;
+            sc = 0.72;
+            zIndex = 8;
+            op = 0.15;
           } else {
-            tx = 0; ty = spreadY * 1.15; tz = -180; rx = 18; sc = 0.7; zIndex = 8; op = 0.42;
+            tx = 20;
+            ty = 8;
+            tz = -140;
+            rz = 4;
+            sc = 0.72;
+            zIndex = 7;
+            op = 0.15;
           }
         }
 
         card.style.zIndex = String(zIndex);
         card.style.opacity = String(op);
-        card.style.transform = `translate3d(${Math.round(tx)}px, ${Math.round(ty)}px, ${Math.round(tz)}px) rotateX(${rx}deg) rotateY(${ry}deg) scale(${sc})`;
+        card.style.transform = `translate3d(${Math.round(tx)}px, ${Math.round(ty)}px, ${Math.round(tz)}px) rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${rz}deg) scale(${sc})`;
       });
     }
 
-    function setVortexPhase(phase, incrementSpin = true) {
-      activeVortexPhase = phase;
-      if (incrementSpin) vortexRotationCount++;
+    function setVortexPhase(phase) {
+      activeVortexPhase = phase === 'spread' ? 'spread' : 'focus';
       vortexPhaseBtns.forEach(btn => {
-        btn.classList.toggle('is-active', btn.getAttribute('data-vortex-phase') === phase);
+        btn.classList.toggle('is-active', btn.getAttribute('data-vortex-phase') === activeVortexPhase);
       });
       applyVortexCardTransforms();
     }
 
-    function setActiveGhnPillar(idx, spinVortex = true) {
-      activeGhnIdx = ((idx % 4) + 4) % 4;
-      if (spinVortex) vortexRotationCount++;
-      updateGhnInspector(activeGhnIdx);
-      applyVortexCardTransforms();
+    /* 2-Beat Choreography: Beat 1 (Spread 3 cards out) -> Beat 2 (Pull back in & showcase 1 card) */
+    function triggerVortexSequence(targetIdx) {
+      if (scene02BeatTimer) {
+        clearTimeout(scene02BeatTimer);
+        scene02BeatTimer = null;
+      }
+      const nextIdx = typeof targetIdx === 'number'
+        ? ((targetIdx % 3) + 3) % 3
+        : (activeGhnIdx + 1) % 3;
+
+      /* Beat 1: Spread all 3 G·H·N cards out */
+      setVortexPhase('spread');
+
+      /* Beat 2: Pull back in & showcase the selected single card */
+      scene02BeatTimer = setTimeout(() => {
+        scene02BeatTimer = null;
+        activeGhnIdx = nextIdx;
+        updateGhnInspector(activeGhnIdx);
+        setVortexPhase('focus');
+      }, 680);
     }
 
-    /* Full 108.Supply Choreography Sequence (Split -> Quad -> Vortex Overlap -> Rotate Next) */
-    function triggerVortexSequence() {
-      setVortexPhase('split', true);
-      setTimeout(() => {
-        if (currentSceneIdx === 1) setVortexPhase('quad', true);
-      }, 650);
-      setTimeout(() => {
-        if (currentSceneIdx === 1) {
-          activeGhnIdx = (activeGhnIdx + 1) % 4;
-          updateGhnInspector(activeGhnIdx);
-          setVortexPhase('vortex', true);
-        }
-      }, 1350);
+    function setActiveGhnPillar(idx) {
+      const target = ((idx % 3) + 3) % 3;
+      if (target === activeGhnIdx && activeVortexPhase === 'focus') {
+        triggerVortexSequence(target);
+      } else {
+        triggerVortexSequence(target);
+      }
     }
 
     quadCards.forEach(card => {
       card.addEventListener('click', () => {
         const idx = parseInt(card.getAttribute('data-quad-card'), 10);
-        if (idx === activeGhnIdx) {
-          /* Clicking the already-focused card toggles between Vortex Overlap and Hero Zoom */
-          setVortexPhase(activeVortexPhase === 'hero' ? 'vortex' : 'hero', true);
+        if (idx === activeGhnIdx && activeVortexPhase === 'focus') {
+          setVortexPhase('spread');
         } else {
-          setActiveGhnPillar(idx, true);
+          triggerVortexSequence(idx);
         }
       });
     });
 
     ghnSelectBtns.forEach(btn => {
       btn.addEventListener('click', () => {
-        setActiveGhnPillar(parseInt(btn.getAttribute('data-ghn-select'), 10), true);
+        setActiveGhnPillar(parseInt(btn.getAttribute('data-ghn-select'), 10));
       });
     });
 
     vortexPhaseBtns.forEach(btn => {
       btn.addEventListener('click', () => {
-        setVortexPhase(btn.getAttribute('data-vortex-phase'), true);
+        setVortexPhase(btn.getAttribute('data-vortex-phase'));
       });
     });
 
