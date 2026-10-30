@@ -3202,12 +3202,19 @@
       const originTri = getSceneDockTri(fromIdx);
       const targetTri = getSceneDockTri(toIdx);
 
-      /* Continuous C2 Ribbon Swoop whenever lifting from or docking into Scene 01 / Scene 02 */
+      /* 3-Beat Coupled Push Choreography between Scene 01 & Scene 02:
+         1) Beat 1 (0 -> 1250ms): Red Arrow detaches from top-left dock (#heroRedTri), grows larger (scale 1 -> pushScale),
+            and rolls/curls smoothly down to the bottom-center of the screen (50vw, stageBottomY) pointing straight UP (270deg / -90deg).
+         2) Beat 2 (1250 -> 2490ms): From the bottom, the big Red Arrow pushes UPWARD (bottom -> top),
+            pushing Scene 01 up off the top while pulling Scene 02 up from the bottom right behind it.
+         3) Beat 3 (2490 -> 3180ms): Having reached the top, the arrow shrinks back down and curls smoothly into
+            the top-left header dock (#scene02RedTri) of Scene 02! */
       if (originTri && targetTri) {
         const originRect = originTri.getBoundingClientRect();
+        const fromSceneEl = scenePages[fromIdx];
+        const toSceneEl = scenePages[toIdx];
 
         /* Measure targetTri at its final resting position (translate3d(0,0,0) scale(1)) */
-        const toSceneEl = scenePages[toIdx];
         let targetRect = originRect;
         if (toSceneEl) {
           const prevTrans = toSceneEl.style.transition;
@@ -3244,121 +3251,276 @@
         const vh = window.innerHeight;
         const isMobile = vw <= 768;
 
-        /* 2-Stage Wide Slow & Silky C2 Loop:
-           - Stage 1 (a0..a3): Lift out of top-left dock moving right (0deg), curve gently downward to upper-mid stage (180deg)
-           - Stage 2 (b0..b3): Sweep left (180deg) and curl smoothly upward to dock in front of the next scene's title (360deg) */
-        const rollRightPx = isMobile ? 105 : 220;
-        const turnBulgePx = isMobile ? 56 : 112;
-        const xSweepRight = Math.max(startX, endX) + rollRightPx;
-        const ySwoopBottom = Math.round(Math.max(startY, endY) + (isMobile ? 138 : 205));
-        const xSwoopBottom = Math.round(endX + (xSweepRight - endX) * 0.50);
-        const leftCurlPx = Math.min(44, Math.max(18, Math.round(endX - 6)));
+        const stageMidX = Math.round(vw * 0.50);
+        const stageBottomY = Math.round(vh - (isMobile ? 56 : 72));
+        const stageTopY = Math.round(endY + (isMobile ? 42 : 56));
+        const pushScale = isMobile ? 2.15 : 2.75;
 
+        /* BEAT 1 LUT (0deg at top-left -> roll down to bottom-center -> 270deg pointing straight UP) */
+        const loopRightX = Math.round(vw * (isMobile ? 0.68 : 0.62));
+        const loopBottomY = Math.round(vh - (isMobile ? 22 : 28));
         const a0x = startX, a0y = startY;
-        const a1x = xSweepRight, a1y = startY;
-        const a2x = xSweepRight + turnBulgePx, a2y = ySwoopBottom;
-        const a3x = xSwoopBottom, a3y = ySwoopBottom;
+        const a1x = loopRightX, a1y = startY;
+        const a2x = loopRightX + (isMobile ? 38 : 84), a2y = loopBottomY;
+        const a3x = Math.round((loopRightX + stageMidX) * 0.5), a3y = loopBottomY;
 
-        const b0x = xSwoopBottom, b0y = ySwoopBottom;
-        const b1x = Math.round(endX + (xSwoopBottom - endX) * 0.18), b1y = ySwoopBottom;
-        const b2x = endX - leftCurlPx, b2y = endY;
-        const b3x = endX, b3y = endY;
+        const b0x = a3x, b0y = a3y;
+        const b1x = stageMidX, b1y = loopBottomY;
+        const b2x = stageMidX, b2y = stageBottomY + (isMobile ? 16 : 22);
+        const b3x = stageMidX, b3y = stageBottomY;
 
-        const LUT_STEPS = 900;
-        const ARC1_STEPS = 450;
-        const ARC2_STEPS = LUT_STEPS - ARC1_STEPS;
+        const B1_STEPS = 600;
+        const B1_HALF = 360;
+        const B1_REM = B1_STEPS - B1_HALF;
+        const b1X = new Float64Array(B1_STEPS + 1);
+        const b1Y = new Float64Array(B1_STEPS + 1);
+        const b1RawDeg = new Float64Array(B1_STEPS + 1);
+        const b1Deg = new Float64Array(B1_STEPS + 1);
+        const b1S = new Float64Array(B1_STEPS + 1);
 
-        const lutX = new Float64Array(LUT_STEPS + 1);
-        const lutY = new Float64Array(LUT_STEPS + 1);
-        const rawDeg = new Float64Array(LUT_STEPS + 1);
-        const lutDeg = new Float64Array(LUT_STEPS + 1);
-        const lutS = new Float64Array(LUT_STEPS + 1);
-
-        let prevD = 0;
-        for (let i = 0; i <= LUT_STEPS; i++) {
+        let prevD1 = 0;
+        for (let i = 0; i <= B1_STEPS; i++) {
           let px, py, dx, dy;
-          if (i <= ARC1_STEPS) {
-            const t = i / ARC1_STEPS;
+          if (i <= B1_HALF) {
+            const t = i / B1_HALF;
             px = cubicBezierPoint(t, a0x, a1x, a2x, a3x);
             py = cubicBezierPoint(t, a0y, a1y, a2y, a3y);
             dx = cubicBezierDeriv(t, a0x, a1x, a2x, a3x);
             dy = cubicBezierDeriv(t, a0y, a1y, a2y, a3y);
           } else {
-            const t = (i - ARC1_STEPS) / ARC2_STEPS;
+            const t = (i - B1_HALF) / B1_REM;
             px = cubicBezierPoint(t, b0x, b1x, b2x, b3x);
             py = cubicBezierPoint(t, b0y, b1y, b2y, b3y);
             dx = cubicBezierDeriv(t, b0x, b1x, b2x, b3x);
             dy = cubicBezierDeriv(t, b0y, b1y, b2y, b3y);
           }
           let d = Math.atan2(dy, dx) * (180 / Math.PI);
-          while (d - prevD > 180) d -= 360;
-          while (d - prevD < -180) d += 360;
-          prevD = d;
-          lutX[i] = px;
-          lutY[i] = py;
-          rawDeg[i] = d;
+          while (d - prevD1 > 180) d -= 360;
+          while (d - prevD1 < -180) d += 360;
+          prevD1 = d;
+          b1X[i] = px;
+          b1Y[i] = py;
+          b1RawDeg[i] = d;
         }
 
-        const SMOOTH_R = 42;
-        for (let i = 0; i <= LUT_STEPS; i++) {
-          if (i === 0) lutDeg[i] = 0;
-          else if (i === LUT_STEPS) lutDeg[i] = 360;
+        const B1_SMOOTH = 32;
+        for (let i = 0; i <= B1_STEPS; i++) {
+          if (i === 0) b1Deg[i] = 0;
+          else if (i === B1_STEPS) b1Deg[i] = 270;
           else {
-            const r = Math.min(SMOOTH_R, i, LUT_STEPS - i);
+            const r = Math.min(B1_SMOOTH, i, B1_STEPS - i);
             let s = 0;
-            for (let k = -r; k <= r; k++) s += rawDeg[i + k];
-            lutDeg[i] = s / (2 * r + 1);
+            for (let k = -r; k <= r; k++) s += b1RawDeg[i + k];
+            b1Deg[i] = s / (2 * r + 1);
           }
         }
 
-        let accumM = 0;
-        for (let i = 0; i <= LUT_STEPS; i++) {
+        let b1Accum = 0;
+        for (let i = 0; i <= B1_STEPS; i++) {
           if (i > 0) {
-            const ds = Math.hypot(lutX[i] - lutX[i - 1], lutY[i] - lutY[i - 1]);
-            const dd = Math.abs(lutDeg[i] - lutDeg[i - 1]);
-            accumM += ds + 2.2 * dd;
+            const ds = Math.hypot(b1X[i] - b1X[i - 1], b1Y[i] - b1Y[i - 1]);
+            const dd = Math.abs(b1Deg[i] - b1Deg[i - 1]);
+            b1Accum += ds + 1.8 * dd;
           }
-          lutS[i] = accumM;
+          b1S[i] = b1Accum;
         }
-        const totalM = accumM;
+        const b1TotalM = b1Accum;
 
-        function sampleBridge(targetM) {
-          if (targetM <= 0) return { x: lutX[0], y: lutY[0], deg: lutDeg[0] };
-          if (targetM >= totalM) return { x: lutX[LUT_STEPS], y: lutY[LUT_STEPS], deg: lutDeg[LUT_STEPS] };
-          let lo = 0, hi = LUT_STEPS;
+        function sampleB1(targetM) {
+          if (targetM <= 0) return { x: b1X[0], y: b1Y[0], deg: b1Deg[0] };
+          if (targetM >= b1TotalM) return { x: b1X[B1_STEPS], y: b1Y[B1_STEPS], deg: b1Deg[B1_STEPS] };
+          let lo = 0, hi = B1_STEPS;
           while (lo < hi - 1) {
             const mid = (lo + hi) >> 1;
-            if (lutS[mid] <= targetM) lo = mid;
+            if (b1S[mid] <= targetM) lo = mid;
             else hi = mid;
           }
-          const span = lutS[hi] - lutS[lo];
-          const f = span > 1e-6 ? (targetM - lutS[lo]) / span : 0;
+          const span = b1S[hi] - b1S[lo];
+          const f = span > 1e-6 ? (targetM - b1S[lo]) / span : 0;
           return {
-            x: lutX[lo] + (lutX[hi] - lutX[lo]) * f,
-            y: lutY[lo] + (lutY[hi] - lutY[lo]) * f,
-            deg: lutDeg[lo] + (lutDeg[hi] - lutDeg[lo]) * f
+            x: b1X[lo] + (b1X[hi] - b1X[lo]) * f,
+            y: b1Y[lo] + (b1Y[hi] - b1Y[lo]) * f,
+            deg: b1Deg[lo] + (b1Deg[hi] - b1Deg[lo]) * f
           };
         }
 
-        /* Much slower, cushioned & silky-smooth bridge duration (2250ms vs old 980ms) */
-        const bridgeDuration = 2250;
+        /* BEAT 3 LUT (From top-center (stageMidX, stageTopY) [270deg up] -> 180deg left -> 90deg down -> 0deg right at (endX, endY)) */
+        const archTopY = Math.max(12, Math.round(endY - (isMobile ? 22 : 30)));
+        const archTopX = Math.round(endX + (stageMidX - endX) * 0.28);
+        const leftTurnX = Math.max(8, Math.round(endX - (isMobile ? 18 : 32)));
+
+        const c0x = stageMidX, c0y = stageTopY;
+        const c1x = stageMidX, c1y = archTopY;
+        const c2x = archTopX + (isMobile ? 40 : 80), c2y = archTopY;
+        const c3x = archTopX, c3y = archTopY;
+
+        const d0x = archTopX, d0y = archTopY;
+        const d1x = leftTurnX, d1y = archTopY;
+        const d2x = leftTurnX, d2y = endY;
+        const d3x = endX, d3y = endY;
+
+        const B3_STEPS = 500;
+        const B3_HALF = 250;
+        const B3_REM = B3_STEPS - B3_HALF;
+        const b3X = new Float64Array(B3_STEPS + 1);
+        const b3Y = new Float64Array(B3_STEPS + 1);
+        const b3RawDeg = new Float64Array(B3_STEPS + 1);
+        const b3Deg = new Float64Array(B3_STEPS + 1);
+        const b3S = new Float64Array(B3_STEPS + 1);
+
+        let prevD3 = 270;
+        for (let i = 0; i <= B3_STEPS; i++) {
+          let px, py, dx, dy;
+          if (i <= B3_HALF) {
+            const t = i / B3_HALF;
+            px = cubicBezierPoint(t, c0x, c1x, c2x, c3x);
+            py = cubicBezierPoint(t, c0y, c1y, c2y, c3y);
+            dx = cubicBezierDeriv(t, c0x, c1x, c2x, c3x);
+            dy = cubicBezierDeriv(t, c0y, c1y, c2y, c3y);
+          } else {
+            const t = (i - B3_HALF) / B3_REM;
+            px = cubicBezierPoint(t, d0x, d1x, d2x, d3x);
+            py = cubicBezierPoint(t, d0y, d1y, d2y, d3y);
+            dx = cubicBezierDeriv(t, d0x, d1x, d2x, d3x);
+            dy = cubicBezierDeriv(t, d0y, d1y, d2y, d3y);
+          }
+          let d = Math.atan2(dy, dx) * (180 / Math.PI);
+          while (d - prevD3 > 180) d -= 360;
+          while (d - prevD3 < -180) d += 360;
+          prevD3 = d;
+          b3X[i] = px;
+          b3Y[i] = py;
+          b3RawDeg[i] = d;
+        }
+
+        const B3_SMOOTH = 28;
+        for (let i = 0; i <= B3_STEPS; i++) {
+          if (i === 0) b3Deg[i] = 270;
+          else if (i === B3_STEPS) b3Deg[i] = 0;
+          else {
+            const r = Math.min(B3_SMOOTH, i, B3_STEPS - i);
+            let s = 0;
+            for (let k = -r; k <= r; k++) s += b3RawDeg[i + k];
+            b3Deg[i] = s / (2 * r + 1);
+          }
+        }
+
+        let b3Accum = 0;
+        for (let i = 0; i <= B3_STEPS; i++) {
+          if (i > 0) {
+            const ds = Math.hypot(b3X[i] - b3X[i - 1], b3Y[i] - b3Y[i - 1]);
+            const dd = Math.abs(b3Deg[i] - b3Deg[i - 1]);
+            b3Accum += ds + 1.8 * dd;
+          }
+          b3S[i] = b3Accum;
+        }
+        const b3TotalM = b3Accum;
+
+        function sampleB3(targetM) {
+          if (targetM <= 0) return { x: b3X[0], y: b3Y[0], deg: b3Deg[0] };
+          if (targetM >= b3TotalM) return { x: b3X[B3_STEPS], y: b3Y[B3_STEPS], deg: b3Deg[B3_STEPS] };
+          let lo = 0, hi = B3_STEPS;
+          while (lo < hi - 1) {
+            const mid = (lo + hi) >> 1;
+            if (b3S[mid] <= targetM) lo = mid;
+            else hi = mid;
+          }
+          const span = b3S[hi] - b3S[lo];
+          const f = span > 1e-6 ? (targetM - b3S[lo]) / span : 0;
+          return {
+            x: b3X[lo] + (b3X[hi] - b3X[lo]) * f,
+            y: b3Y[lo] + (b3Y[hi] - b3Y[lo]) * f,
+            deg: b3Deg[lo] + (b3Deg[hi] - b3Deg[lo]) * f
+          };
+        }
+
+        const beat1Dur = 1220;
+        const beat2Dur = 1240;
+        const beat3Dur = 680;
+        const totalDur = beat1Dur + beat2Dur + beat3Dur;
         const startT = performance.now();
+        let pushStarted = false;
         let midpointFired = false;
 
         function stepBridgeFlight(now) {
-          const u = Math.min(1, (now - startT) / bridgeDuration);
-          const easedU = easeInOutSine(u);
-          const pt = sampleBridge(easedU * totalM);
-          const sc = 1 + (endScale - 1) * easedU;
+          const elapsed = now - startT;
 
-          globalRedConductor.style.transform = `translate3d(${pt.x.toFixed(2)}px, ${pt.y.toFixed(2)}px, 0) rotate(${pt.deg.toFixed(2)}deg) scale(${sc.toFixed(3)})`;
-
-          if (u >= 0.28 && !midpointFired) {
-            midpointFired = true;
-            onMidpoint();
+          if (elapsed <= beat1Dur) {
+            /* BEAT 1: Detach from top-left dock, grow larger, and roll down to bottom-center facing UP (270deg) */
+            const u1 = Math.min(1, elapsed / beat1Dur);
+            const e1 = easeInOutSine(u1);
+            const pt = sampleB1(e1 * b1TotalM);
+            const sc = 1 + (pushScale - 1) * e1;
+            globalRedConductor.style.transform = `translate3d(${pt.x.toFixed(2)}px, ${pt.y.toFixed(2)}px, 0) rotate(${pt.deg.toFixed(2)}deg) scale(${sc.toFixed(3)})`;
+            bridgeRafId = requestAnimationFrame(stepBridgeFlight);
+            return;
           }
 
-          if (u < 1) {
+          if (elapsed <= beat1Dur + beat2Dur) {
+            /* BEAT 2: Push UPWARD from bottom to top, pushing Scene 01 up and pulling Scene 02 up from below */
+            if (!pushStarted) {
+              pushStarted = true;
+              if (fromSceneEl) {
+                fromSceneEl.style.transition = 'none';
+                fromSceneEl.style.zIndex = '11';
+              }
+              if (toSceneEl) {
+                toSceneEl.style.transition = 'none';
+                toSceneEl.style.visibility = 'visible';
+                toSceneEl.style.opacity = '1';
+                toSceneEl.style.zIndex = '10';
+                toSceneEl.style.boxShadow = '0 -4px 0 #e02424';
+              }
+            }
+
+            const u2 = Math.min(1, (elapsed - beat1Dur) / beat2Dur);
+            const e2 = easeInOutSine(u2);
+            const pushPy = e2 * vh;
+            const arrowY = stageBottomY + (stageTopY - stageBottomY) * e2;
+
+            if (fromSceneEl) {
+              fromSceneEl.style.transform = `translate3d(0, ${(-pushPy).toFixed(2)}px, 0) scale(1)`;
+            }
+            if (toSceneEl) {
+              toSceneEl.style.transform = `translate3d(0, ${(vh - pushPy).toFixed(2)}px, 0) scale(1)`;
+            }
+
+            globalRedConductor.style.transform = `translate3d(${stageMidX.toFixed(2)}px, ${arrowY.toFixed(2)}px, 0) rotate(270deg) scale(${pushScale.toFixed(3)})`;
+            bridgeRafId = requestAnimationFrame(stepBridgeFlight);
+            return;
+          }
+
+          /* BEAT 3: Lock Scene 02 in place and curl arrow from top-center into top-left dock (#scene02RedTri) */
+          if (!midpointFired) {
+            midpointFired = true;
+            onMidpoint();
+            if (fromSceneEl) {
+              fromSceneEl.style.transform = '';
+              fromSceneEl.style.zIndex = '';
+            }
+            if (toSceneEl) {
+              toSceneEl.style.transform = 'translate3d(0, 0, 0) scale(1)';
+              toSceneEl.style.visibility = '';
+              toSceneEl.style.opacity = '';
+              toSceneEl.style.zIndex = '';
+              toSceneEl.style.boxShadow = '';
+            }
+            void document.body.offsetWidth;
+            if (fromSceneEl) fromSceneEl.style.transition = '';
+            if (toSceneEl) {
+              toSceneEl.style.transform = '';
+              toSceneEl.style.transition = '';
+            }
+          }
+
+          const u3 = Math.min(1, (elapsed - beat1Dur - beat2Dur) / beat3Dur);
+          const e3 = easeInOutSine(u3);
+          const pt3 = sampleB3(e3 * b3TotalM);
+          const sc3 = pushScale + (endScale - pushScale) * e3;
+
+          globalRedConductor.style.transform = `translate3d(${pt3.x.toFixed(2)}px, ${pt3.y.toFixed(2)}px, 0) rotate(${pt3.deg.toFixed(2)}deg) scale(${sc3.toFixed(3)})`;
+
+          if (elapsed < totalDur) {
             bridgeRafId = requestAnimationFrame(stepBridgeFlight);
           } else {
             bridgeRafId = null;
