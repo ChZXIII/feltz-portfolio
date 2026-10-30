@@ -1090,20 +1090,18 @@
     .scene02-stage-layout {
       position: relative;
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 28px;
+      grid-template-columns: 1.04fr 0.96fr;
+      gap: clamp(20px, 2.5vw, 34px);
       align-items: center;
       min-height: 0;
     }
 
-    /* Left: 108.Supply Split-Quadrant 3D Overlapping Card Vortex */
+    /* Left: 3-Card G·H·N Stage (Native Retina Crisp Rendering at scale=1) */
     .quadrant-vortex-stage {
       position: relative;
       width: 100%;
       height: 100%;
-      min-height: 450px;
-      perspective: 1500px;
-      transform-style: preserve-3d;
+      min-height: 460px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1132,22 +1130,22 @@
       height: 34px;
     }
 
-    /* The 4 Vertical Rounded Media Cards (G, H, N, 168) */
+    /* The 3 Vertical Rounded Media Cards (G, H, N) — Full Native Size for 100% Vector Sharpness */
     .quad-ghn-card {
       position: absolute;
-      width: clamp(178px, 17vw, 232px);
-      aspect-ratio: 9 / 15.5;
-      border-radius: 20px;
+      width: clamp(232px, 20.5vw, 286px);
+      aspect-ratio: 9 / 15.2;
+      border-radius: 22px;
       overflow: hidden;
       background: #101115;
-      border: 1px solid rgba(255, 255, 255, 0.16);
+      border: 1.5px solid rgba(255, 255, 255, 0.18);
       box-shadow: 0 26px 60px rgba(0, 0, 0, 0.78);
       cursor: pointer;
-      transform-style: preserve-3d;
-      will-change: transform, opacity, filter;
+      backface-visibility: hidden;
+      -webkit-font-smoothing: antialiased;
       transition:
-        transform 0.92s var(--ease-cushioned),
-        opacity 0.75s var(--ease-smooth-out),
+        transform 0.88s var(--ease-cushioned),
+        opacity 0.72s var(--ease-smooth-out),
         border-color 0.45s ease,
         box-shadow 0.65s ease;
     }
@@ -1156,7 +1154,7 @@
       border-color: var(--ghn-red);
       box-shadow:
         0 32px 75px rgba(0, 0, 0, 0.9),
-        0 0 32px rgba(224, 36, 36, 0.32);
+        0 0 32px rgba(224, 36, 36, 0.34);
     }
 
     .quad-card-photo {
@@ -1171,7 +1169,7 @@
 
     .quad-ghn-card.is-focused .quad-card-photo {
       filter: grayscale(35%) contrast(1.15) brightness(0.76);
-      transform: scale(1.06);
+      transform: scale(1.05);
     }
 
     .quad-card-shade {
@@ -1182,10 +1180,10 @@
         linear-gradient(180deg, rgba(8, 9, 12, 0.25) 0%, rgba(8, 9, 12, 0.88) 100%);
     }
 
-    /* Stacked Kinetic Poster Typography Inside Each Card (108.Supply SHINE/HAIR/FLOW style in GHN Red) */
+    /* Stacked Kinetic Poster Typography Inside Each Card */
     .quad-card-poster-stack {
       position: absolute;
-      inset: 14px 12px;
+      inset: 16px 14px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -1198,7 +1196,7 @@
       align-items: center;
       justify-content: space-between;
       font-family: var(--font-mono);
-      font-size: 0.62rem;
+      font-size: 0.68rem;
       font-weight: 700;
       letter-spacing: 0.12em;
       color: var(--ink-white);
@@ -1207,47 +1205,61 @@
     .quad-kinetic-words {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 3px;
       font-family: var(--font-display);
       font-weight: 900;
-      line-height: 0.9;
+      line-height: 0.92;
       letter-spacing: -0.03em;
       text-transform: uppercase;
     }
 
-    .quad-lead-letter {
-      display: block;
-      font-family: var(--font-display);
-      font-weight: 900;
-      font-size: clamp(4.8rem, 6.6vw, 6.4rem);
-      line-height: 0.78;
-      letter-spacing: -0.06em;
-      color: var(--ghn-red);
-      text-shadow:
-        0 4px 24px rgba(224, 36, 36, 0.62),
-        0 1px 0 rgba(255, 255, 255, 0.22);
+    /* Giant Red Initial (G / H / N) + White Word Continuation on the Same Baseline */
+    .quad-hero-word-row {
+      display: flex;
+      align-items: baseline;
+      gap: 2px;
       margin-bottom: 4px;
+      white-space: nowrap;
     }
 
-    .quad-lead-word {
-      display: block;
-      font-size: clamp(1.02rem, 1.28vw, 1.24rem);
-      line-height: 0.96;
-      letter-spacing: -0.02em;
+    .quad-lead-letter {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(4.3rem, 5.6vw, 5.45rem);
+      line-height: 0.78;
+      letter-spacing: -0.05em;
+      color: var(--ghn-red);
+      text-shadow: 0 4px 20px rgba(224, 36, 36, 0.52);
+      flex-shrink: 0;
+    }
+
+    .quad-lead-tail {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(1.22rem, 1.56vw, 1.52rem);
+      line-height: 0.92;
+      letter-spacing: -0.03em;
       color: var(--ink-white);
-      margin-bottom: 2px;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85);
+    }
+
+    .quad-lead-tail--long {
+      font-size: clamp(0.94rem, 1.18vw, 1.14rem);
+      letter-spacing: -0.04em;
     }
 
     .quad-sub-line {
       display: block;
-      font-size: clamp(1.12rem, 1.48vw, 1.42rem);
+      font-size: clamp(1.32rem, 1.72vw, 1.66rem);
       line-height: 0.92;
       letter-spacing: -0.03em;
     }
 
     .quad-sub-line.is-red {
       color: var(--ghn-red);
-      text-shadow: 0 2px 16px rgba(224, 36, 36, 0.45);
+      text-shadow: 0 2px 14px rgba(224, 36, 36, 0.42);
     }
 
     .quad-sub-line.is-white {
@@ -1261,11 +1273,11 @@
       display: inline-flex;
       align-items: center;
       justify-content: space-between;
-      background: rgba(12, 13, 16, 0.86);
+      background: rgba(12, 13, 16, 0.88);
       border-left: 3px solid var(--ghn-red);
-      padding: 6px 9px;
+      padding: 7px 10px;
       font-family: var(--font-body);
-      font-size: 0.74rem;
+      font-size: 0.8rem;
       font-weight: 700;
       color: var(--ink-white);
     }
@@ -1275,17 +1287,22 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 16px;
+      gap: 18px;
       background: var(--matte-surface);
       border: 1px solid var(--hairline);
       border-top: 3px solid var(--ghn-red);
-      padding: 24px 26px;
+      padding: clamp(24px, 2.5vw, 34px);
+    }
+
+    .scene02-inspector-col .section-cue-tag {
+      font-size: clamp(0.84rem, 1.02vw, 0.98rem);
+      letter-spacing: 0.08em;
     }
 
     .vortex-phase-toolbar {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
+      gap: 8px;
     }
 
     .vortex-phase-btn {
@@ -1293,14 +1310,14 @@
       border: 1px solid var(--hairline-strong);
       color: var(--ink-secondary);
       font-family: var(--font-mono);
-      font-size: 0.65rem;
-      font-weight: 600;
-      padding: 6px 10px;
-      border-radius: 4px;
+      font-size: clamp(0.76rem, 0.9vw, 0.86rem);
+      font-weight: 700;
+      padding: 8px 14px;
+      border-radius: 5px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
       transition: all 0.25s ease;
     }
 
@@ -1314,7 +1331,7 @@
     .ghn-pillar-selector {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
+      gap: 10px;
     }
 
     .ghn-pillar-tab {
@@ -1322,28 +1339,28 @@
       border: 1px solid var(--hairline);
       color: var(--ink-secondary);
       font-family: var(--font-display);
-      font-size: 0.92rem;
-      font-weight: 800;
-      padding: 9px 6px;
-      border-radius: 4px;
+      font-size: clamp(1.18rem, 1.48vw, 1.42rem);
+      font-weight: 900;
+      padding: 10px 8px;
+      border-radius: 5px;
       cursor: pointer;
       transition: all 0.25s ease;
     }
 
     .ghn-pillar-tab.is-active {
       border-color: var(--ghn-red);
-      background: rgba(224, 36, 36, 0.16);
+      background: rgba(224, 36, 36, 0.18);
       color: var(--ink-white);
     }
 
     .ghn-detail-box {
-      background: rgba(12, 13, 16, 0.65);
+      background: rgba(12, 13, 16, 0.68);
       border: 1px solid var(--hairline);
-      border-left: 3px solid var(--ghn-red);
-      padding: 18px 20px;
+      border-left: 4px solid var(--ghn-red);
+      padding: clamp(20px, 2.2vw, 28px);
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
 
     .ghn-detail-letter-row {
@@ -1355,7 +1372,7 @@
 
     .ghn-detail-big-code {
       font-family: var(--font-display);
-      font-size: 2.5rem;
+      font-size: clamp(2.9rem, 3.8vw, 3.6rem);
       font-weight: 900;
       line-height: 0.9;
       color: var(--ghn-red);
@@ -1363,15 +1380,16 @@
 
     .ghn-detail-title {
       font-family: var(--font-display);
-      font-size: 1.25rem;
+      font-size: clamp(1.38rem, 1.78vw, 1.72rem);
       font-weight: 800;
+      line-height: 1.25;
       color: var(--ink-white);
     }
 
     .ghn-detail-desc {
-      font-size: 0.9rem;
-      color: var(--ink-secondary);
-      line-height: 1.65;
+      font-size: clamp(1.04rem, 1.24vw, 1.2rem);
+      color: rgba(245, 244, 240, 0.88);
+      line-height: 1.68;
     }
 
     /* ==========================================================================
@@ -2120,14 +2138,19 @@
       .lower-third-title { font-size: 0.68rem; }
       .reel-chip-btn { font-size: 0.54rem; padding: 4px 6px; }
       .quadrant-vortex-stage { min-height: 182px; }
-      .quad-ghn-card { width: 100px; border-radius: 12px; }
+      .quad-ghn-card { width: 112px; border-radius: 12px; }
       .quad-card-poster-stack { inset: 8px 7px; }
-      .quad-card-top-meta { font-size: 0.48rem; }
-      .quad-lead-letter { font-size: 2.45rem; margin-bottom: 2px; }
-      .quad-lead-word { font-size: 0.56rem; }
-      .quad-sub-line { font-size: 0.66rem; }
-      .quad-card-bottom-pill { padding: 4px 6px; font-size: 0.52rem; }
+      .quad-card-top-meta { font-size: 0.46rem; }
+      .quad-hero-word-row { gap: 1px; margin-bottom: 2px; }
+      .quad-lead-letter { font-size: 2.05rem; }
+      .quad-lead-tail { font-size: 0.6rem; }
+      .quad-lead-tail--long { font-size: 0.46rem; }
+      .quad-sub-line { font-size: 0.64rem; }
+      .quad-card-bottom-pill { padding: 4px 6px; font-size: 0.5rem; }
       .scene02-inspector-col { padding: 10px 12px; gap: 6px; }
+      .scene02-inspector-col .section-cue-tag { font-size: 0.62rem; }
+      .vortex-phase-btn { font-size: 0.58rem; padding: 5px 8px; }
+      .ghn-pillar-tab { font-size: 0.84rem; padding: 6px 4px; }
       .ghn-detail-box { padding: 10px 12px; gap: 4px; }
       .ghn-detail-big-code { font-size: 1.45rem; }
       .ghn-detail-title { font-size: 0.9rem; }
@@ -2511,8 +2534,9 @@
                   <span>[ G ]</span>
                 </div>
                 <div class="quad-kinetic-words">
-                  <span class="quad-lead-letter">G</span>
-                  <span class="quad-lead-word">GROUNDBREAKING</span>
+                  <div class="quad-hero-word-row">
+                    <span class="quad-lead-letter">G</span><span class="quad-lead-tail quad-lead-tail--long">ROUNDBREAKING</span>
+                  </div>
                   <span class="quad-sub-line is-red indent-1">FRESH</span>
                   <span class="quad-sub-line is-white">VISION</span>
                   <span class="quad-sub-line is-red indent-2">IDEA</span>
@@ -2535,8 +2559,9 @@
                   <span>[ H ]</span>
                 </div>
                 <div class="quad-kinetic-words">
-                  <span class="quad-lead-letter">H</span>
-                  <span class="quad-lead-word">HAPPINESS</span>
+                  <div class="quad-hero-word-row">
+                    <span class="quad-lead-letter">H</span><span class="quad-lead-tail">APPINESS</span>
+                  </div>
                   <span class="quad-sub-line is-red indent-1">FLOW</span>
                   <span class="quad-sub-line is-white">DIRECT</span>
                   <span class="quad-sub-line is-red indent-2">TRUST</span>
@@ -2559,8 +2584,9 @@
                   <span>[ N ]</span>
                 </div>
                 <div class="quad-kinetic-words">
-                  <span class="quad-lead-letter">N</span>
-                  <span class="quad-lead-word">NIRVANA</span>
+                  <div class="quad-hero-word-row">
+                    <span class="quad-lead-letter">N</span><span class="quad-lead-tail">IRVANA</span>
+                  </div>
                   <span class="quad-sub-line is-red indent-1">PEAK</span>
                   <span class="quad-sub-line is-white">CRAFT</span>
                   <span class="quad-sub-line is-red indent-2">SOUL</span>
@@ -4169,75 +4195,70 @@
 
     function applyVortexCardTransforms() {
       const isMobile = window.innerWidth <= 768;
-      const spreadX = isMobile ? 64 : 132;
-      const spreadY = isMobile ? 24 : 58;
+      const spreadX = isMobile ? 68 : 148;
+      const spreadY = isMobile ? 18 : 34;
 
       quadCards.forEach((card, cardIdx) => {
-        /* 3 cards only: 0 = active focal card, 1 = left wing, 2 = right wing */
+        /* 3 cards only: 0 = active focal card (rendered at scale=1 for 100% vector sharpness!),
+           1 = left wing, 2 = right wing */
         const slot = ((cardIdx - activeGhnIdx) % 3 + 3) % 3;
         card.classList.toggle('is-focused', slot === 0);
 
-        let tx = 0, ty = 0, tz = 0, rx = 0, ry = 0, rz = 0, sc = 1, zIndex = 10, op = 1;
+        let tx = 0, ty = 0, rz = 0, sc = 1, zIndex = 10, op = 1;
 
         if (activeVortexPhase === 'spread') {
           /* จังหวะที่ 1: การ์ด 3 ใบ (G · H · N) แตกออกให้เห็นครบทั้ง 3 ใบ */
           if (slot === 0) {
             tx = 0;
-            ty = -spreadY * 0.36;
-            tz = 70;
-            sc = 1.0;
+            ty = -Math.round(spreadY * 0.45);
+            rz = 0;
+            sc = 1;
             zIndex = 24;
             op = 1;
           } else if (slot === 1) {
-            tx = -spreadX * 1.18;
-            ty = spreadY * 0.34;
-            tz = 25;
-            ry = 14;
+            tx = -Math.round(spreadX * 1.12);
+            ty = Math.round(spreadY * 0.45);
             rz = -7;
-            sc = 0.94;
+            sc = 0.86;
             zIndex = 20;
             op = 0.96;
           } else {
-            tx = spreadX * 1.18;
-            ty = spreadY * 0.34;
-            tz = 25;
-            ry = -14;
+            tx = Math.round(spreadX * 1.12);
+            ty = Math.round(spreadY * 0.45);
             rz = 7;
-            sc = 0.94;
+            sc = 0.86;
             zIndex = 18;
             op = 0.96;
           }
         } else {
-          /* จังหวะที่ 2: กลับเข้ามาแล้วเอามาโชว์อันเดียวตรงกลางเด่นๆ */
+          /* จังหวะที่ 2: กลับเข้ามาแล้วเอามาโชว์อันเดียวตรงกลางเด่นๆ (scale=1 คมกริบ 100% ไม่แตก!) */
           if (slot === 0) {
             tx = 0;
             ty = 0;
-            tz = 155;
-            sc = 1.14;
+            rz = 0;
+            sc = 1;
             zIndex = 30;
             op = 1;
           } else if (slot === 1) {
-            tx = -20;
+            tx = -18;
             ty = 8;
-            tz = -140;
             rz = -4;
-            sc = 0.72;
+            sc = 0.68;
             zIndex = 8;
-            op = 0.15;
+            op = 0.14;
           } else {
-            tx = 20;
+            tx = 18;
             ty = 8;
-            tz = -140;
             rz = 4;
-            sc = 0.72;
+            sc = 0.68;
             zIndex = 7;
-            op = 0.15;
+            op = 0.14;
           }
         }
 
         card.style.zIndex = String(zIndex);
         card.style.opacity = String(op);
-        card.style.transform = `translate3d(${Math.round(tx)}px, ${Math.round(ty)}px, ${Math.round(tz)}px) rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${rz}deg) scale(${sc})`;
+        card.style.transform = `translate(${tx}px, ${ty}px) rotate(${rz}deg) scale(${sc})`;
       });
     }
 
