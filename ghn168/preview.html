@@ -633,41 +633,83 @@
       transform: translateY(0);
     }
 
-    .scene-main-grid {
+    /* ==========================================================================
+       SCENE 01 // REF 1 (`5AYZKIIC0`) — 1 STACKED CENTER BOX -> UNPACK TO BENTO GRID
+       ("เปิดซีนแรกมา ตอนพอม้วนมาก็จะมาเจอกล่องเดียว เสร็จแล้วก็ค่อย ๆ แตกออกเหมือนในเรฟ
+         กล่องก็จะค่อย ๆ กระจายไปวางอยู่ในจุดต่าง ๆ")
+       ========================================================================== */
+    .scene01-bento-stage {
+      position: relative;
       display: grid;
-      grid-template-columns: 0.94fr 1.26fr;
-      gap: 28px;
+      grid-template-columns: 1.05fr 1.15fr 0.85fr;
+      grid-template-rows: 1.18fr 0.82fr;
+      gap: 16px;
       align-items: stretch;
       min-height: 0;
+      perspective: 1400px;
     }
 
-    .tri-guided-panel {
+    .unpack-card {
       position: relative;
-      opacity: 0;
-      clip-path: inset(0 100% 0 0);
-      transform: translateX(-14px);
-      transition: opacity 0.55s var(--ease-smooth-out), clip-path 0.88s var(--ease-cushioned), transform 0.88s var(--ease-cushioned);
-    }
-
-    body.scene-docked .tri-guided-panel {
-      opacity: 1;
-      clip-path: inset(0 0% 0 0);
-      transform: translateX(0);
-    }
-
-    body.scene-docked .tri-guided-panel.delay-1 { transition-delay: 0.08s; }
-    body.scene-docked .tri-guided-panel.delay-2 { transition-delay: 0.22s; }
-
-    .narrative-slate-col {
+      background: var(--matte-surface);
+      border: 1px solid var(--hairline-strong);
+      border-radius: 14px;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 14px;
-      background: var(--matte-surface);
-      border: 1px solid var(--hairline);
+      box-shadow: 0 22px 54px rgba(0, 0, 0, 0.65);
+      will-change: transform, opacity;
+    }
+
+    /* Card 0 (Top-Cover of the Stack): 16:9 Cinema Hero Monitor */
+    .bento-card-monitor {
+      grid-column: 2 / 4;
+      grid-row: 1 / 2;
+      background: #111318;
+      border-color: rgba(224, 36, 36, 0.42);
+      padding: 12px 14px;
+      gap: 8px;
+      z-index: 30;
+    }
+
+    /* Card 1 (Top-Left): Poster Manifesto Headline */
+    .bento-card-manifesto {
+      grid-column: 1 / 2;
+      grid-row: 1 / 2;
+      padding: 20px 22px;
       border-left: 3px solid var(--ghn-red);
-      padding: 22px 24px;
-      min-height: 0;
+      background: linear-gradient(160deg, #171920 0%, #111318 100%);
+      z-index: 25;
+    }
+
+    /* Card 2 (Bottom-Left): Direct Production Story & Interactive Slate */
+    .bento-card-story {
+      grid-column: 1 / 2;
+      grid-row: 2 / 3;
+      padding: 16px 20px;
+      background: #13151b;
+      z-index: 22;
+    }
+
+    /* Card 3 (Bottom-Center): G · H · N Core Pillars Trio */
+    .bento-card-pillars {
+      grid-column: 2 / 3;
+      grid-row: 2 / 3;
+      padding: 16px 20px;
+      background: #13151b;
+      border-top: 2px solid var(--ghn-red);
+      z-index: 20;
+    }
+
+    /* Card 4 (Bottom-Right): Key Metrics & Corporate VAT 7% Badge */
+    .bento-card-metrics {
+      grid-column: 3 / 4;
+      grid-row: 2 / 3;
+      padding: 16px 18px;
+      background: linear-gradient(180deg, rgba(224, 36, 36, 0.14) 0%, #12141a 100%);
+      border-color: rgba(224, 36, 36, 0.35);
+      z-index: 18;
     }
 
     .manifesto-block { display: flex; flex-direction: column; gap: 8px; }
@@ -676,7 +718,7 @@
       align-items: center;
       gap: 8px;
       font-family: var(--font-mono);
-      font-size: 0.68rem;
+      font-size: 0.66rem;
       font-weight: 600;
       letter-spacing: 0.14em;
       color: var(--ghn-red);
@@ -685,24 +727,29 @@
 
     .manifesto-headline {
       font-family: var(--font-display);
-      font-size: clamp(1.35rem, 2vw, 1.95rem);
+      font-size: clamp(1.32rem, 1.95vw, 1.88rem);
       font-weight: 800;
-      line-height: 1.15;
+      line-height: 1.14;
       color: var(--ink-white);
+      letter-spacing: -0.02em;
     }
     .manifesto-headline .red-word { color: var(--ghn-red); }
     .manifesto-copy {
-      font-size: 0.88rem;
+      font-size: 0.84rem;
       color: var(--ink-secondary);
-      line-height: 1.58;
+      line-height: 1.55;
     }
 
-    .slate-switcher-box {
-      border-top: 1px solid var(--hairline);
-      padding-top: 14px;
+    .manifesto-bottom-tag {
       display: flex;
-      flex-direction: column;
-      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 10px;
+      border-top: 1px solid var(--hairline);
+      font-family: var(--font-mono);
+      font-size: 0.64rem;
+      color: var(--ink-secondary);
+      letter-spacing: 0.08em;
     }
 
     .slate-tabs {
@@ -711,8 +758,9 @@
       grid-template-columns: repeat(3, 1fr);
       background: var(--matte-black);
       border: 1px solid var(--hairline);
-      border-radius: 4px;
+      border-radius: 6px;
       padding: 3px;
+      margin-bottom: 8px;
     }
 
     .slate-tab-pill {
@@ -722,7 +770,7 @@
       width: calc((100% - 6px) / 3);
       height: calc(100% - 6px);
       background: var(--ghn-red);
-      border-radius: 2px;
+      border-radius: 4px;
       transition: transform 0.65s var(--ease-smooth-out);
       z-index: 1;
     }
@@ -734,29 +782,29 @@
       border: none;
       color: var(--ink-secondary);
       font-family: var(--font-mono);
-      font-size: 0.68rem;
+      font-size: 0.64rem;
       font-weight: 600;
       letter-spacing: 0.08em;
-      padding: 7px 6px;
+      padding: 6px 4px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 5px;
+      gap: 4px;
     }
     .slate-tab-btn.active { color: var(--ink-white); }
 
-    .slate-cards-viewport { position: relative; min-height: 148px; }
+    .slate-cards-viewport { position: relative; flex: 1; min-height: 92px; }
     .slate-card {
       position: absolute;
       inset: 0;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: center;
       opacity: 0;
       pointer-events: none;
-      transform: translateX(12px);
-      transition: opacity 0.55s var(--ease-smooth-out), transform 0.55s var(--ease-smooth-out);
+      transform: translateX(10px);
+      transition: opacity 0.5s var(--ease-smooth-out), transform 0.5s var(--ease-smooth-out);
     }
     .slate-card.is-active {
       position: relative;
@@ -767,7 +815,7 @@
 
     .slate-card-title {
       font-family: var(--font-display);
-      font-size: 0.98rem;
+      font-size: 0.94rem;
       font-weight: 700;
       color: var(--ink-white);
       margin-bottom: 4px;
@@ -776,21 +824,62 @@
       gap: 7px;
     }
     .slate-card-desc {
-      font-size: 0.84rem;
+      font-size: 0.8rem;
       color: var(--ink-secondary);
-      line-height: 1.55;
+      line-height: 1.5;
     }
-    .slate-metrics-row {
+
+    /* Card 3: G · H · N Mini Pillars Grid */
+    .bento-pillars-list {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 8px;
-      padding-top: 10px;
-      margin-top: 8px;
-      border-top: 1px solid var(--hairline);
+      margin-top: 6px;
+    }
+    .bento-pillar-chip {
+      background: rgba(12, 13, 16, 0.72);
+      border: 1px solid var(--hairline);
+      border-radius: 8px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .bento-pillar-letter {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: var(--ghn-red);
+      line-height: 1;
+    }
+    .bento-pillar-word {
+      font-family: var(--font-display);
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--ink-white);
+    }
+    .bento-pillar-sub {
+      font-size: 0.7rem;
+      color: var(--ink-secondary);
+      line-height: 1.35;
+    }
+
+    /* Card 4: Key Metrics Grid */
+    .bento-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .bento-stat-box {
+      background: rgba(12, 13, 16, 0.78);
+      border: 1px solid var(--hairline);
+      border-radius: 8px;
+      padding: 8px 10px;
     }
     .slate-metric-val {
       font-family: var(--font-display);
-      font-size: 1.12rem;
+      font-size: 1.18rem;
       font-weight: 800;
       color: var(--ink-white);
       display: flex;
@@ -807,27 +896,17 @@
     }
     .slate-metric-lbl {
       font-family: var(--font-mono);
-      font-size: 0.62rem;
+      font-size: 0.6rem;
       color: var(--ink-secondary);
-      letter-spacing: 0.06em;
+      letter-spacing: 0.05em;
     }
 
-    .cinema-monitor-col {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      background: var(--matte-surface);
-      border: 1px solid var(--hairline);
-      padding: 14px;
-      gap: 10px;
-      min-height: 0;
-    }
     .monitor-top-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
       font-family: var(--font-mono);
-      font-size: 0.68rem;
+      font-size: 0.66rem;
       letter-spacing: 0.1em;
       color: var(--ink-secondary);
     }
@@ -842,9 +921,10 @@
       position: relative;
       width: 100%;
       flex: 1;
-      min-height: 220px;
+      min-height: 175px;
       background: #08090b;
       border: 1px solid var(--hairline-strong);
+      border-radius: 8px;
       overflow: hidden;
     }
     .monitor-slide-img {
@@ -876,9 +956,9 @@
     }
     .monitor-lower-third {
       position: absolute;
-      left: 14px;
-      bottom: 14px;
-      right: 14px;
+      left: 12px;
+      bottom: 12px;
+      right: 12px;
       z-index: 3;
       pointer-events: none;
     }
@@ -886,17 +966,18 @@
       display: inline-block;
       background: rgba(12, 13, 16, 0.9);
       border-left: 3px solid var(--ghn-red);
-      padding: 7px 12px;
+      padding: 6px 11px;
+      border-radius: 4px;
     }
     .lower-third-kicker {
       font-family: var(--font-mono);
-      font-size: 0.62rem;
+      font-size: 0.6rem;
       color: var(--ghn-red);
       letter-spacing: 0.12em;
     }
     .lower-third-title {
       font-family: var(--font-display);
-      font-size: 0.9rem;
+      font-size: 0.86rem;
       font-weight: 700;
       color: var(--ink-white);
     }
@@ -916,9 +997,9 @@
       border: 1px solid var(--hairline);
       color: var(--ink-secondary);
       font-family: var(--font-mono);
-      font-size: 0.65rem;
-      padding: 5px 10px;
-      border-radius: 2px;
+      font-size: 0.64rem;
+      padding: 4px 10px;
+      border-radius: 999px;
       cursor: pointer;
     }
     .reel-chip-btn.active, .reel-chip-btn:hover {
@@ -1847,7 +1928,31 @@
         gap: 6px;
       }
       .corp-reg-badge { text-align: left; }
-      .scene-main-grid,
+      .scene01-bento-stage {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto auto;
+        gap: 10px;
+      }
+      .bento-card-monitor {
+        grid-column: 1 / -1;
+        grid-row: 1 / 2;
+      }
+      .bento-card-manifesto {
+        grid-column: 1 / 2;
+        grid-row: 2 / 3;
+      }
+      .bento-card-metrics {
+        grid-column: 2 / 3;
+        grid-row: 2 / 3;
+      }
+      .bento-card-story {
+        grid-column: 1 / 2;
+        grid-row: 3 / 4;
+      }
+      .bento-card-pillars {
+        grid-column: 2 / 3;
+        grid-row: 3 / 4;
+      }
       .scene02-stage-layout {
         grid-template-columns: 1fr;
         gap: 14px;
@@ -1889,17 +1994,71 @@
         font-size: 0.6rem;
       }
       .scene-inner-shell {
-        padding: 54px 42px 12px 14px;
-        gap: 8px;
+        padding: 50px 40px 10px 12px;
+        gap: 6px;
       }
       .brand-hero-lockup {
-        font-size: clamp(1.85rem, 7.8vw, 2.5rem);
+        font-size: clamp(1.75rem, 7.4vw, 2.35rem);
       }
-      .narrative-slate-col { padding: 14px 16px; gap: 10px; }
-      .manifesto-headline { font-size: 1.2rem; }
-      .manifesto-copy { font-size: 0.78rem; display: none; }
-      .slate-cards-viewport { min-height: 135px; }
-      .monitor-frame-16x9 { min-height: 150px; }
+      .corp-reg-badge {
+        font-size: 0.58rem;
+        line-height: 1.3;
+      }
+      .scene01-bento-stage {
+        grid-template-columns: 1.08fr 0.92fr;
+        grid-template-rows: auto auto auto auto;
+        gap: 6px;
+      }
+      .bento-card-monitor {
+        grid-column: 1 / -1;
+        grid-row: 1 / 2;
+        padding: 7px 9px;
+        gap: 5px;
+      }
+      .bento-card-manifesto {
+        grid-column: 1 / 2;
+        grid-row: 2 / 3;
+        padding: 9px 11px;
+      }
+      .bento-card-metrics {
+        grid-column: 2 / 3;
+        grid-row: 2 / 3;
+        padding: 8px 9px;
+      }
+      .bento-card-story {
+        grid-column: 1 / -1;
+        grid-row: 3 / 4;
+        padding: 8px 10px;
+      }
+      .bento-card-pillars {
+        grid-column: 1 / -1;
+        grid-row: 4 / 5;
+        padding: 7px 10px;
+      }
+      .manifesto-headline { font-size: 0.92rem; line-height: 1.18; }
+      .manifesto-copy { font-size: 0.68rem; line-height: 1.35; display: none; }
+      .manifesto-bottom-tag { padding-top: 5px; font-size: 0.54rem; }
+      .bento-metrics-grid { gap: 4px; margin-top: 4px; }
+      .bento-stat-box { padding: 4px 6px; }
+      .slate-metric-val { font-size: 0.86rem; }
+      .slate-metric-lbl { font-size: 0.5rem; }
+      .slate-tabs { margin-bottom: 5px; padding: 2px; }
+      .slate-tab-btn { font-size: 0.56rem; padding: 4px 2px; }
+      .slate-cards-viewport { min-height: 58px; }
+      .slate-card-title { font-size: 0.78rem; margin-bottom: 2px; }
+      .slate-card-desc { font-size: 0.66rem; line-height: 1.34; }
+      .bento-pillars-list { gap: 5px; margin-top: 4px; }
+      .bento-pillar-chip { padding: 5px 7px; gap: 1px; }
+      .bento-pillar-letter { font-size: 0.95rem; }
+      .bento-pillar-word { font-size: 0.62rem; }
+      .bento-pillar-sub { font-size: 0.56rem; line-height: 1.2; }
+      .monitor-top-bar { font-size: 0.56rem; }
+      .monitor-frame-16x9 { min-height: 108px; max-height: 128px; }
+      .monitor-lower-third { inset: auto 6px 6px 6px; }
+      .lower-third-box { padding: 4px 8px; }
+      .lower-third-kicker { font-size: 0.52rem; }
+      .lower-third-title { font-size: 0.68rem; }
+      .reel-chip-btn { font-size: 0.54rem; padding: 4px 6px; }
       .quadrant-vortex-stage { min-height: 182px; }
       .quad-ghn-card { width: 100px; border-radius: 12px; }
       .quad-kinetic-words { font-size: 0.88rem; }
@@ -2051,106 +2210,15 @@
           <div class="dock-horizon-line"></div>
         </header>
 
-        <div class="scene-main-grid">
-          <div class="narrative-slate-col tri-guided-panel delay-1">
-            <div class="manifesto-block">
-              <div class="section-cue-tag">
-                <span class="tri-icon-sm"></span>
-                <span data-th>00 // ข้อความถึงลูกค้าของเรา</span>
-                <span data-en>00 // DIRECTOR'S MANIFESTO</span>
-              </div>
+        <!-- ====================================================================
+             SCENE 01 BENTO GRID (Ref 1 `5AYZKIIC0`: Starts stacked as 1 single
+             center box when Scene 01 enters, then unpacks/spreads into 5 boxes
+             when the red arrow docks at the top-left `GHN168 MEDIA` header!)
+             ==================================================================== -->
+        <div class="scene01-bento-stage" id="scene01BentoStage">
 
-              <h2 class="manifesto-headline">
-                “Through the Lens: Capturing <span class="red-word">Moments</span>, Creating <span class="red-word">Memories</span>.”
-              </h2>
-
-              <p class="manifesto-copy" data-th>
-                ทีมโปรดักชันเฮาส์ที่ผู้ร่วมก่อตั้งทั้ง 3 คนลงกำกับ ถ่ายทำ และตัดต่อด้วยตัวเอง คุยตรงกับลูกค้าตั้งแต่ต้นจนจบโดยไม่ผ่านคนกลาง แม่นยำ รวดเร็ว และพิถีพิถันในทุกรายละเอียด
-              </p>
-              <p class="manifesto-copy" data-en>
-                A direct-to-client production house where all three co-founders personally lead direction, cinematography, and post-production—delivering commercial films and live broadcasts with zero agency bottlenecks.
-              </p>
-            </div>
-
-            <div class="slate-switcher-box" id="slateBox">
-              <div class="slate-tabs" role="tablist" aria-label="Company Overview Slate">
-                <div class="slate-tab-pill" id="slateTabPill"></div>
-                <button type="button" class="slate-tab-btn active" data-slate-idx="0"><span>01 // ABOUT</span></button>
-                <button type="button" class="slate-tab-btn" data-slate-idx="1"><span>02 // G·H·N</span></button>
-                <button type="button" class="slate-tab-btn" data-slate-idx="2"><span>03 // SCOPE</span></button>
-              </div>
-
-              <div class="slate-cards-viewport">
-                <article class="slate-card is-active" data-slate-card="0">
-                  <div>
-                    <h3 class="slate-card-title">
-                      <span class="tri-icon-sm"></span>
-                      <span data-th>ทำไมต้องทำงานตรงกับ GHN168?</span>
-                      <span data-en>Why Commission GHN168 Directly?</span>
-                    </h3>
-                    <p class="slate-card-desc" data-th>
-                      หลังสั่งสมประสบการณ์ผลิตงานเบื้องหลังให้เอเจนซี่มานานหลายปี พวกเรารวมตัวกันเพื่อให้ลูกค้าได้บรีฟและทำงานร่วมกับผู้กำกับ ช่างภาพ และโปรดิวเซอร์ตัวจริงโดยตรง ตัดขั้นตอนที่ล่าช้าและคุมคุณภาพได้เต็ม 100%
-                    </p>
-                    <p class="slate-card-desc" data-en>
-                      Built by seasoned agency production leads so enterprise clients communicate directly with the director, DoP, and executive producer on set.
-                    </p>
-                  </div>
-                  <div class="slate-metrics-row">
-                    <div><div class="slate-metric-val">3</div><div class="slate-metric-lbl"><span data-th>ผู้ก่อตั้งคุมงานเอง</span><span data-en>CO-FOUNDERS</span></div></div>
-                    <div><div class="slate-metric-val">15+</div><div class="slate-metric-lbl"><span data-th>แคมเปญใหญ่</span><span data-en>KEY CAMPAIGNS</span></div></div>
-                    <div><div class="slate-metric-val">100%</div><div class="slate-metric-lbl"><span data-th>ทีมโปรดักชันตรง</span><span data-en>IN-HOUSE CREW</span></div></div>
-                  </div>
-                </article>
-
-                <article class="slate-card" data-slate-card="1">
-                  <div>
-                    <h3 class="slate-card-title">
-                      <span class="tri-icon-sm"></span>
-                      <span>Groundbreaking · Happiness · Nirvana</span>
-                    </h3>
-                    <p class="slate-card-desc" data-th>
-                      • <strong>G (Groundbreaking):</strong> มุมมองและไอเดียภาพที่ล้ำสมัย เปิดโลกทัศน์ใหม่<br/>
-                      • <strong>H (Happiness):</strong> ความสุขจากการทำงานที่ราบรื่นและได้ผลลัพธ์ตรงใจ<br/>
-                      • <strong>N (Nirvana):</strong> เป้าหมายสูงสุดในการส่งมอบผลงานที่สมบูรณ์แบบไร้ที่ติ
-                    </p>
-                    <p class="slate-card-desc" data-en>
-                      • <strong>G (Groundbreaking):</strong> Pioneering visual ideas that break new ground.<br/>
-                      • <strong>H (Happiness):</strong> Peace of mind from seamless collaboration.<br/>
-                      • <strong>N (Nirvana):</strong> Ultimate fulfillment in delivering flagship work.
-                    </p>
-                  </div>
-                  <div class="slate-metrics-row">
-                    <div><div class="slate-metric-val">G</div><div class="slate-metric-lbl"><span data-th>ล้ำสมัย</span><span data-en>PIONEERING</span></div></div>
-                    <div><div class="slate-metric-val">H</div><div class="slate-metric-lbl"><span data-th>ราบรื่น</span><span data-en>HAPPINESS</span></div></div>
-                    <div><div class="slate-metric-val">N</div><div class="slate-metric-lbl"><span data-th>สมบูรณ์แบบ</span><span data-en>NIRVANA</span></div></div>
-                  </div>
-                </article>
-
-                <article class="slate-card" data-slate-card="2">
-                  <div>
-                    <h3 class="slate-card-title">
-                      <span class="tri-icon-sm"></span>
-                      <span data-th>โปรดักชันครบวงจร พร้อมเอกสารนิติบุคคล VAT 7%</span>
-                      <span data-en>End-to-End Cinema &amp; Corporate VAT Ready</span>
-                    </h3>
-                    <p class="slate-card-desc" data-th>
-                      ผลิตวิดีโอโฆษณา (Commercial), ไฮไลต์อีเวนต์ระดับนานาชาติ, วิดีโอพรีเซนเทชันองค์กร, ระบบถ่ายทอดสดหลายมุมกล้อง และภาพนิ่งโฆษณา พร้อมรองรับระบบจัดซื้อองค์กรครบถ้วน
-                    </p>
-                    <p class="slate-card-desc" data-en>
-                      Commercial films, international event highlights, corporate presentations, multi-cam live broadcasts, and commercial photography with full VAT compliance.
-                    </p>
-                  </div>
-                  <div class="slate-metrics-row">
-                    <div><div class="slate-metric-val">4K+</div><div class="slate-metric-lbl"><span data-th>ซีนีม่าเกรด</span><span data-en>CINEMA RAW</span></div></div>
-                    <div><div class="slate-metric-val">LIVE</div><div class="slate-metric-lbl"><span data-th>สตรีมมิงสด</span><span data-en>MULTI-CAM</span></div></div>
-                    <div><div class="slate-metric-val">VAT</div><div class="slate-metric-lbl"><span data-th>นิติบุคคล 100%</span><span data-en>CORP READY</span></div></div>
-                  </div>
-                </article>
-              </div>
-            </div>
-          </div>
-
-          <div class="cinema-monitor-col tri-guided-panel delay-2">
+          <!-- BOX 0 (Top Cover of the Center Stack -> Top-Center/Right 16:9 Cinema Monitor) -->
+          <div class="unpack-card bento-card-monitor" data-unpack-card="0">
             <div class="monitor-top-bar">
               <div class="monitor-rec-tag">
                 <span class="tri-icon-sm"></span>
@@ -2181,6 +2249,143 @@
               </div>
             </div>
           </div>
+
+          <!-- BOX 1 (Top-Left: Director's Manifesto Poster Card) -->
+          <div class="unpack-card bento-card-manifesto" data-unpack-card="1">
+            <div class="manifesto-block">
+              <div class="section-cue-tag">
+                <span class="tri-icon-sm"></span>
+                <span data-th>01 // ข้อความถึงลูกค้าของเรา</span>
+                <span data-en>01 // DIRECTOR'S MANIFESTO</span>
+              </div>
+
+              <h2 class="manifesto-headline">
+                “Through the Lens: Capturing <span class="red-word">Moments</span>, Creating <span class="red-word">Memories</span>.”
+              </h2>
+
+              <p class="manifesto-copy" data-th>
+                ทีมโปรดักชันเฮาส์ที่ผู้ร่วมก่อตั้งทั้ง 3 คนลงกำกับ ถ่ายทำ และตัดต่อด้วยตัวเอง คุยตรงกับลูกค้าตั้งแต่ต้นจนจบโดยไม่ผ่านคนกลาง แม่นยำ รวดเร็ว และพิถีพิถันในทุกรายละเอียด
+              </p>
+              <p class="manifesto-copy" data-en>
+                A direct-to-client production house where all three co-founders personally lead direction, cinematography, and post-production—delivering commercial films and live broadcasts with zero agency bottlenecks.
+              </p>
+            </div>
+
+            <div class="manifesto-bottom-tag">
+              <span data-th>คุยตรงกับผู้กำกับ 100%</span>
+              <span data-en>DIRECT TO DIRECTOR</span>
+              <span>CHIANG MAI · BKK</span>
+            </div>
+          </div>
+
+          <!-- BOX 2 (Bottom-Left: Interactive Overview Slate) -->
+          <div class="unpack-card bento-card-story" data-unpack-card="2" id="slateBox">
+            <div class="slate-tabs" role="tablist" aria-label="Company Overview Slate">
+              <div class="slate-tab-pill" id="slateTabPill"></div>
+              <button type="button" class="slate-tab-btn active" data-slate-idx="0"><span>01 // ABOUT</span></button>
+              <button type="button" class="slate-tab-btn" data-slate-idx="1"><span>02 // G·H·N</span></button>
+              <button type="button" class="slate-tab-btn" data-slate-idx="2"><span>03 // SCOPE</span></button>
+            </div>
+
+            <div class="slate-cards-viewport">
+              <article class="slate-card is-active" data-slate-card="0">
+                <h3 class="slate-card-title">
+                  <span class="tri-icon-sm"></span>
+                  <span data-th>ทำไมต้องทำงานตรงกับ GHN168?</span>
+                  <span data-en>Why Commission GHN168 Directly?</span>
+                </h3>
+                <p class="slate-card-desc" data-th>
+                  หลังสั่งสมประสบการณ์ผลิตงานเบื้องหลังให้เอเจนซี่มานานหลายปี พวกเรารวมตัวกันเพื่อให้ลูกค้าได้บรีฟและทำงานร่วมกับผู้กำกับ ช่างภาพ และโปรดิวเซอร์ตัวจริงโดยตรง ตัดขั้นตอนที่ล่าช้าและคุมคุณภาพได้เต็ม 100%
+                </p>
+                <p class="slate-card-desc" data-en>
+                  Built by seasoned agency production leads so enterprise clients communicate directly with the director, DoP, and executive producer on set.
+                </p>
+              </article>
+
+              <article class="slate-card" data-slate-card="1">
+                <h3 class="slate-card-title">
+                  <span class="tri-icon-sm"></span>
+                  <span>Groundbreaking · Happiness · Nirvana</span>
+                </h3>
+                <p class="slate-card-desc" data-th>
+                  ปลดล็อกมุมมองภาพที่สดใหม่ (Groundbreaking) สร้างความสบายใจในทุกขั้นตอนการผลิต (Happiness) และส่งมอบผลงานระดับมาสเตอร์พีซที่สมบูรณ์แบบ (Nirvana)
+                </p>
+                <p class="slate-card-desc" data-en>
+                  Pioneering visual storytelling (Groundbreaking), seamless client collaboration (Happiness), and flagship production mastery (Nirvana).
+                </p>
+              </article>
+
+              <article class="slate-card" data-slate-card="2">
+                <h3 class="slate-card-title">
+                  <span class="tri-icon-sm"></span>
+                  <span data-th>โปรดักชันครบวงจร พร้อมเอกสารนิติบุคคล VAT 7%</span>
+                  <span data-en>End-to-End Cinema &amp; Corporate VAT Ready</span>
+                </h3>
+                <p class="slate-card-desc" data-th>
+                  ผลิตวิดีโอโฆษณา, ไฮไลต์อีเวนต์ระดับนานาชาติ, วิดีโอองค์กร, ระบบถ่ายทอดสดหลายมุมกล้อง และภาพนิ่งโฆษณา รองรับระบบจัดซื้อองค์กรครบถ้วน
+                </p>
+                <p class="slate-card-desc" data-en>
+                  Commercial films, international event highlights, corporate presentations, multi-cam live broadcasts, and commercial photography with full VAT compliance.
+                </p>
+              </article>
+            </div>
+          </div>
+
+          <!-- BOX 3 (Bottom-Center: G · H · N Core Pillars Trio) -->
+          <div class="unpack-card bento-card-pillars" data-unpack-card="3">
+            <div class="section-cue-tag">
+              <span class="tri-icon-sm"></span>
+              <span data-th>02 // รหัสปรัชญา G · H · N</span>
+              <span data-en>02 // G · H · N CORE DNA</span>
+            </div>
+
+            <div class="bento-pillars-list">
+              <div class="bento-pillar-chip">
+                <div class="bento-pillar-letter">G</div>
+                <div class="bento-pillar-word">Groundbreaking</div>
+                <div class="bento-pillar-sub"><span data-th>ไอเดียภาพล้ำสมัย</span><span data-en>Pioneering Vision</span></div>
+              </div>
+              <div class="bento-pillar-chip">
+                <div class="bento-pillar-letter">H</div>
+                <div class="bento-pillar-word">Happiness</div>
+                <div class="bento-pillar-sub"><span data-th>ทำงานราบรื่นตรงใจ</span><span data-en>Seamless Workflow</span></div>
+              </div>
+              <div class="bento-pillar-chip">
+                <div class="bento-pillar-letter">N</div>
+                <div class="bento-pillar-word">Nirvana</div>
+                <div class="bento-pillar-sub"><span data-th>ผลงานสมบูรณ์แบบ</span><span data-en>Ultimate Craft</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BOX 4 (Bottom-Right: Key Production Metrics & Corporate VAT 7%) -->
+          <div class="unpack-card bento-card-metrics" data-unpack-card="4">
+            <div class="section-cue-tag">
+              <span class="tri-icon-sm"></span>
+              <span data-th>03 // มาตรฐานกองถ่าย</span>
+              <span data-en>03 // STUDIO CREDENTIALS</span>
+            </div>
+
+            <div class="bento-metrics-grid">
+              <div class="bento-stat-box">
+                <div class="slate-metric-val">3</div>
+                <div class="slate-metric-lbl"><span data-th>ผู้ก่อตั้งคุมงานเอง</span><span data-en>CO-FOUNDERS</span></div>
+              </div>
+              <div class="bento-stat-box">
+                <div class="slate-metric-val">15+</div>
+                <div class="slate-metric-lbl"><span data-th>แคมเปญใหญ่</span><span data-en>KEY CAMPAIGNS</span></div>
+              </div>
+              <div class="bento-stat-box">
+                <div class="slate-metric-val">100%</div>
+                <div class="slate-metric-lbl"><span data-th>ทีมโปรดักชันตรง</span><span data-en>IN-HOUSE CREW</span></div>
+              </div>
+              <div class="bento-stat-box">
+                <div class="slate-metric-val">VAT 7%</div>
+                <div class="slate-metric-lbl"><span data-th>นิติบุคคลเต็มรูปแบบ</span><span data-en>CORP COMPLIANT</span></div>
+              </div>
+            </div>
+          </div>
+
         </div>
 
         <footer class="scene-footer-bar">
@@ -3172,12 +3377,88 @@
       return uuu * p0 + 3 * uu * t * p1 + 3 * u * tt * p2 + ttt * p3;
     }
 
+    function cubicBezierDeriv(t, p0, p1, p2, p3) {
+      const u = 1 - t;
+      return 3 * u * u * (p1 - p0) + 6 * u * t * (p2 - p1) + 3 * t * t * (p3 - p2);
+    }
+
     function easeInOutSine(t) {
       return -(Math.cos(Math.PI * t) - 1) / 2;
     }
 
     function easeOutCubic(t) {
       return 1 - Math.pow(1 - t, 3);
+    }
+
+    /* ==========================================================================
+       SCENE 01 REF 1 (`5AYZKIIC0`) — SINGLE STACKED CENTER BOX -> BENTO UNPACK
+       When Scene 01 enters while the arrow swoops down, all 5 Bento cards sit
+       gathered as 1 single box in the center of `#scene01BentoStage`.
+       Once the arrow docks at the top-left `GHN168 MEDIA`, the single box
+       smoothly unpacks/spreads out into the 5 Bento positions.
+       ========================================================================== */
+    const scene01BentoStage = document.getElementById('scene01BentoStage');
+    const unpackCards = document.querySelectorAll('[data-unpack-card]');
+
+    function setScene01StackedState(isStacked, animate = false) {
+      if (!scene01BentoStage || !unpackCards.length) return;
+
+      if (!isStacked) {
+        unpackCards.forEach((card, idx) => {
+          if (animate) {
+            const delayMs = idx * 48;
+            card.style.transition = `transform 860ms cubic-bezier(0.19, 1, 0.22, 1) ${delayMs}ms, opacity 520ms ease ${delayMs}ms`;
+          } else {
+            card.style.transition = 'none';
+          }
+          card.style.transform = 'translate3d(0px, 0px, 0px) scale(1)';
+          card.style.opacity = '1';
+        });
+        return;
+      }
+
+      /* Measure natural unpacked grid rects first with zero transform */
+      unpackCards.forEach(card => {
+        card.style.transition = 'none';
+        card.style.transform = 'none';
+        card.style.opacity = '1';
+      });
+      void scene01BentoStage.offsetWidth;
+
+      const stageRect = scene01BentoStage.getBoundingClientRect();
+      const stageCenterX = stageRect.left + stageRect.width * 0.5;
+      const stageCenterY = stageRect.top + stageRect.height * 0.5;
+
+      const card0Rect = unpackCards[0].getBoundingClientRect();
+      const isMobile = window.innerWidth <= 768;
+      const coverScale = isMobile ? 0.84 : 0.72;
+      const targetBoxW = Math.max(160, card0Rect.width * coverScale);
+      const targetBoxH = Math.max(100, card0Rect.height * coverScale);
+
+      unpackCards.forEach((card, idx) => {
+        const r = card.getBoundingClientRect();
+        const cardCenterX = r.left + r.width * 0.5;
+        const cardCenterY = r.top + r.height * 0.5;
+
+        /* Subtle vertical deck offset (0px for top cover, +4px..+14px for underlying cards) */
+        const deckOffsetY = idx === 0 ? 0 : idx * 3.5;
+        const dx = stageCenterX - cardCenterX;
+        const dy = (stageCenterY + deckOffsetY) - cardCenterY;
+
+        let sc;
+        if (idx === 0) {
+          sc = coverScale;
+        } else {
+          const fitScale = Math.min(
+            (targetBoxW * (0.96 - idx * 0.02)) / Math.max(1, r.width),
+            (targetBoxH * (0.96 - idx * 0.02)) / Math.max(1, r.height)
+          );
+          sc = Math.min(0.92, Math.max(0.38, fitScale));
+        }
+
+        card.style.transform = `translate3d(${dx.toFixed(1)}px, ${dy.toFixed(1)}px, 0) scale(${sc.toFixed(3)})`;
+        card.style.opacity = idx === 0 ? '1' : '0.88';
+      });
     }
 
     function runScene01Intro() {
@@ -3194,11 +3475,14 @@
         bumperBackdrop.style.transform = 'translate3d(0, 0, 0)';
       }
 
-      /* Reset Scene 01 container at 0,0 first so we can measure the exact final pixel of #heroRedTri */
+      /* Reset Scene 01 container at 0,0 first so we can measure the exact final pixel of #heroRedTri & stack the Bento cards */
       if (scene01El) {
         scene01El.style.transition = 'none';
         scene01El.style.transform = 'translate3d(0, 0, 0) scale(1)';
       }
+
+      /* Stack all 5 Bento boxes into 1 single center box (Ref 1 `5AYZKIIC0`) before Scene 01 is revealed */
+      setScene01StackedState(true, false);
 
       if (heroLockup) {
         heroLockup.style.transition = 'none';
@@ -3222,6 +3506,7 @@
       if (!bumperRedArrow || !bumperTextMask || !bumperTextInner) {
         bodyEl.classList.remove('bumper-active');
         bodyEl.classList.add('scene-docked');
+        setScene01StackedState(false, false);
         if (heroRedTri) heroRedTri.style.opacity = '1';
         if (heroWordmarkMask) heroWordmarkMask.style.clipPath = 'inset(0 0% 0 0%)';
         if (heroWordmarkInner) heroWordmarkInner.style.transform = 'none';
@@ -3249,18 +3534,8 @@
       const rowRect = lockupRow ? lockupRow.getBoundingClientRect() : textRect;
 
       const gapPx = Math.max(10, rowRect.width - textRect.width - arrowOriginRect.width);
-      /* Exact full width of the text so both opening AND closing sweep all the way to the very end! */
       const fullSlideDist = Math.round(textRect.width + gapPx);
       const arrowMode = bodyEl.getAttribute('data-arrow-mode') || 'curtain';
-
-      const originCenterX = arrowOriginRect.left + arrowOriginRect.width / 2;
-      const originCenterY = arrowOriginRect.top + arrowOriginRect.height / 2;
-      const targetCenterX = targetRect.left + targetRect.width / 2;
-      const targetCenterY = targetRect.top + targetRect.height / 2;
-
-      const dockDeltaX = targetCenterX - originCenterX;
-      const dockDeltaY = targetCenterY - originCenterY;
-      const dockScale = Number((targetRect.width / Math.max(arrowOriginRect.width, 1)).toFixed(3));
 
       /* Initial hidden state before Beat 1 */
       if (arrowMode === 'curtain') {
@@ -3295,24 +3570,20 @@
         bumperTextInner.style.transform = 'translate3d(0px, 0, 0)';
       }, 220));
 
-      /* BEAT 3 (t = 1000ms -> 1720ms): Crisp 720ms hold so viewer reads "GHN168 MEDIA and Creation" without dragging */
+      /* BEAT 3 (t = 1000ms -> 1580ms): Hold so viewer reads "GHN168 MEDIA and Creation" */
 
-      /* BEAT 4 + BEAT 5 UNIFIED (t = 1600ms): ARC-LENGTH PARAMETERIZED CONSTANT-SPEED COLLECT -> SWOOP -> DOCK
-         ("คือให้ตัวลูกศรมันรวบเสร็จแล้วมันไปเลย ไม่ต้องหยุดสักเฟรมเลย รวบเสร็จฟึบ พอรวบปั๊บเสร็จแล้วก็ม้วนลงมา แล้วก็พามาหน้าถัดไปเลยแบบไม่ต้องหยุดแม้แต่เฟรมเดียว")
-         Why previous version felt like it paused:
-         - At the end of collecting the text (x = liveFullSlideDist), the Bezier control point P1 was placed right below P0,
-           causing horizontal velocity dx/dt to drop from ~1800px/s to 0px/s at the corner (a sharp corner brake!).
-         How we fix it 100%:
-         - Build a dense 400-point Arc-Length Lookup Table (LUT) across the ENTIRE trajectory (from x=0 collecting the text,
-           sweeping out past the right end in a smooth circular turn, diving down, and curving up to the top-left dock).
-         - Sample by TRUE ARC-LENGTH DISTANCE (s) so the arrow travels at a rock-solid constant speed (px/ms) across the
-           end of the text and around the downward loop without losing a single frame of momentum! */
+      /* BEAT 4 + BEAT 5 UNIFIED (t = 1580ms):
+         1) Sweep right across 100% of "GHN168 MEDIA and Creation" (x: 0 -> liveFullSlideDist, y = 0, angle = 0deg)
+         2) Keep shooting STRAIGHT past the text a bit ("รวบเสร็จแล้วก็ตรงไปต่อ เลยไปอีกนิดนึง", x: liveFullSlideDist -> xOvershootEnd, y = 0, angle = 0deg)
+         3) Enter a single C-infinity Degree-5 Bezier loop with P0.y = P1.y = 0 (strictly 0deg initial tangent -> zero twitch/stutter!)
+            that curls smoothly downward, sweeps left across Scene 01 (where the 1 single stacked center box waits),
+            and glides horizontally into the top-left dock (#heroRedTri) at 360deg!
+         4) As the arrow docks and unfolds "GHN168 MEDIA", the single center box unpacks/spreads into the 5 Bento boxes! */
       introTimers.push(setTimeout(() => {
         bumperRedArrow.style.transition = 'none';
         bumperTextMask.style.transition = 'none';
         bumperTextInner.style.transition = 'none';
 
-        /* Re-measure exact geometry after webfont settle so handoff is 0.0px exact */
         const liveTextRect = bumperTextInner.getBoundingClientRect();
         const liveArrowRect = bumperRedArrow.getBoundingClientRect();
         const liveTargetRect = heroRedTri ? heroRedTri.getBoundingClientRect() : liveArrowRect;
@@ -3328,68 +3599,119 @@
         const liveDockDeltaY = liveTargetCenterY - liveOriginCenterY;
         const liveDockScale = Number((liveTargetRect.width / Math.max(liveArrowRect.width, 1)).toFixed(3));
 
-        /* Stage Scene 01 slightly below so the downward swoop pulls Scene 01 into place */
-        if (scene01El) {
-          scene01El.style.transition = 'none';
-          scene01El.style.transform = 'translate3d(0, 68px, 0) scale(0.985)';
-        }
-
+        const vw = window.innerWidth;
         const vh = window.innerHeight;
-        /* Start curving downward seamlessly during the last 12% of text collection so there is zero sharp corner! */
-        const straightEndDist = liveFullSlideDist * 0.88;
-        const p0x = straightEndDist;
-        const p0y = 0;
-        /* P1 projects forward past liveFullSlideDist with a horizontal tangent (y=0 -> smooth dive) so there is ZERO corner stall */
-        const overshootX = Math.min(Math.round(liveFullSlideDist * 0.28), Math.round((window.innerWidth - liveRowRect.right) * 0.78 + 48));
-        const p1x = liveFullSlideDist + Math.max(36, overshootX);
-        const p1y = Math.round(vh * 0.04);
-        const p2x = liveDockDeltaX + Math.round((liveFullSlideDist - liveDockDeltaX) * 0.32);
-        const p2y = Math.round(vh * 0.42);
-        const p3x = liveDockDeltaX;
-        const p3y = liveDockDeltaY;
+        const availRightPx = Math.max(40, vw - (liveOriginCenterX + liveFullSlideDist) - 16);
 
-        /* Build 400-sample Arc-Length Lookup Table (LUT) across Segment 1 (straight collect) + Segment 2 (Bezier swoop) */
-        const LUT_STEPS = 400;
+        /* Generous straight horizontal overshoot past the last letter before banking downward */
+        const straightOvershootPx = Math.min(72, Math.max(24, Math.round(availRightPx * 0.44)));
+        const xStraightEnd = liveFullSlideDist + straightOvershootPx;
+
+        /* 2-Stage Un-Pinched Wide Ribbon Loop:
+           - Stage 1 (a0..a3): Wide semicircular right U-turn from (xStraightEnd, 0) [0deg] down to (xBottom, yBottom) [180deg]
+           - Stage 2 (b0..b3): Wide sweep from (xBottom, yBottom) [180deg] up into (liveDockDeltaX, liveDockDeltaY) [360deg] */
+        const turnOutPx = Math.min(82, Math.max(26, Math.round(availRightPx * 0.52)));
+        const yBottom = Math.min(175, Math.max(115, Math.round(vh * 0.19)));
+        const xBottom = Math.round(liveDockDeltaX + (xStraightEnd - liveDockDeltaX) * 0.54);
+        const leftLoopPx = Math.min(34, Math.max(14, Math.round(liveTargetCenterX - 8)));
+
+        const a0x = xStraightEnd, a0y = 0;
+        const a1x = xStraightEnd + turnOutPx, a1y = 0;
+        const a2x = xStraightEnd + turnOutPx, a2y = yBottom;
+        const a3x = xBottom, a3y = yBottom;
+
+        const b0x = xBottom, b0y = yBottom;
+        const b1x = Math.round(liveDockDeltaX + (xBottom - liveDockDeltaX) * 0.16), b1y = yBottom;
+        const b2x = liveDockDeltaX - leftLoopPx, b2y = liveDockDeltaY;
+        const b3x = liveDockDeltaX, b3y = liveDockDeltaY;
+
+        /* Build high-density 800-step Lookup Table parameterized by Combined Euclidean + Angular Metric
+           (dM = ds + 3.2 * |dDeg|) so linear speed AND angular turn rate are 100% silky-smooth (< 16deg/frame)! */
+        const LUT_STEPS = 800;
+        const STRAIGHT_STEPS = 240;
+        const ARC1_STEPS = 280;
+        const ARC2_STEPS = LUT_STEPS - STRAIGHT_STEPS - ARC1_STEPS;
+
         const lutX = new Float64Array(LUT_STEPS + 1);
         const lutY = new Float64Array(LUT_STEPS + 1);
+        const rawLutDeg = new Float64Array(LUT_STEPS + 1);
+        const lutDeg = new Float64Array(LUT_STEPS + 1);
         const lutS = new Float64Array(LUT_STEPS + 1);
-        let accumS = 0;
+
+        let prevDeg = 0;
 
         for (let i = 0; i <= LUT_STEPS; i++) {
-          const uRaw = i / LUT_STEPS;
-          let px, py;
-          if (uRaw <= 0.35) {
-            const k = uRaw / 0.35;
-            px = straightEndDist * k;
+          let px, py, deg;
+          if (i <= STRAIGHT_STEPS) {
+            const k = i / STRAIGHT_STEPS;
+            px = xStraightEnd * k;
             py = 0;
+            deg = 0;
+          } else if (i <= STRAIGHT_STEPS + ARC1_STEPS) {
+            const t = (i - STRAIGHT_STEPS) / ARC1_STEPS;
+            px = cubicBezierPoint(t, a0x, a1x, a2x, a3x);
+            py = cubicBezierPoint(t, a0y, a1y, a2y, a3y);
+            const dx = cubicBezierDeriv(t, a0x, a1x, a2x, a3x);
+            const dy = cubicBezierDeriv(t, a0y, a1y, a2y, a3y);
+            let d = Math.atan2(dy, dx) * (180 / Math.PI);
+            while (d - prevDeg > 180) d -= 360;
+            while (d - prevDeg < -180) d += 360;
+            deg = d;
           } else {
-            const b = (uRaw - 0.35) / 0.65;
-            px = cubicBezierPoint(b, p0x, p1x, p2x, p3x);
-            py = cubicBezierPoint(b, p0y, p1y, p2y, p3y);
+            const t = (i - STRAIGHT_STEPS - ARC1_STEPS) / ARC2_STEPS;
+            px = cubicBezierPoint(t, b0x, b1x, b2x, b3x);
+            py = cubicBezierPoint(t, b0y, b1y, b2y, b3y);
+            const dx = cubicBezierDeriv(t, b0x, b1x, b2x, b3x);
+            const dy = cubicBezierDeriv(t, b0y, b1y, b2y, b3y);
+            let d = Math.atan2(dy, dx) * (180 / Math.PI);
+            while (d - prevDeg > 180) d -= 360;
+            while (d - prevDeg < -180) d += 360;
+            deg = d;
           }
+          prevDeg = deg;
           lutX[i] = px;
           lutY[i] = py;
+          rawLutDeg[i] = deg;
+        }
+
+        /* Smooth angular profile across curve steps so curvature transitions have zero derivative spike */
+        const SMOOTH_RAD = 14;
+        for (let i = 0; i <= LUT_STEPS; i++) {
+          if (i <= STRAIGHT_STEPS) {
+            lutDeg[i] = 0;
+          } else if (i === LUT_STEPS) {
+            lutDeg[i] = 360;
+          } else {
+            const r = Math.min(SMOOTH_RAD, i - STRAIGHT_STEPS, LUT_STEPS - i);
+            let sum = 0;
+            for (let k = -r; k <= r; k++) sum += rawLutDeg[i + k];
+            lutDeg[i] = sum / (2 * r + 1);
+          }
+        }
+
+        let accumMetric = 0;
+        let textCollectMetric = liveFullSlideDist;
+        let foundCollectMetric = false;
+
+        for (let i = 0; i <= LUT_STEPS; i++) {
           if (i > 0) {
-            const dx = px - lutX[i - 1];
-            const dy = py - lutY[i - 1];
-            accumS += Math.hypot(dx, dy);
+            const ds = Math.hypot(lutX[i] - lutX[i - 1], lutY[i] - lutY[i - 1]);
+            const dDeg = Math.abs(lutDeg[i] - lutDeg[i - 1]);
+            accumMetric += ds + 3.2 * dDeg;
           }
-          lutS[i] = accumS;
-        }
-
-        const totalArcLen = accumS;
-        /* Distance at which x reaches liveFullSlideDist (100% text collected) */
-        let collectCompleteS = straightEndDist;
-        for (let i = 1; i <= LUT_STEPS; i++) {
-          if (lutX[i] >= liveFullSlideDist * 0.995) {
-            collectCompleteS = lutS[i];
-            break;
+          lutS[i] = accumMetric;
+          if (!foundCollectMetric && lutX[i] >= liveFullSlideDist) {
+            textCollectMetric = accumMetric;
+            foundCollectMetric = true;
           }
         }
 
-        function sampleByArcDistance(targetS) {
-          if (targetS <= 0) return { x: lutX[0], y: lutY[0] };
-          if (targetS >= totalArcLen) return { x: lutX[LUT_STEPS], y: lutY[LUT_STEPS] };
+        const totalArcLen = accumMetric;
+        const textCollectArcLen = textCollectMetric;
+
+        function sampleTrajectoryByS(targetS) {
+          if (targetS <= 0) return { x: lutX[0], y: lutY[0], deg: lutDeg[0] };
+          if (targetS >= totalArcLen) return { x: lutX[LUT_STEPS], y: lutY[LUT_STEPS], deg: lutDeg[LUT_STEPS] };
           let lo = 0, hi = LUT_STEPS;
           while (lo < hi - 1) {
             const mid = (lo + hi) >> 1;
@@ -3400,85 +3722,69 @@
           const frac = span > 1e-6 ? (targetS - lutS[lo]) / span : 0;
           return {
             x: lutX[lo] + (lutX[hi] - lutX[lo]) * frac,
-            y: lutY[lo] + (lutY[hi] - lutY[lo]) * frac
+            y: lutY[lo] + (lutY[hi] - lutY[lo]) * frac,
+            deg: lutDeg[lo] + (lutDeg[hi] - lutDeg[lo]) * frac
           };
         }
 
-        /* Fast, punchy total duration (~1180ms) with smooth start and smooth dock,
-           and 100% constant high speed across the text collection & downward swoop! */
-        const totalRunDuration = 1180;
+        const totalRunDuration = 1360;
         const startTime = performance.now();
 
-        let scenePullStarted = false;
         let sceneDockedTriggered = false;
         let wordmarkUnfoldTriggered = false;
 
-        function stepArcLengthContinuousFlight(now) {
+        function stepContinuousFlight(now) {
           const u = Math.min(1, (now - startTime) / totalRunDuration);
 
-          /* C1-continuous velocity profile along arc-length s(u):
-             Quick 12% ramp-up -> pure constant speed across collection & downward turn -> gentle 18% cushion into top-left dock */
+          /* C1-smooth arc-length velocity profile:
+             Smooth 10% acceleration -> pure constant speed across text collection, straight overshoot & loop -> gentle 20% dock cushion */
           let sNorm;
-          if (u < 0.12) {
-            /* Quadratic ramp up: v(u) = (u/0.12)*vMax */
-            sNorm = 0.5 * 0.12 * Math.pow(u / 0.12, 2);
-          } else if (u < 0.82) {
-            /* Pure constant velocity across text collection AND the downward swoop (ZERO pause!) */
-            sNorm = 0.06 + (u - 0.12);
+          if (u < 0.10) {
+            sNorm = 0.5 * 0.10 * Math.pow(u / 0.10, 2);
+          } else if (u < 0.80) {
+            sNorm = 0.05 + (u - 0.10);
           } else {
-            /* Smooth cushion into the dock */
-            const w = (u - 0.82) / 0.18;
-            sNorm = 0.76 + 0.18 * (w - 0.5 * w * w);
+            const w = (u - 0.80) / 0.20;
+            sNorm = 0.75 + 0.20 * (w - 0.5 * w * w);
           }
-          /* Normalize so sNorm(1) === 1.0 (total integral = 0.06 + 0.70 + 0.09 = 0.85) */
+          /* Normalize by total integral (0.05 + 0.70 + 0.10 = 0.85) */
           const distS = (sNorm / 0.85) * totalArcLen;
 
-          const pos = sampleByArcDistance(distS);
-          const posAhead = sampleByArcDistance(Math.min(totalArcLen, distS + 14));
-          const posBehind = sampleByArcDistance(Math.max(0, distS - 14));
+          const sample = sampleTrajectoryByS(distS);
 
-          /* Text mask closes strictly in sync with the arrow's X coordinate as it sweeps across the words */
-          if (distS <= collectCompleteS) {
-            const clipLeft = Math.min(100, Math.max(0, (pos.x / Math.max(1, liveFullSlideDist)) * 100));
+          /* 1) Text mask closes in sync while 0 <= distS <= textCollectArcLen */
+          if (distS <= textCollectArcLen) {
+            const clipLeft = Math.min(100, Math.max(0, (sample.x / Math.max(1, liveFullSlideDist)) * 100));
             const textShift = 14 * (clipLeft / 100);
             bumperTextMask.style.clipPath = `inset(0 0% 0 ${clipLeft.toFixed(2)}%)`;
             bumperTextInner.style.transform = `translate3d(${textShift.toFixed(2)}px, 0, 0)`;
           } else {
             bumperTextMask.style.clipPath = 'inset(0 0% 0 100%)';
-            if (!scenePullStarted) {
-              scenePullStarted = true;
-              if (scene01El) {
-                scene01El.style.transition = 'transform 760ms cubic-bezier(0.22, 1, 0.36, 1)';
-                scene01El.style.transform = 'translate3d(0, 0, 0) scale(1)';
-              }
-              if (bumperBackdrop) {
-                bumperBackdrop.style.transition = 'opacity 480ms cubic-bezier(0.22, 1, 0.36, 1)';
-                bumperBackdrop.style.opacity = '0';
-              }
-            }
           }
 
-          /* Tangent angle along true arc-length so rotation never jerks */
-          const dx = posAhead.x - posBehind.x;
-          const dy = posAhead.y - posBehind.y;
-          let tangentDeg = Math.atan2(dy, dx) * (180 / Math.PI);
-          if (tangentDeg < -20) tangentDeg += 360;
+          /* 2) Smoothly dissolve the black bumper backdrop as the arrow enters its downward curl,
+                revealing Scene 01's single stacked center box without any DOM reflow jump! */
+          const curveProgress = distS > textCollectArcLen
+            ? (distS - textCollectArcLen) / Math.max(1, totalArcLen - textCollectArcLen)
+            : 0;
 
-          const dockLockBlend = u > 0.76 ? easeOutCubic((u - 0.76) / 0.24) : 0;
-          const finalDeg = tangentDeg * (1 - dockLockBlend) + 360 * dockLockBlend;
+          if (bumperBackdrop) {
+            const backdropAlpha = Math.max(0, 1 - Math.min(1, curveProgress * 2.2));
+            bumperBackdrop.style.opacity = backdropAlpha.toFixed(3);
+          }
 
-          const flightProgress = distS > collectCompleteS ? (distS - collectCompleteS) / Math.max(1, totalArcLen - collectCompleteS) : 0;
-          const sc = 1 + (liveDockScale - 1) * flightProgress;
+          const sc = 1 + (liveDockScale - 1) * curveProgress;
+          bumperRedArrow.style.transform = `translate3d(${sample.x.toFixed(2)}px, ${sample.y.toFixed(2)}px, 0) rotate(${sample.deg.toFixed(2)}deg) scale(${sc.toFixed(3)})`;
 
-          bumperRedArrow.style.transform = `translate3d(${pos.x.toFixed(2)}px, ${pos.y.toFixed(2)}px, 0) rotate(${finalDeg.toFixed(2)}deg) scale(${sc.toFixed(3)})`;
-
-          if (flightProgress >= 0.22 && !sceneDockedTriggered) {
+          if (curveProgress >= 0.18 && !sceneDockedTriggered) {
             sceneDockedTriggered = true;
             bodyEl.classList.add('scene-docked');
             setSlateIndex(0);
           }
 
-          if (flightProgress >= 0.72 && !wordmarkUnfoldTriggered) {
+          /* 3) As the arrow arrives at the top-left dock (GHN168 MEDIA), unfold the wordmark
+                AND unpack the single center box into the 5 Bento cards (Ref 1 `5AYZKIIC0`)! */
+          if (curveProgress >= 0.76 && !wordmarkUnfoldTriggered) {
             wordmarkUnfoldTriggered = true;
             if (heroWordmarkMask && heroWordmarkInner) {
               heroWordmarkMask.style.transition = 'clip-path 520ms cubic-bezier(0.22, 1, 0.36, 1)';
@@ -3486,10 +3792,11 @@
               heroWordmarkMask.style.clipPath = 'inset(0 0% 0 0%)';
               heroWordmarkInner.style.transform = 'translate3d(0px, 0, 0)';
             }
+            setScene01StackedState(false, true);
           }
 
           if (u < 1) {
-            introRafId = requestAnimationFrame(stepArcLengthContinuousFlight);
+            introRafId = requestAnimationFrame(stepContinuousFlight);
           } else {
             introRafId = null;
             if (heroRedTri) heroRedTri.style.opacity = '1';
@@ -3498,8 +3805,8 @@
           }
         }
 
-        introRafId = requestAnimationFrame(stepArcLengthContinuousFlight);
-      }, 1600));
+        introRafId = requestAnimationFrame(stepContinuousFlight);
+      }, 1580));
     }
 
     /* Scene 01 Slate & 16:9 Monitor Sync */
