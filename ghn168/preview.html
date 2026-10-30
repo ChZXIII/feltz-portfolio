@@ -3374,32 +3374,218 @@
       }
 
       if (toIdx === 2) {
-        /* Entering Scene 03 (Light Matte Stage): Red Arrow slices LEFT -> RIGHT pulling Light Curtain */
-        transitionCurtain.classList.add('theme-light');
-        transitionCurtain.style.opacity = '1';
-        transitionCurtain.style.transform = 'translate3d(-115%, 0, 0)';
+        /* Entering Scene 03 (Light Matte Stage) from Scene 02 (or 01):
+           1) Beat 1 (0 -> 1150ms): Red Arrow detaches from its docked spot in Scene 02 (#scene02RedTri),
+              grows larger (scale 1 -> pushScale), and flies smoothly down to the left side of the screen (stageLeftX, 50vh) facing right (0deg).
+           2) Beat 2 (1150 -> 2350ms): From the left side, the big Red Arrow pushes Scene 02 across to the right
+              while pulling Scene 03 (Light Stage) in from the left right behind it.
+           3) Beat 3 (2350 -> 2820ms): Arrow arcs down into the bottom-center compass dial of Scene 03 (50vw, 86vh). */
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        const isMobile = vw <= 768;
+
+        const fromSceneEl = scenePages[fromIdx];
+        const toSceneEl = scenePages[toIdx];
+        const startTri = originTri || document.getElementById('scene02RedTri') || document.getElementById('heroRedTri');
+        const startRect = startTri ? startTri.getBoundingClientRect() : { left: 42, top: 64, width: 24, height: 26 };
+
+        const startW = Math.max(16, startRect.width);
+        const startH = Math.max(18, startRect.height);
+        const startX = startRect.left + startW * 0.5;
+        const startY = startRect.top + startH * 0.5;
+
+        globalRedConductor.style.width = `${startW.toFixed(2)}px`;
+        globalRedConductor.style.height = `${startH.toFixed(2)}px`;
+        globalRedConductor.style.marginLeft = `${(-startW * 0.5).toFixed(2)}px`;
+        globalRedConductor.style.marginTop = `${(-startH * 0.5).toFixed(2)}px`;
+
+        if (startTri) startTri.style.opacity = '0';
         globalRedConductor.style.opacity = '1';
-        globalRedConductor.style.transform = 'translate3d(6vw, 50vh, 0) rotate(0deg) scale(2.3)';
-        void globalRedConductor.offsetWidth;
+        globalRedConductor.style.transform = `translate3d(${startX.toFixed(2)}px, ${startY.toFixed(2)}px, 0) rotate(0deg) scale(1)`;
 
-        /* Beat 1: Slice across viewport left -> right */
-        globalRedConductor.style.transition = 'transform 520ms cubic-bezier(0.22, 1, 0.36, 1), opacity 250ms ease';
-        transitionCurtain.style.transition = 'transform 540ms cubic-bezier(0.22, 1, 0.36, 1), opacity 320ms ease';
-        globalRedConductor.style.transform = 'translate3d(92vw, 50vh, 0) rotate(0deg) scale(2.6)';
-        transitionCurtain.style.transform = 'translate3d(0%, 0, 0)';
+        const stageLeftX = Math.round(Math.max(28, vw * (isMobile ? 0.08 : 0.048)));
+        const stageMidY = Math.round(vh * 0.50);
+        const pushScale = isMobile ? 2.15 : 2.75;
+        const endPushX = Math.round(vw - (isMobile ? 18 : 28));
 
-        setTimeout(() => {
-          onMidpoint();
-          /* Beat 2: Flip arrow upright (▲) and drop into bottom-center dial of the 6 Vertical Cards */
-          globalRedConductor.style.transition = 'transform 460ms cubic-bezier(0.19, 1, 0.22, 1), opacity 380ms ease';
-          transitionCurtain.style.opacity = '0';
-          globalRedConductor.style.transform = 'translate3d(50vw, 86vh, 0) rotate(-90deg) scale(0.9)';
-        }, 420);
+        /* Cubic Bezier from (startX, startY) [0deg] -> swooping out to left margin -> (stageLeftX, stageMidY) [0deg] */
+        const pullOutPx = isMobile ? 64 : 118;
+        const leftBankX = Math.max(10, stageLeftX - (isMobile ? 36 : 64));
+        const p0x = startX, p0y = startY;
+        const p1x = startX + pullOutPx, p1y = startY;
+        const p2x = leftBankX, p2y = stageMidY;
+        const p3x = stageLeftX, p3y = stageMidY;
 
-        setTimeout(() => {
-          globalRedConductor.style.opacity = '0';
-          onComplete();
-        }, 900);
+        /* Precompute 500-step LUT for Beat 1 (Detach & Fly to Left Side) */
+        const B1_STEPS = 500;
+        const b1X = new Float64Array(B1_STEPS + 1);
+        const b1Y = new Float64Array(B1_STEPS + 1);
+        const b1RawDeg = new Float64Array(B1_STEPS + 1);
+        const b1Deg = new Float64Array(B1_STEPS + 1);
+        const b1S = new Float64Array(B1_STEPS + 1);
+
+        let prevAng = 0;
+        for (let i = 0; i <= B1_STEPS; i++) {
+          const t = i / B1_STEPS;
+          const px = cubicBezierPoint(t, p0x, p1x, p2x, p3x);
+          const py = cubicBezierPoint(t, p0y, p1y, p2y, p3y);
+          const dx = cubicBezierDeriv(t, p0x, p1x, p2x, p3x);
+          const dy = cubicBezierDeriv(t, p0y, p1y, p2y, p3y);
+          let ang = Math.atan2(dy, dx) * (180 / Math.PI);
+          while (ang - prevAng > 180) ang -= 360;
+          while (ang - prevAng < -180) ang += 360;
+          prevAng = ang;
+          b1X[i] = px;
+          b1Y[i] = py;
+          b1RawDeg[i] = ang;
+        }
+
+        const B1_SMOOTH = 28;
+        for (let i = 0; i <= B1_STEPS; i++) {
+          if (i === 0 || i === B1_STEPS) {
+            b1Deg[i] = 0;
+          } else {
+            const r = Math.min(B1_SMOOTH, i, B1_STEPS - i);
+            let sum = 0;
+            for (let k = -r; k <= r; k++) sum += b1RawDeg[i + k];
+            b1Deg[i] = sum / (2 * r + 1);
+          }
+        }
+
+        let b1Accum = 0;
+        for (let i = 0; i <= B1_STEPS; i++) {
+          if (i > 0) {
+            const ds = Math.hypot(b1X[i] - b1X[i - 1], b1Y[i] - b1Y[i - 1]);
+            const dd = Math.abs(b1Deg[i] - b1Deg[i - 1]);
+            b1Accum += ds + 1.8 * dd;
+          }
+          b1S[i] = b1Accum;
+        }
+        const b1TotalM = b1Accum;
+
+        function sampleBeat1(targetM) {
+          if (targetM <= 0) return { x: b1X[0], y: b1Y[0], deg: b1Deg[0] };
+          if (targetM >= b1TotalM) return { x: b1X[B1_STEPS], y: b1Y[B1_STEPS], deg: b1Deg[B1_STEPS] };
+          let lo = 0, hi = B1_STEPS;
+          while (lo < hi - 1) {
+            const mid = (lo + hi) >> 1;
+            if (b1S[mid] <= targetM) lo = mid;
+            else hi = mid;
+          }
+          const span = b1S[hi] - b1S[lo];
+          const f = span > 1e-6 ? (targetM - b1S[lo]) / span : 0;
+          return {
+            x: b1X[lo] + (b1X[hi] - b1X[lo]) * f,
+            y: b1Y[lo] + (b1Y[hi] - b1Y[lo]) * f,
+            deg: b1Deg[lo] + (b1Deg[hi] - b1Deg[lo]) * f
+          };
+        }
+
+        const beat1Dur = 1150;
+        const beat2Dur = 1220;
+        const beat3Dur = 520;
+        const totalDur = beat1Dur + beat2Dur + beat3Dur;
+        const t0 = performance.now();
+        let pushStarted = false;
+        let midpointDone = false;
+
+        const dialX = Math.round(vw * 0.50);
+        const dialY = Math.round(vh * 0.86);
+
+        function stepScene02To03(now) {
+          const elapsed = now - t0;
+
+          if (elapsed <= beat1Dur) {
+            /* BEAT 1: Detach from Scene 02 header, grow larger, and fly to the left side */
+            const u1 = Math.min(1, elapsed / beat1Dur);
+            const e1 = easeInOutSine(u1);
+            const pt = sampleBeat1(e1 * b1TotalM);
+            const sc = 1 + (pushScale - 1) * e1;
+            globalRedConductor.style.transform = `translate3d(${pt.x.toFixed(2)}px, ${pt.y.toFixed(2)}px, 0) rotate(${pt.deg.toFixed(2)}deg) scale(${sc.toFixed(3)})`;
+            bridgeRafId = requestAnimationFrame(stepScene02To03);
+            return;
+          }
+
+          if (elapsed <= beat1Dur + beat2Dur) {
+            /* BEAT 2: Push Scene 02 from Left to Right while pulling Scene 03 in right behind the arrow */
+            if (!pushStarted) {
+              pushStarted = true;
+              renderServiceWheel(activeServiceIdx);
+              if (fromSceneEl) {
+                fromSceneEl.style.transition = 'none';
+                fromSceneEl.style.zIndex = '11';
+              }
+              if (toSceneEl) {
+                toSceneEl.style.transition = 'none';
+                toSceneEl.style.visibility = 'visible';
+                toSceneEl.style.opacity = '1';
+                toSceneEl.style.zIndex = '10';
+                toSceneEl.style.boxShadow = '4px 0 0 #e02424';
+              }
+            }
+
+            const u2 = Math.min(1, (elapsed - beat1Dur) / beat2Dur);
+            const e2 = easeInOutSine(u2);
+            const pushPx = e2 * vw;
+            const arrowX = stageLeftX + (endPushX - stageLeftX) * e2;
+
+            if (fromSceneEl) {
+              fromSceneEl.style.transform = `translate3d(${pushPx.toFixed(2)}px, 0, 0) scale(1)`;
+            }
+            if (toSceneEl) {
+              toSceneEl.style.transform = `translate3d(${(pushPx - vw).toFixed(2)}px, 0, 0) scale(1)`;
+            }
+
+            globalRedConductor.style.transform = `translate3d(${arrowX.toFixed(2)}px, ${stageMidY.toFixed(2)}px, 0) rotate(0deg) scale(${pushScale.toFixed(3)})`;
+            bridgeRafId = requestAnimationFrame(stepScene02To03);
+            return;
+          }
+
+          /* BEAT 3: Finalize Scene 03 state and glide arrow into bottom-center dial */
+          if (!midpointDone) {
+            midpointDone = true;
+            onMidpoint();
+            if (fromSceneEl) {
+              fromSceneEl.style.transform = '';
+              fromSceneEl.style.zIndex = '';
+            }
+            if (toSceneEl) {
+              toSceneEl.style.transform = 'translate3d(0, 0, 0) scale(1)';
+              toSceneEl.style.visibility = '';
+              toSceneEl.style.opacity = '';
+              toSceneEl.style.zIndex = '';
+              toSceneEl.style.boxShadow = '';
+            }
+            void document.body.offsetWidth;
+            if (fromSceneEl) fromSceneEl.style.transition = '';
+            if (toSceneEl) {
+              toSceneEl.style.transform = '';
+              toSceneEl.style.transition = '';
+            }
+          }
+
+          const u3 = Math.min(1, (elapsed - beat1Dur - beat2Dur) / beat3Dur);
+          const e3 = easeInOutSine(u3);
+          const curX = endPushX + (dialX - endPushX) * e3;
+          const curY = stageMidY + (dialY - stageMidY) * e3;
+          const curDeg = -90 * e3;
+          const curSc = pushScale + (0.95 - pushScale) * e3;
+
+          globalRedConductor.style.transform = `translate3d(${curX.toFixed(2)}px, ${curY.toFixed(2)}px, 0) rotate(${curDeg.toFixed(2)}deg) scale(${curSc.toFixed(3)})`;
+          globalRedConductor.style.opacity = (1 - u3 * 0.85).toFixed(3);
+
+          if (elapsed < totalDur) {
+            bridgeRafId = requestAnimationFrame(stepScene02To03);
+          } else {
+            bridgeRafId = null;
+            if (startTri) startTri.style.opacity = '1';
+            globalRedConductor.style.opacity = '0';
+            onComplete();
+          }
+        }
+
+        bridgeRafId = requestAnimationFrame(stepScene02To03);
+        return;
 
       } else if (fromIdx === 2) {
         /* Leaving Scene 03 (Light Stage -> Dark Stage): Red Arrow shoots UPWARD from bottom dial pulling Dark Curtain */
