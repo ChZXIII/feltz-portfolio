@@ -268,9 +268,9 @@
       pointer-events: none;
       transform: translate3d(0, 40px, -120px) scale(0.96);
       transition:
-        opacity 0.72s var(--ease-cushioned),
-        transform 0.82s var(--ease-cushioned),
-        visibility 0.72s;
+        opacity 1.18s var(--ease-cushioned),
+        transform 1.32s var(--ease-cushioned),
+        visibility 1.18s;
       will-change: transform, opacity;
       overflow: hidden;
     }
@@ -1255,15 +1255,14 @@
       font-size: clamp(1.32rem, 1.72vw, 1.66rem);
       line-height: 0.92;
       letter-spacing: -0.03em;
+      color: var(--ink-white);
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85);
     }
 
-    .quad-sub-line.is-red {
-      color: var(--ghn-red);
-      text-shadow: 0 2px 14px rgba(224, 36, 36, 0.42);
-    }
-
+    .quad-sub-line.is-red,
     .quad-sub-line.is-white {
       color: var(--ink-white);
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85);
     }
 
     .quad-sub-line.indent-1 { padding-left: 12%; }
@@ -2537,9 +2536,9 @@
                   <div class="quad-hero-word-row">
                     <span class="quad-lead-letter">G</span><span class="quad-lead-tail quad-lead-tail--long">ROUNDBREAKING</span>
                   </div>
-                  <span class="quad-sub-line is-red indent-1">FRESH</span>
+                  <span class="quad-sub-line is-white indent-1">FRESH</span>
                   <span class="quad-sub-line is-white">VISION</span>
-                  <span class="quad-sub-line is-red indent-2">IDEA</span>
+                  <span class="quad-sub-line is-white indent-2">IDEA</span>
                 </div>
                 <div class="quad-card-bottom-pill">
                   <span data-th>G · ล้ำสมัย เปิดมุมมองใหม่</span>
@@ -2562,9 +2561,9 @@
                   <div class="quad-hero-word-row">
                     <span class="quad-lead-letter">H</span><span class="quad-lead-tail">APPINESS</span>
                   </div>
-                  <span class="quad-sub-line is-red indent-1">FLOW</span>
+                  <span class="quad-sub-line is-white indent-1">FLOW</span>
                   <span class="quad-sub-line is-white">DIRECT</span>
-                  <span class="quad-sub-line is-red indent-2">TRUST</span>
+                  <span class="quad-sub-line is-white indent-2">TRUST</span>
                 </div>
                 <div class="quad-card-bottom-pill">
                   <span data-th>H · ราบรื่น มีความสุขทุกกองถ่าย</span>
@@ -2587,9 +2586,9 @@
                   <div class="quad-hero-word-row">
                     <span class="quad-lead-letter">N</span><span class="quad-lead-tail">IRVANA</span>
                   </div>
-                  <span class="quad-sub-line is-red indent-1">PEAK</span>
+                  <span class="quad-sub-line is-white indent-1">PEAK</span>
                   <span class="quad-sub-line is-white">CRAFT</span>
-                  <span class="quad-sub-line is-red indent-2">SOUL</span>
+                  <span class="quad-sub-line is-white indent-2">SOUL</span>
                 </div>
                 <div class="quad-card-bottom-pill">
                   <span data-th>N · สมบูรณ์แบบไร้ที่ติ</span>
@@ -3245,15 +3244,15 @@
         const vh = window.innerHeight;
         const isMobile = vw <= 768;
 
-        /* 2-Stage Wide C2 Loop:
-           - Stage 1 (a0..a3): Lift out of top-left dock moving right (0deg), curl smoothly downward to bottom-center (180deg)
-           - Stage 2 (b0..b3): Sweep left across bottom-center (180deg) and curl smoothly upward to dock in front of the next scene's title (360deg) */
-        const rollRightPx = isMobile ? 120 : 280;
-        const turnBulgePx = isMobile ? 70 : 160;
+        /* 2-Stage Wide Slow & Silky C2 Loop:
+           - Stage 1 (a0..a3): Lift out of top-left dock moving right (0deg), curve gently downward to upper-mid stage (180deg)
+           - Stage 2 (b0..b3): Sweep left (180deg) and curl smoothly upward to dock in front of the next scene's title (360deg) */
+        const rollRightPx = isMobile ? 105 : 220;
+        const turnBulgePx = isMobile ? 56 : 112;
         const xSweepRight = Math.max(startX, endX) + rollRightPx;
-        const ySwoopBottom = Math.round(vh * 0.62);
-        const xSwoopBottom = Math.round(endX + (xSweepRight - endX) * 0.52);
-        const leftCurlPx = Math.min(36, Math.max(12, Math.round(endX - 8)));
+        const ySwoopBottom = Math.round(Math.max(startY, endY) + (isMobile ? 138 : 205));
+        const xSwoopBottom = Math.round(endX + (xSweepRight - endX) * 0.50);
+        const leftCurlPx = Math.min(44, Math.max(18, Math.round(endX - 6)));
 
         const a0x = startX, a0y = startY;
         const a1x = xSweepRight, a1y = startY;
@@ -3261,12 +3260,12 @@
         const a3x = xSwoopBottom, a3y = ySwoopBottom;
 
         const b0x = xSwoopBottom, b0y = ySwoopBottom;
-        const b1x = Math.round(endX + (xSwoopBottom - endX) * 0.42), b1y = ySwoopBottom;
+        const b1x = Math.round(endX + (xSwoopBottom - endX) * 0.18), b1y = ySwoopBottom;
         const b2x = endX - leftCurlPx, b2y = endY;
         const b3x = endX, b3y = endY;
 
-        const LUT_STEPS = 600;
-        const ARC1_STEPS = 300;
+        const LUT_STEPS = 900;
+        const ARC1_STEPS = 450;
         const ARC2_STEPS = LUT_STEPS - ARC1_STEPS;
 
         const lutX = new Float64Array(LUT_STEPS + 1);
@@ -3300,7 +3299,7 @@
           rawDeg[i] = d;
         }
 
-        const SMOOTH_R = 26;
+        const SMOOTH_R = 42;
         for (let i = 0; i <= LUT_STEPS; i++) {
           if (i === 0) lutDeg[i] = 0;
           else if (i === LUT_STEPS) lutDeg[i] = 360;
@@ -3317,7 +3316,7 @@
           if (i > 0) {
             const ds = Math.hypot(lutX[i] - lutX[i - 1], lutY[i] - lutY[i - 1]);
             const dd = Math.abs(lutDeg[i] - lutDeg[i - 1]);
-            accumM += ds + 5.2 * dd;
+            accumM += ds + 2.2 * dd;
           }
           lutS[i] = accumM;
         }
@@ -3341,19 +3340,20 @@
           };
         }
 
-        const bridgeDuration = 980;
+        /* Much slower, cushioned & silky-smooth bridge duration (2250ms vs old 980ms) */
+        const bridgeDuration = 2250;
         const startT = performance.now();
         let midpointFired = false;
 
         function stepBridgeFlight(now) {
           const u = Math.min(1, (now - startT) / bridgeDuration);
-          const easedU = u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;
+          const easedU = easeInOutSine(u);
           const pt = sampleBridge(easedU * totalM);
           const sc = 1 + (endScale - 1) * easedU;
 
           globalRedConductor.style.transform = `translate3d(${pt.x.toFixed(2)}px, ${pt.y.toFixed(2)}px, 0) rotate(${pt.deg.toFixed(2)}deg) scale(${sc.toFixed(3)})`;
 
-          if (u >= 0.24 && !midpointFired) {
+          if (u >= 0.28 && !midpointFired) {
             midpointFired = true;
             onMidpoint();
           }
@@ -3494,7 +3494,7 @@
         setVortexPhase('spread', false);
         setTimeout(() => {
           if (currentSceneIdx === 1) setVortexPhase('focus', false);
-        }, 760);
+        }, 1350);
       } else if (sceneIdx === 2) {
         renderServiceWheel(activeServiceIdx);
       } else if (sceneIdx === 3) {
