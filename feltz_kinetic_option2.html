@@ -1265,7 +1265,7 @@
         <div class="depth-bg-card c2"></div>
       </div>
 
-      <div class="stage-ring-backdrop-text" id="stage2-backdrop-text">concert</div>
+      <div class="stage-ring-backdrop-text" id="stage2-backdrop-text">event</div>
 
       <div class="stage2-top-bar">
         <button type="button" class="btn-back-to-deck" onclick="exitStage2()">
@@ -1274,8 +1274,8 @@
         </button>
 
         <div class="stage2-cat-info">
-          <div class="stage2-cat-badge" id="stage2-badge">01 // CONCERT &amp; STAGE</div>
-          <div class="stage2-cat-title" id="stage2-title">ถ่ายคอนเสิร์ตและเวทีการแสดง</div>
+          <div class="stage2-cat-badge" id="stage2-badge">01 // CORPORATE &amp; EVENT</div>
+          <div class="stage2-cat-title" id="stage2-title">งานประชุมนานาชาติและอีเวนต์องค์กร</div>
         </div>
       </div>
 
@@ -1410,8 +1410,27 @@
   <script>
     const CATEGORIES = [
       {
-        id: "concert",
+        id: "live_event",
         num: "01",
+        label: "CORPORATE & EVENT",
+        sub: "งานประชุมนานาชาติ อีเวนต์พิเศษ และงานบันทึกจริง",
+        tone: "plaster",
+        bigText: "event",
+        coverThumb: "assets/ring_thumbs/live_event_01.jpg",
+        photos: [
+          { thumb: "assets/ring_thumbs/live_event_01.jpg", full: "assets/ring_full/live_event_01.jpg", title: "Event & Special 01" },
+          { thumb: "assets/ring_thumbs/live_event_02.jpg", full: "assets/ring_full/live_event_02.jpg", title: "Event & Special 02" },
+          { thumb: "assets/ring_thumbs/live_event_03.jpg", full: "assets/ring_full/live_event_03.jpg", title: "Event & Special 03" },
+          { thumb: "assets/ring_thumbs/live_event_04.jpg", full: "assets/ring_full/live_event_04.jpg", title: "Event & Special 04" },
+          { thumb: "assets/ring_thumbs/live_event_05.jpg", full: "assets/ring_full/live_event_05.jpg", title: "Event & Special 05" },
+          { thumb: "assets/ring_thumbs/live_event_06.jpg", full: "assets/ring_full/live_event_06.jpg", title: "Event & Special 06" },
+          { thumb: "assets/ring_thumbs/live_event_07.jpg", full: "assets/ring_full/live_event_07.jpg", title: "Event & Special 07" },
+          { thumb: "assets/ring_thumbs/live_event_08.jpg", full: "assets/ring_full/live_event_08.jpg", title: "Event & Special 08" }
+        ]
+      },
+      {
+        id: "concert",
+        num: "02",
         label: "CONCERT & STAGE",
         sub: "ถ่ายคอนเสิร์ตและเวทีการแสดงระดับเทศกาลดนตรี",
         tone: "charcoal", // pin_02 style
@@ -1430,7 +1449,7 @@
       },
       {
         id: "hospitality",
-        num: "02",
+        num: "03",
         label: "HOTEL & RESORT",
         sub: "โรงแรม รีสอร์ต และบรรยากาศพักผ่อนระดับลักชัวรี",
         tone: "plaster",
@@ -1449,7 +1468,7 @@
       },
       {
         id: "sport",
-        num: "03",
+        num: "04",
         label: "CYCLING & SPORT",
         sub: "กีฬาและการแข่งขันจักรยานความเร็วสูง",
         tone: "crimson",
@@ -1468,7 +1487,7 @@
       },
       {
         id: "architecture",
-        num: "04",
+        num: "05",
         label: "REAL ESTATE & SPACE",
         sub: "สถาปัตยกรรม อสังหาริมทรัพย์ และเส้นสายอาคาร",
         tone: "charcoal",
@@ -1487,7 +1506,7 @@
       },
       {
         id: "gastronomy",
-        num: "05",
+        num: "06",
         label: "FOOD & DINING",
         sub: "ภาพอาหาร เครื่องดื่ม และศิลปะแห่งรสสัมผัส",
         tone: "plaster",
@@ -1506,7 +1525,7 @@
       },
       {
         id: "commercial",
-        num: "06",
+        num: "07",
         label: "PRODUCT & BRAND",
         sub: "สินค้าเชิงพาณิชย์และภาพลักษณ์แบรนด์ระดับสากล",
         tone: "crimson",
@@ -1525,7 +1544,7 @@
       },
       {
         id: "portrait",
-        num: "07",
+        num: "08",
         label: "STUDIO & PORTRAIT",
         sub: "พอร์ตเทรตผู้บริหาร บุคคลสำคัญ และสตูดิโอโปรไฟล์",
         tone: "charcoal",
@@ -1540,25 +1559,6 @@
           { thumb: "assets/ring_thumbs/portrait_06.jpg", full: "assets/ring_full/portrait_06.jpg", title: "Studio & Portrait 06" },
           { thumb: "assets/ring_thumbs/portrait_07.jpg", full: "assets/ring_full/portrait_07.jpg", title: "Studio & Portrait 07" },
           { thumb: "assets/ring_thumbs/portrait_08.jpg", full: "assets/ring_full/portrait_08.jpg", title: "Studio & Portrait 08" }
-        ]
-      },
-      {
-        id: "live_event",
-        num: "08",
-        label: "EVENT & SPECIAL",
-        sub: "งานประชุมนานาชาติ อีเวนต์พิเศษ และงานบันทึกจริง",
-        tone: "plaster",
-        bigText: "event",
-        coverThumb: "assets/ring_thumbs/live_event_01.jpg",
-        photos: [
-          { thumb: "assets/ring_thumbs/live_event_01.jpg", full: "assets/ring_full/live_event_01.jpg", title: "Event & Special 01" },
-          { thumb: "assets/ring_thumbs/live_event_02.jpg", full: "assets/ring_full/live_event_02.jpg", title: "Event & Special 02" },
-          { thumb: "assets/ring_thumbs/live_event_03.jpg", full: "assets/ring_full/live_event_03.jpg", title: "Event & Special 03" },
-          { thumb: "assets/ring_thumbs/live_event_04.jpg", full: "assets/ring_full/live_event_04.jpg", title: "Event & Special 04" },
-          { thumb: "assets/ring_thumbs/live_event_05.jpg", full: "assets/ring_full/live_event_05.jpg", title: "Event & Special 05" },
-          { thumb: "assets/ring_thumbs/live_event_06.jpg", full: "assets/ring_full/live_event_06.jpg", title: "Event & Special 06" },
-          { thumb: "assets/ring_thumbs/live_event_07.jpg", full: "assets/ring_full/live_event_07.jpg", title: "Event & Special 07" },
-          { thumb: "assets/ring_thumbs/live_event_08.jpg", full: "assets/ring_full/live_event_08.jpg", title: "Event & Special 08" }
         ]
       }
     ];
