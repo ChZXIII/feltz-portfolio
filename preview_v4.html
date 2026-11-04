@@ -4706,38 +4706,75 @@
       opacity: 0;
     }
 
-    /* 3D Architectural Gallery Room Stage */
+    /* White Museum Top Bar Overrides inside #dossier-modal */
+    #dossier-modal {
+      background: #EFEBE4;
+    }
+
+    #dossier-modal .dossier-top-bar {
+      background: rgba(246, 243, 238, 0.94);
+      border-bottom: 1px solid rgba(24, 20, 18, 0.12);
+      box-shadow: 0 4px 20px rgba(24, 20, 18, 0.05);
+    }
+
+    #dossier-modal .dossier-top-title {
+      color: #161312;
+    }
+
+    #dossier-modal .dossier-top-sub {
+      color: #5C534E;
+    }
+
+    #dossier-modal .dossier-close-btn {
+      background: #181413;
+      color: #F6F3EE;
+      border-color: #181413;
+    }
+
+    #dossier-modal .dossier-close-btn:hover {
+      background: var(--accent-crimson);
+      border-color: var(--accent-crimson);
+      color: #ffffff;
+    }
+
+    /* 3D Architectural WHITE MUSEUM Gallery Room Stage */
     .gallery-3d-hall {
       position: relative;
       flex: 1;
       width: 100%;
       height: 100%;
-      perspective: 1350px;
+      perspective: 1400px;
       perspective-origin: 50% 46%;
       overflow: hidden;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      cursor: grab;
+      user-select: none;
+      /* Warm Alabaster Gallery Wall with subtle top ceiling shadow & corner vignette */
       background:
-        radial-gradient(ellipse 68% 42% at 50% 12%, rgba(201, 59, 43, 0.22) 0%, transparent 70%),
-        radial-gradient(ellipse 85% 50% at 50% 82%, rgba(36, 15, 14, 0.85) 0%, #060404 78%);
+        linear-gradient(180deg,
+          #DFD9D0 0%,
+          #F5F2EC 12%,
+          #F7F4EF 64%,
+          #EAE4DC 72%,
+          #D8D0C5 72.4%,
+          #E3DDD3 82%,
+          #CFC7BA 100%);
     }
 
-    /* Architectural Floor Grid & Ceiling Spotlight Cones */
+    .gallery-3d-hall:active {
+      cursor: grabbing;
+    }
+
+    /* Fixed Side Vignette to give 3D Museum Corridor Depth */
     .gallery-hall-floor {
       position: absolute;
-      left: -20%;
-      right: -20%;
-      bottom: -26%;
-      height: 62%;
-      background:
-        radial-gradient(ellipse at 50% 25%, rgba(201, 59, 43, 0.22) 0%, rgba(12, 7, 7, 0.94) 68%),
-        repeating-linear-gradient(90deg, rgba(232, 220, 200, 0.04) 0px, rgba(232, 220, 200, 0.04) 1px, transparent 1px, transparent 110px),
-        repeating-linear-gradient(0deg, rgba(201, 59, 43, 0.06) 0px, rgba(201, 59, 43, 0.06) 1px, transparent 1px, transparent 70px);
-      transform: rotateX(76deg);
-      transform-origin: center top;
+      inset: 0;
       pointer-events: none;
-      z-index: 1;
+      z-index: 2;
+      background:
+        radial-gradient(ellipse 92% 85% at 50% 48%, transparent 58%, rgba(28, 22, 18, 0.14) 100%);
     }
 
     .gallery-room-camera {
@@ -4750,94 +4787,200 @@
       align-items: center;
       justify-content: center;
       z-index: 10;
-      transform: translate3d(0, 10px, -260px) scale(0.88);
-      transition: transform 1.15s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translate3d(0, 8px, -240px) scale(0.90);
+      transition: transform 1.05s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .dossier-modal-overlay.doors-opened .gallery-room-camera {
-      transform: translate3d(0, 0px, 0px) rotateX(var(--room-rx, -2deg)) rotateY(var(--room-ry, 0deg)) scale(1);
+      transform: translate3d(0, var(--walk-bob-y, 0px), 0px)
+                 rotateX(var(--room-rx, -1.2deg))
+                 rotateY(var(--room-ry, 0deg))
+                 scale(1);
     }
 
     .dossier-modal-overlay.is-warping-into-folder .gallery-room-camera {
-      transform: translate3d(0, 0px, 820px) scale(1.85) !important;
+      transform: translate3d(0, 0px, 860px) scale(1.9) !important;
       opacity: 0;
       transition: transform 0.85s cubic-bezier(0.55, 0.04, 0.92, 0.44), opacity 0.65s ease !important;
     }
 
+    /* The Physical Gallery Wall & Floor World — Camera walks right by translating this world left! */
     .gallery-pedestals-arc {
       position: relative;
       width: 0;
       height: 0;
       transform-style: preserve-3d;
+      /* Smooth walking stride when camera steps left/right along the wall */
+      transition: transform 0.82s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform;
     }
 
-    /* Each of the 7 Gallery Frames in the 3D Room */
+    .gallery-pedestals-arc.is-dragging-walk {
+      transition: none !important;
+    }
+
+    /* Continuous Physical Museum Wall & Polished Floor Strip inside the 3D World
+       so when the viewer walks right, the wall seams, ceiling track rail, and floor tiles move past them! */
+    .gallery-physical-wall-strip {
+      position: absolute;
+      left: -900px;
+      top: -340px;
+      width: 5400px;
+      height: 520px;
+      background:
+        /* Ceiling lighting track rail */
+        linear-gradient(180deg, #231E1C 0px, #231E1C 8px, rgba(24, 20, 18, 0.08) 9px, transparent 26px),
+        /* Architectural vertical wall panel seams every 560px */
+        repeating-linear-gradient(90deg,
+          transparent 0px,
+          transparent 559px,
+          rgba(24, 20, 18, 0.07) 559px,
+          rgba(24, 20, 18, 0.07) 560px),
+        /* Baseboard / Skirting board at bottom of wall */
+        linear-gradient(0deg,
+          #D5CDC0 0px,
+          #EAE4DC 3px,
+          #F6F3EE 18px,
+          transparent 45px);
+      border-bottom: 2px solid rgba(24, 20, 18, 0.16);
+      transform: translate3d(0, 0, -24px);
+      pointer-events: none;
+    }
+
+    .gallery-physical-floor-strip {
+      position: absolute;
+      left: -900px;
+      top: 180px;
+      width: 5400px;
+      height: 680px;
+      background:
+        linear-gradient(180deg, rgba(24, 20, 18, 0.13) 0%, rgba(226, 219, 208, 0.4) 18%, rgba(212, 203, 190, 0.88) 100%),
+        repeating-linear-gradient(90deg,
+          rgba(24, 20, 18, 0.075) 0px,
+          rgba(24, 20, 18, 0.075) 1px,
+          transparent 1px,
+          transparent 280px),
+        repeating-linear-gradient(0deg,
+          rgba(24, 20, 18, 0.055) 0px,
+          rgba(24, 20, 18, 0.055) 1px,
+          transparent 1px,
+          transparent 95px);
+      transform-origin: center top;
+      transform: translate3d(0, 0, -24px) rotateX(77deg);
+      pointer-events: none;
+    }
+
+    /* Each of the 7 Gallery Frames is STATICALLY HUNG on the White Wall */
     .gallery-pedestal-unit {
       position: absolute;
       left: 50%;
       top: 50%;
-      width: 340px;
-      height: 248px;
-      margin-left: -170px;
-      margin-top: -136px;
+      width: 400px;
+      height: 292px;
+      margin-left: -200px;
+      margin-top: -156px;
       transform-style: preserve-3d;
       cursor: pointer;
-      transition:
-        transform 0.86s cubic-bezier(0.16, 1, 0.3, 1),
-        opacity 0.65s ease,
-        filter 0.65s ease;
-      will-change: transform, opacity;
+      transition: filter 0.45s ease;
     }
 
+    /* Large Subtle Architectural Bay Number printed directly on the White Wall above/beside frame */
+    .wall-bay-giant-num {
+      position: absolute;
+      top: -66px;
+      left: 4px;
+      font-family: var(--font-display);
+      font-size: 3.1rem;
+      line-height: 1;
+      color: rgba(24, 20, 18, 0.10);
+      letter-spacing: 0.04em;
+      pointer-events: none;
+      user-select: none;
+      transition: color 0.35s ease;
+    }
+
+    .gallery-pedestal-unit.is-selected-pedestal .wall-bay-giant-num {
+      color: rgba(201, 59, 43, 0.26);
+    }
+
+    /* Ceiling Track Lamp + Warm Gallery Spotlight Cone on White Wall */
     .pedestal-spotlight-cone {
       position: absolute;
-      top: -180px;
+      top: -175px;
       left: 50%;
-      width: 280px;
-      height: 320px;
-      margin-left: -140px;
-      background: radial-gradient(ellipse at 50% 0%, rgba(224, 79, 62, 0.26) 0%, rgba(232, 220, 200, 0.06) 45%, transparent 76%);
-      clip-path: polygon(38% 0%, 62% 0%, 100% 100%, 0% 100%);
+      width: 440px;
+      height: 410px;
+      margin-left: -220px;
+      background:
+        radial-gradient(ellipse 52% 68% at 50% 18%,
+          rgba(255, 250, 238, 0.95) 0%,
+          rgba(255, 244, 220, 0.55) 45%,
+          transparent 76%);
+      clip-path: polygon(42% 0%, 58% 0%, 100% 100%, 0% 100%);
       pointer-events: none;
-      opacity: 0.38;
+      opacity: 0.75;
+      z-index: 1;
       transition: opacity 0.45s ease;
     }
 
-    .gallery-pedestal-unit.is-selected-pedestal .pedestal-spotlight-cone {
-      opacity: 0.95;
+    /* Track-light fixture head at the top of the spotlight cone */
+    .pedestal-spotlight-cone::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 28px;
+      height: 12px;
+      margin-left: -14px;
+      background: #1E1918;
+      border-bottom: 3px solid #FFF7E4;
+      border-radius: 0 0 4px 4px;
+      box-shadow: 0 4px 14px rgba(255, 240, 200, 0.9);
     }
 
+    .gallery-pedestal-unit.is-selected-pedestal .pedestal-spotlight-cone {
+      opacity: 1;
+    }
+
+    /* Wall-Hung Fine Art Frame on White Museum Wall */
     .pedestal-main-frame {
       position: relative;
       width: 100%;
       height: 100%;
-      background: #130b0c;
-      border: 1px solid rgba(232, 220, 200, 0.24);
-      border-top: 2px solid rgba(224, 79, 62, 0.65);
-      border-radius: 10px;
-      padding: 10px;
-      box-shadow: 0 28px 65px rgba(0, 0, 0, 0.92);
+      background: #FFFFFF;
+      border: 10px solid #181413;
+      border-radius: 3px;
+      padding: 12px;
+      /* Realistic multi-layered museum frame shadow cast onto the white wall */
+      box-shadow:
+        0 28px 52px rgba(22, 17, 14, 0.22),
+        0 8px 18px rgba(22, 17, 14, 0.14),
+        inset 0 0 0 1px rgba(24, 20, 18, 0.12);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       overflow: hidden;
       z-index: 5;
-      transition: border-color 0.35s ease, box-shadow 0.45s ease;
+      transition: box-shadow 0.4s ease, border-color 0.35s ease;
     }
 
     .gallery-pedestal-unit:hover .pedestal-main-frame,
     .gallery-pedestal-unit.is-selected-pedestal .pedestal-main-frame {
-      border-color: var(--accent-vermilion);
-      box-shadow: 0 34px 85px rgba(0, 0, 0, 0.96), 0 0 42px rgba(201, 59, 43, 0.46);
+      border-color: #110E0D;
+      box-shadow:
+        0 34px 68px rgba(22, 17, 14, 0.30),
+        0 10px 24px rgba(201, 59, 43, 0.18),
+        inset 0 0 0 1px rgba(201, 59, 43, 0.28);
     }
 
     .pedestal-img-wrap {
       position: relative;
       width: 100%;
       flex: 1;
-      border-radius: 6px;
+      border-radius: 2px;
       overflow: hidden;
-      background: #0b0606;
+      background: #120E0D;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.35);
     }
 
     .pedestal-img-wrap img {
@@ -4845,12 +4988,11 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .gallery-pedestal-unit:hover .pedestal-img-wrap img,
-    .gallery-pedestal-unit.is-selected-pedestal .pedestal-img-wrap img {
-      transform: scale(1.05);
+    .gallery-pedestal-unit:hover .pedestal-img-wrap img {
+      transform: scale(1.03);
     }
 
     .pedestal-top-badge {
@@ -4870,9 +5012,9 @@
       font-size: 9.5px;
       font-weight: 700;
       color: #ffffff;
-      background: rgba(201, 59, 43, 0.88);
+      background: rgba(201, 59, 43, 0.92);
       padding: 3px 8px;
-      border-radius: 4px;
+      border-radius: 3px;
       letter-spacing: 0.08em;
     }
 
@@ -4880,19 +5022,19 @@
       font-family: var(--font-mono);
       font-size: 9.5px;
       font-weight: 700;
-      color: var(--editorial-cream);
-      background: rgba(10, 6, 6, 0.85);
-      border: 1px solid rgba(232, 220, 200, 0.25);
-      padding: 3px 8px;
+      color: #F6F3EE;
+      background: rgba(18, 14, 13, 0.84);
+      padding: 3px 9px;
       border-radius: 999px;
     }
 
     .pedestal-plaque-bar {
-      padding-top: 9px;
+      padding-top: 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
+      background: #FFFFFF;
     }
 
     .pedestal-title-group {
@@ -4901,9 +5043,9 @@
 
     .pedestal-title-txt {
       font-family: var(--font-condensed);
-      font-size: 1.15rem;
+      font-size: 1.18rem;
       font-weight: 700;
-      color: #ffffff;
+      color: #161312;
       letter-spacing: 0.03em;
       text-transform: uppercase;
       white-space: nowrap;
@@ -4913,8 +5055,8 @@
 
     .pedestal-sub-txt {
       font-family: var(--font-th);
-      font-size: 10.5px;
-      color: var(--text-dark-sub);
+      font-size: 11px;
+      color: #5E5550;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -4927,96 +5069,96 @@
       gap: 5px;
       background: var(--accent-crimson);
       color: #ffffff;
-      border: 1px solid rgba(255, 130, 112, 0.55);
-      padding: 6px 12px;
+      border: 1px solid rgba(201, 59, 43, 0.9);
+      padding: 6px 13px;
       border-radius: 999px;
       font-family: var(--font-sans);
       font-size: 10.5px;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 6px 18px rgba(201, 59, 43, 0.5);
+      box-shadow: 0 5px 15px rgba(201, 59, 43, 0.35);
       transition: transform 0.22s ease, background 0.22s ease;
     }
 
     .pedestal-warp-btn:hover {
-      background: var(--accent-vermilion);
-      transform: scale(1.05);
+      background: #161312;
+      border-color: #161312;
+      transform: scale(1.04);
     }
 
-    /* Floor Mirror Reflection under each Pedestal */
+    /* Subtle Floor Reflection on Polished Museum Stone Floor */
     .pedestal-floor-mirror {
       position: absolute;
-      left: 6%;
-      right: 6%;
-      bottom: -64px;
-      height: 54px;
-      background: linear-gradient(180deg, rgba(201, 59, 43, 0.22) 0%, transparent 90%);
-      filter: blur(6px);
-      transform: scaleY(-0.55);
+      left: 4%;
+      right: 4%;
+      bottom: -86px;
+      height: 58px;
+      background: linear-gradient(180deg, rgba(24, 20, 18, 0.14) 0%, transparent 88%);
+      filter: blur(7px);
+      transform: scaleY(-0.5);
       opacity: 0.55;
       pointer-events: none;
     }
 
-    /* Pop-Out Exploded Fan Preview Cards around Selected Gallery Pedestal! */
-    .pedestal-burst-fan {
+    /* Left & Right "Walk Along the Wall" Step Buttons (Positioned on the floor line so they NEVER cover the wall frames) */
+    .gallery-walk-nav-btn {
       position: absolute;
-      inset: 0;
-      transform-style: preserve-3d;
+      bottom: 108px;
+      z-index: 30;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(24, 20, 19, 0.90);
+      color: #F6F3EE;
+      border: 1px solid rgba(24, 20, 19, 0.95);
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(22, 17, 14, 0.18);
+      transition: all 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .gallery-walk-nav-btn:hover {
+      background: var(--accent-crimson);
+      border-color: var(--accent-crimson);
+      color: #ffffff;
+      transform: translateY(-2px) scale(1.04);
+    }
+
+    .gallery-walk-nav-btn.is-disabled {
+      opacity: 0.28;
       pointer-events: none;
-      z-index: 2;
     }
 
-    .fan-photo-card {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 136px;
-      height: 92px;
-      margin-left: -68px;
-      margin-top: -46px;
-      border-radius: 6px;
-      overflow: hidden;
-      border: 1px solid rgba(224, 79, 62, 0.68);
-      background: #120a0a;
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.88);
-      opacity: 0;
-      transform: translate3d(0, 0, -20px) scale(0.42);
-      transition:
-        transform 0.68s cubic-bezier(0.16, 1, 0.3, 1),
-        opacity 0.52s ease;
-      transition-delay: calc(var(--fan-i, 0) * 45ms);
+    .gallery-walk-nav-btn.walk-left {
+      left: 36px;
     }
 
-    .fan-photo-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
+    .gallery-walk-nav-btn.walk-right {
+      right: 36px;
     }
 
-    .gallery-pedestal-unit.is-selected-pedestal .fan-photo-card,
-    .gallery-pedestal-unit:hover .fan-photo-card {
-      opacity: 0.96;
-      transform: translate3d(var(--fan-x, 0px), var(--fan-y, -140px), var(--fan-z, 55px))
-                 rotateZ(var(--fan-rz, 0deg)) rotateY(var(--fan-ry, 0deg)) scale(1);
-    }
-
-    /* Bottom Dock inside 3D Gallery Hall to quick-select or Warp into any of the 7 Events */
+    /* Bottom Dock inside White 3D Gallery Hall */
     .gallery-hall-bottom-dock {
       position: relative;
       z-index: 25;
       padding: 12px 28px 18px 28px;
-      background: linear-gradient(0deg, rgba(8, 5, 5, 0.96) 0%, rgba(8, 5, 5, 0.72) 75%, transparent 100%);
+      background: linear-gradient(0deg, rgba(235, 229, 220, 0.96) 0%, rgba(235, 229, 220, 0.78) 72%, transparent 100%);
+      border-top: 1px solid rgba(24, 20, 18, 0.08);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
     }
 
     .hall-dock-hint {
       font-family: var(--font-th);
-      font-size: 12px;
-      color: #d6c8b8;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: #3E3733;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -5036,13 +5178,14 @@
       gap: 8px;
       padding: 7px 14px;
       border-radius: 999px;
-      background: rgba(20, 12, 12, 0.88);
-      border: 1px solid rgba(232, 220, 200, 0.16);
-      color: var(--editorial-cream);
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(24, 20, 18, 0.16);
+      color: #181413;
       font-family: var(--font-sans);
       font-size: 11.5px;
       font-weight: 600;
       cursor: pointer;
+      box-shadow: 0 3px 10px rgba(22, 17, 14, 0.06);
       transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
@@ -5050,16 +5193,20 @@
       font-family: var(--font-mono);
       font-size: 10px;
       font-weight: 700;
-      color: var(--accent-vermilion);
+      color: var(--accent-crimson);
     }
 
     .hall-dock-pill:hover,
     .hall-dock-pill.is-active {
-      background: rgba(201, 59, 43, 0.26);
-      border-color: var(--accent-vermilion);
+      background: #181413;
+      border-color: #181413;
       color: #ffffff;
       transform: translateY(-2px);
-      box-shadow: 0 8px 22px rgba(201, 59, 43, 0.35);
+      box-shadow: 0 8px 20px rgba(22, 17, 14, 0.22);
+    }
+
+    .hall-dock-pill.is-active .p-num {
+      color: var(--accent-vermilion);
     }
 
     /* ==========================================================================
@@ -5915,21 +6062,31 @@
       </button>
     </div>
 
-    <!-- 3D Architectural Gallery Hall with 7 Installations & Pop-Out Fan Burst -->
+    <!-- 3D White Museum Gallery Hall with 7 Static Wall-Hung Frames & Walk-Right Camera -->
     <div class="gallery-3d-hall" id="dossier-3d-viewport">
       <div class="gallery-hall-floor"></div>
+
+      <button type="button" class="gallery-walk-nav-btn walk-left" onclick="stepGalleryWalk(-1)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><polyline points="15 18 9 12 15 6"/></svg>
+        <span>เดินไปทางซ้าย</span>
+      </button>
+      <button type="button" class="gallery-walk-nav-btn walk-right" onclick="stepGalleryWalk(1)">
+        <span>เดินไปทางขวา</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
       <div class="gallery-room-camera" id="gallery-room-camera">
         <div class="gallery-pedestals-arc" id="dossier-stack-pivot">
-          <!-- 7 3D Gallery Pedestal Units injected here -->
+          <!-- Physical Wall + Floor + 7 Static Wall-Hung Frames injected here -->
         </div>
       </div>
 
       <!-- Bottom Quick-Selector Dock for all 7 Projects -->
       <div class="gallery-hall-bottom-dock">
         <div class="hall-dock-hint">
-          <span id="dossier-panel-count">07 ARCHIVED PROJECTS</span>
+          <span id="dossier-panel-count">07 EXHIBITED WORKS</span>
           <span>&middot;</span>
-          <span>คลิกเลือกแท่นงานเพื่อคลี่ดูรูปตัวอย่าง และกดปุ่มสีแดงเพื่อวาร์ปเข้าไปข้างในโฟลเดอร์</span>
+          <span>หมุนลูกกลิ้งเมาส์ ลากผนัง หรือกดปุ่มเดินขวาเพื่อเดินชมภาพที่แขวนบนผนัง ➔ กดปุ่มสีแดงเพื่อวาร์ปเข้าสู่อวกาศภาพ</span>
         </div>
         <div class="hall-dock-pills" id="dossier-project-list"></div>
       </div>
@@ -7633,26 +7790,23 @@
       }
     }
 
-    // Fan-Out 5-Photo Offsets around a 3D Gallery Pedestal when clicked/hovered
-    const FAN_BURST_VECTORS = [
-      { x: -178, y: -115, z: 70, rz: -18 },
-      { x: -195, y: 12,   z: 88, rz: -9 },
-      { x: 0,    y: -158, z: 96, rz: 2 },
-      { x: 178,  y: -112, z: 72, rz: 16 },
-      { x: 196,  y: 16,   z: 90, rz: 10 }
-    ];
+    // =========================================================================
+    // STAGE 2A: WHITE MUSEUM 3D GALLERY HALL (STATIC WALL-HUNG FRAMES + WALK-RIGHT CAMERA)
+    // =========================================================================
+    const WALL_BAY_SPACING = 560; // Fixed physical distance (px) between each hung frame on the museum wall
+    let currentCameraWalkX = 0;
+    let totalGalleryWorks = 7;
+    let walkBobTimer = null;
 
-    // =========================================================================
-    // STAGE 2A: 3D DOOR-OPENING EXHIBITION HALL (7 PROJECTS IN 3D ROOM + POP-OUT FAN)
-    // =========================================================================
     function openDossierModal(catId) {
       const catObj = CATEGORIES.find(c => c.id === catId);
       const albums = (window.FELTZ_ARCHIVE_CATALOG && window.FELTZ_ARCHIVE_CATALOG[catId]) || [];
       if (!catObj || !albums.length) return;
 
       activeDossierCatId = catId;
-      // Default to centering the middle or first project; let's start at index 0 (Story Lab 2025) so all 7 can be explored cleanly
       activeDossierIndex = 0;
+      totalGalleryWorks = albums.length;
+      currentCameraWalkX = 0;
 
       const modal = document.getElementById("dossier-modal");
       const numEl = document.getElementById("dossier-cat-num");
@@ -7663,35 +7817,32 @@
       const listEl = document.getElementById("dossier-project-list");
 
       const totalFrames = albums.reduce((s, a) => s + (a.count || 0), 0);
-      numEl.textContent = `${catObj.num} // 3D GALLERY HALL`;
-      titleEl.textContent = `${catObj.label} — 3D EXHIBITION ROOM (${albums.length} WORKS)`;
-      subEl.textContent = `คลิกที่กรอบงานในห้องเพื่อแตกภาพตัวอย่างออกมาดู ➔ กดปุ่มสีแดงเพื่อวาร์ปผ่าน Time Machine เข้าไปในอวกาศภาพของงานนั้น`;
+      numEl.textContent = `${catObj.num} // WHITE GALLERY HALL`;
+      titleEl.textContent = `${catObj.label} — EXHIBITION WALL (${albums.length} WORKS)`;
+      subEl.textContent = `ภาพหน้าปกทั้ง ${albums.length} งานแขวนติดผนังเรียงไปทางขวา ➔ หมุนเมาส์หรือกดเดินไปทางขวาเพื่อเดินชม แล้วกดปุ่มสีแดงเพื่อวาร์ปเข้าสู่อวกาศภาพ`;
       countEl.textContent = `${String(albums.length).padStart(2, "0")} EXHIBITED WORKS · ${totalFrames} ARCHIVAL PLATES`;
 
-      // Build 7 3D Gallery Pedestal Installations inside the 3D Room
-      pivotEl.innerHTML = "";
+      // Build the Physical White Museum Wall + Floor Strip + 7 Static Wall-Hung Frames
+      pivotEl.innerHTML = `
+        <div class="gallery-physical-wall-strip"></div>
+        <div class="gallery-physical-floor-strip"></div>
+      `;
+
       albums.forEach((alb, idx) => {
         const unit = document.createElement("div");
         unit.className = "gallery-pedestal-unit" + (idx === activeDossierIndex ? " is-selected-pedestal" : "");
         unit.setAttribute("data-pedestal-idx", String(idx));
 
-        // Build 5 Pop-Out Fan Preview Cards from this album's photos
-        const samplePhotos = (alb.photos || []).slice(0, 5);
-        const fanCardsHtml = samplePhotos.map((sp, sIdx) => {
-          const vec = FAN_BURST_VECTORS[sIdx % FAN_BURST_VECTORS.length];
-          return `
-            <div class="fan-photo-card" style="--fan-i:${sIdx}; --fan-x:${vec.x}px; --fan-y:${vec.y}px; --fan-z:${vec.z}px; --fan-rz:${vec.rz}deg;">
-              <img src="${sp.thumb || sp.full}" alt="${alb.title} Preview ${sIdx + 1}" decoding="async" />
-            </div>
-          `;
-        }).join("");
+        // STATIC WALL MOUNT: Each frame is permanently bolted to the wall at x = idx * 560px!
+        const wallX = idx * WALL_BAY_SPACING;
+        unit.style.transform = `translate3d(${wallX}px, 0px, 0px)`;
 
         unit.innerHTML = `
+          <div class="wall-bay-giant-num">0${idx + 1}</div>
           <div class="pedestal-spotlight-cone"></div>
-          <div class="pedestal-burst-fan">${fanCardsHtml}</div>
           <div class="pedestal-main-frame">
             <div class="pedestal-img-wrap">
-              <img src="${alb.cover}" alt="${alb.title}" decoding="async" />
+              <img src="${alb.cover}" alt="${alb.title}" decoding="async" draggable="false" />
               <div class="pedestal-top-badge">
                 <span class="pedestal-num-pill">GALLERY 0${idx + 1} // ${alb.year}</span>
                 <span class="pedestal-count-pill">${alb.count} PLATES</span>
@@ -7721,7 +7872,7 @@
           });
         }
 
-        // Clicking the pedestal frame: if not centered yet, glide room to center & burst fan; if already centered, warp inside!
+        // Clicking a wall frame: if we aren't standing in front of it yet, walk our camera over to it; if already in front, warp inside!
         unit.addEventListener("click", () => {
           if (activeDossierIndex === idx) {
             triggerTimeMachineWarpToAlbum(catId, alb);
@@ -7743,7 +7894,7 @@
         pill.innerHTML = `
           <span class="p-num">0${idx + 1}</span>
           <span>${alb.title}</span>
-          <span style="opacity:0.55;font-size:10px;">(${alb.count})</span>
+          <span style="opacity:0.6;font-size:10px;">(${alb.count})</span>
         `;
         pill.addEventListener("click", () => {
           if (activeDossierIndex === idx) {
@@ -7755,10 +7906,10 @@
         listEl.appendChild(pill);
       });
 
-      // Position all 7 pedestals symmetrically around the 3D Architectural Gallery Room
-      layoutGalleryPedestalsIn3DRoom(activeDossierIndex);
+      // Position Camera in front of Work 01 (x = 0)
+      applyCameraWalkPosition(0, false);
 
-      // Open Modal & Swing Open the 3D Double Museum Doors!
+      // Open Modal & Swing Open the 3D Double Museum Doors to reveal the White Gallery Hall!
       document.body.classList.add("has-archive-modal");
       modal.classList.remove("is-receding-behind", "is-warping-into-folder", "doors-opened");
       requestAnimationFrame(() => {
@@ -7770,62 +7921,64 @@
       });
     }
 
-    function layoutGalleryPedestalsIn3DRoom(centerIdx) {
+    // Move the Viewer's Camera along the Static Gallery Wall (Frames stay 100% static on the wall!)
+    function applyCameraWalkPosition(targetWalkX, withWalkingStride = true) {
       const pivotEl = document.getElementById("dossier-stack-pivot");
+      const roomCam = document.getElementById("gallery-room-camera");
       if (!pivotEl) return;
+
+      const maxWalkX = Math.max(0, (totalGalleryWorks - 1) * WALL_BAY_SPACING);
+      const clampedX = Math.max(0, Math.min(maxWalkX, targetWalkX));
+      const deltaX = clampedX - currentCameraWalkX;
+      currentCameraWalkX = clampedX;
+
+      // Translate the entire physical wall + floor + static frames left as our camera walks right
+      pivotEl.style.transform = `translate3d(${-currentCameraWalkX}px, 0px, 0px)`;
+
+      // Add a subtle human walking stride (gentle head-bob + slight gaze turn in walking direction)
+      if (withWalkingStride && roomCam && Math.abs(deltaX) > 10) {
+        const yawDir = deltaX > 0 ? -2.2 : 2.2;
+        roomCam.style.setProperty("--walk-bob-y", "-6px");
+        roomCam.style.setProperty("--room-ry", `${yawDir}deg`);
+        if (walkBobTimer) clearTimeout(walkBobTimer);
+        walkBobTimer = setTimeout(() => {
+          roomCam.style.setProperty("--walk-bob-y", "0px");
+          roomCam.style.setProperty("--room-ry", "0deg");
+        }, 520);
+      }
+
+      // Highlight whichever wall frame we are currently standing in front of
+      const nearestIdx = Math.round(currentCameraWalkX / WALL_BAY_SPACING);
+      activeDossierIndex = Math.max(0, Math.min(totalGalleryWorks - 1, nearestIdx));
+
       const units = Array.from(pivotEl.querySelectorAll(".gallery-pedestal-unit"));
-      const total = units.length;
-      if (!total) return;
-
-      const isMobile = window.innerWidth <= 900;
-      const xSpacing = isMobile ? 210 : 280;
-      const zStep = isMobile ? 90 : 115;
-      const half = Math.floor(total / 2);
-
       units.forEach((u, i) => {
-        // Wrap modularly so all 7 works form a balanced 360/180 rotunda (-3, -2, -1, 0, +1, +2, +3) around centerIdx!
-        let rel = (i - centerIdx) % total;
-        if (rel > half) rel -= total;
-        if (rel < -half) rel += total;
-
-        const absRel = Math.abs(rel);
-        const isCenter = rel === 0;
-
-        // Curved 3D Gallery Rotunda Coordinates
-        const tx = rel * xSpacing;
-        const ty = isCenter ? 6 : (16 + absRel * 6);
-        const tz = isCenter ? 135 : (-absRel * zStep);
-        const ry = rel * -14;
-        const sc = isCenter ? 1.04 : Math.max(0.72, 0.92 - absRel * 0.06);
-
-        u.style.transform = `translate3d(${tx}px, ${ty}px, ${tz}px) rotateY(${ry}deg) scale(${sc})`;
-        u.style.zIndex = String(100 - absRel * 10);
-        u.style.opacity = isCenter ? "1" : String(Math.max(0.50, 0.88 - absRel * 0.1));
-        u.classList.toggle("is-selected-pedestal", isCenter);
+        u.classList.toggle("is-selected-pedestal", i === activeDossierIndex);
       });
+
+      const listEl = document.getElementById("dossier-project-list");
+      if (listEl) {
+        const pills = Array.from(listEl.querySelectorAll(".hall-dock-pill"));
+        pills.forEach((p, i) => {
+          p.classList.toggle("is-active", i === activeDossierIndex);
+        });
+      }
+
+      const leftWalkBtn = document.querySelector(".gallery-walk-nav-btn.walk-left");
+      const rightWalkBtn = document.querySelector(".gallery-walk-nav-btn.walk-right");
+      if (leftWalkBtn) leftWalkBtn.classList.toggle("is-disabled", activeDossierIndex <= 0);
+      if (rightWalkBtn) rightWalkBtn.classList.toggle("is-disabled", activeDossierIndex >= totalGalleryWorks - 1);
     }
 
     function setActiveDossierFolder(idx, pauseCycle = false) {
-      const pivotEl = document.getElementById("dossier-stack-pivot");
-      const listEl = document.getElementById("dossier-project-list");
-      if (!pivotEl || !listEl) return;
+      const clampedIdx = Math.max(0, Math.min(totalGalleryWorks - 1, idx));
+      activeDossierIndex = clampedIdx;
+      applyCameraWalkPosition(clampedIdx * WALL_BAY_SPACING, true);
+    }
 
-      const units = Array.from(pivotEl.querySelectorAll(".gallery-pedestal-unit"));
-      const pills = Array.from(listEl.querySelectorAll(".hall-dock-pill"));
-      const total = units.length;
-      if (!total) return;
-
-      activeDossierIndex = ((idx % total) + total) % total;
-      layoutGalleryPedestalsIn3DRoom(activeDossierIndex);
-
-      pills.forEach((p, i) => {
-        p.classList.toggle("is-active", i === activeDossierIndex);
-      });
-
-      if (pauseCycle && dossierAutoTimer) {
-        clearInterval(dossierAutoTimer);
-        dossierAutoTimer = null;
-      }
+    function stepGalleryWalk(delta) {
+      const nextIdx = Math.max(0, Math.min(totalGalleryWorks - 1, activeDossierIndex + delta));
+      setActiveDossierFolder(nextIdx, true);
     }
 
     function startDossierSlowAutoCycle(total) {
@@ -7848,19 +8001,71 @@
       }
     }
 
-    // Subtle 3D Mouse-Look Parallax inside the 3D Gallery Room & 3D Space Nebula
+    // Wheel-to-Walk, Drag-to-Walk & Subtle Mouse-Look inside the 3D Gallery Room + 3D Space Nebula
     function setupV4SpatialRoomMouseParallax() {
       const hallViewport = document.getElementById("dossier-3d-viewport");
       const pivotEl = document.getElementById("dossier-stack-pivot");
+      const roomCam = document.getElementById("gallery-room-camera");
+
       if (hallViewport && pivotEl) {
+        // 1. Mouse Wheel / Trackpad Two-Finger Scroll -> Walk Smoothly Right/Left Along the Wall!
+        let wheelSnapTimer = null;
+        hallViewport.addEventListener("wheel", (e) => {
+          const modal = document.getElementById("dossier-modal");
+          if (!modal || !modal.classList.contains("is-open")) return;
+          e.preventDefault();
+          const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+          pivotEl.classList.add("is-dragging-walk");
+          applyCameraWalkPosition(currentCameraWalkX + delta * 1.15, false);
+
+          if (wheelSnapTimer) clearTimeout(wheelSnapTimer);
+          wheelSnapTimer = setTimeout(() => {
+            pivotEl.classList.remove("is-dragging-walk");
+            const snapIdx = Math.round(currentCameraWalkX / WALL_BAY_SPACING);
+            setActiveDossierFolder(snapIdx, true);
+          }, 180);
+        }, { passive: false });
+
+        // 2. Click-and-Drag to Walk Along the Wall
+        let isDraggingWall = false;
+        let dragStartX = 0;
+        let dragStartWalkX = 0;
+
+        hallViewport.addEventListener("mousedown", (e) => {
+          if (e.target.closest("button")) return;
+          isDraggingWall = true;
+          dragStartX = e.clientX;
+          dragStartWalkX = currentCameraWalkX;
+          pivotEl.classList.add("is-dragging-walk");
+        });
+
+        window.addEventListener("mousemove", (e) => {
+          if (!isDraggingWall) return;
+          const dx = e.clientX - dragStartX;
+          if (Math.abs(dx) > 4) {
+            applyCameraWalkPosition(dragStartWalkX - dx * 1.35, false);
+          }
+        });
+
+        window.addEventListener("mouseup", (e) => {
+          if (!isDraggingWall) return;
+          isDraggingWall = false;
+          pivotEl.classList.remove("is-dragging-walk");
+          const dx = e.clientX - dragStartX;
+          if (Math.abs(dx) > 12) {
+            const snapIdx = Math.round(currentCameraWalkX / WALL_BAY_SPACING);
+            setActiveDossierFolder(snapIdx, true);
+          }
+        });
+
+        // 3. Subtle Eye-Level Gaze Parallax on #gallery-room-camera
         hallViewport.addEventListener("mousemove", (e) => {
+          if (isDraggingWall || !roomCam) return;
           const rect = hallViewport.getBoundingClientRect();
           const nx = ((e.clientX - rect.left) / rect.width) - 0.5;
           const ny = ((e.clientY - rect.top) / rect.height) - 0.5;
-          pivotEl.style.transform = `rotateY(${(nx * 7).toFixed(2)}deg) rotateX(${(-ny * 4.5).toFixed(2)}deg)`;
-        });
-        hallViewport.addEventListener("mouseleave", () => {
-          pivotEl.style.transform = "rotateY(0deg) rotateX(0deg)";
+          roomCam.style.setProperty("--room-ry", `${(nx * 4.5).toFixed(2)}deg`);
+          roomCam.style.setProperty("--room-rx", `${(-1.2 - ny * 3.0).toFixed(2)}deg`);
         });
       }
 
@@ -7880,7 +8085,7 @@
     }
 
     // =========================================================================
-    // STAGE 2B: TIME-MACHINE HYPERSPACE WARP TUNNEL ENGINE
+    // STAGE 2B: TIME-MACHINE HYPERSPACE WARP TUNNEL (PURE STREAKING LINES + LONGER TEXT HOLD)
     // =========================================================================
     function triggerTimeMachineWarpToAlbum(catId, albumObj) {
       if (isWarpAnimating || !albumObj) return;
@@ -7892,7 +8097,7 @@
       const warpKicker = document.getElementById("warp-hud-kicker");
       const warpTitle = document.getElementById("warp-hud-title");
 
-      if (warpKicker) warpKicker.textContent = `TIME-MACHINE HYPERSPACE // ${albumObj.count} PLATES`;
+      if (warpKicker) warpKicker.textContent = `ENTERING PROJECT ARCHIVE // ${albumObj.count} PLATES`;
       if (warpTitle) warpTitle.textContent = albumObj.title.toUpperCase();
 
       if (dossierModal) {
@@ -7903,7 +8108,7 @@
         warpOverlay.setAttribute("aria-hidden", "false");
       }
 
-      // Run 60 FPS Hyperspace Star-Streak + Portal Ring Tunnel on #warp-tunnel-canvas
+      // Run 60 FPS Pure Streaking Warp Lines (NO circles!) on #warp-tunnel-canvas
       if (warpCanvas) {
         const ctx = warpCanvas.getContext("2d");
         const dpr = Math.min(2, window.devicePixelRatio || 1);
@@ -7915,57 +8120,42 @@
 
         const cx = w / 2;
         const cy = h / 2;
-        const stars = Array.from({ length: 170 }, (_, i) => {
-          const angle = (i * 137.5) * (Math.PI / 180);
-          const radius = 25 + (i % 19) * 34;
+        const stars = Array.from({ length: 210 }, (_, i) => {
+          const angle = (i * 137.508) * (Math.PI / 180);
+          const radius = 22 + (i % 22) * 32;
           return {
             x: Math.cos(angle) * radius,
             y: Math.sin(angle) * radius,
-            z: 80 + (i * 11) % 920,
+            z: 60 + (i * 13) % 920,
             isCrimson: i % 3 === 0
           };
         });
 
-        const rings = [160, 320, 480, 640, 800, 960];
         const startWarp = performance.now();
-        const totalWarpMs = 1180;
+        // Hold for 2450ms (~2.45 seconds) so the viewer can comfortably read the full project title (e.g. AW 2024 CONFERENCE)
+        const totalWarpMs = 2450;
 
         const renderWarpFrame = (now) => {
           const elapsed = now - startWarp;
           const p = Math.min(1, elapsed / totalWarpMs);
-          const accel = 1 + p * p * 5.2;
+          // Smooth speed curve: gentle readable cruise during first 65%, then final hyperspace surge
+          const accel = 0.85 + Math.pow(p, 2.2) * 4.6;
 
-          ctx.fillStyle = "rgba(7, 4, 5, 0.34)";
+          ctx.fillStyle = "rgba(7, 4, 5, 0.36)";
           ctx.fillRect(0, 0, w, h);
 
-          // Radial core flash
-          const grad = ctx.createRadialGradient(cx, cy, 2, cx, cy, Math.max(w, h) * (0.28 + p * 0.45));
-          grad.addColorStop(0, `rgba(255, 235, 228, ${0.15 + p * 0.42})`);
-          grad.addColorStop(0.32, `rgba(201, 59, 43, ${0.18 + p * 0.25})`);
+          // Soft ambient center glow behind the text (no circular rings!)
+          const grad = ctx.createRadialGradient(cx, cy, 4, cx, cy, Math.max(w, h) * (0.26 + p * 0.35));
+          grad.addColorStop(0, `rgba(201, 59, 43, ${0.14 + p * 0.18})`);
+          grad.addColorStop(0.45, `rgba(25, 8, 8, 0.12)`);
           grad.addColorStop(1, "rgba(5, 3, 4, 0)");
           ctx.fillStyle = grad;
           ctx.fillRect(0, 0, w, h);
 
-          // Concentric Time-Portal Rings rushing toward camera
-          rings.forEach((rz, rIdx) => {
-            let curZ = rz - (elapsed * 1.15 * accel) % 960;
-            if (curZ <= 15) curZ += 960;
-            const scale = 420 / curZ;
-            const rr = 95 * scale;
-            const alpha = Math.min(0.65, (1 - curZ / 960) * 0.72);
-            ctx.beginPath();
-            ctx.arc(cx, cy, rr, 0, Math.PI * 2);
-            ctx.strokeStyle = rIdx % 2 === 0
-              ? `rgba(201, 59, 43, ${alpha.toFixed(3)})`
-              : `rgba(244, 240, 234, ${(alpha * 0.65).toFixed(3)})`;
-            ctx.lineWidth = Math.max(1, 2.2 * (1 - curZ / 960));
-            ctx.stroke();
-          });
-
-          // Hyperspace Light Streaks
+          // Pure Hyperspace Light Streaks (Zero circles)
           stars.forEach((st) => {
             const prevZ = st.z;
-            st.z -= 26 * accel;
+            st.z -= 19 * accel;
             if (st.z <= 12) {
               st.z = 920;
               return;
@@ -7977,14 +8167,14 @@
             const x2 = cx + st.x * k2;
             const y2 = cy + st.y * k2;
 
-            const alpha = Math.min(0.95, (1 - st.z / 920) * 1.15);
+            const alpha = Math.min(0.96, (1 - st.z / 920) * 1.18);
             ctx.beginPath();
             ctx.moveTo(x1, y1);
             ctx.lineTo(x2, y2);
             ctx.strokeStyle = st.isCrimson
               ? `rgba(229, 75, 58, ${alpha.toFixed(3)})`
               : `rgba(250, 246, 240, ${alpha.toFixed(3)})`;
-            ctx.lineWidth = Math.max(1.1, (1 - st.z / 920) * 3.4);
+            ctx.lineWidth = Math.max(1.1, (1 - st.z / 920) * 3.2);
             ctx.stroke();
           });
 
@@ -7999,10 +8189,10 @@
         warpRafId = requestAnimationFrame(renderWarpFrame);
       }
 
-      // Open the 3D Deep-Space Photo Nebula mid-warp so it reveals seamlessly as the warp flash clears
+      // Load the 3D Deep-Space Photo Nebula behind the warp overlay at 1850ms (after the user has read the title!)
       setTimeout(() => {
         openExhibitionModal(catId, albumObj, true, "space");
-      }, 640);
+      }, 1850);
 
       setTimeout(() => {
         if (warpOverlay) {
@@ -8013,7 +8203,7 @@
           dossierModal.classList.remove("is-warping-into-folder");
         }
         isWarpAnimating = false;
-      }, 1180);
+      }, 2450);
     }
 
     // =========================================================================
