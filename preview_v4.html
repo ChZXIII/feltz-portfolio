@@ -4830,16 +4830,14 @@
 
     .gallery-pedestal-unit.is-secret-unlatching .pedestal-main-frame,
     .gallery-pedestal-unit.is-secret-detaching .pedestal-main-frame {
-      animation: secretWallContinuousCollapse 0.64s cubic-bezier(0.32, 0.04, 0.62, 0.96) forwards !important;
-      box-shadow:
-        0 18px 36px rgba(0, 0, 0, 0.92),
-        0 0 36px rgba(224, 79, 62, 0.65),
-        inset 0 8px 18px rgba(0, 0, 0, 0.55) !important;
+      /* Hide wall frame immediately when #warp-lead-picture-card takes over at 0ms so there is only ONE continuous picture from wall -> tunnel -> Hero slot! */
+      opacity: 0 !important;
+      transition: none !important;
     }
 
     .dossier-modal-overlay.is-warping-into-folder .gallery-room-camera {
       transform: translate3d(0, 14px, 1180px) scale(4.2) !important;
-      transition: transform 0.72s cubic-bezier(0.36, 0.02, 0.24, 1) !important;
+      transition: transform 0.68s cubic-bezier(0.36, 0.02, 0.24, 1) !important;
     }
 
     /* REVERSE SUCTION WARP-OUT: Camera starts inside the open wall cavity and pulls backward out while the frame snaps back into place! */
@@ -4849,20 +4847,18 @@
     }
 
     .dossier-modal-overlay.is-pre-pullout .gallery-pedestal-unit.is-warp-target-unit .pedestal-main-frame {
-      transform: perspective(900px) translate3d(0, -8px, 0px) rotateX(16deg) rotateY(-8deg) scale(0.34) !important;
-      opacity: 0.28 !important;
+      opacity: 0 !important;
       transition: none !important;
     }
 
     .dossier-modal-overlay.is-pulling-out-of-frame .gallery-room-camera {
       transform: translate3d(0, 0px, 0px) scale(1) !important;
-      transition: transform 1.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      transition: transform 0.95s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
 
     .dossier-modal-overlay.is-pulling-out-of-frame .gallery-pedestal-unit.is-warp-target-unit .pedestal-main-frame {
-      transform: perspective(900px) translate3d(0, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1) !important;
-      opacity: 1 !important;
-      transition: transform 1.05s cubic-bezier(0.22, 1, 0.36, 1) 0.12s, opacity 0.45s ease 0.1s !important;
+      opacity: 0 !important;
+      transition: none !important;
     }
 
     /* The Physical Gallery Wall & Floor World — Camera walks right by translating this world left! */
@@ -5487,7 +5483,7 @@
         0 0 58px rgba(201, 59, 43, 0.45);
       transform-style: preserve-3d;
       opacity: 0;
-      transform: translate3d(0, -10px, -520px) rotateX(20deg) rotateY(-12deg) rotateZ(-5deg) scale(0.22);
+      transform: translate3d(0px, -14px, 0px) scale(var(--lead-start-scale, 0.56));
     }
 
     .warp-lead-picture-card img {
@@ -5499,28 +5495,48 @@
       background: #0a0606;
     }
 
-    /* Arrival from Continuous Collapse: Immediately launches out of the collapsed wall cavity into the Hero Photo slot! */
-    .warp-lead-picture-card.is-settling-as-hero {
-      opacity: 1;
-      transform: translate3d(var(--lead-end-x, -165px), -18px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
-      transition:
-        transform 0.68s cubic-bezier(0.16, 1, 0.3, 1),
-        opacity 0.28s ease 0.44s;
+    /* ONE SINGLE UNBROKEN PICTURE JOURNEY (opacity: 1 from 0% to 100% — NEVER disappears, NEVER double-warps!):
+       0%: Starts right at the gallery wall frame position when clicked
+       34%: Pushed inward & falls into the dark secret wall cavity as the wall zooms past us
+       100%: Carries us straight into the 3D Space Room and parks directly in the Plate 01 Hero slot! */
+    @keyframes leadPictureContinuousCarry {
+      0% {
+        opacity: 1;
+        transform: translate3d(0px, -14px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(var(--lead-start-scale, 0.56));
+      }
+      34% {
+        opacity: 1;
+        transform: translate3d(-44px, -4px, 0px) rotateX(14deg) rotateY(-9deg) rotateZ(-3deg) scale(0.36);
+      }
+      100% {
+        opacity: 1;
+        transform: translate3d(var(--lead-end-x, -165px), var(--lead-end-y, 12.5px), 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
+      }
     }
 
-    /* Reverse Warp-Out: The Hero picture detaches and flies backward into the tunnel ahead of us back toward the gallery wall hole! */
-    .warp-lead-picture-card.is-returning-start {
-      opacity: 1;
-      transform: translate3d(var(--lead-end-x, -165px), -18px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
-      transition: none;
+    @keyframes leadPictureContinuousReturn {
+      0% {
+        opacity: 1;
+        transform: translate3d(var(--lead-end-x, -165px), var(--lead-end-y, 12.5px), 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
+      }
+      45% {
+        opacity: 1;
+        transform: translate3d(-36px, -6px, 0px) rotateX(13deg) rotateY(-8deg) rotateZ(-2.5deg) scale(0.36);
+      }
+      100% {
+        opacity: 1;
+        transform: translate3d(0px, -14px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(var(--lead-start-scale, 0.56));
+      }
+    }
+
+    .warp-lead-picture-card.is-carrying-to-space {
+      opacity: 1 !important;
+      animation: leadPictureContinuousCarry 1.08s cubic-bezier(0.26, 0.08, 0.22, 1) forwards !important;
     }
 
     .warp-lead-picture-card.is-returning-to-wall {
-      opacity: 0;
-      transform: translate3d(0px, -8px, -680px) rotateX(14deg) rotateY(-8deg) rotateZ(-3deg) scale(0.32);
-      transition:
-        transform 0.92s cubic-bezier(0.42, 0.02, 0.78, 0.36),
-        opacity 0.45s ease 0.48s;
+      opacity: 1 !important;
+      animation: leadPictureContinuousReturn 1.04s cubic-bezier(0.26, 0.08, 0.22, 1) forwards !important;
     }
 
     .warp-center-hud {
@@ -5708,6 +5724,14 @@
       opacity: 1 !important;
       filter: brightness(1) !important;
       z-index: 30;
+    }
+
+    /* Hide the inner Plate 01 Hero node while #warp-lead-picture-card is carrying the picture into place (and when returning to wall) so it NEVER double-warps! */
+    .exhibition-modal-overlay.is-pre-emerge .space-photo-node.is-space-hero,
+    .exhibition-modal-overlay.is-emerging-from-frame .space-photo-node.is-space-hero,
+    .exhibition-modal-overlay.is-warping-out-to-gallery .space-photo-node.is-space-hero {
+      opacity: 0 !important;
+      transition: none !important;
     }
 
     /* The Physical Framed Card — Animates with continuous 3D Zero-Gravity Floating when in the background nebula! */
@@ -8437,7 +8461,16 @@
     // =========================================================================
     let spaceZeroGRafId = null;
 
-    function computeHeroCardDimensions(photoObj) {
+    function computeHeroCardDimensions(albumObj) {
+      const rawPhotos = (albumObj && albumObj.photos ? albumObj.photos : []).slice();
+      if (albumObj && albumObj.cover && rawPhotos.length > 1) {
+        const covIdx = rawPhotos.findIndex(p => p.full === albumObj.cover || p.thumb === albumObj.cover);
+        if (covIdx > 0) {
+          const [covItem] = rawPhotos.splice(covIdx, 1);
+          rawPhotos.unshift(covItem);
+        }
+      }
+      const photoObj = rawPhotos[0] || { w: 1500, h: 1000 };
       const stageW = Math.min(window.innerWidth * 0.56, 780);
       const stageH = Math.min(window.innerHeight * 0.64, 540);
       const ratio = (photoObj && photoObj.w && photoObj.h) ? (photoObj.w / photoObj.h) : 1.5;
@@ -8447,10 +8480,15 @@
         heroH = stageH;
         heroW = heroH * ratio;
       }
+      const wRounded = Math.round(heroW);
+      const hRounded = Math.round(heroH);
       return {
-        w: Math.round(heroW),
-        h: Math.round(heroH),
-        endX: window.innerWidth > 960 ? -165 : 0
+        w: wRounded,
+        h: hRounded,
+        endX: window.innerWidth > 960 ? -165 : 0,
+        endY: 12.5,
+        startScale: (424 / Math.max(300, wRounded)).toFixed(3),
+        firstSrc: (albumObj && albumObj.cover) || (photoObj && photoObj.full) || ""
       };
     }
 
@@ -8486,15 +8524,16 @@
         });
       }
 
-      // Prepare the 3D Floating Lead Picture (matches the exact cover picture on the wall!)
-      const firstPhoto = (albumObj.photos && albumObj.photos[0]) || { w: 1500, h: 1000 };
-      const heroDims = computeHeroCardDimensions(firstPhoto);
+      // Prepare the 1 Single Continuous Lead Picture (starts at exact gallery wall size, never fades out, and lands at Plate 01!)
+      const heroDims = computeHeroCardDimensions(albumObj);
       if (leadCard && leadImg) {
         leadCard.className = "warp-lead-picture-card";
         leadCard.style.setProperty("--lead-w", `${heroDims.w}px`);
         leadCard.style.setProperty("--lead-h", `${heroDims.h}px`);
         leadCard.style.setProperty("--lead-end-x", `${heroDims.endX}px`);
-        leadImg.src = albumObj.cover || (firstPhoto && firstPhoto.full) || "";
+        leadCard.style.setProperty("--lead-end-y", `${heroDims.endY}px`);
+        leadCard.style.setProperty("--lead-start-scale", String(heroDims.startScale));
+        leadImg.src = heroDims.firstSrc;
       }
 
       if (warpKicker) warpKicker.textContent = `SECRET WALL MECHANISM UNLOCKED // ${albumObj.count} PLATES`;
@@ -8505,22 +8544,24 @@
         exhModal.classList.add("is-warping-out-to-gallery");
       }
 
-      // STEP 1 (0ms — ZERO PAUSE!): Frame immediately collapses continuously into the dark secret wall cavity (1.0 -> 0.82 -> 0.50 -> 0.18)
-      // while our camera plunges straight into the opening right with it!
+      // STEP 1 (0ms — ONE SINGLE CONTINUOUS PICTURE!):
+      // Hide the static wall frame immediately and let #warp-lead-picture-card (opacity: 1 from 0ms to 1080ms)
+      // sink into the secret wall cavity, carry us through the warp streaks, and park directly in the Plate 01 Hero slot!
       if (targetUnit) {
         targetUnit.classList.add("is-secret-unlatching");
       }
-
-      setTimeout(() => {
-        if (dossierModal) {
-          dossierModal.classList.remove("is-pulling-out-of-frame", "is-pre-pullout", "is-receding-behind");
-          dossierModal.classList.add("is-warping-into-folder");
-        }
-        if (warpOverlay) {
-          warpOverlay.classList.add("is-warping");
-          warpOverlay.setAttribute("aria-hidden", "false");
-        }
-      }, 45);
+      if (dossierModal) {
+        dossierModal.classList.remove("is-pulling-out-of-frame", "is-pre-pullout", "is-receding-behind");
+        dossierModal.classList.add("is-warping-into-folder");
+      }
+      if (warpOverlay) {
+        warpOverlay.classList.add("is-warping");
+        warpOverlay.setAttribute("aria-hidden", "false");
+      }
+      if (leadCard) {
+        void leadCard.offsetWidth;
+        leadCard.classList.add("is-carrying-to-space");
+      }
 
       // Run 60 FPS Transparent-Background Suction Warp Lines (NO circles, NO black cut, NO mid-warp pause!)
       if (warpCanvas) {
@@ -8546,7 +8587,7 @@
         });
 
         const startWarp = performance.now();
-        const totalWarpMs = 1360;
+        const totalWarpMs = 1120;
 
         const renderWarpFrame = (now) => {
           const elapsed = now - startWarp;
@@ -8559,10 +8600,10 @@
           let portalAlpha = 0;
           if (p < 0.08) {
             portalAlpha = 0;
-          } else if (p < 0.45) {
-            portalAlpha = Math.pow((p - 0.08) / 0.37, 1.3) * 0.78;
+          } else if (p < 0.42) {
+            portalAlpha = Math.pow((p - 0.08) / 0.34, 1.3) * 0.76;
           } else {
-            portalAlpha = Math.max(0, (1 - (p - 0.45) / 0.55) * 0.78);
+            portalAlpha = Math.max(0, (1 - (p - 0.42) / 0.58) * 0.76);
           }
 
           if (portalAlpha > 0.01) {
@@ -8576,7 +8617,7 @@
 
           const globalStreakFade = p < 0.10
             ? Math.max(0, p / 0.10)
-            : (p > 0.72 ? Math.max(0, 1 - (p - 0.72) / 0.28) : 1);
+            : (p > 0.70 ? Math.max(0, 1 - (p - 0.70) / 0.30) : 1);
 
           stars.forEach((st) => {
             const prevZ = st.z;
@@ -8616,17 +8657,19 @@
         warpRafId = requestAnimationFrame(renderWarpFrame);
       }
 
-      // STEP 2 (560ms — right as the frame finishes collapsing into the cavity, with ZERO pause):
-      // Immediately burst into the 3D Space Nebula & glide the collapsed picture straight into the Front-Center Hero slot (Plate 01)!
+      // STEP 2 (380ms — while #warp-lead-picture-card is flying forward from the wall cavity toward Plate 01):
+      // Open the 3D Space Room behind it so the background nebula photos float out around our Lead Picture!
       setTimeout(() => {
         if (exhModal) exhModal.classList.remove("is-warping-out-to-gallery");
         openExhibitionModal(catId, albumObj, true, "space", true);
-        if (leadCard) {
-          leadCard.classList.add("is-settling-as-hero");
-        }
-      }, 560);
+      }, 380);
 
+      // STEP 3 (1100ms — #warp-lead-picture-card has parked at the exact 1:1 coordinates of Plate 01):
+      // Instantaneously hand off in place to .space-photo-node.is-space-hero with zero disappearance and zero double-warp!
       setTimeout(() => {
+        if (exhModal) {
+          exhModal.classList.remove("is-emerging-from-frame", "is-pre-emerge");
+        }
         if (warpOverlay) {
           warpOverlay.classList.remove("is-warping");
           warpOverlay.setAttribute("aria-hidden", "true");
@@ -8634,14 +8677,11 @@
         if (leadCard) {
           leadCard.className = "warp-lead-picture-card";
         }
-        if (exhModal) {
-          exhModal.classList.remove("is-emerging-from-frame", "is-pre-emerge");
-        }
         if (targetUnit) {
           targetUnit.classList.remove("is-secret-unlatching", "is-secret-detaching");
         }
         isWarpAnimating = false;
-      }, 1360);
+      }, 1100);
     }
 
     // =========================================================================
@@ -8665,6 +8705,10 @@
           const inner = node.querySelector(".space-photo-inner");
           if (!inner) return;
           if (node.classList.contains("is-space-hero")) {
+            if (isWarpAnimating) {
+              inner.style.transform = "translate3d(0px, 0px, 0px) rotateZ(0deg)";
+              return;
+            }
             // Subtle breathing float even on the front Hero card
             const hy = Math.sin(t * 1.35) * 4.5;
             const hrz = Math.cos(t * 0.95) * 0.35;
@@ -9170,13 +9214,14 @@
       }
 
       if (activeExhibitionAlbum && leadCard && leadImg) {
-        const firstPhoto = (activeExhibitionAlbum.photos && activeExhibitionAlbum.photos[0]) || { w: 1500, h: 1000 };
-        const heroDims = computeHeroCardDimensions(firstPhoto);
-        leadCard.className = "warp-lead-picture-card is-returning-start";
+        const heroDims = computeHeroCardDimensions(activeExhibitionAlbum);
+        leadCard.className = "warp-lead-picture-card";
         leadCard.style.setProperty("--lead-w", `${heroDims.w}px`);
         leadCard.style.setProperty("--lead-h", `${heroDims.h}px`);
         leadCard.style.setProperty("--lead-end-x", `${heroDims.endX}px`);
-        leadImg.src = activeExhibitionAlbum.cover || (firstPhoto && firstPhoto.full) || "";
+        leadCard.style.setProperty("--lead-end-y", `${heroDims.endY}px`);
+        leadCard.style.setProperty("--lead-start-scale", String(heroDims.startScale));
+        leadImg.src = heroDims.firstSrc;
       }
 
       if (warpKicker) warpKicker.textContent = `RETURNING TO 3D GALLERY HALL`;
@@ -9193,14 +9238,10 @@
         warpOverlay.setAttribute("aria-hidden", "false");
       }
 
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          if (leadCard) {
-            leadCard.classList.remove("is-returning-start");
-            leadCard.classList.add("is-returning-to-wall");
-          }
-        });
-      });
+      if (leadCard) {
+        void leadCard.offsetWidth;
+        leadCard.classList.add("is-returning-to-wall");
+      }
 
       // 2. Run Reverse-Imploding Transparent Warp Streaks (streaks converge inward toward the picture frame!)
       if (warpCanvas) {
@@ -9226,7 +9267,7 @@
         });
 
         const startReverse = performance.now();
-        const totalReverseMs = 1520;
+        const totalReverseMs = 1100;
 
         const renderReverseWarpFrame = (now) => {
           const elapsed = now - startReverse;
@@ -9287,8 +9328,8 @@
         warpRafId = requestAnimationFrame(renderReverseWarpFrame);
       }
 
-      // 3. At 440ms (as the space photos rush back into the center), pull the camera BACKWARD out of the wall hole
-      // while the picture frame emerges forward out of the secret cavity and snaps back onto the White Gallery Wall!
+      // 3. At 360ms (as the space photos rush back into the center), pull the camera BACKWARD out of the wall hole
+      // while the Lead Picture carries us back and locks into the White Gallery Wall!
       setTimeout(() => {
         if (exhModal) {
           exhModal.classList.remove("is-open", "is-warping-out-to-gallery", "is-emerging-from-frame", "is-pre-emerge");
@@ -9309,9 +9350,15 @@
         } else if (activeExhibitionCatId) {
           openDossierModal(activeExhibitionCatId);
         }
-      }, 440);
+      }, 360);
 
       setTimeout(() => {
+        if (dossierModal) {
+          dossierModal.classList.remove("is-pulling-out-of-frame", "is-pre-pullout");
+        }
+        if (pivotEl) {
+          pivotEl.querySelectorAll(".gallery-pedestal-unit").forEach(u => u.classList.remove("is-warp-target-unit"));
+        }
         if (warpOverlay) {
           warpOverlay.classList.remove("is-warping");
           warpOverlay.setAttribute("aria-hidden", "true");
@@ -9319,14 +9366,8 @@
         if (leadCard) {
           leadCard.className = "warp-lead-picture-card";
         }
-        if (dossierModal) {
-          dossierModal.classList.remove("is-pulling-out-of-frame", "is-pre-pullout");
-        }
-        if (pivotEl) {
-          pivotEl.querySelectorAll(".gallery-pedestal-unit").forEach(u => u.classList.remove("is-warp-target-unit"));
-        }
         isWarpAnimating = false;
-      }, 1520);
+      }, 1060);
     }
 
     function closeExhibitionModal() {
