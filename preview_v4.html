@@ -5723,6 +5723,7 @@
       transform: translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1) !important;
       opacity: 1 !important;
       filter: brightness(1) !important;
+      transition: transform 0.95s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease !important;
       z-index: 30;
     }
 
@@ -8664,12 +8665,17 @@
         openExhibitionModal(catId, albumObj, true, "space", true);
       }, 380);
 
-      // STEP 3 (1100ms — #warp-lead-picture-card has parked at the exact 1:1 coordinates of Plate 01):
-      // Instantaneously hand off in place to .space-photo-node.is-space-hero with zero disappearance and zero double-warp!
+      // STEP 3A (1040ms — #warp-lead-picture-card is parked at Plate 01):
+      // Reveal .space-photo-node.is-space-hero at opacity: 1 directly underneath #warp-lead-picture-card first!
       setTimeout(() => {
         if (exhModal) {
           exhModal.classList.remove("is-emerging-from-frame", "is-pre-emerge");
         }
+      }, 1040);
+
+      // STEP 3B (1140ms — 100ms after .space-photo-node.is-space-hero is already solid underneath):
+      // Clear the warp overlay with zero gap!
+      setTimeout(() => {
         if (warpOverlay) {
           warpOverlay.classList.remove("is-warping");
           warpOverlay.setAttribute("aria-hidden", "true");
@@ -8681,7 +8687,7 @@
           targetUnit.classList.remove("is-secret-unlatching", "is-secret-detaching");
         }
         isWarpAnimating = false;
-      }, 1100);
+      }, 1140);
     }
 
     // =========================================================================
