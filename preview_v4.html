@@ -4816,18 +4816,15 @@
       0% {
         transform: perspective(1200px) translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
         border-radius: 0px;
-        box-shadow: 0 0 0 rgba(224, 79, 62, 0);
         opacity: 1;
       }
       72% {
-        border-radius: 96px;
-        box-shadow: 0 0 95px rgba(224, 79, 62, 0.92);
+        border-radius: 64px;
         opacity: 0.96;
       }
       100% {
-        transform: perspective(900px) translate3d(var(--lead-end-x, -165px), var(--lead-end-y, 12.5px), -960px) rotateX(20deg) rotateY(-14deg) rotateZ(-14deg) scale(0.03);
-        border-radius: 280px;
-        box-shadow: 0 0 120px rgba(224, 79, 62, 0.95);
+        transform: perspective(900px) translate3d(0px, -12px, -980px) rotateX(14deg) rotateY(-8deg) rotateZ(-8deg) scale(0.02);
+        border-radius: 260px;
         opacity: 0;
       }
     }
@@ -4841,16 +4838,15 @@
         opacity: 0.90;
       }
       100% {
-        transform: translate3d(var(--lead-end-x, -165px), 340px, 0) rotateZ(-8deg) scale(0.05);
+        transform: translate3d(0, 360px, 0) rotateZ(-5deg) scale(0.03);
         opacity: 0;
       }
     }
 
     @keyframes wholeGalleryRoomEmergeFromPicture {
       0% {
-        transform: perspective(900px) translate3d(var(--lead-end-x, -165px), var(--lead-end-y, 12.5px), -960px) rotateX(20deg) rotateY(-14deg) rotateZ(-14deg) scale(0.03);
-        border-radius: 280px;
-        box-shadow: 0 0 120px rgba(224, 79, 62, 0.95);
+        transform: perspective(900px) translate3d(0px, -12px, -980px) rotateX(14deg) rotateY(-8deg) rotateZ(-8deg) scale(0.03);
+        border-radius: 260px;
         opacity: 0;
       }
       28% {
@@ -4859,14 +4855,13 @@
       100% {
         transform: perspective(1200px) translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
         border-radius: 0px;
-        box-shadow: 0 0 0 rgba(224, 79, 62, 0);
         opacity: 1;
       }
     }
 
     @keyframes topBarEmergeFromPicture {
       0% {
-        transform: translate3d(var(--lead-end-x, -165px), 340px, 0) rotateZ(-8deg) scale(0.05);
+        transform: translate3d(0, 360px, 0) rotateZ(-5deg) scale(0.03);
         opacity: 0;
       }
       100% {
@@ -4875,43 +4870,61 @@
       }
     }
 
+    /* STEP 1 KEYFRAME: Picture alone detaches when pushed and falls/flies backward into the pitch-black rectangular void behind it! */
+    @keyframes pictureFallsIntoBlackVoid {
+      0% {
+        transform: perspective(900px) translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
+        filter: brightness(1);
+        opacity: 1;
+      }
+      22% {
+        transform: perspective(900px) translate3d(0px, 4px, -65px) rotateX(9deg) rotateY(-4deg) rotateZ(-1.2deg) scale(0.91);
+        filter: brightness(0.88);
+        opacity: 1;
+      }
+      100% {
+        transform: perspective(900px) translate3d(0px, 12px, -780px) rotateX(24deg) rotateY(-12deg) rotateZ(-6deg) scale(0.03);
+        filter: brightness(0.08);
+        opacity: 0;
+      }
+    }
+
     .dossier-modal-overlay.is-warping-into-folder .dossier-top-bar {
-      animation: topBarSuckedIntoPicture 0.96s cubic-bezier(0.42, 0.0, 0.44, 1) forwards !important;
+      animation: topBarSuckedIntoPicture 0.88s cubic-bezier(0.42, 0.0, 0.44, 1) forwards !important;
       pointer-events: none !important;
     }
 
     .dossier-modal-overlay.is-warping-into-folder .gallery-3d-hall {
-      animation: wholeGalleryRoomSuckedIntoPicture 1.02s cubic-bezier(0.42, 0.0, 0.44, 1) forwards !important;
+      animation: wholeGalleryRoomSuckedIntoPicture 0.92s cubic-bezier(0.42, 0.0, 0.44, 1) forwards !important;
       pointer-events: none !important;
     }
 
     .gallery-pedestal-unit.is-secret-unlatching .pedestal-main-frame,
     .gallery-pedestal-unit.is-secret-detaching .pedestal-main-frame {
-      /* Picture stays inside its frame and gets sucked inward into the secret wall cavity TOGETHER with the entire White Gallery Room! */
-      opacity: 1 !important;
-      transform: translate3d(0px, 6px, -180px) rotateX(12deg) rotateY(-6deg) rotateZ(-2deg) scale(0.76) !important;
-      transition: transform 0.96s cubic-bezier(0.42, 0.0, 0.44, 1) !important;
+      /* STEP 1: Picture falls backward into the pitch-black rectangular void while the White Gallery Room is still standing! */
+      animation: pictureFallsIntoBlackVoid 0.56s cubic-bezier(0.36, 0.0, 0.58, 1) forwards !important;
+      pointer-events: none !important;
     }
 
     /* REVERSE SUCTION WARP-OUT: Entire White Gallery Room (WITH the picture ALREADY inside its 3D frame on the wall!) expands back out in ONE continuous sweep! */
     .dossier-modal-overlay.is-pre-pullout .gallery-3d-hall {
-      transform: perspective(900px) translate3d(var(--lead-end-x, -165px), var(--lead-end-y, 12.5px), -960px) rotateX(20deg) rotateY(-14deg) rotateZ(-14deg) scale(0.03) !important;
+      transform: perspective(900px) translate3d(0px, -12px, -980px) rotateX(14deg) rotateY(-8deg) rotateZ(-8deg) scale(0.03) !important;
       opacity: 0 !important;
       transition: none !important;
     }
 
     .dossier-modal-overlay.is-pre-pullout .dossier-top-bar {
-      transform: translate3d(var(--lead-end-x, -165px), 340px, 0) rotateZ(-8deg) scale(0.05) !important;
+      transform: translate3d(0, 360px, 0) rotateZ(-5deg) scale(0.03) !important;
       opacity: 0 !important;
       transition: none !important;
     }
 
     .dossier-modal-overlay.is-pulling-out-of-frame .gallery-3d-hall {
-      animation: wholeGalleryRoomEmergeFromPicture 1.12s cubic-bezier(0.22, 1, 0.32, 1) forwards !important;
+      animation: wholeGalleryRoomEmergeFromPicture 1.08s cubic-bezier(0.22, 1, 0.32, 1) forwards !important;
     }
 
     .dossier-modal-overlay.is-pulling-out-of-frame .dossier-top-bar {
-      animation: topBarEmergeFromPicture 1.12s cubic-bezier(0.22, 1, 0.32, 1) forwards !important;
+      animation: topBarEmergeFromPicture 1.08s cubic-bezier(0.22, 1, 0.32, 1) forwards !important;
     }
 
     /* The Physical Gallery Wall & Floor World — Camera walks right by translating this world left! */
@@ -5113,42 +5126,26 @@
     }
 
     /* Hidden Secret Wall Portal Cavity behind each Picture Frame
-       (Revealed when you push the frame and it unlatches & drops backward into the secret passage!) */
+       (Pure pitch-black rectangular dimensional opening revealed when the picture falls backward into it — NO rings or sci-fi swirls!) */
     .pedestal-secret-cavity {
       position: absolute;
       inset: 0;
       border-radius: 3px;
-      background:
-        radial-gradient(circle at 50% 48%,
-          rgba(224, 79, 62, 0.42) 0%,
-          rgba(42, 9, 9, 0.94) 38%,
-          #090303 72%,
-          #020101 100%);
-      /* Thick recessed plaster & dark steel secret passage walls */
-      border-top: 18px solid #0C0908;
-      border-left: 18px solid #1A1412;
-      border-right: 18px solid #181210;
-      border-bottom: 18px solid #352B26;
+      background: #020101;
+      border-top: 14px solid #0A0807;
+      border-left: 14px solid #120E0D;
+      border-right: 14px solid #100C0B;
+      border-bottom: 14px solid #221B18;
       box-shadow:
-        inset 0 18px 36px rgba(0, 0, 0, 0.96),
-        inset 0 0 28px rgba(224, 79, 62, 0.45),
-        0 2px 0 rgba(255, 255, 255, 0.65);
+        inset 0 24px 48px rgba(0, 0, 0, 1),
+        0 2px 0 rgba(255, 255, 255, 0.55);
       overflow: hidden;
       pointer-events: none;
       z-index: 3;
     }
 
     .pedestal-secret-cavity::before {
-      content: "";
-      position: absolute;
-      inset: 16px;
-      border: 1px solid rgba(224, 79, 62, 0.36);
-      box-shadow:
-        inset 0 0 0 16px rgba(8, 3, 3, 0.78),
-        inset 0 0 0 17px rgba(224, 79, 62, 0.24),
-        inset 0 0 0 36px rgba(4, 2, 2, 0.88),
-        inset 0 0 0 37px rgba(232, 220, 200, 0.16);
-      border-radius: 2px;
+      display: none;
     }
 
     /* Deep 3D Carved Museum Picture Frame with Outer Bevel Molding + Inner Chamfer Lip + Recessed Shadow-Box Matboard */
@@ -5603,21 +5600,7 @@
     }
 
     .warp-center-hud {
-      position: relative;
-      z-index: 6;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      padding: 16px 32px;
-      background: transparent;
-      opacity: 0;
-      transform: scale(0.88);
-    }
-
-    .time-machine-warp-overlay.is-warping .warp-center-hud {
-      animation: warpHudSmoothPulse 1.16s ease-in-out forwards;
+      display: none !important;
     }
 
     .warp-hud-kicker {
@@ -5793,13 +5776,16 @@
       z-index: 30;
     }
 
-    /* During Warp-In suction (while the picture & gallery room are being sucked into the background cluster),
-       Plate 01 waits inside the background cluster at scale(0.28), then smoothly glides up to scale(1) once suction finishes! */
+    /* While the gallery room is getting sucked in AND during the initial beat after arriving in the 3D Space Room,
+       ALL photos (including Plate 01) float together in the background space nebula before Plate 01 smoothly glides up! */
     .exhibition-modal-overlay.is-pre-emerge .space-photo-node.is-space-hero,
     .exhibition-modal-overlay.is-emerging-from-frame .space-photo-node.is-space-hero {
-      transform: translate3d(-16px, -8px, -560px) rotateX(6deg) rotateY(-8deg) rotateZ(-2deg) scale(0.28) !important;
-      opacity: 0.72 !important;
+      transform: translate3d(var(--bg-x, -16px), var(--bg-y, -8px), var(--bg-z, -560px))
+                 rotateX(var(--bg-rx, 6deg)) rotateY(var(--bg-ry, -8deg)) rotateZ(var(--bg-rz, -2deg))
+                 scale(var(--bg-scale, 0.30)) !important;
+      opacity: var(--bg-op, 0.56) !important;
       filter: brightness(0.76) !important;
+      z-index: 2 !important;
     }
 
     /* During Warp-Out back to Gallery, the Hero photo recedes smoothly back into the deep-space cluster! */
@@ -8599,8 +8585,7 @@
         });
       }
 
-      // Keep #warp-lead-picture-card hidden so the picture on the wall actually gets sucked INWARD with the room
-      // into the background photo cluster first, and then smoothly glides forward to Plate 01!
+      // Keep #warp-lead-picture-card hidden so Step 1 & Step 2 happen cleanly on the real gallery wall!
       const heroDims = computeHeroCardDimensions(albumObj);
       if (leadCard) {
         leadCard.className = "warp-lead-picture-card";
@@ -8610,119 +8595,107 @@
         dossierModal.style.setProperty("--lead-end-y", `${heroDims.endY}px`);
       }
 
-      if (warpKicker) warpKicker.textContent = `SECRET WALL MECHANISM UNLOCKED // ${albumObj.count} PLATES`;
-      if (warpTitle) warpTitle.textContent = albumObj.title.toUpperCase();
-
       // Pre-stage the 3D Space Room right at 0ms behind #dossier-modal (z-index 1150 under 1160)
-      // with Plate 01 waiting inside the background photo cluster (scale 0.28) where the gallery room & picture get sucked into!
+      // with ALL photos floating in the background nebula (no front Hero popped up yet!)
       if (exhModal) exhModal.classList.remove("is-warping-out-to-gallery");
       openExhibitionModal(catId, albumObj, true, "space", true);
 
-      // STEP 1 (0ms -> 980ms): Suck BOTH the picture on the wall AND the entire White Gallery Room inward into the background cluster!
+      // STEP 1 (0ms -> 540ms): Push the picture -> ONLY the picture detaches and falls backward into the pitch-black rectangular hole behind it!
+      // The White Gallery Room stays still during this beat so you clearly see the picture fall into the black void!
       if (targetUnit) {
         targetUnit.classList.add("is-secret-unlatching");
       }
       if (dossierModal) {
-        dossierModal.classList.remove("is-pulling-out-of-frame", "is-pre-pullout", "is-receding-behind");
-        dossierModal.classList.add("is-warping-into-folder");
-      }
-      if (warpOverlay) {
-        warpOverlay.classList.add("is-warping");
-        warpOverlay.setAttribute("aria-hidden", "false");
+        dossierModal.classList.remove("is-pulling-out-of-frame", "is-pre-pullout", "is-receding-behind", "is-warping-into-folder");
       }
 
-      // Run 60 FPS Transparent-Background Suction Warp Lines (converging inward as the picture & room get sucked in!)
-      if (warpCanvas) {
-        const ctx = warpCanvas.getContext("2d");
-        const dpr = Math.min(2, window.devicePixelRatio || 1);
-        const w = window.innerWidth;
-        const h = window.innerHeight;
-        warpCanvas.width = w * dpr;
-        warpCanvas.height = h * dpr;
-        ctx.scale(dpr, dpr);
+      // STEP 2 (540ms -> 1460ms): Once the picture has fallen into the black rectangle, that black rectangle sucks the entire White Gallery Room in!
+      setTimeout(() => {
+        if (dossierModal) {
+          dossierModal.classList.add("is-warping-into-folder");
+        }
+        if (warpOverlay) {
+          warpOverlay.classList.add("is-warping");
+          warpOverlay.setAttribute("aria-hidden", "false");
+        }
 
-        const cx = w / 2;
-        const cy = h / 2;
-        const stars = Array.from({ length: 220 }, (_, i) => {
-          const angle = (i * 137.508) * (Math.PI / 180);
-          const radius = 18 + (i % 24) * 30;
-          return {
-            x: Math.cos(angle) * radius,
-            y: Math.sin(angle) * radius,
-            z: 50 + (i * 13) % 920,
-            isCrimson: i % 3 === 0
-          };
-        });
+        if (warpCanvas) {
+          const ctx = warpCanvas.getContext("2d");
+          const dpr = Math.min(2, window.devicePixelRatio || 1);
+          const w = window.innerWidth;
+          const h = window.innerHeight;
+          warpCanvas.width = w * dpr;
+          warpCanvas.height = h * dpr;
+          ctx.scale(dpr, dpr);
 
-        const startWarp = performance.now();
-        const totalWarpMs = 1020;
-
-        const renderWarpFrame = (now) => {
-          const elapsed = now - startWarp;
-          const p = Math.min(1, elapsed / totalWarpMs);
-          // Smooth continuous bell curve acceleration from 0% to 100% — zero mid-warp hitch!
-          const accel = 0.55 + Math.sin(p * Math.PI) * 3.85;
-
-          ctx.clearRect(0, 0, w, h);
-
-          const portalAlpha = Math.sin(p * Math.PI) * 0.54;
-          if (portalAlpha > 0.01) {
-            const vig = ctx.createRadialGradient(cx, cy, Math.min(w, h) * 0.08, cx, cy, Math.max(w, h) * 0.72);
-            vig.addColorStop(0, `rgba(28, 7, 7, ${(portalAlpha * 0.38).toFixed(3)})`);
-            vig.addColorStop(0.55, `rgba(10, 4, 5, ${(portalAlpha * 0.76).toFixed(3)})`);
-            vig.addColorStop(1, `rgba(5, 3, 4, ${portalAlpha.toFixed(3)})`);
-            ctx.fillStyle = vig;
-            ctx.fillRect(0, 0, w, h);
-          }
-
-          const globalStreakFade = p < 0.10
-            ? Math.max(0, p / 0.10)
-            : (p > 0.76 ? Math.max(0, 1 - (p - 0.76) / 0.24) : 1);
-
-          stars.forEach((st) => {
-            const prevZ = st.z;
-            st.z -= 24 * accel;
-            if (st.z <= 14) {
-              st.z = 920;
-              return;
-            }
-            const k1 = 440 / prevZ;
-            const k2 = 440 / st.z;
-            const x1 = cx + st.x * k1;
-            const y1 = cy + st.y * k1;
-            const x2 = cx + st.x * k2;
-            const y2 = cy + st.y * k2;
-
-            const alpha = Math.min(0.96, (1 - st.z / 920) * 1.2) * globalStreakFade;
-            if (alpha <= 0.01) return;
-
-            ctx.beginPath();
-            ctx.moveTo(x1, y1);
-            ctx.lineTo(x2, y2);
-            ctx.strokeStyle = st.isCrimson
-              ? `rgba(229, 75, 58, ${alpha.toFixed(3)})`
-              : `rgba(255, 250, 242, ${alpha.toFixed(3)})`;
-            ctx.lineWidth = Math.max(1.2, (1 - st.z / 920) * 3.4);
-            ctx.stroke();
+          const cx = w / 2;
+          const cy = h / 2;
+          const stars = Array.from({ length: 180 }, (_, i) => {
+            const angle = (i * 137.508) * (Math.PI / 180);
+            const radius = 18 + (i % 24) * 30;
+            return {
+              x: Math.cos(angle) * radius,
+              y: Math.sin(angle) * radius,
+              z: 50 + (i * 13) % 920,
+              isCrimson: i % 3 === 0
+            };
           });
 
-          if (elapsed < totalWarpMs) {
-            warpRafId = requestAnimationFrame(renderWarpFrame);
-          } else {
+          const startWarp = performance.now();
+          const totalWarpMs = 920;
+
+          const renderWarpFrame = (now) => {
+            const elapsed = now - startWarp;
+            const p = Math.min(1, elapsed / totalWarpMs);
+            const accel = 0.65 + Math.sin(p * Math.PI) * 3.6;
+
             ctx.clearRect(0, 0, w, h);
-          }
-        };
 
-        if (warpRafId) cancelAnimationFrame(warpRafId);
-        warpRafId = requestAnimationFrame(renderWarpFrame);
-      }
+            const globalStreakFade = p < 0.12
+              ? Math.max(0, p / 0.12)
+              : (p > 0.76 ? Math.max(0, 1 - (p - 0.76) / 0.24) : 1);
 
-      // STEP 2 (980ms — right when the picture & White Gallery Room finish getting sucked into the background photo cluster!):
-      // Smoothly glide Plate 01 forward from the background photo cluster up to the front Hero position (cubic-bezier(0.22, 1, 0.36, 1), zero bounce!)
-      setTimeout(() => {
-        if (exhModal) {
-          exhModal.classList.remove("is-emerging-from-frame", "is-pre-emerge");
+            stars.forEach((st) => {
+              const prevZ = st.z;
+              st.z -= 24 * accel;
+              if (st.z <= 14) {
+                st.z = 920;
+                return;
+              }
+              const k1 = 440 / prevZ;
+              const k2 = 440 / st.z;
+              const x1 = cx + st.x * k1;
+              const y1 = cy + st.y * k1;
+              const x2 = cx + st.x * k2;
+              const y2 = cy + st.y * k2;
+
+              const alpha = Math.min(0.88, (1 - st.z / 920) * 1.1) * globalStreakFade;
+              if (alpha <= 0.01) return;
+
+              ctx.beginPath();
+              ctx.moveTo(x1, y1);
+              ctx.lineTo(x2, y2);
+              ctx.strokeStyle = st.isCrimson
+                ? `rgba(229, 75, 58, ${alpha.toFixed(3)})`
+                : `rgba(255, 250, 242, ${alpha.toFixed(3)})`;
+              ctx.lineWidth = Math.max(1.1, (1 - st.z / 920) * 3.0);
+              ctx.stroke();
+            });
+
+            if (elapsed < totalWarpMs) {
+              warpRafId = requestAnimationFrame(renderWarpFrame);
+            } else {
+              ctx.clearRect(0, 0, w, h);
+            }
+          };
+
+          if (warpRafId) cancelAnimationFrame(warpRafId);
+          warpRafId = requestAnimationFrame(renderWarpFrame);
         }
+      }, 540);
+
+      // STEP 3A (1460ms): Room suction finishes -> We arrive in the 3D Space Room where ONLY the floating photos in space are visible!
+      setTimeout(() => {
         if (dossierModal) {
           dossierModal.classList.remove("is-warping-into-folder");
           dossierModal.classList.add("is-receding-behind");
@@ -8734,11 +8707,16 @@
         if (targetUnit) {
           targetUnit.classList.remove("is-secret-unlatching", "is-secret-detaching");
         }
-      }, 980);
+      }, 1460);
 
+      // STEP 3B (2020ms — after waiting a 560ms beat looking at the floating photos in space):
+      // Smoothly glide the first photo up to the front Hero position!
       setTimeout(() => {
+        if (exhModal) {
+          exhModal.classList.remove("is-emerging-from-frame", "is-pre-emerge");
+        }
         isWarpAnimating = false;
-      }, 1550);
+      }, 2020);
     }
 
     // =========================================================================
@@ -8804,18 +8782,7 @@
       const hudCounter = document.getElementById("space-hud-counter");
       if (!cosmosPivot || !railList) return;
 
-      // Ensure the Cover Picture you pushed on the gallery wall is ALWAYS Plate 01 (first Hero photo)
-      // so when it carries you through the warp tunnel, it settles right in front of you and then floats into the background nebula when you view other photos!
-      const rawPhotos = (albumObj.photos || []).slice();
-      if (albumObj.cover && rawPhotos.length > 1) {
-        const covIdx = rawPhotos.findIndex(p => p.full === albumObj.cover || p.thumb === albumObj.cover);
-        if (covIdx > 0) {
-          const [covItem] = rawPhotos.splice(covIdx, 1);
-          rawPhotos.unshift(covItem);
-        }
-      }
-
-      const photos = rawPhotos;
+      const photos = (albumObj.photos || []).slice();
       const total = photos.length;
       const totalStr = String(total).padStart(2, "0");
 
@@ -8881,11 +8848,11 @@
         node.style.setProperty("--drift-dur", `${(4.2 + (idx % 5) * 0.65).toFixed(2)}s`);
 
         // Hero uses full-res immediately; background nodes use fast thumb and upgrade to full-res when promoted to Hero!
-        const initialSrc = idx === 0 ? (albumObj.cover || p.full) : (p.thumb || p.full);
+        const initialSrc = idx === 0 ? p.full : (p.thumb || p.full);
         node.style.setProperty("--drift-delay", `${(idx % 7) * -0.85}s`);
         node.innerHTML = `
           <div class="space-photo-inner">
-            <img src="${initialSrc}" data-full-src="${idx === 0 ? (albumObj.cover || p.full) : p.full}" alt="${albumObj.title} — Plate ${plateStr}" decoding="async" draggable="false" />
+            <img src="${initialSrc}" data-full-src="${p.full}" alt="${albumObj.title} — Plate ${plateStr}" decoding="async" draggable="false" />
             <div class="space-node-badge">
               <span>PLATE ${plateStr} // ${totalStr} &middot; ${albumObj.title.toUpperCase()}</span>
               <span style="color:var(--accent-vermilion);font-weight:700;">CLICK TO ZOOM 1:1 &nearr;</span>
