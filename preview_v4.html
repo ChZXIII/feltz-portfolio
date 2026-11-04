@@ -4793,138 +4793,10 @@
       transform: translate3d(0, 0px, 0px) scale(1);
     }
 
-    /* WHOLE-ROOM GRAVITATIONAL IMPLOSION WARP-IN & WARP-OUT (100% CONTINUOUS 0% -> 100% SINGLE CURVE, ZERO MID-WARP STOPS!):
-       - Putting .dossier-modal-overlay at z-index: 1160 with transparent background during warp lets #exhibition-modal (z-index: 1150)
-         sit directly behind the White Gallery Room from 0ms, eliminating any mid-warp modal switch or pause!
-       - Using a pure 0% -> 100% keyframe pair with cubic-bezier(0.50, 0.0, 0.14, 1) gives a natural initial gravitational hold
-         and then sweeps the entire room into the back of the picture in one unbroken motion! */
-    #dossier-modal.is-open:not(.is-receding-behind) {
-      z-index: 1160 !important;
-    }
-
-    #dossier-modal.is-warping-into-folder,
-    #dossier-modal.is-pre-pullout,
-    #dossier-modal.is-pulling-out-of-frame {
-      z-index: 1160 !important;
-      background: transparent !important;
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
-      pointer-events: none !important;
-    }
-
-    @keyframes wholeGalleryRoomSuckedIntoPicture {
-      0% {
-        transform: perspective(1200px) translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
-        border-radius: 0px;
-        opacity: 1;
-      }
-      72% {
-        border-radius: 64px;
-        opacity: 0.96;
-      }
-      100% {
-        transform: perspective(900px) translate3d(0px, -12px, -980px) rotateX(14deg) rotateY(-8deg) rotateZ(-8deg) scale(0.02);
-        border-radius: 260px;
-        opacity: 0;
-      }
-    }
-
-    @keyframes topBarSuckedIntoPicture {
-      0% {
-        transform: translate3d(0, 0, 0) scale(1);
-        opacity: 1;
-      }
-      65% {
-        opacity: 0.90;
-      }
-      100% {
-        transform: translate3d(0, 360px, 0) rotateZ(-5deg) scale(0.03);
-        opacity: 0;
-      }
-    }
-
-    @keyframes wholeGalleryRoomEmergeFromPicture {
-      0% {
-        transform: perspective(900px) translate3d(0px, -12px, -980px) rotateX(14deg) rotateY(-8deg) rotateZ(-8deg) scale(0.03);
-        border-radius: 260px;
-        opacity: 0;
-      }
-      28% {
-        opacity: 0.95;
-      }
-      100% {
-        transform: perspective(1200px) translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
-        border-radius: 0px;
-        opacity: 1;
-      }
-    }
-
-    @keyframes topBarEmergeFromPicture {
-      0% {
-        transform: translate3d(0, 360px, 0) rotateZ(-5deg) scale(0.03);
-        opacity: 0;
-      }
-      100% {
-        transform: translate3d(0, 0, 0) scale(1);
-        opacity: 1;
-      }
-    }
-
-    /* STEP 1 KEYFRAME: Picture alone detaches when pushed and falls/flies backward into the pitch-black rectangular void behind it! */
-    @keyframes pictureFallsIntoBlackVoid {
-      0% {
-        transform: perspective(900px) translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
-        filter: brightness(1);
-        opacity: 1;
-      }
-      22% {
-        transform: perspective(900px) translate3d(0px, 4px, -65px) rotateX(9deg) rotateY(-4deg) rotateZ(-1.2deg) scale(0.91);
-        filter: brightness(0.88);
-        opacity: 1;
-      }
-      100% {
-        transform: perspective(900px) translate3d(0px, 12px, -780px) rotateX(24deg) rotateY(-12deg) rotateZ(-6deg) scale(0.03);
-        filter: brightness(0.08);
-        opacity: 0;
-      }
-    }
-
-    .dossier-modal-overlay.is-warping-into-folder .dossier-top-bar {
-      animation: topBarSuckedIntoPicture 0.88s cubic-bezier(0.42, 0.0, 0.44, 1) forwards !important;
-      pointer-events: none !important;
-    }
-
-    .dossier-modal-overlay.is-warping-into-folder .gallery-3d-hall {
-      animation: wholeGalleryRoomSuckedIntoPicture 0.92s cubic-bezier(0.42, 0.0, 0.44, 1) forwards !important;
-      pointer-events: none !important;
-    }
-
-    .gallery-pedestal-unit.is-secret-unlatching .pedestal-main-frame,
-    .gallery-pedestal-unit.is-secret-detaching .pedestal-main-frame {
-      /* STEP 1: Picture falls backward into the pitch-black rectangular void while the White Gallery Room is still standing! */
-      animation: pictureFallsIntoBlackVoid 0.56s cubic-bezier(0.36, 0.0, 0.58, 1) forwards !important;
-      pointer-events: none !important;
-    }
-
-    /* REVERSE SUCTION WARP-OUT: Entire White Gallery Room (WITH the picture ALREADY inside its 3D frame on the wall!) expands back out in ONE continuous sweep! */
-    .dossier-modal-overlay.is-pre-pullout .gallery-3d-hall {
-      transform: perspective(900px) translate3d(0px, -12px, -980px) rotateX(14deg) rotateY(-8deg) rotateZ(-8deg) scale(0.03) !important;
-      opacity: 0 !important;
-      transition: none !important;
-    }
-
-    .dossier-modal-overlay.is-pre-pullout .dossier-top-bar {
-      transform: translate3d(0, 360px, 0) rotateZ(-5deg) scale(0.03) !important;
-      opacity: 0 !important;
-      transition: none !important;
-    }
-
-    .dossier-modal-overlay.is-pulling-out-of-frame .gallery-3d-hall {
-      animation: wholeGalleryRoomEmergeFromPicture 1.08s cubic-bezier(0.22, 1, 0.32, 1) forwards !important;
-    }
-
-    .dossier-modal-overlay.is-pulling-out-of-frame .dossier-top-bar {
-      animation: topBarEmergeFromPicture 1.08s cubic-bezier(0.22, 1, 0.32, 1) forwards !important;
+    .dossier-modal-overlay.is-warping-into-folder .gallery-room-camera {
+      transform: translate3d(0, 0px, 520px) scale(1.45) !important;
+      opacity: 0;
+      transition: transform 0.72s cubic-bezier(0.55, 0.04, 0.92, 0.44), opacity 0.55s ease !important;
     }
 
     /* The Physical Gallery Wall & Floor World — Camera walks right by translating this world left! */
@@ -5123,29 +4995,6 @@
 
     .gallery-pedestal-unit.is-selected-pedestal .pedestal-spotlight-cone {
       opacity: 1;
-    }
-
-    /* Hidden Secret Wall Portal Cavity behind each Picture Frame
-       (Pure pitch-black rectangular dimensional opening revealed when the picture falls backward into it — NO rings or sci-fi swirls!) */
-    .pedestal-secret-cavity {
-      position: absolute;
-      inset: 0;
-      border-radius: 3px;
-      background: #020101;
-      border-top: 14px solid #0A0807;
-      border-left: 14px solid #120E0D;
-      border-right: 14px solid #100C0B;
-      border-bottom: 14px solid #221B18;
-      box-shadow:
-        inset 0 24px 48px rgba(0, 0, 0, 1),
-        0 2px 0 rgba(255, 255, 255, 0.55);
-      overflow: hidden;
-      pointer-events: none;
-      z-index: 3;
-    }
-
-    .pedestal-secret-cavity::before {
-      display: none;
     }
 
     /* Deep 3D Carved Museum Picture Frame with Outer Bevel Molding + Inner Chamfer Lip + Recessed Shadow-Box Matboard */
@@ -5478,8 +5327,7 @@
     }
 
     /* ==========================================================================
-       PREVIEW V4 UPGRADE B: TIME-MACHINE HYPERSPACE WARP TUNNEL OVERLAY
-       (Transparent Background so you get sucked directly into the picture frame on the wall!)
+       PREVIEW V4 UPGRADE B: SIMPLE HYPERSPACE WARP TUNNEL OVERLAY
        ========================================================================== */
     .time-machine-warp-overlay {
       position: fixed;
@@ -5491,8 +5339,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      /* Transparent background so the Gallery Wall & Picture Frame remain visible while sucking you inside! */
-      background: transparent;
+      background: radial-gradient(circle at center, rgba(35, 10, 10, 0.35) 0%, rgba(5, 3, 3, 0.96) 75%);
     }
 
     .time-machine-warp-overlay.is-warping {
@@ -5508,99 +5355,20 @@
       display: block;
     }
 
-    /* 3D Floating Lead Picture inside the Warp Tunnel
-       (The picture you pushed on the gallery wall falls into the secret tunnel ahead of you, carries you through the warp, and settles into the 3D Space Room!) */
-    .warp-lead-picture-stage {
-      position: absolute;
-      inset: 0;
-      perspective: 1400px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      pointer-events: none;
-      z-index: 4;
-    }
-
-    .warp-lead-picture-card {
-      width: var(--lead-w, 720px);
-      height: var(--lead-h, 480px);
-      padding: 8px;
-      border-radius: 10px;
-      background: rgba(18, 10, 10, 0.94);
-      border: 1px solid rgba(224, 79, 62, 0.78);
-      box-shadow:
-        0 34px 85px rgba(0, 0, 0, 0.95),
-        0 0 58px rgba(201, 59, 43, 0.45);
-      transform-style: preserve-3d;
-      opacity: 0;
-      transform: translate3d(0px, -14px, 0px) scale(var(--lead-start-scale, 0.56));
-    }
-
-    .warp-lead-picture-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-      border-radius: 6px;
-      background: #0a0606;
-    }
-
-    /* ONE SINGLE UNBROKEN PICTURE JOURNEY (opacity: 1 from 0% to 100% — Pure 2-Point 0% -> 100% Curve, ZERO mid-warp stops!):
-       - cubic-bezier(0.46, 0.0, 0.14, 1) gives a smooth initial gravitational hold and then sweeps the picture directly
-         from its gallery wall position to the Plate 01 Hero slot while the entire White Gallery Room implodes into the back of the picture! */
-    @keyframes leadPictureContinuousCarry {
-      0% {
-        opacity: 1;
-        transform: translate3d(0px, -14px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(var(--lead-start-scale, 0.56));
-      }
-      100% {
-        opacity: 1;
-        transform: translate3d(var(--lead-end-x, -165px), var(--lead-end-y, 12.5px), 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
-      }
-    }
-
-    @keyframes leadPictureContinuousReturn {
-      0% {
-        opacity: 1;
-        transform: translate3d(var(--lead-end-x, -165px), var(--lead-end-y, 12.5px), 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
-      }
-      100% {
-        opacity: 1;
-        transform: translate3d(0px, -14px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(var(--lead-start-scale, 0.56));
-      }
-    }
-
-    .warp-lead-picture-card.is-carrying-to-space {
-      opacity: 1 !important;
-      animation: leadPictureContinuousCarry 1.36s cubic-bezier(0.42, 0.0, 0.44, 1) forwards !important;
-    }
-
-    .warp-lead-picture-card.is-returning-to-wall {
-      opacity: 1 !important;
-      animation: leadPictureContinuousReturn 1.12s cubic-bezier(0.22, 1, 0.32, 1) forwards !important;
-    }
-
-    @keyframes warpHudSmoothPulse {
-      0% {
-        opacity: 0;
-        transform: scale(0.88);
-      }
-      22% {
-        opacity: 1;
-        transform: scale(1.02);
-      }
-      72% {
-        opacity: 1;
-        transform: scale(1.06);
-      }
-      100% {
-        opacity: 0;
-        transform: scale(1.10);
-      }
-    }
-
     .warp-center-hud {
-      display: none !important;
+      position: relative;
+      z-index: 5;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      transform: scale(0.88);
+      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .time-machine-warp-overlay.is-warping .warp-center-hud {
+      transform: scale(1.06);
     }
 
     .warp-hud-kicker {
@@ -5699,35 +5467,6 @@
       transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
     }
 
-    /* WARP-IN EMERGENCE: Photos inside the picture frame burst outward toward the viewer! */
-    .exhibition-modal-overlay.is-pre-emerge .space-cosmos-pivot {
-      transform: translate3d(0, 0, -1480px) scale(0.15) !important;
-      opacity: 0 !important;
-      transition: none !important;
-    }
-
-    .exhibition-modal-overlay.is-emerging-from-frame .space-cosmos-pivot {
-      transform: translate3d(0, 0, 0px) scale(1) !important;
-      opacity: 1 !important;
-      transition: transform 1.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.75s ease !important;
-    }
-
-    /* WARP-OUT SUCTION BACK TO GALLERY: Photos in space shoot backward into the picture frame! */
-    .exhibition-modal-overlay.is-warping-out-to-gallery .space-cosmos-pivot {
-      transform: translate3d(0, 0, -1680px) scale(0.12) !important;
-      opacity: 0 !important;
-      transition: transform 1.02s cubic-bezier(0.50, 0.02, 0.88, 0.38), opacity 0.82s ease !important;
-    }
-
-    .exhibition-modal-overlay.is-warping-out-to-gallery .space-right-rail,
-    .exhibition-modal-overlay.is-warping-out-to-gallery .exh-top-bar,
-    .exhibition-modal-overlay.is-warping-out-to-gallery .space-bottom-hud,
-    .exhibition-modal-overlay.is-warping-out-to-gallery .exh-scroll-container {
-      opacity: 0 !important;
-      transform: scale(0.92);
-      transition: opacity 0.55s ease, transform 0.75s ease !important;
-    }
-
     /* Every Photo in the Folder is a 3D Floating Node in Space!
        Max-First scale(1) Rule: Built at full Hero size so when scale(1) at front, it is 100% razor-sharp!
        NOTE: The outer .space-photo-node holds the 3D coordinate in space, while .space-photo-inner holds the entire framed card and continuously floats/bobs in 3D zero gravity! */
@@ -5774,25 +5513,6 @@
         opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
         filter 0.85s ease !important;
       z-index: 30;
-    }
-
-    /* While the gallery room is getting sucked in AND during the initial beat after arriving in the 3D Space Room,
-       ALL photos (including Plate 01) float together in the background space nebula before Plate 01 smoothly glides up! */
-    .exhibition-modal-overlay.is-pre-emerge .space-photo-node.is-space-hero,
-    .exhibition-modal-overlay.is-emerging-from-frame .space-photo-node.is-space-hero {
-      transform: translate3d(var(--bg-x, -16px), var(--bg-y, -8px), var(--bg-z, -560px))
-                 rotateX(var(--bg-rx, 6deg)) rotateY(var(--bg-ry, -8deg)) rotateZ(var(--bg-rz, -2deg))
-                 scale(var(--bg-scale, 0.30)) !important;
-      opacity: var(--bg-op, 0.56) !important;
-      filter: brightness(0.76) !important;
-      z-index: 2 !important;
-    }
-
-    /* During Warp-Out back to Gallery, the Hero photo recedes smoothly back into the deep-space cluster! */
-    .exhibition-modal-overlay.is-warping-out-to-gallery .space-photo-node.is-space-hero {
-      transform: translate3d(-16px, -8px, -560px) rotateX(6deg) rotateY(-8deg) rotateZ(-2deg) scale(0.26) !important;
-      opacity: 0 !important;
-      transition: transform 0.85s cubic-bezier(0.42, 0.0, 0.58, 1), opacity 0.65s ease !important;
     }
 
     /* The Physical Framed Card — Animates with continuous 3D Zero-Gravity Floating when in the background nebula! */
@@ -6551,13 +6271,8 @@
        ========================================================================= -->
   <div class="time-machine-warp-overlay" id="time-machine-warp-overlay" aria-hidden="true">
     <canvas id="warp-tunnel-canvas"></canvas>
-    <div class="warp-lead-picture-stage" id="warp-lead-picture-stage" aria-hidden="true">
-      <div class="warp-lead-picture-card" id="warp-lead-picture-card">
-        <img id="warp-lead-picture-img" src="" alt="" decoding="async" draggable="false" />
-      </div>
-    </div>
     <div class="warp-center-hud">
-      <div class="warp-hud-kicker" id="warp-hud-kicker">TIME-MACHINE HYPERSPACE WARP</div>
+      <div class="warp-hud-kicker" id="warp-hud-kicker">ENTERING PROJECT ARCHIVE</div>
       <div class="warp-hud-title" id="warp-hud-title">STORY LAB 2025</div>
     </div>
   </div>
@@ -8298,7 +8013,6 @@
         unit.innerHTML = `
           <div class="wall-bay-giant-num">0${idx + 1}</div>
           <div class="pedestal-spotlight-cone"></div>
-          <div class="pedestal-secret-cavity"></div>
           <div class="pedestal-main-frame">
             <div class="pedestal-img-wrap">
               <img src="${alb.cover}" alt="${alb.title}" decoding="async" draggable="false" />
@@ -8517,206 +8231,125 @@
     }
 
     // =========================================================================
-    // STAGE 2B: SECRET WALL MECHANISM PUSH -> PICTURE DETACHES INTO TUNNEL AHEAD OF US
-    //           -> CARRIES US INTO 3D SPACE & SETTLES AS HERO PHOTO (AND REVERSE ON BACK)
+    // STAGE 2B: SIMPLE PURE-LINE WARP INTO 3D SPACE PHOTO NEBULA
     // =========================================================================
     let spaceZeroGRafId = null;
-
-    function computeHeroCardDimensions(albumObj) {
-      const rawPhotos = (albumObj && albumObj.photos ? albumObj.photos : []).slice();
-      if (albumObj && albumObj.cover && rawPhotos.length > 1) {
-        const covIdx = rawPhotos.findIndex(p => p.full === albumObj.cover || p.thumb === albumObj.cover);
-        if (covIdx > 0) {
-          const [covItem] = rawPhotos.splice(covIdx, 1);
-          rawPhotos.unshift(covItem);
-        }
-      }
-      const photoObj = rawPhotos[0] || { w: 1500, h: 1000 };
-      const stageW = Math.min(window.innerWidth * 0.56, 780);
-      const stageH = Math.min(window.innerHeight * 0.64, 540);
-      const ratio = (photoObj && photoObj.w && photoObj.h) ? (photoObj.w / photoObj.h) : 1.5;
-      let heroW = stageW;
-      let heroH = heroW / ratio;
-      if (heroH > stageH) {
-        heroH = stageH;
-        heroW = heroH * ratio;
-      }
-      const wRounded = Math.round(heroW);
-      const hRounded = Math.round(heroH);
-      return {
-        w: wRounded,
-        h: hRounded,
-        endX: window.innerWidth > 960 ? -165 : 0,
-        endY: 12.5,
-        startScale: (424 / Math.max(300, wRounded)).toFixed(3),
-        firstSrc: (albumObj && albumObj.cover) || (photoObj && photoObj.full) || ""
-      };
-    }
 
     function triggerTimeMachineWarpToAlbum(catId, albumObj) {
       if (isWarpAnimating || !albumObj) return;
       isWarpAnimating = true;
 
       const dossierModal = document.getElementById("dossier-modal");
-      const exhModal = document.getElementById("exhibition-modal");
       const warpOverlay = document.getElementById("time-machine-warp-overlay");
       const warpCanvas = document.getElementById("warp-tunnel-canvas");
       const warpKicker = document.getElementById("warp-hud-kicker");
       const warpTitle = document.getElementById("warp-hud-title");
-      const leadCard = document.getElementById("warp-lead-picture-card");
-      const leadImg = document.getElementById("warp-lead-picture-img");
-      const pivotEl = document.getElementById("dossier-stack-pivot");
 
-      // Ensure our gallery camera is centered directly in front of the target picture frame on the wall
-      const albums = (window.FELTZ_ARCHIVE_CATALOG && window.FELTZ_ARCHIVE_CATALOG[catId]) || [];
-      const targetIdx = albums.findIndex(a => a.albumId === albumObj.albumId);
-      if (targetIdx >= 0) {
-        activeDossierIndex = targetIdx;
-        applyCameraWalkPosition(targetIdx * WALL_BAY_SPACING, false);
+      if (warpKicker) warpKicker.textContent = `ENTERING PROJECT ARCHIVE // ${albumObj.count} PLATES`;
+      if (warpTitle) warpTitle.textContent = albumObj.title.toUpperCase();
+
+      if (dossierModal) {
+        dossierModal.classList.add("is-warping-into-folder");
+      }
+      if (warpOverlay) {
+        warpOverlay.classList.add("is-warping");
+        warpOverlay.setAttribute("aria-hidden", "false");
       }
 
-      let targetUnit = null;
-      if (pivotEl) {
-        pivotEl.querySelectorAll(".gallery-pedestal-unit").forEach((u, i) => {
-          const isTarget = i === activeDossierIndex;
-          u.classList.toggle("is-warp-target-unit", isTarget);
-          u.classList.remove("is-secret-unlatching", "is-secret-detaching");
-          if (isTarget) targetUnit = u;
+      // Run 60 FPS Pure Streaking Warp Lines (NO circles!) on #warp-tunnel-canvas
+      if (warpCanvas) {
+        const ctx = warpCanvas.getContext("2d");
+        const dpr = Math.min(2, window.devicePixelRatio || 1);
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        warpCanvas.width = w * dpr;
+        warpCanvas.height = h * dpr;
+        ctx.scale(dpr, dpr);
+
+        const cx = w / 2;
+        const cy = h / 2;
+        const stars = Array.from({ length: 210 }, (_, i) => {
+          const angle = (i * 137.508) * (Math.PI / 180);
+          const radius = 22 + (i % 22) * 32;
+          return {
+            x: Math.cos(angle) * radius,
+            y: Math.sin(angle) * radius,
+            z: 60 + (i * 13) % 920,
+            isCrimson: i % 3 === 0
+          };
         });
-      }
 
-      // Keep #warp-lead-picture-card hidden so Step 1 & Step 2 happen cleanly on the real gallery wall!
-      const heroDims = computeHeroCardDimensions(albumObj);
-      if (leadCard) {
-        leadCard.className = "warp-lead-picture-card";
-      }
-      if (dossierModal) {
-        dossierModal.style.setProperty("--lead-end-x", `${heroDims.endX}px`);
-        dossierModal.style.setProperty("--lead-end-y", `${heroDims.endY}px`);
-      }
+        const startWarp = performance.now();
+        const totalWarpMs = 1350;
 
-      // Pre-stage the 3D Space Room right at 0ms behind #dossier-modal (z-index 1150 under 1160)
-      // with ALL photos floating in the background nebula (no front Hero popped up yet!)
-      if (exhModal) exhModal.classList.remove("is-warping-out-to-gallery");
-      openExhibitionModal(catId, albumObj, true, "space", true);
+        const renderWarpFrame = (now) => {
+          const elapsed = now - startWarp;
+          const p = Math.min(1, elapsed / totalWarpMs);
+          const accel = 0.95 + Math.pow(p, 2.0) * 4.4;
 
-      // STEP 1 (0ms -> 540ms): Push the picture -> ONLY the picture detaches and falls backward into the pitch-black rectangular hole behind it!
-      // The White Gallery Room stays still during this beat so you clearly see the picture fall into the black void!
-      if (targetUnit) {
-        targetUnit.classList.add("is-secret-unlatching");
-      }
-      if (dossierModal) {
-        dossierModal.classList.remove("is-pulling-out-of-frame", "is-pre-pullout", "is-receding-behind", "is-warping-into-folder");
-      }
+          ctx.fillStyle = "rgba(7, 4, 5, 0.36)";
+          ctx.fillRect(0, 0, w, h);
 
-      // STEP 2 (540ms -> 1460ms): Once the picture has fallen into the black rectangle, that black rectangle sucks the entire White Gallery Room in!
-      setTimeout(() => {
-        if (dossierModal) {
-          dossierModal.classList.add("is-warping-into-folder");
-        }
-        if (warpOverlay) {
-          warpOverlay.classList.add("is-warping");
-          warpOverlay.setAttribute("aria-hidden", "false");
-        }
+          // Soft ambient center glow behind the text (no circular rings!)
+          const grad = ctx.createRadialGradient(cx, cy, 4, cx, cy, Math.max(w, h) * (0.26 + p * 0.35));
+          grad.addColorStop(0, `rgba(201, 59, 43, ${0.14 + p * 0.18})`);
+          grad.addColorStop(0.45, `rgba(25, 8, 8, 0.12)`);
+          grad.addColorStop(1, "rgba(5, 3, 4, 0)");
+          ctx.fillStyle = grad;
+          ctx.fillRect(0, 0, w, h);
 
-        if (warpCanvas) {
-          const ctx = warpCanvas.getContext("2d");
-          const dpr = Math.min(2, window.devicePixelRatio || 1);
-          const w = window.innerWidth;
-          const h = window.innerHeight;
-          warpCanvas.width = w * dpr;
-          warpCanvas.height = h * dpr;
-          ctx.scale(dpr, dpr);
+          // Pure Hyperspace Light Streaks (Zero circles)
+          stars.forEach((st) => {
+            const prevZ = st.z;
+            st.z -= 22 * accel;
+            if (st.z <= 12) {
+              st.z = 920;
+              return;
+            }
+            const k1 = 440 / prevZ;
+            const k2 = 440 / st.z;
+            const x1 = cx + st.x * k1;
+            const y1 = cy + st.y * k1;
+            const x2 = cx + st.x * k2;
+            const y2 = cy + st.y * k2;
 
-          const cx = w / 2;
-          const cy = h / 2;
-          const stars = Array.from({ length: 180 }, (_, i) => {
-            const angle = (i * 137.508) * (Math.PI / 180);
-            const radius = 18 + (i % 24) * 30;
-            return {
-              x: Math.cos(angle) * radius,
-              y: Math.sin(angle) * radius,
-              z: 50 + (i * 13) % 920,
-              isCrimson: i % 3 === 0
-            };
+            const alpha = Math.min(0.96, (1 - st.z / 920) * 1.18);
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.strokeStyle = st.isCrimson
+              ? `rgba(229, 75, 58, ${alpha.toFixed(3)})`
+              : `rgba(250, 246, 240, ${alpha.toFixed(3)})`;
+            ctx.lineWidth = Math.max(1.1, (1 - st.z / 920) * 3.2);
+            ctx.stroke();
           });
 
-          const startWarp = performance.now();
-          const totalWarpMs = 920;
+          if (elapsed < totalWarpMs) {
+            warpRafId = requestAnimationFrame(renderWarpFrame);
+          }
+        };
 
-          const renderWarpFrame = (now) => {
-            const elapsed = now - startWarp;
-            const p = Math.min(1, elapsed / totalWarpMs);
-            const accel = 0.65 + Math.sin(p * Math.PI) * 3.6;
+        if (warpRafId) cancelAnimationFrame(warpRafId);
+        ctx.fillStyle = "#060404";
+        ctx.fillRect(0, 0, w, h);
+        warpRafId = requestAnimationFrame(renderWarpFrame);
+      }
 
-            ctx.clearRect(0, 0, w, h);
-
-            const globalStreakFade = p < 0.12
-              ? Math.max(0, p / 0.12)
-              : (p > 0.76 ? Math.max(0, 1 - (p - 0.76) / 0.24) : 1);
-
-            stars.forEach((st) => {
-              const prevZ = st.z;
-              st.z -= 24 * accel;
-              if (st.z <= 14) {
-                st.z = 920;
-                return;
-              }
-              const k1 = 440 / prevZ;
-              const k2 = 440 / st.z;
-              const x1 = cx + st.x * k1;
-              const y1 = cy + st.y * k1;
-              const x2 = cx + st.x * k2;
-              const y2 = cy + st.y * k2;
-
-              const alpha = Math.min(0.88, (1 - st.z / 920) * 1.1) * globalStreakFade;
-              if (alpha <= 0.01) return;
-
-              ctx.beginPath();
-              ctx.moveTo(x1, y1);
-              ctx.lineTo(x2, y2);
-              ctx.strokeStyle = st.isCrimson
-                ? `rgba(229, 75, 58, ${alpha.toFixed(3)})`
-                : `rgba(255, 250, 242, ${alpha.toFixed(3)})`;
-              ctx.lineWidth = Math.max(1.1, (1 - st.z / 920) * 3.0);
-              ctx.stroke();
-            });
-
-            if (elapsed < totalWarpMs) {
-              warpRafId = requestAnimationFrame(renderWarpFrame);
-            } else {
-              ctx.clearRect(0, 0, w, h);
-            }
-          };
-
-          if (warpRafId) cancelAnimationFrame(warpRafId);
-          warpRafId = requestAnimationFrame(renderWarpFrame);
-        }
-      }, 540);
-
-      // STEP 3A (1460ms): Room suction finishes -> We arrive in the 3D Space Room where ONLY the floating photos in space are visible!
+      // Open the 3D Deep-Space Photo Nebula behind the warp overlay mid-warp so it reveals seamlessly
       setTimeout(() => {
-        if (dossierModal) {
-          dossierModal.classList.remove("is-warping-into-folder");
-          dossierModal.classList.add("is-receding-behind");
-        }
+        openExhibitionModal(catId, albumObj, true, "space");
+      }, 820);
+
+      setTimeout(() => {
         if (warpOverlay) {
           warpOverlay.classList.remove("is-warping");
           warpOverlay.setAttribute("aria-hidden", "true");
         }
-        if (targetUnit) {
-          targetUnit.classList.remove("is-secret-unlatching", "is-secret-detaching");
-        }
-      }, 1460);
-
-      // STEP 3B (2020ms — after waiting a 560ms beat looking at the floating photos in space):
-      // Smoothly glide the first photo up to the front Hero position!
-      setTimeout(() => {
-        if (exhModal) {
-          exhModal.classList.remove("is-emerging-from-frame", "is-pre-emerge");
+        if (dossierModal) {
+          dossierModal.classList.remove("is-warping-into-folder");
         }
         isWarpAnimating = false;
-      }, 2020);
+      }, 1350);
     }
 
     // =========================================================================
@@ -9113,7 +8746,7 @@
       if (scrollContainer) scrollContainer.scrollTop = 0;
     }
 
-    function openExhibitionModal(catId, albumObj, cameFromDossier = false, preferredMode = "space", isEmergingFromWarp = false) {
+    function openExhibitionModal(catId, albumObj, cameFromDossier = false, preferredMode = "space") {
       const catObj = CATEGORIES.find(c => c.id === catId);
       if (!catObj || !albumObj) return;
 
@@ -9128,9 +8761,7 @@
       document.body.classList.add("has-archive-modal");
 
       if (dossierModal && dossierModal.classList.contains("is-open")) {
-        if (!isEmergingFromWarp) {
-          dossierModal.classList.add("is-receding-behind");
-        }
+        dossierModal.classList.add("is-receding-behind");
         if (dossierAutoTimer) {
           clearInterval(dossierAutoTimer);
           dossierAutoTimer = null;
@@ -9140,36 +8771,17 @@
       if (isAlreadyOpen && scrollContainer) {
         populateExhibitionContent(catObj, albumObj, cameFromDossier);
         setExhibitionViewMode(preferredMode || "space", true);
-        if (isEmergingFromWarp && modal) {
-          modal.classList.remove("is-warping-out-to-gallery");
-          modal.classList.add("is-pre-emerge");
-          requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              modal.classList.remove("is-pre-emerge");
-              modal.classList.add("is-emerging-from-frame");
-            });
-          });
-        }
+        startSpaceZeroGFloatEngine();
         return;
       }
 
       populateExhibitionContent(catObj, albumObj, cameFromDossier);
       setExhibitionViewMode(preferredMode || "space", true);
 
-      if (isEmergingFromWarp && modal) {
-        modal.classList.remove("is-warping-out-to-gallery");
-        modal.classList.add("is-pre-emerge");
-      }
-
       requestAnimationFrame(() => {
         modal.classList.add("is-open");
         modal.setAttribute("aria-hidden", "false");
-        if (isEmergingFromWarp) {
-          requestAnimationFrame(() => {
-            modal.classList.remove("is-pre-emerge");
-            modal.classList.add("is-emerging-from-frame");
-          });
-        }
+        startSpaceZeroGFloatEngine();
       });
     }
 
@@ -9192,18 +8804,8 @@
     }
 
     function backFromExhibitionToDossier() {
-      if (isWarpAnimating) return;
-      isWarpAnimating = true;
-
       const exhModal = document.getElementById("exhibition-modal");
       const dossierModal = document.getElementById("dossier-modal");
-      const warpOverlay = document.getElementById("time-machine-warp-overlay");
-      const warpCanvas = document.getElementById("warp-tunnel-canvas");
-      const warpKicker = document.getElementById("warp-hud-kicker");
-      const warpTitle = document.getElementById("warp-hud-title");
-      const leadCard = document.getElementById("warp-lead-picture-card");
-      const leadImg = document.getElementById("warp-lead-picture-img");
-      const pivotEl = document.getElementById("dossier-stack-pivot");
 
       if (spaceOrbitTimer) {
         clearInterval(spaceOrbitTimer);
@@ -9214,7 +8816,6 @@
         spaceZeroGRafId = null;
       }
 
-      const catObj = CATEGORIES.find(c => c.id === activeExhibitionCatId);
       const albums = (window.FELTZ_ARCHIVE_CATALOG && window.FELTZ_ARCHIVE_CATALOG[activeExhibitionCatId]) || [];
       if (activeExhibitionAlbum && albums.length) {
         const currentIdx = albums.findIndex(a => a.albumId === activeExhibitionAlbum.albumId);
@@ -9224,160 +8825,18 @@
         }
       }
 
-      if (pivotEl) {
-        pivotEl.querySelectorAll(".gallery-pedestal-unit").forEach((u, i) => {
-          u.classList.toggle("is-warp-target-unit", i === activeDossierIndex);
-          u.classList.remove("is-secret-unlatching", "is-secret-detaching");
-        });
-      }
-
-      if (activeExhibitionAlbum) {
-        const heroDims = computeHeroCardDimensions(activeExhibitionAlbum);
-        if (leadCard) {
-          leadCard.className = "warp-lead-picture-card";
-        }
-        if (dossierModal) {
-          dossierModal.style.setProperty("--lead-end-x", `${heroDims.endX}px`);
-          dossierModal.style.setProperty("--lead-end-y", `${heroDims.endY}px`);
-        }
-      }
-
-      if (warpKicker) warpKicker.textContent = `RETURNING TO 3D GALLERY HALL`;
-      if (warpTitle) warpTitle.textContent = `${catObj ? catObj.label : "EXHIBITION"} // GALLERY WALL`;
-
-      // 1. Simultaneously start the return at 0ms (NO frameless big sheet #warp-lead-picture-card!):
-      //    - #exhibition-modal sucks the space photos back into the background cluster
-      //    - #dossier-modal (.gallery-3d-hall) expands smoothly out with the picture ALREADY inside its 3D frame on the wall from frame 1!
       if (exhModal) {
-        exhModal.classList.remove("is-emerging-from-frame", "is-pre-emerge");
-        exhModal.classList.add("is-warping-out-to-gallery");
+        exhModal.classList.remove("is-open");
+        exhModal.setAttribute("aria-hidden", "true");
       }
 
       if (dossierModal && activeDossierCatId === activeExhibitionCatId && dossierModal.querySelector(".gallery-pedestal-unit")) {
-        dossierModal.classList.remove("is-receding-behind", "is-warping-into-folder", "is-pulling-out-of-frame");
-        dossierModal.classList.add("is-open", "doors-opened", "is-pre-pullout");
+        dossierModal.classList.remove("is-receding-behind", "is-warping-into-folder");
+        dossierModal.classList.add("is-open", "doors-opened");
         dossierModal.setAttribute("aria-hidden", "false");
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            dossierModal.classList.remove("is-pre-pullout");
-            dossierModal.classList.add("is-pulling-out-of-frame");
-          });
-        });
       } else if (activeExhibitionCatId) {
         openDossierModal(activeExhibitionCatId);
       }
-
-      if (warpOverlay) {
-        warpOverlay.classList.add("is-warping");
-        warpOverlay.setAttribute("aria-hidden", "false");
-      }
-
-      // 2. Run Reverse-Imploding Transparent Warp Streaks (streaks converge inward toward the picture frame!)
-      if (warpCanvas) {
-        const ctx = warpCanvas.getContext("2d");
-        const dpr = Math.min(2, window.devicePixelRatio || 1);
-        const w = window.innerWidth;
-        const h = window.innerHeight;
-        warpCanvas.width = w * dpr;
-        warpCanvas.height = h * dpr;
-        ctx.scale(dpr, dpr);
-
-        const cx = w / 2;
-        const cy = h / 2;
-        const stars = Array.from({ length: 200 }, (_, i) => {
-          const angle = (i * 137.508) * (Math.PI / 180);
-          const radius = 18 + (i % 24) * 30;
-          return {
-            x: Math.cos(angle) * radius,
-            y: Math.sin(angle) * radius,
-            z: 25 + (i * 17) % 880,
-            isCrimson: i % 3 === 0
-          };
-        });
-
-        const startReverse = performance.now();
-        const totalReverseMs = 1120;
-
-        const renderReverseWarpFrame = (now) => {
-          const elapsed = now - startReverse;
-          const p = Math.min(1, elapsed / totalReverseMs);
-          const accel = 0.75 + Math.sin(p * Math.PI) * 3.4;
-
-          ctx.clearRect(0, 0, w, h);
-
-          // Soft portal tunnel vignette around the edges as we are pulled backward through the picture frame
-          const portalAlpha = Math.sin(p * Math.PI) * 0.48;
-          if (portalAlpha > 0.01) {
-            const vig = ctx.createRadialGradient(cx, cy, Math.min(w, h) * 0.10, cx, cy, Math.max(w, h) * 0.72);
-            vig.addColorStop(0, `rgba(24, 6, 6, ${(portalAlpha * 0.36).toFixed(3)})`);
-            vig.addColorStop(0.55, `rgba(10, 4, 5, ${(portalAlpha * 0.72).toFixed(3)})`);
-            vig.addColorStop(1, `rgba(5, 3, 4, ${portalAlpha.toFixed(3)})`);
-            ctx.fillStyle = vig;
-            ctx.fillRect(0, 0, w, h);
-          }
-
-          const globalStreakFade = p > 0.76 ? Math.max(0, 1 - (p - 0.76) / 0.24) : Math.min(1, p / 0.15);
-
-          // REVERSE direction: st.z increases (streaks rush from outer edges INWARD into the center picture frame!)
-          stars.forEach((st) => {
-            const prevZ = st.z;
-            st.z += 22 * accel;
-            if (st.z >= 920) {
-              st.z = 22;
-              return;
-            }
-            const k1 = 440 / prevZ;
-            const k2 = 440 / st.z;
-            const x1 = cx + st.x * k1;
-            const y1 = cy + st.y * k1;
-            const x2 = cx + st.x * k2;
-            const y2 = cy + st.y * k2;
-
-            const alpha = Math.min(0.95, (1 - st.z / 920) * 1.2) * globalStreakFade;
-            if (alpha <= 0.01) return;
-
-            ctx.beginPath();
-            ctx.moveTo(x1, y1);
-            ctx.lineTo(x2, y2);
-            ctx.strokeStyle = st.isCrimson
-              ? `rgba(229, 75, 58, ${alpha.toFixed(3)})`
-              : `rgba(255, 250, 242, ${alpha.toFixed(3)})`;
-            ctx.lineWidth = Math.max(1.2, (1 - st.z / 920) * 3.2);
-            ctx.stroke();
-          });
-
-          if (elapsed < totalReverseMs) {
-            warpRafId = requestAnimationFrame(renderReverseWarpFrame);
-          } else {
-            ctx.clearRect(0, 0, w, h);
-          }
-        };
-
-        if (warpRafId) cancelAnimationFrame(warpRafId);
-        warpRafId = requestAnimationFrame(renderReverseWarpFrame);
-      }
-
-      // 3. At 1140ms (after the 1.12s continuous curve has 100% completed), clean up overlays seamlessly!
-      setTimeout(() => {
-        if (exhModal) {
-          exhModal.classList.remove("is-open", "is-warping-out-to-gallery", "is-emerging-from-frame", "is-pre-emerge");
-          exhModal.setAttribute("aria-hidden", "true");
-        }
-        if (dossierModal) {
-          dossierModal.classList.remove("is-pulling-out-of-frame", "is-pre-pullout");
-        }
-        if (pivotEl) {
-          pivotEl.querySelectorAll(".gallery-pedestal-unit").forEach(u => u.classList.remove("is-warp-target-unit"));
-        }
-        if (warpOverlay) {
-          warpOverlay.classList.remove("is-warping");
-          warpOverlay.setAttribute("aria-hidden", "true");
-        }
-        if (leadCard) {
-          leadCard.className = "warp-lead-picture-card";
-        }
-        isWarpAnimating = false;
-      }, 1140);
     }
 
     function closeExhibitionModal() {
@@ -9391,7 +8850,7 @@
         spaceZeroGRafId = null;
       }
       if (exhModal) {
-        exhModal.classList.remove("is-open", "is-warping-out-to-gallery", "is-emerging-from-frame", "is-pre-emerge");
+        exhModal.classList.remove("is-open");
         exhModal.setAttribute("aria-hidden", "true");
       }
       closeDossierModal();
