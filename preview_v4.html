@@ -4798,43 +4798,56 @@
                  scale(1);
     }
 
-    /* SUCTION WARP-IN:
-       Phase 1 (.is-secret-unlatching): Hand pushes frame -> Frame clicks/sinks inward into the wall cavity!
-       Phase 2 (.is-secret-detaching): Frame detaches & drops deep backward into the secret dark tunnel behind the wall!
-       Phase 3 (.is-warping-into-folder): Camera plunges straight through the open hole in the white gallery wall! */
+    /* SUCTION WARP-IN (ZERO PAUSE — Continuous Collapse & Immediate Warp):
+       As soon as you click, the picture frame continuously collapses/sinks deep into the dark wall cavity
+       (1.0 -> 0.82 -> 0.52 -> 0.18 without stopping) while our camera simultaneously plunges through the opening into 3D Space! */
     .dossier-modal-overlay.is-warping-into-folder .dossier-top-bar,
     .dossier-modal-overlay.is-warping-into-folder .gallery-hall-bottom-dock,
     .dossier-modal-overlay.is-warping-into-folder .gallery-walk-nav-btn {
       opacity: 0 !important;
       pointer-events: none !important;
-      transition: opacity 0.25s ease !important;
+      transition: opacity 0.2s ease !important;
     }
 
-    .gallery-pedestal-unit.is-secret-unlatching .pedestal-main-frame {
-      transform: perspective(900px) translate3d(0, 8px, 0px) rotateX(12deg) rotateY(-4.5deg) scale(0.84) !important;
-      box-shadow:
-        0 18px 36px rgba(0, 0, 0, 0.92),
-        0 0 24px rgba(224, 79, 62, 0.45),
-        inset 0 8px 18px rgba(0, 0, 0, 0.55) !important;
-      transition: transform 0.34s cubic-bezier(0.34, 1.45, 0.64, 1), box-shadow 0.3s ease !important;
-    }
-
+    .gallery-pedestal-unit.is-secret-unlatching .pedestal-plaque-bar,
+    .gallery-pedestal-unit.is-secret-unlatching .pedestal-top-badge,
     .gallery-pedestal-unit.is-secret-detaching .pedestal-plaque-bar,
     .gallery-pedestal-unit.is-secret-detaching .pedestal-top-badge {
       opacity: 0 !important;
-      transition: opacity 0.22s ease !important;
+      transition: opacity 0.18s ease !important;
     }
 
+    @keyframes secretWallContinuousCollapse {
+      0% {
+        transform: perspective(900px) translate3d(0, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
+        opacity: 1;
+      }
+      28% {
+        transform: perspective(900px) translate3d(0, 6px, 0px) rotateX(11deg) rotateY(-4deg) rotateZ(-1.5deg) scale(0.82);
+        opacity: 1;
+      }
+      64% {
+        transform: perspective(900px) translate3d(0, -2px, 0px) rotateX(18deg) rotateY(-10deg) rotateZ(-4deg) scale(0.50);
+        opacity: 0.86;
+      }
+      100% {
+        transform: perspective(900px) translate3d(0, -10px, 0px) rotateX(24deg) rotateY(-15deg) rotateZ(-6deg) scale(0.18);
+        opacity: 0.08;
+      }
+    }
+
+    .gallery-pedestal-unit.is-secret-unlatching .pedestal-main-frame,
     .gallery-pedestal-unit.is-secret-detaching .pedestal-main-frame {
-      transform: perspective(900px) translate3d(0, -8px, 0px) rotateX(22deg) rotateY(-14deg) rotateZ(-6deg) scale(0.28) !important;
-      opacity: 0.16 !important;
-      box-shadow: 0 0 50px rgba(224, 79, 62, 0.75) !important;
-      transition: transform 0.88s cubic-bezier(0.42, 0.02, 0.78, 0.36), opacity 0.72s ease 0.14s !important;
+      animation: secretWallContinuousCollapse 0.64s cubic-bezier(0.32, 0.04, 0.62, 0.96) forwards !important;
+      box-shadow:
+        0 18px 36px rgba(0, 0, 0, 0.92),
+        0 0 36px rgba(224, 79, 62, 0.65),
+        inset 0 8px 18px rgba(0, 0, 0, 0.55) !important;
     }
 
     .dossier-modal-overlay.is-warping-into-folder .gallery-room-camera {
       transform: translate3d(0, 14px, 1180px) scale(4.2) !important;
-      transition: transform 1.08s cubic-bezier(0.32, 0.06, 0.22, 1) !important;
+      transition: transform 0.72s cubic-bezier(0.36, 0.02, 0.24, 1) !important;
     }
 
     /* REVERSE SUCTION WARP-OUT: Camera starts inside the open wall cavity and pulls backward out while the frame snaps back into place! */
@@ -5489,7 +5502,7 @@
         0 0 58px rgba(201, 59, 43, 0.45);
       transform-style: preserve-3d;
       opacity: 0;
-      transform: translate3d(0, 0, 120px) scale(0.55);
+      transform: translate3d(0, -10px, -520px) rotateX(20deg) rotateY(-12deg) rotateZ(-5deg) scale(0.22);
     }
 
     .warp-lead-picture-card img {
@@ -5501,22 +5514,13 @@
       background: #0a0606;
     }
 
-    /* Phase 1 in Tunnel: Picture that fell through the wall hole floats & glides ahead of us in the warp tunnel */
-    .warp-lead-picture-card.is-leading-in-tunnel {
-      opacity: 0.94;
-      transform: translate3d(-40px, -10px, -420px) rotateX(11deg) rotateY(-8deg) rotateZ(-2.5deg) scale(0.42);
-      transition:
-        transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
-        opacity 0.32s ease;
-    }
-
-    /* Phase 2 Arrival: The Lead Picture glides forward out of the warp tunnel and locks directly into the Hero Photo slot in front of you! */
+    /* Arrival from Continuous Collapse: Immediately launches out of the collapsed wall cavity into the Hero Photo slot! */
     .warp-lead-picture-card.is-settling-as-hero {
       opacity: 1;
       transform: translate3d(var(--lead-end-x, -165px), -18px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
       transition:
-        transform 0.88s cubic-bezier(0.16, 1, 0.3, 1),
-        opacity 0.38s ease 0.52s;
+        transform 0.68s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.28s ease 0.44s;
     }
 
     /* Reverse Warp-Out: The Hero picture detaches and flies backward into the tunnel ahead of us back toward the gallery wall hole! */
@@ -8543,21 +8547,12 @@
         exhModal.classList.add("is-warping-out-to-gallery");
       }
 
-      // STEP 1 (0ms -> 320ms): Hand pushes picture frame -> Secret mechanism clicks & frame sinks inward into the wall cavity!
+      // STEP 1 (0ms — ZERO PAUSE!): Frame immediately collapses continuously into the dark secret wall cavity (1.0 -> 0.82 -> 0.50 -> 0.18)
+      // while our camera plunges straight into the opening right with it!
       if (targetUnit) {
         targetUnit.classList.add("is-secret-unlatching");
       }
 
-      // STEP 2 (320ms): Secret latch releases! The picture frame detaches & falls deep backward into the secret dark tunnel behind the wall!
-      setTimeout(() => {
-        if (targetUnit) {
-          targetUnit.classList.remove("is-secret-unlatching");
-          targetUnit.classList.add("is-secret-detaching");
-        }
-      }, 320);
-
-      // STEP 3 (420ms): Right behind the falling picture, our camera gets sucked straight through the open hole in the white gallery wall,
-      // while the detached picture floats ahead of us in the warp tunnel leading the way!
       setTimeout(() => {
         if (dossierModal) {
           dossierModal.classList.remove("is-pulling-out-of-frame", "is-pre-pullout", "is-receding-behind");
@@ -8567,12 +8562,9 @@
           warpOverlay.classList.add("is-warping");
           warpOverlay.setAttribute("aria-hidden", "false");
         }
-        if (leadCard) {
-          leadCard.classList.add("is-leading-in-tunnel");
-        }
-      }, 420);
+      }, 45);
 
-      // Run 60 FPS Transparent-Background Suction Warp Lines (NO circles, NO black cut!)
+      // Run 60 FPS Transparent-Background Suction Warp Lines (NO circles, NO black cut, NO mid-warp pause!)
       if (warpCanvas) {
         const ctx = warpCanvas.getContext("2d");
         const dpr = Math.min(2, window.devicePixelRatio || 1);
@@ -8596,23 +8588,23 @@
         });
 
         const startWarp = performance.now();
-        const totalWarpMs = 2550;
+        const totalWarpMs = 1360;
 
         const renderWarpFrame = (now) => {
           const elapsed = now - startWarp;
           const p = Math.min(1, elapsed / totalWarpMs);
-          const accel = 0.85 + Math.sin(p * Math.PI) * 3.9;
+          const accel = 1.05 + Math.sin(p * Math.PI) * 4.2;
 
           ctx.clearRect(0, 0, w, h);
 
-          // Progressive portal vignette: transparent during mechanical push (0..0.18), darkening as we plunge into the secret wall hole (0.18..0.55), then clearing (0.62..1.0) to reveal the 3D Space Room!
+          // Progressive portal vignette: darkens as we plunge into the secret wall hole, then clears immediately into 3D Space!
           let portalAlpha = 0;
-          if (p < 0.16) {
+          if (p < 0.08) {
             portalAlpha = 0;
-          } else if (p < 0.52) {
-            portalAlpha = Math.pow((p - 0.16) / 0.36, 1.4) * 0.82;
+          } else if (p < 0.45) {
+            portalAlpha = Math.pow((p - 0.08) / 0.37, 1.3) * 0.78;
           } else {
-            portalAlpha = Math.max(0, (1 - (p - 0.52) / 0.48) * 0.82);
+            portalAlpha = Math.max(0, (1 - (p - 0.45) / 0.55) * 0.78);
           }
 
           if (portalAlpha > 0.01) {
@@ -8624,13 +8616,13 @@
             ctx.fillRect(0, 0, w, h);
           }
 
-          const globalStreakFade = p < 0.15
-            ? Math.max(0, p / 0.15)
-            : (p > 0.78 ? Math.max(0, 1 - (p - 0.78) / 0.22) : 1);
+          const globalStreakFade = p < 0.10
+            ? Math.max(0, p / 0.10)
+            : (p > 0.72 ? Math.max(0, 1 - (p - 0.72) / 0.28) : 1);
 
           stars.forEach((st) => {
             const prevZ = st.z;
-            st.z -= 20 * accel;
+            st.z -= 24 * accel;
             if (st.z <= 12) {
               st.z = 920;
               return;
@@ -8666,16 +8658,15 @@
         warpRafId = requestAnimationFrame(renderWarpFrame);
       }
 
-      // STEP 4 (1320ms): As we emerge into the 3D Space Nebula, the Lead Picture that carried us through the tunnel
-      // glides forward and locks directly into the Front-Center Hero slot (Plate 01) while all other photos float out around it!
+      // STEP 2 (560ms — right as the frame finishes collapsing into the cavity, with ZERO pause):
+      // Immediately burst into the 3D Space Nebula & glide the collapsed picture straight into the Front-Center Hero slot (Plate 01)!
       setTimeout(() => {
         if (exhModal) exhModal.classList.remove("is-warping-out-to-gallery");
         openExhibitionModal(catId, albumObj, true, "space", true);
         if (leadCard) {
-          leadCard.classList.remove("is-leading-in-tunnel");
           leadCard.classList.add("is-settling-as-hero");
         }
-      }, 1320);
+      }, 560);
 
       setTimeout(() => {
         if (warpOverlay) {
@@ -8692,7 +8683,7 @@
           targetUnit.classList.remove("is-secret-unlatching", "is-secret-detaching");
         }
         isWarpAnimating = false;
-      }, 2550);
+      }, 1360);
     }
 
     // =========================================================================
