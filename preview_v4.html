@@ -4876,23 +4876,24 @@
     }
 
     .dossier-modal-overlay.is-warping-into-folder .dossier-top-bar {
-      animation: topBarSuckedIntoPicture 1.24s cubic-bezier(0.42, 0.0, 0.44, 1) forwards !important;
+      animation: topBarSuckedIntoPicture 0.96s cubic-bezier(0.42, 0.0, 0.44, 1) forwards !important;
       pointer-events: none !important;
     }
 
     .dossier-modal-overlay.is-warping-into-folder .gallery-3d-hall {
-      animation: wholeGalleryRoomSuckedIntoPicture 1.32s cubic-bezier(0.42, 0.0, 0.44, 1) forwards !important;
+      animation: wholeGalleryRoomSuckedIntoPicture 1.02s cubic-bezier(0.42, 0.0, 0.44, 1) forwards !important;
       pointer-events: none !important;
     }
 
     .gallery-pedestal-unit.is-secret-unlatching .pedestal-main-frame,
     .gallery-pedestal-unit.is-secret-detaching .pedestal-main-frame {
-      /* Hide wall frame immediately when #warp-lead-picture-card takes over at 0ms so there is only ONE continuous picture from wall -> tunnel -> Hero slot! */
-      opacity: 0 !important;
-      transition: none !important;
+      /* Picture stays inside its frame and gets sucked inward into the secret wall cavity TOGETHER with the entire White Gallery Room! */
+      opacity: 1 !important;
+      transform: translate3d(0px, 6px, -180px) rotateX(12deg) rotateY(-6deg) rotateZ(-2deg) scale(0.76) !important;
+      transition: transform 0.96s cubic-bezier(0.42, 0.0, 0.44, 1) !important;
     }
 
-    /* REVERSE SUCTION WARP-OUT: Entire White Gallery Room expands back out from inside the picture in ONE continuous sweep! */
+    /* REVERSE SUCTION WARP-OUT: Entire White Gallery Room (WITH the picture ALREADY inside its 3D frame on the wall!) expands back out in ONE continuous sweep! */
     .dossier-modal-overlay.is-pre-pullout .gallery-3d-hall {
       transform: perspective(900px) translate3d(var(--lead-end-x, -165px), var(--lead-end-y, 12.5px), -960px) rotateX(20deg) rotateY(-14deg) rotateZ(-14deg) scale(0.03) !important;
       opacity: 0 !important;
@@ -4905,22 +4906,12 @@
       transition: none !important;
     }
 
-    .dossier-modal-overlay.is-pre-pullout .gallery-pedestal-unit.is-warp-target-unit .pedestal-main-frame {
-      opacity: 0 !important;
-      transition: none !important;
-    }
-
     .dossier-modal-overlay.is-pulling-out-of-frame .gallery-3d-hall {
       animation: wholeGalleryRoomEmergeFromPicture 1.12s cubic-bezier(0.22, 1, 0.32, 1) forwards !important;
     }
 
     .dossier-modal-overlay.is-pulling-out-of-frame .dossier-top-bar {
       animation: topBarEmergeFromPicture 1.12s cubic-bezier(0.22, 1, 0.32, 1) forwards !important;
-    }
-
-    .dossier-modal-overlay.is-pulling-out-of-frame .gallery-pedestal-unit.is-warp-target-unit .pedestal-main-frame {
-      opacity: 0 !important;
-      transition: none !important;
     }
 
     /* The Physical Gallery Wall & Floor World — Camera walks right by translating this world left! */
@@ -5790,21 +5781,32 @@
       border-color: var(--accent-vermilion);
     }
 
-    /* Active Hero Photo: Pops forward from deep space to Front-Center at scale(1)! */
+    /* Active Hero Photo: Glides smoothly forward from deep space to Front-Center at scale(1) with zero bounce! */
     .space-photo-node.is-space-hero {
       transform: translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1) !important;
       opacity: 1 !important;
       filter: brightness(1) !important;
-      transition: transform 0.95s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease !important;
+      transition:
+        transform 1.15s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 0.85s ease !important;
       z-index: 30;
     }
 
-    /* Hide the inner Plate 01 Hero node while #warp-lead-picture-card is carrying the picture into place (and when returning to wall) so it NEVER double-warps! */
+    /* During Warp-In suction (while the picture & gallery room are being sucked into the background cluster),
+       Plate 01 waits inside the background cluster at scale(0.28), then smoothly glides up to scale(1) once suction finishes! */
     .exhibition-modal-overlay.is-pre-emerge .space-photo-node.is-space-hero,
-    .exhibition-modal-overlay.is-emerging-from-frame .space-photo-node.is-space-hero,
+    .exhibition-modal-overlay.is-emerging-from-frame .space-photo-node.is-space-hero {
+      transform: translate3d(-16px, -8px, -560px) rotateX(6deg) rotateY(-8deg) rotateZ(-2deg) scale(0.28) !important;
+      opacity: 0.72 !important;
+      filter: brightness(0.76) !important;
+    }
+
+    /* During Warp-Out back to Gallery, the Hero photo recedes smoothly back into the deep-space cluster! */
     .exhibition-modal-overlay.is-warping-out-to-gallery .space-photo-node.is-space-hero {
+      transform: translate3d(-16px, -8px, -560px) rotateX(6deg) rotateY(-8deg) rotateZ(-2deg) scale(0.26) !important;
       opacity: 0 !important;
-      transition: none !important;
+      transition: transform 0.85s cubic-bezier(0.42, 0.0, 0.58, 1), opacity 0.65s ease !important;
     }
 
     /* The Physical Framed Card — Animates with continuous 3D Zero-Gravity Floating when in the background nebula! */
@@ -8597,16 +8599,11 @@
         });
       }
 
-      // Prepare the 1 Single Continuous Lead Picture (starts at exact gallery wall size, never fades out, and lands at Plate 01!)
+      // Keep #warp-lead-picture-card hidden so the picture on the wall actually gets sucked INWARD with the room
+      // into the background photo cluster first, and then smoothly glides forward to Plate 01!
       const heroDims = computeHeroCardDimensions(albumObj);
-      if (leadCard && leadImg) {
+      if (leadCard) {
         leadCard.className = "warp-lead-picture-card";
-        leadCard.style.setProperty("--lead-w", `${heroDims.w}px`);
-        leadCard.style.setProperty("--lead-h", `${heroDims.h}px`);
-        leadCard.style.setProperty("--lead-end-x", `${heroDims.endX}px`);
-        leadCard.style.setProperty("--lead-end-y", `${heroDims.endY}px`);
-        leadCard.style.setProperty("--lead-start-scale", String(heroDims.startScale));
-        leadImg.src = heroDims.firstSrc;
       }
       if (dossierModal) {
         dossierModal.style.setProperty("--lead-end-x", `${heroDims.endX}px`);
@@ -8617,11 +8614,11 @@
       if (warpTitle) warpTitle.textContent = albumObj.title.toUpperCase();
 
       // Pre-stage the 3D Space Room right at 0ms behind #dossier-modal (z-index 1150 under 1160)
-      // so there is ZERO mid-warp DOM creation or modal-switch pause!
+      // with Plate 01 waiting inside the background photo cluster (scale 0.28) where the gallery room & picture get sucked into!
       if (exhModal) exhModal.classList.remove("is-warping-out-to-gallery");
       openExhibitionModal(catId, albumObj, true, "space", true);
 
-      // STEP 1 (0ms — ONE SINGLE CONTINUOUS CURVE FROM START TO FINISH!):
+      // STEP 1 (0ms -> 980ms): Suck BOTH the picture on the wall AND the entire White Gallery Room inward into the background cluster!
       if (targetUnit) {
         targetUnit.classList.add("is-secret-unlatching");
       }
@@ -8633,12 +8630,8 @@
         warpOverlay.classList.add("is-warping");
         warpOverlay.setAttribute("aria-hidden", "false");
       }
-      if (leadCard) {
-        void leadCard.offsetWidth;
-        leadCard.classList.add("is-carrying-to-space");
-      }
 
-      // Run 60 FPS Transparent-Background Suction Warp Lines (100% continuous acceleration curve, zero mid-warp direction flip!)
+      // Run 60 FPS Transparent-Background Suction Warp Lines (converging inward as the picture & room get sucked in!)
       if (warpCanvas) {
         const ctx = warpCanvas.getContext("2d");
         const dpr = Math.min(2, window.devicePixelRatio || 1);
@@ -8662,7 +8655,7 @@
         });
 
         const startWarp = performance.now();
-        const totalWarpMs = 1360;
+        const totalWarpMs = 1020;
 
         const renderWarpFrame = (now) => {
           const elapsed = now - startWarp;
@@ -8724,17 +8717,12 @@
         warpRafId = requestAnimationFrame(renderWarpFrame);
       }
 
-      // STEP 2A (1320ms — #warp-lead-picture-card is parked at Plate 01):
-      // Reveal .space-photo-node.is-space-hero at opacity: 1 directly underneath #warp-lead-picture-card first!
+      // STEP 2 (980ms — right when the picture & White Gallery Room finish getting sucked into the background photo cluster!):
+      // Smoothly glide Plate 01 forward from the background photo cluster up to the front Hero position (cubic-bezier(0.22, 1, 0.36, 1), zero bounce!)
       setTimeout(() => {
         if (exhModal) {
           exhModal.classList.remove("is-emerging-from-frame", "is-pre-emerge");
         }
-      }, 1320);
-
-      // STEP 2B (1420ms — 100ms after .space-photo-node.is-space-hero is already solid underneath):
-      // Clear the warp overlay with zero gap!
-      setTimeout(() => {
         if (dossierModal) {
           dossierModal.classList.remove("is-warping-into-folder");
           dossierModal.classList.add("is-receding-behind");
@@ -8743,14 +8731,14 @@
           warpOverlay.classList.remove("is-warping");
           warpOverlay.setAttribute("aria-hidden", "true");
         }
-        if (leadCard) {
-          leadCard.className = "warp-lead-picture-card";
-        }
         if (targetUnit) {
           targetUnit.classList.remove("is-secret-unlatching", "is-secret-detaching");
         }
+      }, 980);
+
+      setTimeout(() => {
         isWarpAnimating = false;
-      }, 1420);
+      }, 1550);
     }
 
     // =========================================================================
@@ -9276,15 +9264,11 @@
         });
       }
 
-      if (activeExhibitionAlbum && leadCard && leadImg) {
+      if (activeExhibitionAlbum) {
         const heroDims = computeHeroCardDimensions(activeExhibitionAlbum);
-        leadCard.className = "warp-lead-picture-card";
-        leadCard.style.setProperty("--lead-w", `${heroDims.w}px`);
-        leadCard.style.setProperty("--lead-h", `${heroDims.h}px`);
-        leadCard.style.setProperty("--lead-end-x", `${heroDims.endX}px`);
-        leadCard.style.setProperty("--lead-end-y", `${heroDims.endY}px`);
-        leadCard.style.setProperty("--lead-start-scale", String(heroDims.startScale));
-        leadImg.src = heroDims.firstSrc;
+        if (leadCard) {
+          leadCard.className = "warp-lead-picture-card";
+        }
         if (dossierModal) {
           dossierModal.style.setProperty("--lead-end-x", `${heroDims.endX}px`);
           dossierModal.style.setProperty("--lead-end-y", `${heroDims.endY}px`);
@@ -9294,10 +9278,9 @@
       if (warpKicker) warpKicker.textContent = `RETURNING TO 3D GALLERY HALL`;
       if (warpTitle) warpTitle.textContent = `${catObj ? catObj.label : "EXHIBITION"} // GALLERY WALL`;
 
-      // 1. Simultaneously start ALL THREE layers at 0ms (ZERO mid-warp modal switch or pause!):
-      //    - #exhibition-modal recedes into deep space
-      //    - #dossier-modal (.gallery-3d-hall) expands smoothly out from the back of the picture in ONE continuous 0% -> 100% curve
-      //    - #warp-lead-picture-card glides smoothly from Plate 01 back into its gallery wall frame in ONE continuous 0% -> 100% curve
+      // 1. Simultaneously start the return at 0ms (NO frameless big sheet #warp-lead-picture-card!):
+      //    - #exhibition-modal sucks the space photos back into the background cluster
+      //    - #dossier-modal (.gallery-3d-hall) expands smoothly out with the picture ALREADY inside its 3D frame on the wall from frame 1!
       if (exhModal) {
         exhModal.classList.remove("is-emerging-from-frame", "is-pre-emerge");
         exhModal.classList.add("is-warping-out-to-gallery");
@@ -9320,11 +9303,6 @@
       if (warpOverlay) {
         warpOverlay.classList.add("is-warping");
         warpOverlay.setAttribute("aria-hidden", "false");
-      }
-
-      if (leadCard) {
-        void leadCard.offsetWidth;
-        leadCard.classList.add("is-returning-to-wall");
       }
 
       // 2. Run Reverse-Imploding Transparent Warp Streaks (streaks converge inward toward the picture frame!)
