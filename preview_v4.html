@@ -4749,7 +4749,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      cursor: grab;
+      cursor: default;
       user-select: none;
       /* Architectural Museum Wall with realistic ambient gallery shading so the 3D overhead spotlight beams pop with real depth */
       background:
@@ -4761,10 +4761,6 @@
           #B9AFA0 72%,
           #D6CEC0 82%,
           #B8AEA0 100%);
-    }
-
-    .gallery-3d-hall:active {
-      cursor: grabbing;
     }
 
     /* Fixed Side Vignette to give 3D Museum Corridor Depth */
@@ -4782,20 +4778,16 @@
       flex: 1;
       width: 100%;
       height: 100%;
-      transform-style: preserve-3d;
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 10;
       transform: translate3d(0, 8px, -240px) scale(0.90);
-      transition: transform 1.05s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+      transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
     }
 
     .dossier-modal-overlay.doors-opened .gallery-room-camera {
-      transform: translate3d(0, var(--walk-bob-y, 0px), 0px)
-                 rotateX(var(--room-rx, -1.2deg))
-                 rotateY(var(--room-ry, 0deg))
-                 scale(1);
+      transform: translate3d(0, 0px, 0px) scale(1);
     }
 
     /* SUCTION WARP-IN (ZERO PAUSE — Continuous Collapse & Immediate Warp):
@@ -4863,7 +4855,7 @@
     }
 
     .dossier-modal-overlay.is-pulling-out-of-frame .gallery-room-camera {
-      transform: translate3d(0, 0px, 0px) rotateX(-1.2deg) rotateY(0deg) scale(1) !important;
+      transform: translate3d(0, 0px, 0px) scale(1) !important;
       transition: transform 1.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
 
@@ -4878,7 +4870,6 @@
       position: relative;
       width: 0;
       height: 0;
-      transform-style: preserve-3d;
       /* Smooth walking stride when camera steps left/right along the wall */
       transition: transform 0.82s cubic-bezier(0.22, 1, 0.36, 1);
       will-change: transform;
@@ -5225,11 +5216,6 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .gallery-pedestal-unit:hover .pedestal-img-wrap img {
-      transform: scale(1.03);
     }
 
     .pedestal-top-badge {
@@ -5314,13 +5300,12 @@
       font-weight: 700;
       cursor: pointer;
       box-shadow: 0 5px 15px rgba(201, 59, 43, 0.35);
-      transition: transform 0.22s ease, background 0.22s ease;
+      transition: background 0.2s ease, border-color 0.2s ease;
     }
 
     .pedestal-warp-btn:hover {
       background: #161312;
       border-color: #161312;
-      transform: scale(1.04);
     }
 
     /* Subtle Floor Reflection on Polished Museum Stone Floor */
@@ -8252,6 +8237,7 @@
         `;
 
         // Clicking the crimson Warp button inside the frame triggers Time-Machine Warp immediately
+        // Clicking the crimson Warp button or anywhere on a wall frame triggers the secret wall collapse & warp immediately on the first click!
         const warpBtn = unit.querySelector(".pedestal-warp-btn");
         if (warpBtn) {
           warpBtn.addEventListener("click", (e) => {
@@ -8261,13 +8247,10 @@
           });
         }
 
-        // Clicking a wall frame: if we aren't standing in front of it yet, walk our camera over to it; if already in front, warp inside!
-        unit.addEventListener("click", () => {
-          if (activeDossierIndex === idx) {
-            triggerTimeMachineWarpToAlbum(catId, alb);
-          } else {
-            setActiveDossierFolder(idx, true);
-          }
+        unit.addEventListener("click", (e) => {
+          e.stopPropagation();
+          setActiveDossierFolder(idx, true);
+          triggerTimeMachineWarpToAlbum(catId, alb);
         });
 
         pivotEl.appendChild(unit);
@@ -8313,28 +8296,14 @@
     // Move the Viewer's Camera along the Static Gallery Wall (Frames stay 100% static on the wall!)
     function applyCameraWalkPosition(targetWalkX, withWalkingStride = true) {
       const pivotEl = document.getElementById("dossier-stack-pivot");
-      const roomCam = document.getElementById("gallery-room-camera");
       if (!pivotEl) return;
 
       const maxWalkX = Math.max(0, (totalGalleryWorks - 1) * WALL_BAY_SPACING);
       const clampedX = Math.max(0, Math.min(maxWalkX, targetWalkX));
-      const deltaX = clampedX - currentCameraWalkX;
       currentCameraWalkX = clampedX;
 
       // Translate the entire physical wall + floor + static frames left as our camera walks right
       pivotEl.style.transform = `translate3d(${-currentCameraWalkX}px, 0px, 0px)`;
-
-      // Add a subtle human walking stride (gentle head-bob + slight gaze turn in walking direction)
-      if (withWalkingStride && roomCam && Math.abs(deltaX) > 10) {
-        const yawDir = deltaX > 0 ? -2.2 : 2.2;
-        roomCam.style.setProperty("--walk-bob-y", "-6px");
-        roomCam.style.setProperty("--room-ry", `${yawDir}deg`);
-        if (walkBobTimer) clearTimeout(walkBobTimer);
-        walkBobTimer = setTimeout(() => {
-          roomCam.style.setProperty("--walk-bob-y", "0px");
-          roomCam.style.setProperty("--room-ry", "0deg");
-        }, 520);
-      }
 
       // Highlight whichever wall frame we are currently standing in front of
       const nearestIdx = Math.round(currentCameraWalkX / WALL_BAY_SPACING);
@@ -8390,11 +8359,10 @@
       }
     }
 
-    // Wheel-to-Walk, Drag-to-Walk & Subtle Mouse-Look inside the 3D Gallery Room + 3D Space Nebula
+    // Wheel-to-Walk & Drag-to-Walk on Empty Wall inside the 3D Gallery Room (Zero hover/mouse-move jitter on picture frames!)
     function setupV4SpatialRoomMouseParallax() {
       const hallViewport = document.getElementById("dossier-3d-viewport");
       const pivotEl = document.getElementById("dossier-stack-pivot");
-      const roomCam = document.getElementById("gallery-room-camera");
 
       if (hallViewport && pivotEl) {
         // 1. Mouse Wheel / Trackpad Two-Finger Scroll -> Walk Smoothly Right/Left Along the Wall!
@@ -8415,13 +8383,13 @@
           }, 180);
         }, { passive: false });
 
-        // 2. Click-and-Drag to Walk Along the Wall
+        // 2. Click-and-Drag on empty wall space (ignores picture frames & buttons so single-click on picture ALWAYS works!)
         let isDraggingWall = false;
         let dragStartX = 0;
         let dragStartWalkX = 0;
 
         hallViewport.addEventListener("mousedown", (e) => {
-          if (e.target.closest("button")) return;
+          if (e.target.closest(".gallery-pedestal-unit, button")) return;
           isDraggingWall = true;
           dragStartX = e.clientX;
           dragStartWalkX = currentCameraWalkX;
@@ -8445,16 +8413,6 @@
             const snapIdx = Math.round(currentCameraWalkX / WALL_BAY_SPACING);
             setActiveDossierFolder(snapIdx, true);
           }
-        });
-
-        // 3. Subtle Eye-Level Gaze Parallax on #gallery-room-camera
-        hallViewport.addEventListener("mousemove", (e) => {
-          if (isDraggingWall || !roomCam) return;
-          const rect = hallViewport.getBoundingClientRect();
-          const nx = ((e.clientX - rect.left) / rect.width) - 0.5;
-          const ny = ((e.clientY - rect.top) / rect.height) - 0.5;
-          roomCam.style.setProperty("--room-ry", `${(nx * 4.5).toFixed(2)}deg`);
-          roomCam.style.setProperty("--room-rx", `${(-1.2 - ny * 3.0).toFixed(2)}deg`);
         });
       }
 
